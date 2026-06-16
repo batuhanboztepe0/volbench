@@ -1,0 +1,117 @@
+{
+  "tickers": [
+    ".SPX",
+    ".DJI",
+    ".FTSE",
+    ".GDAXI",
+    ".FCHI",
+    ".STOXX50E",
+    ".N225",
+    ".HSI"
+  ],
+  "horizons": [
+    1,
+    5,
+    22
+  ],
+  "benchmark": "LogHAR",
+  "refit_every": 132,
+  "by_horizon": {
+    "1": {
+      "avg_rank": {
+        "LogHAR": 1.625,
+        "LGBM-plain": 4.75,
+        "LGBM-enriched": 4.25,
+        "XGB-enriched": 3.0,
+        "Combo": 1.375
+      },
+      "avg_qlike": {
+        "LogHAR": 0.18659485102294843,
+        "LGBM-plain": 0.21059258146261983,
+        "LGBM-enriched": 0.2062322091933144,
+        "XGB-enriched": 0.19517640272183845,
+        "Combo": 0.18564504022889766
+      },
+      "mcs_count": {
+        "LogHAR": 7,
+        "LGBM-plain": 0,
+        "LGBM-enriched": 0,
+        "XGB-enriched": 3,
+        "Combo": 7
+      },
+      "beats_loghar": {
+        "LogHAR": 0,
+        "LGBM-plain": 0,
+        "LGBM-enriched": 0,
+        "XGB-enriched": 0,
+        "Combo": 1
+      },
+      "lgbm_enrichment_gain_pct_mean": 1.8525534844345586,
+      "n_indices": 8
+    },
+    "5": {
+      "avg_rank": {
+        "LogHAR": 1.25,
+        "LGBM-plain": 3.875,
+        "LGBM-enriched": 4.875,
+        "XGB-enriched": 3.25,
+        "Combo": 1.75
+      },
+      "avg_qlike": {
+        "LogHAR": 0.14006589170820857,
+        "LGBM-plain": 0.15971871728891776,
+        "LGBM-enriched": 0.16495165110731713,
+        "XGB-enriched": 0.1561554653621687,
+        "Combo": 0.1420561208894481
+      },
+      "mcs_count": {
+        "LogHAR": 8,
+        "LGBM-plain": 0,
+        "LGBM-enriched": 0,
+        "XGB-enriched": 0,
+        "Combo": 6
+      },
+      "beats_loghar": {
+        "LogHAR": 0,
+        "LGBM-plain": 0,
+        "LGBM-enriched": 0,
+        "XGB-enriched": 0,
+        "Combo": 0
+      },
+      "lgbm_enrichment_gain_pct_mean": -3.2965121934031485,
+      "n_indices": 8
+    },
+    "22": {
+      "avg_rank": {
+        "LogHAR": 1.125,
+        "LGBM-plain": 3.625,
+        "LGBM-enriched": 4.75,
+        "XGB-enriched": 3.625,
+        "Combo": 1.875
+      },
+      "avg_qlike": {
+        "LogHAR": 0.19709180035077356,
+        "LGBM-plain": 0.22985185667249422,
+        "LGBM-enriched": 0.24854881487092137,
+        "XGB-enriched": 0.235405059889346,
+        "Combo": 0.20741363789808373
+      },
+      "mcs_count": {
+        "LogHAR": 8,
+        "LGBM-plain": 0,
+        "LGBM-enriched": 0,
+        "XGB-enriched": 0,
+        "Combo": 4
+      },
+      "beats_loghar": {
+        "LogHAR": 0,
+        "LGBM-plain": 0,
+        "LGBM-enriched": 0,
+        "XGB-enriched": 0,
+        "Combo": 0
+      },
+      "lgbm_enrichment_gain_pct_mean": -6.78546149390743,
+      "n_indices": 8
+    }
+  }
+}

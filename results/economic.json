@@ -1,0 +1,1177 @@
+{
+  "tickers": [
+    ".SPX",
+    ".DJI",
+    ".FTSE",
+    ".GDAXI",
+    ".FCHI",
+    ".STOXX50E",
+    ".N225",
+    ".HSI"
+  ],
+  "by_ticker": {
+    ".SPX": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": 0.059343980570629305,
+          "ann_vol": 0.11736607287656851,
+          "sharpe": 0.5056314752308374,
+          "max_drawdown": -0.30464190293561955,
+          "turnover": 0.09535066866456197,
+          "avg_leverage": 0.932575112770171,
+          "bh_sharpe": 0.3431863324262508,
+          "bh_ann_vol": 0.19329063480949596
+        },
+        "var_backtest": {
+          "violation_rate": 0.07958820035636507,
+          "expected_rate": 0.05,
+          "n_violations": 402.0,
+          "n": 5051.0,
+          "kupiec_stat": 79.53742530933783,
+          "kupiec_p": 4.73176781370621e-19,
+          "christoffersen_stat": 79.637997523752,
+          "christoffersen_p": 5.091298530211269e-18
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.017298478007741914,
+          "rmse_price": 0.1315236785059706,
+          "mean_abs_price_error": 0.08295119165543455
+        },
+        "qlike": 0.20597535974702488
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": 0.05414306762456821,
+          "ann_vol": 0.11055299690072806,
+          "sharpe": 0.4897476246002305,
+          "max_drawdown": -0.30293910408675145,
+          "turnover": 0.06270467545894787,
+          "avg_leverage": 0.8479051363451457,
+          "bh_sharpe": 0.3431863324262508,
+          "bh_ann_vol": 0.19329063480949596
+        },
+        "var_backtest": {
+          "violation_rate": 0.06968917046129479,
+          "expected_rate": 0.05,
+          "n_violations": 352.0,
+          "n": 5051.0,
+          "kupiec_stat": 36.91897045326576,
+          "kupiec_p": 1.2314194572614632e-09,
+          "christoffersen_stat": 37.073946747600246,
+          "christoffersen_p": 8.902146817914177e-09
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.018797257581168715,
+          "rmse_price": 0.13710309107080232,
+          "mean_abs_price_error": 0.0901859366686074
+        },
+        "qlike": 0.22553718828831698
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": 0.06584976278910173,
+          "ann_vol": 0.1325937732823365,
+          "sharpe": 0.49662786689753186,
+          "max_drawdown": -0.3353849083495787,
+          "turnover": 0.2834052425163303,
+          "avg_leverage": 1.0757586659503826,
+          "bh_sharpe": 0.3431863324262508,
+          "bh_ann_vol": 0.19329063480949596
+        },
+        "var_backtest": {
+          "violation_rate": 0.09760443476539299,
+          "expected_rate": 0.05,
+          "n_violations": 493.0,
+          "n": 5051.0,
+          "kupiec_stat": 190.8907155830907,
+          "kupiec_p": 2.0319330990235915e-43,
+          "christoffersen_stat": 192.76228256139473,
+          "christoffersen_p": 1.387401572040931e-42
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.021609922343266256,
+          "rmse_price": 0.14700313718851804,
+          "mean_abs_price_error": 0.08972966775678189
+        },
+        "qlike": 0.2891706488104458
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": 0.057927318171900694,
+          "ann_vol": 0.11935997472111244,
+          "sharpe": 0.4853161062345172,
+          "max_drawdown": -0.30212854313179416,
+          "turnover": 0.015220300703910263,
+          "avg_leverage": 0.8970398860991496,
+          "bh_sharpe": 0.3431863324262508,
+          "bh_ann_vol": 0.19329063480949596
+        },
+        "var_backtest": {
+          "violation_rate": 0.07602454959413978,
+          "expected_rate": 0.05,
+          "n_violations": 384.0,
+          "n": 5051.0,
+          "kupiec_stat": 62.55189301354915,
+          "kupiec_p": 2.59515733557566e-15,
+          "christoffersen_stat": 66.1494240624736,
+          "christoffersen_p": 4.323496127250559e-15
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.026227322130601544,
+          "rmse_price": 0.16194851691386847,
+          "mean_abs_price_error": 0.10178044804315337
+        },
+        "qlike": 0.29740394453760893
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": 0.061539655134632665,
+          "ann_vol": 0.11929439782505594,
+          "sharpe": 0.5158637476411924,
+          "max_drawdown": -0.3096218655351693,
+          "turnover": 0.09604452971532357,
+          "avg_leverage": 0.9329186537618767,
+          "bh_sharpe": 0.3431863324262508,
+          "bh_ann_vol": 0.19329063480949596
+        },
+        "var_backtest": {
+          "violation_rate": 0.08137002573747773,
+          "expected_rate": 0.05,
+          "n_violations": 411.0,
+          "n": 5051.0,
+          "kupiec_stat": 88.69157076587936,
+          "kupiec_p": 4.61427238887038e-21,
+          "christoffersen_stat": 88.76942543357848,
+          "christoffersen_p": 5.2961976740131363e-20
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.021187754295839637,
+          "rmse_price": 0.14556013979053345,
+          "mean_abs_price_error": 0.08633369819397387
+        },
+        "qlike": 0.2229331231066677
+      }
+    },
+    ".DJI": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": 0.05349572010051879,
+          "ann_vol": 0.11080577973077131,
+          "sharpe": 0.4827881743217657,
+          "max_drawdown": -0.30448748819671684,
+          "turnover": 0.08204341191354468,
+          "avg_leverage": 0.8947344211051603,
+          "bh_sharpe": 0.32685469673102685,
+          "bh_ann_vol": 0.18572967506612592
+        },
+        "var_backtest": {
+          "violation_rate": 0.06576862123613313,
+          "expected_rate": 0.05,
+          "n_violations": 332.0,
+          "n": 5048.0,
+          "kupiec_stat": 24.14418859935526,
+          "kupiec_p": 8.938549705939152e-07,
+          "christoffersen_stat": 26.64888369822441,
+          "christoffersen_p": 1.6340616232468707e-06
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.019810885300893647,
+          "rmse_price": 0.14075114671253533,
+          "mean_abs_price_error": 0.08755284749680516
+        },
+        "qlike": 0.22239651018898432
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": 0.04720069796839626,
+          "ann_vol": 0.10434153188497843,
+          "sharpe": 0.4523673087378884,
+          "max_drawdown": -0.3045884073076555,
+          "turnover": 0.06036960007393114,
+          "avg_leverage": 0.8166765705123041,
+          "bh_sharpe": 0.32685469673102685,
+          "bh_ann_vol": 0.18572967506612592
+        },
+        "var_backtest": {
+          "violation_rate": 0.058042789223454835,
+          "expected_rate": 0.05,
+          "n_violations": 293.0,
+          "n": 5048.0,
+          "kupiec_stat": 6.55097985149132,
+          "kupiec_p": 0.010482641419855478,
+          "christoffersen_stat": 11.261629207841693,
+          "christoffersen_p": 0.003585653250129408
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.021310326909753714,
+          "rmse_price": 0.14598057031589415,
+          "mean_abs_price_error": 0.0953565103773391
+        },
+        "qlike": 0.24199364912130858
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": 0.06464408413876158,
+          "ann_vol": 0.12710726325774188,
+          "sharpe": 0.5085789944802719,
+          "max_drawdown": -0.335272038442827,
+          "turnover": 0.28732477038063353,
+          "avg_leverage": 1.0438635346962044,
+          "bh_sharpe": 0.32685469673102685,
+          "bh_ann_vol": 0.18572967506612592
+        },
+        "var_backtest": {
+          "violation_rate": 0.08577654516640254,
+          "expected_rate": 0.05,
+          "n_violations": 433.0,
+          "n": 5048.0,
+          "kupiec_stat": 113.08810175736426,
+          "kupiec_p": 2.0639701565716323e-26,
+          "christoffersen_stat": 113.20775181992536,
+          "christoffersen_p": 2.6136596785357855e-25
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.025466381844610992,
+          "rmse_price": 0.1595818969827436,
+          "mean_abs_price_error": 0.09665001808266366
+        },
+        "qlike": 0.321963351457797
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": 0.0534244097134959,
+          "ann_vol": 0.11306515151807657,
+          "sharpe": 0.4725099555096297,
+          "max_drawdown": -0.29264453558892234,
+          "turnover": 0.014639890957178776,
+          "avg_leverage": 0.8733321715254196,
+          "bh_sharpe": 0.32685469673102685,
+          "bh_ann_vol": 0.18572967506612592
+        },
+        "var_backtest": {
+          "violation_rate": 0.06477812995245642,
+          "expected_rate": 0.05,
+          "n_violations": 327.0,
+          "n": 5048.0,
+          "kupiec_stat": 21.3165930606944,
+          "kupiec_p": 3.893467547459577e-06,
+          "christoffersen_stat": 23.6523145212644,
+          "christoffersen_p": 7.310804316545605e-06
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.028131245832232466,
+          "rmse_price": 0.167723718752693,
+          "mean_abs_price_error": 0.10407165777749962
+        },
+        "qlike": 0.30401470868861685
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": 0.053144307671686486,
+          "ann_vol": 0.11277217716895972,
+          "sharpe": 0.471253717058806,
+          "max_drawdown": -0.30904536699900825,
+          "turnover": 0.08660734897917714,
+          "avg_leverage": 0.8991908987509426,
+          "bh_sharpe": 0.32685469673102685,
+          "bh_ann_vol": 0.18572967506612592
+        },
+        "var_backtest": {
+          "violation_rate": 0.06992868462757527,
+          "expected_rate": 0.05,
+          "n_violations": 353.0,
+          "n": 5048.0,
+          "kupiec_stat": 37.755022129204775,
+          "kupiec_p": 8.020995634666866e-10,
+          "christoffersen_stat": 42.28294567810593,
+          "christoffersen_p": 6.582259601610632e-10
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.023571420536613874,
+          "rmse_price": 0.15352986854880674,
+          "mean_abs_price_error": 0.090550692469718
+        },
+        "qlike": 0.23968493153587173
+      }
+    },
+    ".FTSE": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": -0.00010999906684211222,
+          "ann_vol": 0.107049041500809,
+          "sharpe": -0.001027557699722897,
+          "max_drawdown": -0.3406348348752729,
+          "turnover": 0.07315880752691836,
+          "avg_leverage": 0.7986616942104493,
+          "bh_sharpe": 0.09675012144333928,
+          "bh_ann_vol": 0.18314695705978212
+        },
+        "var_backtest": {
+          "violation_rate": 0.06823992133726647,
+          "expected_rate": 0.05,
+          "n_violations": 347.0,
+          "n": 5085.0,
+          "kupiec_stat": 32.13098107205718,
+          "kupiec_p": 1.4412064706576249e-08,
+          "christoffersen_stat": 38.67044245971255,
+          "christoffersen_p": 4.007007114178895e-09
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.02323041477275579,
+          "rmse_price": 0.1524152707990764,
+          "mean_abs_price_error": 0.09066237869885588
+        },
+        "qlike": 0.22055676675522184
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": 0.0006564718310312543,
+          "ann_vol": 0.09933037716383207,
+          "sharpe": 0.006608973506145984,
+          "max_drawdown": -0.3049791026913321,
+          "turnover": 0.03579293718173542,
+          "avg_leverage": 0.718807971650884,
+          "bh_sharpe": 0.09675012144333928,
+          "bh_ann_vol": 0.18314695705978212
+        },
+        "var_backtest": {
+          "violation_rate": 0.05506391347099312,
+          "expected_rate": 0.05,
+          "n_violations": 280.0,
+          "n": 5085.0,
+          "kupiec_stat": 2.6615814569362897,
+          "kupiec_p": 0.102798480882962,
+          "christoffersen_stat": 9.559569674065024,
+          "christoffersen_p": 0.0083978056699051
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.025646047586130493,
+          "rmse_price": 0.16014383405592142,
+          "mean_abs_price_error": 0.10282926057157968
+        },
+        "qlike": 0.24022841538067288
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": -0.003075471082941866,
+          "ann_vol": 0.12138202647495243,
+          "sharpe": -0.025337120925201385,
+          "max_drawdown": -0.35667378239693576,
+          "turnover": 0.24119097396046213,
+          "avg_leverage": 0.9097480567929804,
+          "bh_sharpe": 0.09675012144333928,
+          "bh_ann_vol": 0.18314695705978212
+        },
+        "var_backtest": {
+          "violation_rate": 0.08574237954768928,
+          "expected_rate": 0.05,
+          "n_violations": 436.0,
+          "n": 5085.0,
+          "kupiec_stat": 113.71619956528497,
+          "kupiec_p": 1.5035965782189996e-26,
+          "christoffersen_stat": 114.00669515395839,
+          "christoffersen_p": 1.7529143539005575e-25
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.03225468330105646,
+          "rmse_price": 0.17959588887571024,
+          "mean_abs_price_error": 0.10301892601609293
+        },
+        "qlike": 0.33607202588523427
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": 0.004330241129290428,
+          "ann_vol": 0.10672601045428494,
+          "sharpe": 0.04057343763585396,
+          "max_drawdown": -0.33285961450624474,
+          "turnover": 0.01225819226834439,
+          "avg_leverage": 0.7794029268566518,
+          "bh_sharpe": 0.09675012144333928,
+          "bh_ann_vol": 0.18314695705978212
+        },
+        "var_backtest": {
+          "violation_rate": 0.06509341199606686,
+          "expected_rate": 0.05,
+          "n_violations": 331.0,
+          "n": 5085.0,
+          "kupiec_stat": 22.361723785216043,
+          "kupiec_p": 2.2583022072755137e-06,
+          "christoffersen_stat": 42.05254987831606,
+          "christoffersen_p": 7.385923735158035e-10
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.029540314599684765,
+          "rmse_price": 0.17187296064152954,
+          "mean_abs_price_error": 0.10336905327927819
+        },
+        "qlike": 0.26982103056682366
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": -0.0018934826294830717,
+          "ann_vol": 0.10934094663715743,
+          "sharpe": -0.01731723281824604,
+          "max_drawdown": -0.38023740019178126,
+          "turnover": 0.07158402343532785,
+          "avg_leverage": 0.8094485351526898,
+          "bh_sharpe": 0.09675012144333928,
+          "bh_ann_vol": 0.18314695705978212
+        },
+        "var_backtest": {
+          "violation_rate": 0.07079646017699115,
+          "expected_rate": 0.05,
+          "n_violations": 360.0,
+          "n": 5085.0,
+          "kupiec_stat": 41.237971614800074,
+          "kupiec_p": 1.3477868324115651e-10,
+          "christoffersen_stat": 46.66666560550445,
+          "christoffersen_p": 7.3529619627955e-11
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.025235462554605827,
+          "rmse_price": 0.15885673594344632,
+          "mean_abs_price_error": 0.09147153483227363
+        },
+        "qlike": 0.23193772180006617
+      }
+    },
+    ".GDAXI": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": 0.03334335045648971,
+          "ann_vol": 0.12112363041776969,
+          "sharpe": 0.2752836118062558,
+          "max_drawdown": -0.3345649051121093,
+          "turnover": 0.061463928800001545,
+          "avg_leverage": 0.7221820014005816,
+          "bh_sharpe": 0.23214784871365363,
+          "bh_ann_vol": 0.2266248684635287
+        },
+        "var_backtest": {
+          "violation_rate": 0.08761979268531195,
+          "expected_rate": 0.05,
+          "n_violations": 448.0,
+          "n": 5113.0,
+          "kupiec_stat": 125.66118561185249,
+          "kupiec_p": 3.647286351187026e-29,
+          "christoffersen_stat": 130.32954083143687,
+          "christoffersen_p": 5.0037982853408685e-29
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.017931528336234293,
+          "rmse_price": 0.13390865668893215,
+          "mean_abs_price_error": 0.08655784566423692
+        },
+        "qlike": 0.15420268064976708
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": 0.030626208087575088,
+          "ann_vol": 0.113792401304647,
+          "sharpe": 0.26914106510136887,
+          "max_drawdown": -0.32497668352789466,
+          "turnover": 0.051387012098486826,
+          "avg_leverage": 0.6622485394620786,
+          "bh_sharpe": 0.23214784871365363,
+          "bh_ann_vol": 0.2266248684635287
+        },
+        "var_backtest": {
+          "violation_rate": 0.0778407979659691,
+          "expected_rate": 0.05,
+          "n_violations": 398.0,
+          "n": 5113.0,
+          "kupiec_stat": 71.85666022898874,
+          "kupiec_p": 2.3141113444215134e-17,
+          "christoffersen_stat": 76.13049963426738,
+          "christoffersen_p": 2.9408444375466164e-17
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.01897936219410345,
+          "rmse_price": 0.13776560599113064,
+          "mean_abs_price_error": 0.09455774363340198
+        },
+        "qlike": 0.1670466578531371
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": 0.03356005626359337,
+          "ann_vol": 0.1354845094652351,
+          "sharpe": 0.2477040098241251,
+          "max_drawdown": -0.35354136639272116,
+          "turnover": 0.19394122264807404,
+          "avg_leverage": 0.809317727296931,
+          "bh_sharpe": 0.23214784871365363,
+          "bh_ann_vol": 0.2266248684635287
+        },
+        "var_backtest": {
+          "violation_rate": 0.10189712497555252,
+          "expected_rate": 0.05,
+          "n_violations": 521.0,
+          "n": 5113.0,
+          "kupiec_stat": 225.9093315039704,
+          "kupiec_p": 4.650325266052269e-51,
+          "christoffersen_stat": 226.04058914956875,
+          "christoffersen_p": 8.239668190092251e-50
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.02176191689008897,
+          "rmse_price": 0.14751920854617195,
+          "mean_abs_price_error": 0.09466814948823923
+        },
+        "qlike": 0.229790517614961
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": 0.03431185921921295,
+          "ann_vol": 0.12266662518700237,
+          "sharpe": 0.27971633822081055,
+          "max_drawdown": -0.33191330102020705,
+          "turnover": 0.010204657135577956,
+          "avg_leverage": 0.7087790478669994,
+          "bh_sharpe": 0.23214784871365363,
+          "bh_ann_vol": 0.2266248684635287
+        },
+        "var_backtest": {
+          "violation_rate": 0.08761979268531195,
+          "expected_rate": 0.05,
+          "n_violations": 448.0,
+          "n": 5113.0,
+          "kupiec_stat": 125.66118561185249,
+          "kupiec_p": 3.647286351187026e-29,
+          "christoffersen_stat": 140.79393346435728,
+          "christoffersen_p": 2.672919045357946e-31
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.024885164273132518,
+          "rmse_price": 0.15775032257695235,
+          "mean_abs_price_error": 0.10055752688998651
+        },
+        "qlike": 0.2037542847376476
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": 0.034804991891325625,
+          "ann_vol": 0.12219309216983179,
+          "sharpe": 0.2848360023736155,
+          "max_drawdown": -0.3282726327600146,
+          "turnover": 0.06759391608432624,
+          "avg_leverage": 0.7254627630426553,
+          "bh_sharpe": 0.23214784871365363,
+          "bh_ann_vol": 0.2266248684635287
+        },
+        "var_backtest": {
+          "violation_rate": 0.08840211226285938,
+          "expected_rate": 0.05,
+          "n_violations": 452.0,
+          "n": 5113.0,
+          "kupiec_stat": 130.51133764051025,
+          "kupiec_p": 3.1671809595983416e-30,
+          "christoffersen_stat": 138.49529790472786,
+          "christoffersen_p": 8.435836915432034e-31
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.018552268133382992,
+          "rmse_price": 0.13620671104385051,
+          "mean_abs_price_error": 0.08771280488229084
+        },
+        "qlike": 0.15751218199071185
+      }
+    },
+    ".FCHI": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": 0.005337485147574739,
+          "ann_vol": 0.12295846835512166,
+          "sharpe": 0.04340884543355988,
+          "max_drawdown": -0.4240637327971389,
+          "turnover": 0.06639806642746968,
+          "avg_leverage": 0.7590060182613788,
+          "bh_sharpe": 0.08384896695533539,
+          "bh_ann_vol": 0.22083199846877058
+        },
+        "var_backtest": {
+          "violation_rate": 0.08930304795185401,
+          "expected_rate": 0.05,
+          "n_violations": 460.0,
+          "n": 5151.0,
+          "kupiec_stat": 137.20524635109604,
+          "kupiec_p": 1.0874377985901442e-31,
+          "christoffersen_stat": 139.49727504748427,
+          "christoffersen_p": 5.111538110762038e-31
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.01548664117497573,
+          "rmse_price": 0.12444533408278403,
+          "mean_abs_price_error": 0.07976715177059893
+        },
+        "qlike": 0.14720462271198165
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": 0.005360881908082223,
+          "ann_vol": 0.11631775710797075,
+          "sharpe": 0.04608825033572509,
+          "max_drawdown": -0.39575265243628804,
+          "turnover": 0.04981040952516881,
+          "avg_leverage": 0.6997456451481966,
+          "bh_sharpe": 0.08384896695533539,
+          "bh_ann_vol": 0.22083199846877058
+        },
+        "var_backtest": {
+          "violation_rate": 0.0817317025820229,
+          "expected_rate": 0.05,
+          "n_violations": 421.0,
+          "n": 5151.0,
+          "kupiec_stat": 92.39610723195307,
+          "kupiec_p": 7.095352517509319e-22,
+          "christoffersen_stat": 95.4153552353963,
+          "christoffersen_p": 1.9090568707840644e-21
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.016378419133832093,
+          "rmse_price": 0.12797819788476508,
+          "mean_abs_price_error": 0.08659330382643163
+        },
+        "qlike": 0.15681856591427412
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": -0.005980790006017811,
+          "ann_vol": 0.13430224814986808,
+          "sharpe": -0.0445323148972446,
+          "max_drawdown": -0.4998851138192319,
+          "turnover": 0.19403472359872048,
+          "avg_leverage": 0.8401985856836676,
+          "bh_sharpe": 0.08384896695533539,
+          "bh_ann_vol": 0.22083199846877058
+        },
+        "var_backtest": {
+          "violation_rate": 0.09959231217239371,
+          "expected_rate": 0.05,
+          "n_violations": 513.0,
+          "n": 5151.0,
+          "kupiec_stat": 209.65098698222965,
+          "kupiec_p": 1.6368574061973683e-47,
+          "christoffersen_stat": 209.99415897537472,
+          "christoffersen_p": 2.513898637238396e-46
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.01907805426295504,
+          "rmse_price": 0.1381233299010527,
+          "mean_abs_price_error": 0.08748906100030557
+        },
+        "qlike": 0.22227986384424406
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": 0.012651564071098182,
+          "ann_vol": 0.12500279699142997,
+          "sharpe": 0.10121024789521756,
+          "max_drawdown": -0.40552908053274966,
+          "turnover": 0.010339038287994515,
+          "avg_leverage": 0.7403304172387837,
+          "bh_sharpe": 0.08384896695533539,
+          "bh_ann_vol": 0.22083199846877058
+        },
+        "var_backtest": {
+          "violation_rate": 0.0891089108910891,
+          "expected_rate": 0.05,
+          "n_violations": 459.0,
+          "n": 5151.0,
+          "kupiec_stat": 135.9631061795268,
+          "kupiec_p": 2.0327250688554355e-31,
+          "christoffersen_stat": 146.66410861143487,
+          "christoffersen_p": 1.4200167539388123e-32
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.022509693000016286,
+          "rmse_price": 0.15003230652101662,
+          "mean_abs_price_error": 0.09484410834038375
+        },
+        "qlike": 0.1997324978496437
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": 0.0038432785224829062,
+          "ann_vol": 0.12460708683458109,
+          "sharpe": 0.03084317770453097,
+          "max_drawdown": -0.42736951570008985,
+          "turnover": 0.06754889632466139,
+          "avg_leverage": 0.7633645851206134,
+          "bh_sharpe": 0.08384896695533539,
+          "bh_ann_vol": 0.22083199846877058
+        },
+        "var_backtest": {
+          "violation_rate": 0.08930304795185401,
+          "expected_rate": 0.05,
+          "n_violations": 460.0,
+          "n": 5151.0,
+          "kupiec_stat": 137.20524635109604,
+          "kupiec_p": 1.0874377985901442e-31,
+          "christoffersen_stat": 139.49727504748427,
+          "christoffersen_p": 5.111538110762038e-31
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.01600568882699611,
+          "rmse_price": 0.12651359147141508,
+          "mean_abs_price_error": 0.08039593688905179
+        },
+        "qlike": 0.15209351633877774
+      }
+    },
+    ".STOXX50E": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": -0.006615912981593697,
+          "ann_vol": 0.11239967162234246,
+          "sharpe": -0.05886060774112267,
+          "max_drawdown": -0.4483244457058841,
+          "turnover": 0.05363760045780924,
+          "avg_leverage": 0.6829296693768909,
+          "bh_sharpe": 0.015843913224731523,
+          "bh_ann_vol": 0.22334780041354038
+        },
+        "var_backtest": {
+          "violation_rate": 0.07557460070120764,
+          "expected_rate": 0.05,
+          "n_violations": 388.0,
+          "n": 5134.0,
+          "kupiec_stat": 61.53029894106646,
+          "kupiec_p": 4.359822370193542e-15,
+          "christoffersen_stat": 63.78024281876492,
+          "christoffersen_p": 1.4135014055606051e-14
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.02514554718573599,
+          "rmse_price": 0.15857347566896549,
+          "mean_abs_price_error": 0.09984312158854045
+        },
+        "qlike": 0.20602438682356666
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": -0.00588069493920689,
+          "ann_vol": 0.10802139104093018,
+          "sharpe": -0.05444009637849087,
+          "max_drawdown": -0.41383285936154696,
+          "turnover": 0.0442905376852254,
+          "avg_leverage": 0.6393982285422212,
+          "bh_sharpe": 0.015843913224731523,
+          "bh_ann_vol": 0.22334780041354038
+        },
+        "var_backtest": {
+          "violation_rate": 0.06856252434748734,
+          "expected_rate": 0.05,
+          "n_violations": 352.0,
+          "n": 5134.0,
+          "kupiec_stat": 33.54341619795025,
+          "kupiec_p": 6.969087272143328e-09,
+          "christoffersen_stat": 36.297047621498194,
+          "christoffersen_p": 1.3127930059578545e-08
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.02628386376708032,
+          "rmse_price": 0.16212298963157667,
+          "mean_abs_price_error": 0.10544557549711882
+        },
+        "qlike": 0.2099945646384634
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": -0.00684551637755717,
+          "ann_vol": 0.13930227633086303,
+          "sharpe": -0.0491414538072449,
+          "max_drawdown": -0.5671635935678354,
+          "turnover": 0.2181838912444555,
+          "avg_leverage": 0.7990347360404323,
+          "bh_sharpe": 0.015843913224731523,
+          "bh_ann_vol": 0.22334780041354038
+        },
+        "var_backtest": {
+          "violation_rate": 0.09602649006622517,
+          "expected_rate": 0.05,
+          "n_violations": 493.0,
+          "n": 5134.0,
+          "kupiec_stat": 182.50265709777693,
+          "kupiec_p": 1.377238322333381e-41,
+          "christoffersen_stat": 185.55276255227477,
+          "christoffersen_p": 5.101872027622982e-41
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.031085128763837202,
+          "rmse_price": 0.17630975232197793,
+          "mean_abs_price_error": 0.10574766916888885
+        },
+        "qlike": 1.855350881701801
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": -0.0033953209045035674,
+          "ann_vol": 0.11500902661384475,
+          "sharpe": -0.029522212338199544,
+          "max_drawdown": -0.42674828996623165,
+          "turnover": 0.010574440099545276,
+          "avg_leverage": 0.677233697246736,
+          "bh_sharpe": 0.015843913224731523,
+          "bh_ann_vol": 0.22334780041354038
+        },
+        "var_backtest": {
+          "violation_rate": 0.07460070120763537,
+          "expected_rate": 0.05,
+          "n_violations": 383.0,
+          "n": 5134.0,
+          "kupiec_stat": 57.19640742897488,
+          "kupiec_p": 3.943909460108139e-14,
+          "christoffersen_stat": 74.49575284599723,
+          "christoffersen_p": 6.659671492598916e-17
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.033687389549163706,
+          "rmse_price": 0.1835412475417003,
+          "mean_abs_price_error": 0.11485988836281764
+        },
+        "qlike": 0.25805487240771513
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": -0.008867644962588211,
+          "ann_vol": 0.11499362088861771,
+          "sharpe": -0.07711423376412654,
+          "max_drawdown": -0.4473459335785492,
+          "turnover": 0.06777221678719282,
+          "avg_leverage": 0.6951427555535308,
+          "bh_sharpe": 0.015843913224731523,
+          "bh_ann_vol": 0.22334780041354038
+        },
+        "var_backtest": {
+          "violation_rate": 0.07888585897935332,
+          "expected_rate": 0.05,
+          "n_violations": 405.0,
+          "n": 5134.0,
+          "kupiec_stat": 77.29861840387252,
+          "kupiec_p": 1.4696880255833356e-18,
+          "christoffersen_stat": 78.26091366651855,
+          "christoffersen_p": 1.0135811447976501e-17
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.026210007404500392,
+          "rmse_price": 0.1618950505867934,
+          "mean_abs_price_error": 0.09926716814248127
+        },
+        "qlike": 0.20997370982193328
+      }
+    },
+    ".N225": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": 0.03217570268529981,
+          "ann_vol": 0.15427551267274467,
+          "sharpe": 0.20856001142288982,
+          "max_drawdown": -0.4846398855839198,
+          "turnover": 0.08156556680565401,
+          "avg_leverage": 0.8265317257193734,
+          "bh_sharpe": 0.20906478144601426,
+          "bh_ann_vol": 0.2318397348727461
+        },
+        "var_backtest": {
+          "violation_rate": 0.12786885245901639,
+          "expected_rate": 0.05,
+          "n_violations": 624.0,
+          "n": 4880.0,
+          "kupiec_stat": 443.8849742534952,
+          "kupiec_p": 1.5450211762787576e-98,
+          "christoffersen_stat": 444.6217144080232,
+          "christoffersen_p": 2.8289251006461356e-97
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.014836051939861,
+          "rmse_price": 0.1218033330408532,
+          "mean_abs_price_error": 0.07640794916273
+        },
+        "qlike": 0.19453184691326086
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": 0.029768415233530653,
+          "ann_vol": 0.14616002839054384,
+          "sharpe": 0.20367001540249144,
+          "max_drawdown": -0.47879875588537124,
+          "turnover": 0.05996301341508685,
+          "avg_leverage": 0.7695041225966143,
+          "bh_sharpe": 0.20906478144601426,
+          "bh_ann_vol": 0.2318397348727461
+        },
+        "var_backtest": {
+          "violation_rate": 0.11967213114754098,
+          "expected_rate": 0.05,
+          "n_violations": 584.0,
+          "n": 4880.0,
+          "kupiec_stat": 364.92011421697896,
+          "kupiec_p": 2.3892584309994156e-81,
+          "christoffersen_stat": 365.08757362386257,
+          "christoffersen_p": 5.275221281555653e-80
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.01585738845198087,
+          "rmse_price": 0.12592612299273281,
+          "mean_abs_price_error": 0.08334132093859649
+        },
+        "qlike": 0.2034351208573579
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": 0.026559102177720572,
+          "ann_vol": 0.17260539072260422,
+          "sharpe": 0.15387180010156207,
+          "max_drawdown": -0.51357457011879,
+          "turnover": 0.22083403566456836,
+          "avg_leverage": 0.9312592404084937,
+          "bh_sharpe": 0.20906478144601426,
+          "bh_ann_vol": 0.2318397348727461
+        },
+        "var_backtest": {
+          "violation_rate": 0.14344262295081966,
+          "expected_rate": 0.05,
+          "n_violations": 700.0,
+          "n": 4880.0,
+          "kupiec_stat": 609.8768777048584,
+          "kupiec_p": 1.1899492986351151e-134,
+          "christoffersen_stat": 614.9112105573734,
+          "christoffersen_p": 2.976646057176578e-134
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.018562271828480498,
+          "rmse_price": 0.13624342856989652,
+          "mean_abs_price_error": 0.08307909739249723
+        },
+        "qlike": 0.27481631603139384
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": 0.036770682844347605,
+          "ann_vol": 0.15485918132914328,
+          "sharpe": 0.23744593332308706,
+          "max_drawdown": -0.5194883076668726,
+          "turnover": 0.01229063588684376,
+          "avg_leverage": 0.8026046472366641,
+          "bh_sharpe": 0.20906478144601426,
+          "bh_ann_vol": 0.2318397348727461
+        },
+        "var_backtest": {
+          "violation_rate": 0.125,
+          "expected_rate": 0.05,
+          "n_violations": 610.0,
+          "n": 4880.0,
+          "kupiec_stat": 415.5613339427282,
+          "kupiec_p": 2.2572856382743557e-92,
+          "christoffersen_stat": 416.10407545837734,
+          "christoffersen_p": 4.407050889728103e-91
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.02035794143943843,
+          "rmse_price": 0.14268125819265273,
+          "mean_abs_price_error": 0.0908215006875612
+        },
+        "qlike": 0.2535319044391828
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": 0.0320212878922828,
+          "ann_vol": 0.15739642213827248,
+          "sharpe": 0.20344355644979117,
+          "max_drawdown": -0.4900794914596132,
+          "turnover": 0.07876211371405316,
+          "avg_leverage": 0.8333979059370964,
+          "bh_sharpe": 0.20906478144601426,
+          "bh_ann_vol": 0.2318397348727461
+        },
+        "var_backtest": {
+          "violation_rate": 0.12991803278688524,
+          "expected_rate": 0.05,
+          "n_violations": 634.0,
+          "n": 4880.0,
+          "kupiec_stat": 464.557982382447,
+          "kupiec_p": 4.897856814227793e-103,
+          "christoffersen_stat": 464.7646421441834,
+          "christoffersen_p": 1.1957496612783242e-101
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.01660480764216964,
+          "rmse_price": 0.12885964318656806,
+          "mean_abs_price_error": 0.07806405549473594
+        },
+        "qlike": 0.20561690600703988
+      }
+    },
+    ".HSI": {
+      "LogHAR": {
+        "vol_targeting": {
+          "ann_return": 0.034940817614413554,
+          "ann_vol": 0.14626487759827064,
+          "sharpe": 0.23888727210630556,
+          "max_drawdown": -0.401195481183624,
+          "turnover": 0.045486703277215934,
+          "avg_leverage": 0.8166634455284377,
+          "bh_sharpe": 0.17266653248558564,
+          "bh_ann_vol": 0.22290452050787538
+        },
+        "var_backtest": {
+          "violation_rate": 0.11918781725888325,
+          "expected_rate": 0.05,
+          "n_violations": 587.0,
+          "n": 4925.0,
+          "kupiec_stat": 363.7694131880428,
+          "kupiec_p": 4.254188978328797e-81,
+          "christoffersen_stat": 364.8409878998651,
+          "christoffersen_p": 5.96741293695994e-80
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.01127261839724215,
+          "rmse_price": 0.10617258778631211,
+          "mean_abs_price_error": 0.06683163334511086
+        },
+        "qlike": 0.14186663439378025
+      },
+      "HAR": {
+        "vol_targeting": {
+          "ann_return": 0.03262152303338632,
+          "ann_vol": 0.1426760186645684,
+          "sharpe": 0.22864054757569027,
+          "max_drawdown": -0.405727820345914,
+          "turnover": 0.04858723431067709,
+          "avg_leverage": 0.792815324313775,
+          "bh_sharpe": 0.17266653248558564,
+          "bh_ann_vol": 0.22290452050787538
+        },
+        "var_backtest": {
+          "violation_rate": 0.11573604060913706,
+          "expected_rate": 0.05,
+          "n_violations": 570.0,
+          "n": 4925.0,
+          "kupiec_stat": 332.2270699770638,
+          "kupiec_p": 3.1458166772368985e-74,
+          "christoffersen_stat": 332.86131772994065,
+          "christoffersen_p": 5.249080527231753e-73
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.011728033867600903,
+          "rmse_price": 0.10829604733138187,
+          "mean_abs_price_error": 0.06959243475831714
+        },
+        "qlike": 0.1416591197175613
+      },
+      "RW": {
+        "vol_targeting": {
+          "ann_return": 0.03853315387881785,
+          "ann_vol": 0.16164711181366626,
+          "sharpe": 0.23837823915614256,
+          "max_drawdown": -0.43336893965952134,
+          "turnover": 0.20088682745863956,
+          "avg_leverage": 0.8968456596345316,
+          "bh_sharpe": 0.17266653248558564,
+          "bh_ann_vol": 0.22290452050787538
+        },
+        "var_backtest": {
+          "violation_rate": 0.13177664974619288,
+          "expected_rate": 0.05,
+          "n_violations": 649.0,
+          "n": 4925.0,
+          "kupiec_stat": 488.08183131984845,
+          "kupiec_p": 3.725507351659427e-108,
+          "christoffersen_stat": 491.22331208340836,
+          "christoffersen_p": 2.1488845824549466e-107
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.015242999883413768,
+          "rmse_price": 0.12346254445544919,
+          "mean_abs_price_error": 0.07723007536680279
+        },
+        "qlike": 0.21224460664637623
+      },
+      "EWMA": {
+        "vol_targeting": {
+          "ann_return": 0.036298181644373276,
+          "ann_vol": 0.14642603008601066,
+          "sharpe": 0.24789432331841355,
+          "max_drawdown": -0.386147499924975,
+          "turnover": 0.01002368805257131,
+          "avg_leverage": 0.8134316979858568,
+          "bh_sharpe": 0.17266653248558564,
+          "bh_ann_vol": 0.22290452050787538
+        },
+        "var_backtest": {
+          "violation_rate": 0.11776649746192894,
+          "expected_rate": 0.05,
+          "n_violations": 580.0,
+          "n": 4925.0,
+          "kupiec_stat": 350.6443802450092,
+          "kupiec_p": 3.067729357132073e-78,
+          "christoffersen_stat": 350.8252691394638,
+          "christoffersen_p": 6.595697818518747e-77
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.013488304837498414,
+          "rmse_price": 0.11613916151539244,
+          "mean_abs_price_error": 0.07259678077651642
+        },
+        "qlike": 0.16345345631368358
+      },
+      "GBRT": {
+        "vol_targeting": {
+          "ann_return": 0.03583861013418648,
+          "ann_vol": 0.14821980688273867,
+          "sharpe": 0.24179366366695867,
+          "max_drawdown": -0.38691469615043633,
+          "turnover": 0.0510498138708985,
+          "avg_leverage": 0.8231698872128693,
+          "bh_sharpe": 0.17266653248558564,
+          "bh_ann_vol": 0.22290452050787538
+        },
+        "var_backtest": {
+          "violation_rate": 0.1218274111675127,
+          "expected_rate": 0.05,
+          "n_violations": 600.0,
+          "n": 4925.0,
+          "kupiec_stat": 388.6458854712372,
+          "kupiec_p": 1.6318150344311936e-86,
+          "christoffersen_stat": 390.0041221031073,
+          "christoffersen_p": 2.0496557514766858e-85
+        },
+        "option_loss": {
+          "mean_squared_price_error": 0.012303780634277893,
+          "rmse_price": 0.1109224081702065,
+          "mean_abs_price_error": 0.06754869215977881
+        },
+        "qlike": 0.14829400968104522
+      }
+    }
+  },
+  "summary": {
+    "LogHAR": {
+      "avg_sharpe": 0.2118339031100961,
+      "avg_viol_dev": 0.039143856748254734,
+      "avg_opt_rmse": 0.13369918541067866
+    },
+    "HAR": {
+      "avg_sharpe": 0.20522796111013122,
+      "avg_viol_dev": 0.030792383725987513,
+      "avg_opt_rmse": 0.13816455740927563
+    },
+    "RW": {
+      "avg_sharpe": 0.19076875260374282,
+      "avg_viol_dev": 0.05523231992383359,
+      "avg_opt_rmse": 0.15097989835519002
+    },
+    "EWMA": {
+      "avg_sharpe": 0.22939301622491626,
+      "avg_viol_dev": 0.03749899922357855,
+      "avg_opt_rmse": 0.15646118658197566
+    },
+    "GBRT": {
+      "avg_sharpe": 0.20670029978906523,
+      "avg_viol_dev": 0.041303954211313595,
+      "avg_opt_rmse": 0.1402930185927025
+    }
+  }
+}

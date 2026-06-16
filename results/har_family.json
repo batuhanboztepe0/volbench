@@ -1,0 +1,149 @@
+{
+  "tickers": [
+    ".SPX",
+    ".DJI",
+    ".FTSE",
+    ".GDAXI",
+    ".FCHI",
+    ".STOXX50E",
+    ".N225",
+    ".HSI"
+  ],
+  "horizons": [
+    1,
+    5,
+    22
+  ],
+  "benchmark": "LogHAR",
+  "by_horizon": {
+    "1": {
+      "avg_rank": {
+        "HAR": 6.625,
+        "LogHAR": 3.5,
+        "HAR-J": 4.5,
+        "LogHAR-J": 4.25,
+        "HAR-CJ": 6.25,
+        "LogHAR-CJ": 2.25,
+        "SHAR": 6.125,
+        "LogSHAR": 2.5
+      },
+      "avg_qlike": {
+        "HAR": 0.19833916022138653,
+        "LogHAR": 0.18659485102294843,
+        "HAR-J": 0.19557738145200973,
+        "LogHAR-J": 0.187591658998371,
+        "HAR-CJ": 0.2064024804059545,
+        "LogHAR-CJ": 0.18308405367996097,
+        "SHAR": 0.19581290259559997,
+        "LogSHAR": 0.1967004301324091
+      },
+      "mcs_count": {
+        "HAR": 1,
+        "LogHAR": 2,
+        "HAR-J": 2,
+        "LogHAR-J": 2,
+        "HAR-CJ": 1,
+        "LogHAR-CJ": 5,
+        "SHAR": 1,
+        "LogSHAR": 7
+      },
+      "beats_loghar": {
+        "HAR": 0,
+        "LogHAR": 0,
+        "HAR-J": 0,
+        "LogHAR-J": 1,
+        "HAR-CJ": 0,
+        "LogHAR-CJ": 4,
+        "SHAR": 0,
+        "LogSHAR": 6
+      },
+      "n_indices": 8
+    },
+    "5": {
+      "avg_rank": {
+        "HAR": 7.375,
+        "LogHAR": 3.125,
+        "HAR-J": 6.0,
+        "LogHAR-J": 3.625,
+        "HAR-CJ": 7.0,
+        "LogHAR-CJ": 1.75,
+        "SHAR": 5.625,
+        "LogSHAR": 1.5
+      },
+      "avg_qlike": {
+        "HAR": 0.1597328484907917,
+        "LogHAR": 0.14006589170820857,
+        "HAR-J": 0.15829140002638858,
+        "LogHAR-J": 0.14141402694300756,
+        "HAR-CJ": 0.16252358921129612,
+        "LogHAR-CJ": 0.13764786908022328,
+        "SHAR": 0.1566436711784543,
+        "LogSHAR": 0.13818774287323887
+      },
+      "mcs_count": {
+        "HAR": 0,
+        "LogHAR": 1,
+        "HAR-J": 1,
+        "LogHAR-J": 2,
+        "HAR-CJ": 1,
+        "LogHAR-CJ": 7,
+        "SHAR": 0,
+        "LogSHAR": 7
+      },
+      "beats_loghar": {
+        "HAR": 0,
+        "LogHAR": 0,
+        "HAR-J": 0,
+        "LogHAR-J": 1,
+        "HAR-CJ": 0,
+        "LogHAR-CJ": 1,
+        "SHAR": 0,
+        "LogSHAR": 5
+      },
+      "n_indices": 8
+    },
+    "22": {
+      "avg_rank": {
+        "HAR": 7.0,
+        "LogHAR": 2.5,
+        "HAR-J": 6.125,
+        "LogHAR-J": 3.5,
+        "HAR-CJ": 7.25,
+        "LogHAR-CJ": 2.5,
+        "SHAR": 5.625,
+        "LogSHAR": 1.5
+      },
+      "avg_qlike": {
+        "HAR": 0.22049199270096922,
+        "LogHAR": 0.19709180035077356,
+        "HAR-J": 0.21985283894726326,
+        "LogHAR-J": 0.19960538250399545,
+        "HAR-CJ": 0.22488271031005252,
+        "LogHAR-CJ": 0.1974555858688097,
+        "SHAR": 0.21924671814460756,
+        "LogSHAR": 0.19705696105456452
+      },
+      "mcs_count": {
+        "HAR": 1,
+        "LogHAR": 4,
+        "HAR-J": 1,
+        "LogHAR-J": 4,
+        "HAR-CJ": 0,
+        "LogHAR-CJ": 7,
+        "SHAR": 2,
+        "LogSHAR": 8
+      },
+      "beats_loghar": {
+        "HAR": 0,
+        "LogHAR": 0,
+        "HAR-J": 0,
+        "LogHAR-J": 0,
+        "HAR-CJ": 0,
+        "LogHAR-CJ": 0,
+        "SHAR": 0,
+        "LogSHAR": 5
+      },
+      "n_indices": 8
+    }
+  }
+}

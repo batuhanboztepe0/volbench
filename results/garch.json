@@ -1,0 +1,51 @@
+{
+  "n_origins": 4550,
+  "proxy": "squared daily return (percent^2)",
+  "min_train": 1000,
+  "refit_every": 22,
+  "qlike": {
+    "GARCH": 1.753606234623352,
+    "GJR-GARCH": 1.7205243039284353,
+    "RiskMetrics": 1.800148535029168,
+    "Constant": 2.355099914241452
+  },
+  "mse_var": {
+    "GARCH": 24.136251360430936,
+    "GJR-GARCH": 23.23626656964599,
+    "RiskMetrics": 25.612112030692362,
+    "Constant": 32.696357528069186
+  },
+  "mcs_included": [
+    "GJR-GARCH"
+  ],
+  "mcs_pvalues": {
+    "Constant": 0.0,
+    "RiskMetrics": 0.0,
+    "GARCH": 0.0055,
+    "GJR-GARCH": 1.0
+  },
+  "dm_vs_garch": {
+    "GJR-GARCH": {
+      "mean_diff": -0.03308193069491688,
+      "dm_stat": -3.262171361390179,
+      "p_value": 0.001113781266130473,
+      "favored": -1.0,
+      "n": 4550.0
+    },
+    "RiskMetrics": {
+      "mean_diff": 0.04654230040581595,
+      "dm_stat": 4.016280382325358,
+      "p_value": 6.0077457480901124e-05,
+      "favored": 1.0,
+      "n": 4550.0
+    },
+    "Constant": {
+      "mean_diff": 0.6014936796180994,
+      "dm_stat": 12.326236087496868,
+      "p_value": 2.300955644741938e-34,
+      "favored": 1.0,
+      "n": 4550.0
+    }
+  },
+  "note": "Track 2 is NOT comparable to Track 1 (different series/period/proxy)."
+}

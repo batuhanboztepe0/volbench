@@ -1,0 +1,245 @@
+{
+  "horizon": 1,
+  "tickers": [
+    ".SPX",
+    ".DJI",
+    ".FTSE",
+    ".GDAXI",
+    ".FCHI",
+    ".STOXX50E",
+    ".N225",
+    ".HSI"
+  ],
+  "by_regime": {
+    "Full": {
+      "mean_origins_per_index": 5048.375,
+      "n_indices": 8,
+      "models": {
+        "RW": {
+          "avg_qlike": 0.4677110264990317,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "HistMean": {
+          "avg_qlike": 0.651054586227195,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "MA22": {
+          "avg_qlike": 0.2617734316339518,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "EWMA": {
+          "avg_qlike": 0.24372083744261527,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "AR1Log": {
+          "avg_qlike": 0.23868634894704038,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "HAR": {
+          "avg_qlike": 0.19833916022138653,
+          "mcs_count": 2,
+          "n_indices": 8
+        },
+        "LogHAR": {
+          "avg_qlike": 0.18659485102294843,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "GBRT": {
+          "avg_qlike": 0.1960057625352642,
+          "mcs_count": 1,
+          "n_indices": 8
+        }
+      }
+    },
+    "Calm": {
+      "mean_origins_per_index": 2515.25,
+      "n_indices": 8,
+      "models": {
+        "RW": {
+          "avg_qlike": 0.7198449262767175,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "HistMean": {
+          "avg_qlike": 0.7421139967717346,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "MA22": {
+          "avg_qlike": 0.22944628482629242,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "EWMA": {
+          "avg_qlike": 0.2183758727275283,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "AR1Log": {
+          "avg_qlike": 0.2574643632727835,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "HAR": {
+          "avg_qlike": 0.20954396447249352,
+          "mcs_count": 1,
+          "n_indices": 8
+        },
+        "LogHAR": {
+          "avg_qlike": 0.18742120380413718,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "GBRT": {
+          "avg_qlike": 0.18977339788573985,
+          "mcs_count": 5,
+          "n_indices": 8
+        }
+      }
+    },
+    "Turbulent": {
+      "mean_origins_per_index": 2523.875,
+      "n_indices": 8,
+      "models": {
+        "RW": {
+          "avg_qlike": 0.21474348560126733,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "HistMean": {
+          "avg_qlike": 0.5610960433673098,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "MA22": {
+          "avg_qlike": 0.29357997433926913,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "EWMA": {
+          "avg_qlike": 0.2681595602743208,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "AR1Log": {
+          "avg_qlike": 0.21938377374936172,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "HAR": {
+          "avg_qlike": 0.18692063612162088,
+          "mcs_count": 6,
+          "n_indices": 8
+        },
+        "LogHAR": {
+          "avg_qlike": 0.18528314301131552,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "GBRT": {
+          "avg_qlike": 0.20175734155952527,
+          "mcs_count": 1,
+          "n_indices": 8
+        }
+      }
+    },
+    "GFC": {
+      "mean_origins_per_index": 207.875,
+      "n_indices": 8,
+      "models": {
+        "RW": {
+          "avg_qlike": 0.20343932438766138,
+          "mcs_count": 6,
+          "n_indices": 8
+        },
+        "HistMean": {
+          "avg_qlike": 1.9939471312347996,
+          "mcs_count": 0,
+          "n_indices": 8
+        },
+        "MA22": {
+          "avg_qlike": 0.25471869829379024,
+          "mcs_count": 1,
+          "n_indices": 8
+        },
+        "EWMA": {
+          "avg_qlike": 0.25601888897950587,
+          "mcs_count": 3,
+          "n_indices": 8
+        },
+        "AR1Log": {
+          "avg_qlike": 0.22724804918689967,
+          "mcs_count": 3,
+          "n_indices": 8
+        },
+        "HAR": {
+          "avg_qlike": 0.16313609957765335,
+          "mcs_count": 6,
+          "n_indices": 8
+        },
+        "LogHAR": {
+          "avg_qlike": 0.15940177289053822,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "GBRT": {
+          "avg_qlike": 0.23921475124010613,
+          "mcs_count": 4,
+          "n_indices": 8
+        }
+      }
+    },
+    "COVID": {
+      "mean_origins_per_index": 92.625,
+      "n_indices": 8,
+      "models": {
+        "RW": {
+          "avg_qlike": 0.3263442435038064,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "HistMean": {
+          "avg_qlike": 2.0747835635470135,
+          "mcs_count": 4,
+          "n_indices": 8
+        },
+        "MA22": {
+          "avg_qlike": 0.7454370361871465,
+          "mcs_count": 6,
+          "n_indices": 8
+        },
+        "EWMA": {
+          "avg_qlike": 0.7263454140118277,
+          "mcs_count": 2,
+          "n_indices": 8
+        },
+        "AR1Log": {
+          "avg_qlike": 0.3046135785569304,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "HAR": {
+          "avg_qlike": 0.28880053074169176,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "LogHAR": {
+          "avg_qlike": 0.302682105175447,
+          "mcs_count": 8,
+          "n_indices": 8
+        },
+        "GBRT": {
+          "avg_qlike": 0.3146586738712034,
+          "mcs_count": 8,
+          "n_indices": 8
+        }
+      }
+    }
+  }
+}

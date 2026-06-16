@@ -1,0 +1,26 @@
+{
+  "days": 4000,
+  "n_steps": 390,
+  "seed": 0,
+  "clean": {
+    "rv_over_qv": 0.9990915120645101,
+    "bv_over_iv": 1.041687115474005,
+    "medrv_over_iv": 1.002165865668596,
+    "rvminusbv_over_jv": 0.9226569090132443,
+    "mean_jumps_per_day": 0.482
+  },
+  "kernel_clean": {
+    "rv_over_qv": 0.9985915041398482,
+    "rk_over_qv": 1.0030578249560964
+  },
+  "noisy": {
+    "rv_over_qv": 2.9969921864772093,
+    "rk_over_qv": 1.0076098934116273
+  },
+  "jump_test": {
+    "false_positive_rate": 0.05175,
+    "nominal_level": 0.05,
+    "detection_rate": 0.937624950019992,
+    "n_jump_days_tested": 2501
+  }
+}
