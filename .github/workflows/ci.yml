@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install package + dev tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Lint (ruff)
+        run: ruff check src scripts tests
+
+      - name: Type-check (mypy, non-blocking)
+        run: mypy src/volbench || true
+
+      - name: Fetch data (from the Internet Archive; data tests skip if it fails)
+        run: python scripts/build_realized.py || echo "data fetch failed; data-dependent tests will skip"
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Smoke-test the pipeline (fast settings)
+        run: |
+          python scripts/validate_estimators.py --days 300
+          python -c "import sys; sys.path.insert(0,'src'); \
+            from volbench.data import load_oxford_rv; from volbench.backtest import run_backtest; \
+            rv = load_oxford_rv(tickers=['.SPX']).series('.SPX'); \
+            r = run_backtest(rv, horizon=1, min_train=500, mcs_reps=100); \
+            assert 'LogHAR' in r.mean_losses['QLIKE']; print('pipeline OK')"

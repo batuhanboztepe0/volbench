@@ -1,0 +1,15 @@
+# Pinned dependency versions for one-command reproduction.
+# Generated from the verified working environment (see ROADMAP repro sequence).
+# Install with:  pip install -r requirements.lock
+numpy==2.0.2
+scipy==1.13.1
+pandas==2.3.3
+scikit-learn==1.6.1
+matplotlib==3.9.4
+statsmodels==0.14.6
+arch==7.2.0
+
+# Dev / test tooling
+pytest==8.4.2
+ruff==0.1.15
+mypy==1.8.0

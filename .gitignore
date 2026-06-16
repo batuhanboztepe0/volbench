@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Third-party data is NOT redistributed here (licence unclear). Fetch it with
+# `python scripts/build_realized.py` (pulls the Oxford-Man library from the
+# Internet Archive). See data/README.md for provenance.
+data/oxford_realized.csv
+data/raw/
+
+# LaTeX build artifacts
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.fdb_latexmk
+report/*.fls
+report/*.synctex.gz
+report/*.pdf
+
+# OS
+.DS_Store
+
+# Generated result artifacts (figures + JSON summaries) ARE committed as the
+# deliverable; only transient/large intermediates are ignored.
