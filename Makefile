@@ -22,6 +22,8 @@ help:
 	@echo "  multivariate cross-index spillover HAR      -> results/multivariate.json"
 	@echo "  ml           rigorous ML vs HAR comparison   -> results/ml.json"
 	@echo "  economic     economic-value evaluation      -> results/economic.json"
+	@echo "  vrp          variance-risk-premium edge      -> results/vrp.json"
+	@echo "  strategy     vol-targeting + regime overlay  -> results/strategy.json"
 	@echo "  regime       calm vs crisis subsamples      -> results/regime.json"
 	@echo "  figures      publication figures            -> results/figures/"
 	@echo "  reproduce    run the full pipeline end to end"
@@ -62,13 +64,19 @@ ml:
 economic:
 	$(PY) $(SCRIPTS)/run_economic.py
 
+vrp:
+	$(PY) $(SCRIPTS)/run_vrp.py
+
+strategy:
+	$(PY) $(SCRIPTS)/run_strategy.py
+
 regime:
 	$(PY) $(SCRIPTS)/run_regime.py
 
 figures:
 	$(PY) $(SCRIPTS)/make_figures.py
 
-reproduce: validate benchmark garch harfamily multivariate ml economic regime figures test
+reproduce: validate benchmark garch harfamily multivariate ml economic vrp strategy regime figures test
 	@echo "\nFull reproduction complete. See results/ and run the report build in report/."
 
 clean:

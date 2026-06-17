@@ -28,7 +28,7 @@ dependencies = [
 
 [project.optional-dependencies]
 ml = ["lightgbm>=4.0", "xgboost>=2.0"]
-dev = ["pytest>=7.0", "ruff>=0.1", "mypy>=1.0", "lightgbm>=4.0", "xgboost>=2.0"]
+dev = ["pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.1", "mypy>=1.0", "lightgbm>=4.0", "xgboost>=2.0"]
 
 [project.scripts]
 volbench = "volbench.cli:main"
