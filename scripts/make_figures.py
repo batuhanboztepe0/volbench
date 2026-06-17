@@ -79,6 +79,68 @@ def figure_signature_plot(days: int = 1500, seed: int = 7) -> None:
     print("  wrote signature_plot.png")
 
 
+def figure_crypto_signature(days: int = 20) -> None:
+    """Real-data volatility signature plot from live BTC 1-minute bars.
+
+    The simulated signature plot shows realized variance exploding at high
+    frequency under noise; this is the same effect on *real* data. RV is computed
+    at increasing sampling intervals (averaged over recent days) and compared to a
+    realized kernel. Network-dependent — skips quietly when offline.
+    """
+    import json
+    import urllib.request
+
+    try:
+        url = ("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m"
+               "&limit=1000")
+        # Page back from the latest bars to assemble ~`days` of 1-minute closes.
+        pages, last = [], None
+        for _ in range(max(1, days * 1440 // 1000 + 1)):
+            u = url + (f"&endTime={last}" if last else "")
+            with urllib.request.urlopen(u, timeout=20) as r:  # noqa: S310
+                page = json.load(r)
+            if not page:
+                break
+            pages = page + pages
+            last = page[0][0] - 1
+        closes = np.array([float(row[4]) for row in pages])
+        times = np.array([row[0] for row in pages], dtype="int64")
+    except Exception as exc:  # noqa: BLE001 - figure is a bonus; skip if offline
+        print(f"  (skip crypto signature plot: {exc})")
+        return
+
+    day_idx = times // (1000 * 60 * 60 * 24)
+    intervals = [1, 2, 3, 5, 10, 15, 20, 30, 60]
+    mean_rv = []
+    for m in intervals:
+        rvs = []
+        for d in np.unique(day_idx):
+            p = closes[day_idx == d]
+            if p.size < 200:
+                continue
+            r = np.diff(np.log(p))[:: 1]
+            agg = _aggregate_returns(r, m)
+            rvs.append(realized_variance(agg))
+        mean_rv.append(float(np.mean(rvs)) if rvs else np.nan)
+    rk_vals = [realized_kernel_parzen(np.diff(np.log(closes[day_idx == d])))
+               for d in np.unique(day_idx) if (day_idx == d).sum() >= 200]
+    rk = float(np.mean(rk_vals)) if rk_vals else np.nan
+
+    fig, ax = plt.subplots(figsize=(7.5, 4.6))
+    ax.plot(intervals, np.array(mean_rv) * 1e4, "o-", color="#8e44ad", label="Realized variance (BTC)")
+    if np.isfinite(rk):
+        ax.axhline(rk * 1e4, ls=":", color="#27ae60", lw=2, label="Realized kernel (1-min)")
+    ax.set_xlabel("Sampling interval (minutes)")
+    ax.set_ylabel(r"Mean realized variance ($\times 10^{-4}$)")
+    ax.set_title(f"Real-data signature plot: BTC, last {days} days (1-min bars)")
+    ax.legend(frameon=False)
+    ax.grid(alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(FIG_DIR / "crypto_signature.png", dpi=140)
+    plt.close(fig)
+    print("  wrote crypto_signature.png")
+
+
 def figure_leaderboard() -> None:
     """Average QLIKE by model at h = 1 (from the benchmark leaderboard)."""
     path = TABLES_DIR / "leaderboard_qlike_h1.csv"
@@ -155,6 +217,7 @@ def main() -> None:
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     print("Generating figures ...")
     figure_signature_plot()
+    figure_crypto_signature()
     figure_spx_realized_vol()
     figure_leaderboard()
     figure_qlike_by_horizon()

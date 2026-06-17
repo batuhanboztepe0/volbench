@@ -1,0 +1,221 @@
+{
+  "coins": [
+    "BTC",
+    "ETH",
+    "BNB",
+    "SOL"
+  ],
+  "horizons": [
+    1,
+    5,
+    22
+  ],
+  "annualisation": 365,
+  "by_horizon": {
+    "1": {
+      "avg_rank": {
+        "RW": 5.75,
+        "HistMean": 8.25,
+        "MA22": 7.0,
+        "EWMA": 5.5,
+        "AR1Log": 2.0,
+        "HAR": 4.75,
+        "LogHAR": 1.25,
+        "GBRT": 2.75,
+        "HARQ": 7.75
+      },
+      "avg_qlike": {
+        "RW": 0.4002684062322513,
+        "HistMean": 0.6687329342408864,
+        "MA22": 0.44837238885225056,
+        "EWMA": 0.3961311281605735,
+        "AR1Log": 0.2935430473520495,
+        "HAR": 0.3656038989642788,
+        "LogHAR": 0.28819197484972975,
+        "GBRT": 0.31037699370856486,
+        "HARQ": 0.9682906647945884
+      },
+      "mcs_count": {
+        "RW": 0,
+        "HistMean": 0,
+        "MA22": 0,
+        "EWMA": 0,
+        "AR1Log": 3,
+        "HAR": 0,
+        "LogHAR": 4,
+        "GBRT": 0,
+        "HARQ": 0
+      },
+      "harq_beats_har": 1,
+      "n_coins": 4
+    },
+    "5": {
+      "avg_rank": {
+        "RW": 8.25,
+        "HistMean": 8.25,
+        "MA22": 6.5,
+        "EWMA": 4.75,
+        "AR1Log": 3.0,
+        "HAR": 5.75,
+        "LogHAR": 1.0,
+        "GBRT": 2.25,
+        "HARQ": 5.25
+      },
+      "avg_qlike": {
+        "RW": 0.6038025595755054,
+        "HistMean": 0.5220312275099219,
+        "MA22": 0.3826093358389949,
+        "EWMA": 0.31639685917138416,
+        "AR1Log": 0.27764863273774987,
+        "HAR": 0.33555312794986436,
+        "LogHAR": 0.251738828083209,
+        "GBRT": 0.2618907692538537,
+        "HARQ": 0.45935393365973176
+      },
+      "mcs_count": {
+        "RW": 0,
+        "HistMean": 0,
+        "MA22": 0,
+        "EWMA": 0,
+        "AR1Log": 1,
+        "HAR": 0,
+        "LogHAR": 4,
+        "GBRT": 3,
+        "HARQ": 1
+      },
+      "harq_beats_har": 3,
+      "n_coins": 4
+    },
+    "22": {
+      "avg_rank": {
+        "RW": 9.0,
+        "HistMean": 7.5,
+        "MA22": 6.25,
+        "EWMA": 3.5,
+        "AR1Log": 3.0,
+        "HAR": 5.75,
+        "LogHAR": 1.5,
+        "GBRT": 2.5,
+        "HARQ": 6.0
+      },
+      "avg_qlike": {
+        "RW": 0.7522337865318182,
+        "HistMean": 0.39867680499659697,
+        "MA22": 0.35490526827438074,
+        "EWMA": 0.2858322009817674,
+        "AR1Log": 0.26554047504289674,
+        "HAR": 0.3176483381271169,
+        "LogHAR": 0.24374618264153924,
+        "GBRT": 0.2586767480337052,
+        "HARQ": 0.35449916335238696
+      },
+      "mcs_count": {
+        "RW": 0,
+        "HistMean": 0,
+        "MA22": 0,
+        "EWMA": 3,
+        "AR1Log": 1,
+        "HAR": 0,
+        "LogHAR": 4,
+        "GBRT": 2,
+        "HARQ": 0
+      },
+      "harq_beats_har": 2,
+      "n_coins": 4
+    }
+  },
+  "spillover": {
+    "BTC": {
+      "target": "BTC",
+      "n_obs": 1731,
+      "n_origins": 1230,
+      "mean_qlike": {
+        "LogHAR": 0.35687915715550395,
+        "CrossHAR": 0.3529068514086499,
+        "RW": 0.5403818407569277
+      },
+      "pct_improvement": 1.1130674535647282,
+      "mcs_included": [
+        "LogHAR",
+        "CrossHAR"
+      ],
+      "dm_crosshar_vs_loghar": {
+        "mean_diff": -0.003972305746854045,
+        "dm_stat": -1.715823292425232,
+        "p_value": 0.08644641477712,
+        "favored": -1.0,
+        "n": 1230.0
+      },
+      "crosshar_beats_loghar": true
+    },
+    "ETH": {
+      "target": "ETH",
+      "n_obs": 1731,
+      "n_origins": 1230,
+      "mean_qlike": {
+        "LogHAR": 0.3054584931727811,
+        "CrossHAR": 0.3021894668631705,
+        "RW": 0.4278609507879941
+      },
+      "pct_improvement": 1.070203115210653,
+      "mcs_included": [
+        "LogHAR",
+        "CrossHAR"
+      ],
+      "dm_crosshar_vs_loghar": {
+        "mean_diff": -0.0032690263096105806,
+        "dm_stat": -1.4339642061975313,
+        "p_value": 0.15183684715134083,
+        "favored": -1.0,
+        "n": 1230.0
+      },
+      "crosshar_beats_loghar": false
+    },
+    "BNB": {
+      "target": "BNB",
+      "n_obs": 1731,
+      "n_origins": 1230,
+      "mean_qlike": {
+        "LogHAR": 0.2693086404019573,
+        "CrossHAR": 0.2679638259817881,
+        "RW": 0.36809139273950575
+      },
+      "pct_improvement": 0.49935806670071875,
+      "mcs_included": [
+        "LogHAR",
+        "CrossHAR"
+      ],
+      "dm_crosshar_vs_loghar": {
+        "mean_diff": -0.0013448144201691878,
+        "dm_stat": -1.0922347190343449,
+        "p_value": 0.2749440047615205,
+        "favored": -1.0,
+        "n": 1230.0
+      },
+      "crosshar_beats_loghar": false
+    },
+    "SOL": {
+      "target": "SOL",
+      "n_obs": 1731,
+      "n_origins": 1230,
+      "mean_qlike": {
+        "LogHAR": 0.2548688118881423,
+        "CrossHAR": 0.2541767972121439,
+        "RW": 0.34365543399366155
+      },
+      "pct_improvement": 0.27151799032284135,
+      "mcs_included": [
+        "LogHAR",
+        "CrossHAR"
+      ],
+      "dm_crosshar_vs_loghar": {
+        "mean_diff": -0.0006920146759982946,
+        "dm_stat": -0.5484479662300346,
+        "p_value": 0.5834839574794413,
+        "favored": -1.0,
+        "n": 1230.0
+      },
+      "crosshar_beats_loghar": false
+    }
+  }
+}
