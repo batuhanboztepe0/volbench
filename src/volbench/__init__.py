@@ -31,7 +31,13 @@ _warnings.filterwarnings(
 )
 
 from .backtest import BacktestResult, run_backtest
-from .data import RealizedDataset, load_oxford_rv, load_sp500_returns, load_vix
+from .data import (
+    RealizedDataset,
+    load_crypto_rv,
+    load_oxford_rv,
+    load_sp500_returns,
+    load_vix,
+)
 from .economic import (
     black_scholes_price,
     engle_manganelli_dq,
@@ -147,6 +153,7 @@ __all__ = [
     "load_oxford_rv",
     "load_sp500_returns",
     "load_vix",
+    "load_crypto_rv",
     "RealizedDataset",
     # economic
     "volatility_targeting",
