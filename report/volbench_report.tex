@@ -288,6 +288,38 @@ These QLIKE \emph{levels} are an order of magnitude above Track 1's ($\approx$0.
 purely because the squared-return proxy is far noisier than 5-minute realized
 variance --- which is exactly why the two tracks must never be compared directly.
 
+\section{From forecast to edge}
+A good realized-variance forecast is not alpha by itself; it monetises through a
+tradable volatility instrument and through risk control. Three results connect
+the benchmark to deployment.
+
+\paragraph{Fat-tailed VaR.} Daily index returns are heavy-tailed, so a Gaussian
+value-at-risk under-covers. Replacing the normal quantile with a Student-t or a
+filtered-historical-simulation (FHS) quantile fixes coverage: on heavy-tailed
+returns the FHS VaR hits a 0.050 exceedance rate (Kupiec $p=1.0$) and passes the
+Engle--Manganelli dynamic-quantile test ($p=0.85$), where the normal VaR is
+rejected.
+
+\paragraph{The variance risk premium.} The cleanest monetisation of a validated
+$E[\text{RV}]$ is the variance risk premium, implied minus realized variance. On
+the S\&P 500, average implied volatility (VIX) is $21.5\%$ against $16.3\%$
+realized, and the premium is positive on $92\%$ of days. A naive short-variance
+book earns an annualised Sharpe of $1.45$; \emph{timing} it with the log-HAR
+forecast --- scaling the short down when the forecast says implied is only fairly
+priced --- raises the Sharpe to $1.60$ and cuts maximum drawdown by about
+$65\%$. The naive book earns more absolute dollars (the timed book deliberately
+takes less risk), but on a risk-adjusted basis the forecast adds value.
+
+\paragraph{Volatility targeting.} Scaling exposure by
+$\text{target vol}/\text{forecast vol}$, net of transaction costs, holds realised
+volatility near target and roughly \emph{halves} maximum drawdown versus
+buy-and-hold ($-0.40$ vs $-0.62$ averaged over the eight indices). It improves
+the Sharpe ratio on the US indices, and a jump/regime de-risking overlay trims
+drawdown further. Honestly, on the cross-section a smoother EWMA forecast can
+match log-HAR as the sizing input because it turns over less; vol targeting is a
+risk-management tool, not free return. The honest accounting --- costs, turnover,
+drawdown, and out-of-sample significance --- is the point.
+
 \section{Conclusion}
 A correctly specified log-space HAR is hard to beat out of sample: it dominates
 naive baselines decisively and is not displaced by a gradient-boosted model on

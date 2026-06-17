@@ -1,5 +1,10 @@
 # volbench
 
+[![CI](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml/badge.svg)](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.9%20%7C%203.11-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Tests](https://img.shields.io/badge/tests-157%2B-brightgreen)
+
 **A reproducible out-of-sample benchmark for realized-volatility forecasting.**
 
 Most volatility tutorials stop at fitting a GARCH or an EWMA and eyeballing the
@@ -93,13 +98,25 @@ measures, the benchmark goes past "HAR vs everything":
   refit cadence and the richer features, **no ML model displaces log-HAR**, and a
   log-HAR + ML combination does not beat log-HAR alone — the cleanest, most
   defensible form of the "structure beats flexibility" result. `scripts/run_ml.py`.
-- **Economic value.** A volatility-targeting strategy, normal-VaR
-  exceedance backtests (Kupiec / Christoffersen), and a Black–Scholes
+- **Economic value & risk.** A volatility-targeting strategy, VaR exceedance
+  backtests (Kupiec / Christoffersen / Engle–Manganelli DQ), and a Black–Scholes
   option-pricing loss. The statistically-best model is *not* a clean economic
   winner: log-HAR delivers the most accurate option prices, but a simple EWMA
-  edges it on vol-targeted Sharpe, and all models under-cover 5% VaR (empirical
-  exceedances ≈6–13%) because normal VaR ignores fat tails. An honest reminder
-  that statistical wins do not mechanically become money. `scripts/run_economic.py`.
+  edges it on vol-targeted Sharpe. Normal VaR under-covers 5% (fat tails), and a
+  **Student-t / filtered-historical-simulation VaR fixes coverage** (FHS hits a
+  0.050 exceedance rate, DQ p = 0.85). `scripts/run_economic.py`.
+- **The edge — variance risk premium.** A good RV forecast monetises through the
+  variance risk premium: on the S&P 500, implied vol (VIX) averages 21.5% vs
+  16.3% realized — the premium is positive **92% of days**. Selling variance
+  earns a Sharpe of 1.45; **timing it with the log-HAR forecast lifts the Sharpe
+  to 1.60 and cuts max drawdown by ~65%** (you scale down when your forecast says
+  implied is only fairly priced). `scripts/run_vrp.py`.
+- **The edge — volatility targeting.** Scaling exposure by `target_vol /
+  forecast_vol` (net of costs) holds realized vol near target and roughly
+  **halves max drawdown vs buy-and-hold** (−0.40 vs −0.62 across 8 indices); it
+  improves Sharpe on US indices, and a jump/regime overlay trims drawdown
+  further. A risk-control product, reported honestly — vol targeting is not free
+  alpha. `scripts/run_strategy.py`.
 - **Regime analysis.** Splitting the 2000–2022 sample into calm vs turbulent
   states and into the GFC and COVID crisis windows, then re-running the MCS in
   each. Log-HAR stays rank-1 with MCS 8/8 in calm, turbulent and GFC regimes;
@@ -167,16 +184,19 @@ volbench/
 │   ├── losses.py        # QLIKE & MSE (Patton-robust), Mincer-Zarnowitz
 │   ├── evaluation.py    # Diebold-Mariano (+HLN), Model Confidence Set
 │   ├── backtest.py      # expanding-window harness tying it together
-│   ├── economic.py      # vol targeting, VaR backtests, option-pricing loss
+│   ├── economic.py      # vol targeting, VaR (normal/t/FHS + Kupiec/Christoffersen/DQ)
 │   ├── multivariate.py  # cross-index (spillover) HAR
 │   ├── ml.py            # leakage-free LightGBM/XGBoost/MLP + forecast combination
-│   └── data.py          # loaders (bundled Oxford-Man panel; SP500 returns)
-├── scripts/             # run_benchmark, run_garch, run_har_family,
-│   │                    #   run_multivariate, run_ml, run_economic, run_regime,
-│   │                    #   validate_estimators, make_figures, build_realized
-├── tests/               # pytest suite (157 tests)
-├── data/                # provenance + units (the CSV itself is fetched, not committed)
+│   ├── vrp.py           # variance risk premium signal + short-variance timing
+│   ├── strategy.py      # vol-targeting backtest (with costs) + jump/regime overlay
+│   └── data.py          # loaders (Oxford-Man RV panel; SP500 returns; VIX)
+├── scripts/             # run_{benchmark,garch,har_family,multivariate,ml,economic,
+│   │                    #   vrp,strategy,regime}, validate_estimators, make_figures,
+│   │                    #   build_realized, build_vix
+├── tests/               # pytest suite (179 tests)
+├── data/                # VIX (committed) + provenance; the RV CSV is fetched, not committed
 ├── results/             # tables, figures, JSON summaries (the deliverable)
+├── docs/                # write-up: "why log-HAR is hard to beat"
 └── report/              # LaTeX research report
 ```
 
@@ -201,8 +221,8 @@ volbench/
 pip install -e ".[dev]"        # package + pytest/ruff/mypy
 # or: pip install -r requirements.lock   # pinned versions
 
-python scripts/build_realized.py         # STEP 0: fetch the data (one-time, ~6 MB
-                                         #   from the Internet Archive)
+python scripts/build_realized.py         # STEP 0: fetch the RV data (one-time, ~6 MB,
+                                         #   from the Internet Archive); VIX is bundled
 
 make reproduce                 # the full pipeline end to end (or run individually):
 python scripts/validate_estimators.py    # results/validation.json
@@ -212,9 +232,11 @@ python scripts/run_har_family.py         # results/har_family.json
 python scripts/run_multivariate.py       # results/multivariate.json
 python scripts/run_ml.py                 # results/ml.json  (LightGBM/XGBoost/MLP)
 python scripts/run_economic.py           # results/economic.json
+python scripts/run_vrp.py                # results/vrp.json  (variance risk premium)
+python scripts/run_strategy.py           # results/strategy.json  (vol targeting)
 python scripts/run_regime.py             # results/regime.json
 python scripts/make_figures.py           # results/figures/*.png
-pytest -q                                # 157 tests
+pytest -q                                # 179 tests
 ```
 
 Minimal programmatic use:
