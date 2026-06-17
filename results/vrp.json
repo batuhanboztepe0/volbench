@@ -1,0 +1,39 @@
+{
+  "ticker": ".SPX",
+  "horizon": 22,
+  "n_origins": 5030,
+  "mean_implied_vol_pct": 21.466704353606982,
+  "mean_realized_vol_pct": 16.333622693461386,
+  "mean_vrp_daily": 7.699689107651281e-05,
+  "vrp_positive_fraction": 0.920079522862823,
+  "books": {
+    "always_short": {
+      "ann_sharpe": 1.4536865355841804,
+      "hit_rate": 0.920079522862823,
+      "mean_pnl": 7.699689107651281e-05,
+      "total_pnl": 0.3872943621148594,
+      "max_drawdown": 0.033621658076791724
+    },
+    "timed": {
+      "ann_sharpe": 1.6005750095310418,
+      "hit_rate": 0.910337972166998,
+      "mean_pnl": 3.858886719892522e-05,
+      "total_pnl": 0.19410200201059385,
+      "max_drawdown": 0.011802988944817933
+    },
+    "longshort": {
+      "ann_sharpe": 1.6005750095310418,
+      "hit_rate": 0.910337972166998,
+      "mean_pnl": 3.858886719892522e-05,
+      "total_pnl": 0.19410200201059385,
+      "max_drawdown": 0.011802988944817933
+    }
+  },
+  "dm_timed_vs_always_short": {
+    "mean_diff": 3.8408023877587586e-05,
+    "dm_stat": 6.344712198362363,
+    "p_value": 2.42387221988308e-10,
+    "favored": 1.0,
+    "n": 5030.0
+  }
+}
