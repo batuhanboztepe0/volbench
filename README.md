@@ -7,6 +7,9 @@
 
 **A reproducible out-of-sample benchmark for realized-volatility forecasting.**
 
+> Picking this up / new here? Start with **[HANDOFF.md](HANDOFF.md)** — status,
+> how to run, findings, the rules that keep it correct, and what's left.
+
 Most volatility tutorials stop at fitting a GARCH or an EWMA and eyeballing the
 fit. This repository asks the question that actually matters for deployment:
 
