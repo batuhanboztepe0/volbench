@@ -423,7 +423,14 @@ class HARQ(VolForecaster):
             X_train = design(rows)
             beta = _ols_fit(X_train, target[rows])
             x_pred = design(np.array([t]))
-            forecasts[k] = float((x_pred @ beta).ravel()[0])
+            pred = float((x_pred @ beta).ravel()[0])
+            # Level-space HARQ can extrapolate to a non-positive or huge value
+            # (the RV*sqrt(RQ) interaction is large and noisy, especially on
+            # very volatile assets); clamp to the training support so a numerical
+            # artifact cannot dominate the QLIKE mean (ROADMAP invariant 2).
+            lo = max(float(np.min(target[rows])) * 0.1, _LOG_FLOOR)
+            hi = float(np.max(target[rows])) * 10.0
+            forecasts[k] = min(max(pred, lo), hi)
         return forecasts, origins
 
 
