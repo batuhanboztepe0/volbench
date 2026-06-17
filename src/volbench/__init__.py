@@ -31,8 +31,14 @@ _warnings.filterwarnings(
 )
 
 from .backtest import BacktestResult, run_backtest
-from .data import RealizedDataset, load_oxford_rv, load_sp500_returns
-from .economic import black_scholes_price, option_pricing_loss, var_backtest, volatility_targeting
+from .data import RealizedDataset, load_oxford_rv, load_sp500_returns, load_vix
+from .economic import (
+    black_scholes_price,
+    engle_manganelli_dq,
+    option_pricing_loss,
+    var_backtest,
+    volatility_targeting,
+)
 from .evaluation import MCSResult, diebold_mariano, model_confidence_set
 from .losses import (
     LOSS_FUNCTIONS,
@@ -83,6 +89,8 @@ from .realized import (
     realized_variance,
 )
 from .simulate import IntradayPath, simulate_intraday_path, simulate_many_days
+from .strategy import compare_books, regime_overlay, vol_target_backtest
+from .vrp import variance_risk_premium, vrp_strategy
 
 __version__ = "0.1.0"
 
@@ -138,16 +146,25 @@ __all__ = [
     # data
     "load_oxford_rv",
     "load_sp500_returns",
+    "load_vix",
     "RealizedDataset",
     # economic
     "volatility_targeting",
     "var_backtest",
+    "engle_manganelli_dq",
     "option_pricing_loss",
     "black_scholes_price",
     # multivariate / spillover
     "CrossHAR",
     "align_panel",
     "spillover_backtest",
+    # variance risk premium (Tier 2D edge)
+    "variance_risk_premium",
+    "vrp_strategy",
+    # vol-targeting strategy + regime overlay
+    "vol_target_backtest",
+    "regime_overlay",
+    "compare_books",
     # machine learning (Tier 2D)
     "MLForecaster",
     "EnsembleForecaster",
