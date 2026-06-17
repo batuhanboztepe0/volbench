@@ -3,7 +3,7 @@
 [![CI](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml/badge.svg)](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.9%20%7C%203.11-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-157%2B-brightgreen)
+![Tests](https://img.shields.io/badge/tests-184-brightgreen)
 
 **A reproducible out-of-sample benchmark for realized-volatility forecasting.**
 
@@ -117,6 +117,16 @@ measures, the benchmark goes past "HAR vs everything":
   improves Sharpe on US indices, and a jump/regime overlay trims drawdown
   further. A risk-control product, reported honestly — vol targeting is not free
   alpha. `scripts/run_strategy.py`.
+- **Crypto generality test (Track 3).** Computed from real Binance 5-minute
+  bars for BTC/ETH/BNB/SOL (69%–134% annualised vol), so the *full* estimator
+  suite — including realized quarticity — runs on real data for the first time.
+  **Log-HAR is #1 and in the MCS for all four coins at every horizon**: the
+  headline generalises to a 24/7, fat-tailed asset class. Two honest contrasts
+  with equities: **HARQ (now testable on real quarticity) does not transfer** —
+  crypto's heavy-tailed RQ makes it the worst model — and **cross-coin spillover
+  is weak** (CrossHAR only marginally beats log-HAR on BTC, p≈0.09). A real-data
+  signature plot confirms the microstructure-noise inflation on BTC.
+  `scripts/build_crypto.py`, `scripts/run_crypto.py`.
 - **Regime analysis.** Splitting the 2000–2022 sample into calm vs turbulent
   states and into the GFC and COVID crisis windows, then re-running the MCS in
   each. Log-HAR stays rank-1 with MCS 8/8 in calm, turbulent and GFC regimes;
@@ -189,12 +199,12 @@ volbench/
 │   ├── ml.py            # leakage-free LightGBM/XGBoost/MLP + forecast combination
 │   ├── vrp.py           # variance risk premium signal + short-variance timing
 │   ├── strategy.py      # vol-targeting backtest (with costs) + jump/regime overlay
-│   └── data.py          # loaders (Oxford-Man RV panel; SP500 returns; VIX)
+│   └── data.py          # loaders (Oxford-Man RV; SP500 returns; VIX; crypto RV)
 ├── scripts/             # run_{benchmark,garch,har_family,multivariate,ml,economic,
-│   │                    #   vrp,strategy,regime}, validate_estimators, make_figures,
-│   │                    #   build_realized, build_vix
-├── tests/               # pytest suite (179 tests)
-├── data/                # VIX (committed) + provenance; the RV CSV is fetched, not committed
+│   │                    #   vrp,strategy,regime,crypto}, validate_estimators,
+│   │                    #   make_figures, build_{realized,vix,crypto}
+├── tests/               # pytest suite (184 tests)
+├── data/                # VIX (committed) + provenance; RV and crypto CSVs are fetched
 ├── results/             # tables, figures, JSON summaries (the deliverable)
 ├── docs/                # write-up: "why log-HAR is hard to beat"
 └── report/              # LaTeX research report
@@ -235,8 +245,10 @@ python scripts/run_economic.py           # results/economic.json
 python scripts/run_vrp.py                # results/vrp.json  (variance risk premium)
 python scripts/run_strategy.py           # results/strategy.json  (vol targeting)
 python scripts/run_regime.py             # results/regime.json
+python scripts/build_crypto.py           # data/crypto_realized.csv (Binance 5-min bars)
+python scripts/run_crypto.py             # results/crypto.json  (Track 3: BTC/ETH/BNB/SOL)
 python scripts/make_figures.py           # results/figures/*.png
-pytest -q                                # 179 tests
+pytest -q                                # 184 tests
 ```
 
 Minimal programmatic use:

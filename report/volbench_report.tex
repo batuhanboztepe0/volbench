@@ -320,6 +320,41 @@ match log-HAR as the sizing input because it turns over less; vol targeting is a
 risk-management tool, not free return. The honest accounting --- costs, turnover,
 drawdown, and out-of-sample significance --- is the point.
 
+\section{Generality: crypto (Track 3)}
+Does the headline survive a completely different asset class? We extend the
+benchmark to four crypto assets (BTC, ETH, BNB, SOL) using realized measures
+computed from real Binance 5-minute bars. Crypto trades 24/7 and is far more
+volatile (annualised realized volatility of $69\%$ for BTC up to $134\%$ for
+SOL) with heavier tails. Because the bars are real and high-frequency, this is
+also the first track where realized quarticity --- and therefore HARQ --- runs on
+real data, and where the volatility signature plot
+(Figure~\ref{fig:cryptosig}) is drawn from genuine microstructure noise rather
+than simulation.
+
+The central result generalises: \textbf{log-HAR is rank-1 and in the Model
+Confidence Set for all four coins at every horizon} ($h \in \{1,5,22\}$), with
+the gradient-boosted model again the runner-up and the naive baselines
+dominated. Two honest contrasts with equities emerge. First, \emph{HARQ does not
+transfer}: now that it can be evaluated on real realized quarticity, it is the
+worst model on crypto (its daily-coefficient correction is destabilised by the
+heavy-tailed crypto quarticity). Second, \emph{cross-coin spillover is weak} ---
+CrossHAR beats log-HAR only marginally on BTC (Diebold--Mariano $p \approx 0.09$)
+and insignificantly on the others, unlike the strong, uniform spillover among
+equity indices. The structure that wins is the same (log-space HAR), but the
+cross-asset and measurement-error refinements that help (or are neutral) for
+equities do not carry over.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\textwidth]{crypto_signature.png}
+\caption{Real-data volatility signature plot: mean BTC realized variance against
+sampling interval (1-minute bars). Realized variance is inflated at the highest
+frequencies by genuine microstructure noise and settles toward the realized
+kernel as the interval coarsens --- the same effect demonstrated on simulation in
+Figure~\ref{fig:sig}, here on real data.}
+\label{fig:cryptosig}
+\end{figure}
+
 \section{Conclusion}
 A correctly specified log-space HAR is hard to beat out of sample: it dominates
 naive baselines decisively and is not displaced by a gradient-boosted model on
