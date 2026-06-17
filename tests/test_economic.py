@@ -11,6 +11,7 @@ import pytest
 
 from volbench.economic import (
     black_scholes_price,
+    engle_manganelli_dq,
     option_pricing_loss,
     var_backtest,
     volatility_targeting,
@@ -198,3 +199,149 @@ def test_var_backtest_zero_violations_no_crash():
     for key in ("kupiec_stat", "kupiec_p", "christoffersen_stat", "christoffersen_p"):
         val = result[key]
         assert val is None or isinstance(val, float), f"Unexpected type for {key}: {type(val)}"
+
+
+# ---------------------------------------------------------------------------
+# 5. var_backtest — dq keys present in all modes
+# ---------------------------------------------------------------------------
+
+def test_var_backtest_output_keys_include_dq():
+    """var_backtest must include dq_stat and dq_pvalue for all dist options."""
+    rng = np.random.default_rng(10)
+    n = 600
+    sigma = 0.01
+    returns = rng.normal(0.0, sigma, n)
+    fvar = np.full(n, sigma ** 2)
+    for dist in ("normal", "t", "fhs"):
+        result = var_backtest(returns, fvar, alpha=0.05, dist=dist)
+        assert "dq_stat" in result, f"dq_stat missing for dist={dist!r}"
+        assert "dq_pvalue" in result, f"dq_pvalue missing for dist={dist!r}"
+
+
+# ---------------------------------------------------------------------------
+# 6. Student-t VaR fixes normal under-coverage on heavy-tailed data
+# ---------------------------------------------------------------------------
+
+def test_t_var_closer_to_alpha_than_normal_on_heavy_tails():
+    """On t5-distributed data, Student-t VaR should be closer to alpha than normal VaR.
+
+    The normal quantile (norm.ppf(0.95) ≈ 1.645) is larger than the unit-variance-
+    adjusted t5 quantile (~1.56), so normal VaR sets a wider threshold and *under-
+    violates* on heavy-tailed data.  Student-t VaR adapts its quantile to the true
+    tail shape and produces a violation rate much closer to alpha.
+    """
+    rng = np.random.default_rng(99)
+    n = 6000
+    alpha = 0.05
+    dof = 5  # heavy tails
+    sigma = 0.01
+    # Draw standardised t-residuals then scale to have daily vol = sigma.
+    z = rng.standard_t(dof, size=n)
+    z_std = z / np.sqrt(dof / (dof - 2))  # make unit variance
+    returns = sigma * z_std
+    fvar = np.full(n, sigma ** 2)
+
+    r_normal = var_backtest(returns, fvar, alpha=alpha, dist="normal")
+    r_t = var_backtest(returns, fvar, alpha=alpha, dist="t")
+
+    # Normal VaR over-covers (too conservative) on fat tails — fewer violations than alpha.
+    assert r_normal["violation_rate"] < alpha - 0.005, (
+        f"Expected normal VaR to under-violate on t5 data; "
+        f"got {r_normal['violation_rate']:.4f}"
+    )
+    # Student-t VaR should be closer to alpha.
+    assert abs(r_t["violation_rate"] - alpha) < abs(r_normal["violation_rate"] - alpha), (
+        f"t VaR rate {r_t['violation_rate']:.4f} not closer to alpha={alpha} "
+        f"than normal rate {r_normal['violation_rate']:.4f}"
+    )
+
+
+def test_t_var_kupiec_high_on_heavy_tails():
+    """Kupiec test should not reject Student-t VaR on heavy-tailed data (p > 0.05)."""
+    rng = np.random.default_rng(77)
+    n = 6000
+    alpha = 0.05
+    sigma = 0.01
+    dof = 5
+    z = rng.standard_t(dof, size=n)
+    z_std = z / np.sqrt(dof / (dof - 2))
+    returns = sigma * z_std
+    fvar = np.full(n, sigma ** 2)
+
+    result = var_backtest(returns, fvar, alpha=alpha, dist="t")
+    assert result["kupiec_p"] > 0.05, (
+        f"Student-t VaR Kupiec p={result['kupiec_p']:.4f} should be > 0.05"
+    )
+
+
+# ---------------------------------------------------------------------------
+# 7. FHS VaR violation rate close to alpha on heavy-tailed data
+# ---------------------------------------------------------------------------
+
+def test_fhs_var_close_to_alpha_on_heavy_tails():
+    """FHS VaR should produce violation rate close to alpha on t5-distributed returns."""
+    rng = np.random.default_rng(55)
+    n = 6000
+    alpha = 0.05
+    sigma = 0.01
+    dof = 5
+    z = rng.standard_t(dof, size=n)
+    z_std = z / np.sqrt(dof / (dof - 2))
+    returns = sigma * z_std
+    fvar = np.full(n, sigma ** 2)
+
+    result = var_backtest(returns, fvar, alpha=alpha, dist="fhs")
+    # FHS uses empirical quantile so violation rate should match alpha closely.
+    assert abs(result["violation_rate"] - alpha) < 0.015, (
+        f"FHS violation rate {result['violation_rate']:.4f} too far from alpha={alpha}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# 8. DQ test: well-specified vs clustered violations
+# ---------------------------------------------------------------------------
+
+def test_dq_pvalue_high_for_well_specified():
+    """DQ p-value should be high (> 0.05) when violations are i.i.d. Bernoulli(alpha)."""
+    rng = np.random.default_rng(21)
+    n = 2000
+    alpha = 0.05
+    # Generate i.i.d. violations — no clustering, no autocorrelation.
+    viol = (rng.random(n) < alpha).astype(int)
+    fvar = np.full(n, 1e-4)
+
+    result = engle_manganelli_dq(viol, fvar, alpha=alpha, lags=4)
+    assert result["dq_pvalue"] > 0.01, (
+        f"DQ p-value {result['dq_pvalue']:.4f} should be > 0.01 for i.i.d. violations"
+    )
+
+
+def test_dq_pvalue_low_for_clustered_violations():
+    """DQ p-value should be low (< 0.10) when violations are strongly clustered."""
+    rng = np.random.default_rng(33)
+    n = 2000
+    alpha = 0.05
+    # Markov chain with very high persistence: P(viol|viol) = 0.9.
+    viol = np.zeros(n, dtype=int)
+    viol[0] = int(rng.random() < alpha)
+    for i in range(1, n):
+        if viol[i - 1] == 1:
+            viol[i] = int(rng.random() < 0.9)
+        else:
+            viol[i] = int(rng.random() < alpha / (1 - 0.9 * alpha) * alpha)
+    fvar = np.full(n, 1e-4)
+
+    result = engle_manganelli_dq(viol, fvar, alpha=alpha, lags=4)
+    assert result["dq_pvalue"] < 0.10, (
+        f"DQ p-value {result['dq_pvalue']:.4f} should be < 0.10 for clustered violations"
+    )
+
+
+def test_var_backtest_invalid_dist_raises():
+    """var_backtest must raise ValueError for unknown dist."""
+    rng = np.random.default_rng(7)
+    n = 100
+    returns = rng.normal(0, 0.01, n)
+    fvar = np.full(n, 1e-4)
+    with pytest.raises(ValueError, match="dist="):
+        var_backtest(returns, fvar, dist="cauchy")

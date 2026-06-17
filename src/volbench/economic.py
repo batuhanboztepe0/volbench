@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import numpy as np
 from scipy.stats import chi2, norm
+from scipy.stats import t as t_dist
 
 # ---------------------------------------------------------------------------
 # Internal helpers
@@ -352,20 +353,103 @@ def _christoffersen_lr(
     return lr_cc, p_val
 
 
+def engle_manganelli_dq(
+    violations: np.ndarray,
+    forecast_var: np.ndarray,
+    alpha: float,
+    lags: int = 4,
+) -> dict[str, float]:
+    """Engle-Manganelli (2004) Dynamic Quantile (DQ) test.
+
+    Regresses the centred hit series ``H_t = I_t - alpha`` on a constant,
+    ``lags`` lagged hits, and the contemporaneous ``forecast_var`` (as a proxy
+    for the VaR level). Under correct specification the regressors should be
+    orthogonal to ``H_t``.
+
+    The test statistic is::
+
+        DQ = (beta' X'X beta) / (alpha * (1 - alpha))  ~  chi2(k)
+
+    where ``k = 1 + lags + 1`` is the number of regressors.
+
+    Parameters
+    ----------
+    violations : np.ndarray
+        Boolean or integer array of VaR violations (1 = violation). Shape
+        ``(T,)``.
+    forecast_var : np.ndarray
+        Variance forecasts aligned to violations. Shape ``(T,)``.
+    alpha : float
+        Nominal VaR level used to build the hit series.
+    lags : int, default 4
+        Number of lagged hits included as regressors.
+
+    Returns
+    -------
+    dict[str, float]
+        Keys: ``dq_stat``, ``dq_pvalue``.
+    """
+    viol = np.asarray(violations, dtype=float).ravel()
+    fvar = np.asarray(forecast_var, dtype=float).ravel()
+    if viol.shape != fvar.shape:
+        raise ValueError(
+            f"violations and forecast_var must match in length, "
+            f"got {viol.shape} and {fvar.shape}"
+        )
+
+    T = viol.size
+    n = T - lags  # effective sample after consuming lags
+    if n <= lags + 2:
+        return {"dq_stat": float("nan"), "dq_pvalue": float("nan")}
+
+    hit = viol - alpha  # centred hit series H_t
+
+    # Build regressor matrix X: [const, H_{t-1}, ..., H_{t-lags}, fvar_t]
+    # Shape: (n, k) where k = 1 + lags + 1
+    k = 1 + lags + 1
+    X = np.empty((n, k))
+    X[:, 0] = 1.0
+    for lag in range(1, lags + 1):
+        X[:, lag] = hit[lags - lag : T - lag]
+    X[:, -1] = fvar[lags:]
+
+    y = hit[lags:]  # H_{t} for t = lags, ..., T-1
+
+    # OLS estimate: beta = (X'X)^{-1} X'y, but we only need beta for the stat.
+    try:
+        XtX = X.T @ X
+        Xty = X.T @ y
+        beta = np.linalg.solve(XtX, Xty)
+    except np.linalg.LinAlgError:
+        return {"dq_stat": float("nan"), "dq_pvalue": float("nan")}
+
+    dq_stat = float((beta @ XtX @ beta) / (alpha * (1.0 - alpha)))
+    dq_pvalue = float(chi2.sf(dq_stat, df=k))
+    return {"dq_stat": dq_stat, "dq_pvalue": dq_pvalue}
+
+
 def var_backtest(
     future_returns: np.ndarray,
     forecast_variance: np.ndarray,
     alpha: float = 0.05,
     dist: str = "normal",
 ) -> dict[str, float]:
-    """VaR backtest with Kupiec and Christoffersen coverage tests.
+    """VaR backtest with Kupiec, Christoffersen, and Dynamic Quantile tests.
 
-    The one-step (normal) VaR at level ``alpha`` is::
+    The one-step VaR at level ``alpha`` is computed as:
 
-        VaR_t = z_alpha * sqrt(forecast_variance[t])
+    * ``"normal"`` — ``VaR_t = norm.ppf(1-alpha) * sqrt(forecast_variance[t])``
+    * ``"t"`` — fit a Student-t to the standardised residuals
+      ``z_t = return_t / sqrt(forecast_variance[t])`` to estimate degrees of
+      freedom, then ``VaR_t = t.ppf(1-alpha, dof, scale=sqrt((dof-2)/dof)) *
+      sqrt(forecast_variance[t])`` (scale adjusted so the t distribution has
+      unit variance).
+    * ``"fhs"`` — filtered historical simulation: use the empirical
+      ``alpha``-quantile of standardised residuals
+      ``z_t = return_t / sqrt(forecast_variance[t])`` and multiply back by
+      ``sqrt(forecast_variance[t])``.
 
-    where ``z_alpha = norm.ppf(1 - alpha) > 0``. A violation occurs when
-    ``future_returns[t] < -VaR_t`` (the return exceeds the loss threshold).
+    A violation occurs when ``future_returns[t] < -VaR_t``.
 
     Parameters
     ----------
@@ -376,15 +460,16 @@ def var_backtest(
     alpha : float, default 0.05
         VaR confidence level (5 % tail).
     dist : str, default ``"normal"``
-        Only ``"normal"`` is currently supported.
+        Distribution assumption: ``"normal"``, ``"t"``, or ``"fhs"``.
 
     Returns
     -------
     dict[str, float]
         Keys: ``violation_rate``, ``expected_rate``, ``n_violations``, ``n``,
         ``kupiec_stat``, ``kupiec_p``, ``christoffersen_stat``,
-        ``christoffersen_p``.
+        ``christoffersen_p``, ``dq_stat``, ``dq_pvalue``.
     """
+    _VALID_DISTS = {"normal", "t", "fhs"}
     ret = np.asarray(future_returns, dtype=float).ravel()
     fvar = np.asarray(forecast_variance, dtype=float).ravel()
     if ret.shape != fvar.shape:
@@ -394,11 +479,28 @@ def var_backtest(
         )
     if ret.size == 0:
         raise ValueError("inputs are empty")
-    if dist != "normal":
-        raise ValueError(f"dist={dist!r} is not supported; only 'normal' is implemented")
+    if dist not in _VALID_DISTS:
+        raise ValueError(f"dist={dist!r} is not supported; choose from {_VALID_DISTS}")
 
-    z_alpha = float(norm.ppf(1.0 - alpha))  # positive quantile
-    var_t = z_alpha * np.sqrt(np.maximum(fvar, 0.0))
+    vol_t = np.sqrt(np.maximum(fvar, 0.0))
+    z = np.where(vol_t > 0.0, ret / vol_t, 0.0)  # standardised residuals
+
+    if dist == "normal":
+        z_alpha = float(norm.ppf(1.0 - alpha))
+        var_t = z_alpha * vol_t
+    elif dist == "t":
+        # Fit Student-t dof to the standardised residuals via MLE.
+        # scipy's t.fit returns (df, loc, scale); we fix loc=0.
+        fit_df, fit_loc, fit_scale = t_dist.fit(z, floc=0.0)
+        dof = max(float(fit_df), 2.1)  # guard: t variance needs dof > 2
+        # Scale so that the t distribution used for VaR has unit variance.
+        unit_var_scale = float(np.sqrt((dof - 2.0) / dof))
+        z_alpha_t = float(t_dist.ppf(1.0 - alpha, dof, scale=unit_var_scale))
+        var_t = z_alpha_t * vol_t
+    else:  # fhs
+        q_alpha = float(np.quantile(z, alpha))  # negative number for left tail
+        var_t = -q_alpha * vol_t
+
     violations = ret < -var_t  # boolean array
 
     n = int(ret.size)
@@ -417,6 +519,9 @@ def var_backtest(
 
     christoffersen_stat, christoffersen_p = _christoffersen_lr(n00, n01, n10, n11, alpha)
 
+    # Dynamic Quantile test.
+    dq = engle_manganelli_dq(violations.astype(int), fvar, alpha)
+
     return {
         "violation_rate": float(violation_rate),
         "expected_rate": float(alpha),
@@ -426,4 +531,6 @@ def var_backtest(
         "kupiec_p": float(kupiec_p),
         "christoffersen_stat": float(christoffersen_stat),
         "christoffersen_p": float(christoffersen_p),
+        "dq_stat": dq["dq_stat"],
+        "dq_pvalue": dq["dq_pvalue"],
     }
