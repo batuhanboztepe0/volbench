@@ -58,6 +58,26 @@ Its redistribution licence is unclear, so the `oxford_realized.csv` panel is
 the Internet Archive. If you build on this data, cite Heber et al. (2009) and the
 Oxford-Man Institute.
 
+## `crypto_realized.csv` (Track 3)
+
+Daily realized measures for four crypto assets (BTC, ETH, BNB, SOL), computed
+from **real Binance 5-minute klines** by `scripts/build_crypto.py`. Because the
+exchange exposes free intraday bars, this panel — unlike the equity one — is
+built from genuine high-frequency data, so it carries the *full* estimator suite
+including **realized quarticity** (`rq`), which enables HARQ on real data.
+
+- **Source:** Binance public REST API (`/api/v3/klines`, 5-minute interval).
+- **Construction:** for each UTC day (crypto trades 24/7, ~288 bars/day, no
+  overnight gap) we compute the measures with `volbench.realized`. Only daily
+  measures are stored, not the raw bars.
+- **Redistribution:** exchange-data terms are unclear, so the panel is **not
+  committed**; `build_crypto.py` regenerates it. Tests skip when it is absent.
+- **Units:** all measures are daily variances (decimal returns²). Annualise with
+  365 (24/7 trading), not 252.
+- **Columns:** `date`, `symbol`, `rv5`, `bv`, `medrv`, `rk_parzen`, `rsv`
+  (downside), `rsv_plus` (upside), `rq` (realized quarticity), `close_price`,
+  `open_to_close`, `nobs`.
+
 ## `vix.csv`
 
 CBOE Volatility Index (VIX), daily close, used by the variance-risk-premium

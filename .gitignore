@@ -18,6 +18,7 @@ venv/
 # `python scripts/build_realized.py` (pulls the Oxford-Man library from the
 # Internet Archive). See data/README.md for provenance.
 data/oxford_realized.csv
+data/crypto_realized.csv
 data/raw/
 
 # LaTeX build artifacts

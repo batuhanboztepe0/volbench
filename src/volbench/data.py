@@ -31,8 +31,10 @@ import pandas as pd
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _DEFAULT_CSV = _REPO_ROOT / "data" / "oxford_realized.csv"
 _DEFAULT_VIX_CSV = _REPO_ROOT / "data" / "vix.csv"
+_DEFAULT_CRYPTO_CSV = _REPO_ROOT / "data" / "crypto_realized.csv"
 
 TRADING_DAYS: int = 252
+CRYPTO_DAYS_PER_YEAR: int = 365  # crypto trades 24/7/365
 
 # Plausibility band for annualised volatility, used to catch a units mistake
 # (e.g. loading volatility as variance, or a mis-scaled column).
@@ -43,6 +45,11 @@ _MAX_ANN_VOL: float = 0.80
 DEFAULT_TICKERS: tuple[str, ...] = (
     ".SPX", ".DJI", ".FTSE", ".GDAXI", ".FCHI", ".STOXX50E", ".N225", ".HSI",
 )
+
+# Crypto coins (Track 3), built from real intraday bars by scripts/build_crypto.py.
+DEFAULT_COINS: tuple[str, ...] = ("BTC", "ETH", "BNB", "SOL")
+_MIN_CRYPTO_ANN_VOL: float = 0.10
+_MAX_CRYPTO_ANN_VOL: float = 3.00  # crypto can exceed 200% annualised
 
 # Raw realized-measure columns expected in the CSV (excluding date/symbol).
 _MEASURE_COLUMNS: tuple[str, ...] = (
@@ -202,6 +209,63 @@ def load_sp500_returns(
     if end is not None:
         ret = ret[ret.index <= pd.Timestamp(end)]
     return ret
+
+
+def load_crypto_rv(
+    path: str | Path | None = None,
+    coins: list[str] | tuple[str, ...] | None = None,
+) -> RealizedDataset:
+    """Load the crypto realized-measure panel (Track 3).
+
+    Built by ``scripts/build_crypto.py`` from real Binance 5-minute bars, so —
+    unlike the equity panel — it carries **realized quarticity** (``rq``),
+    enabling HARQ on real data. Crypto trades 24/7, so the units check annualises
+    by 365 and allows a wider volatility band.
+
+    Parameters
+    ----------
+    path : str or pathlib.Path, optional
+        CSV path; defaults to the bundled ``data/crypto_realized.csv`` (which is
+        fetched, not committed).
+    coins : sequence of str, optional
+        Subset of coins; defaults to all available.
+
+    Returns
+    -------
+    RealizedDataset
+        Per-coin frames with the derived jump/semivariance columns plus ``rq``.
+    """
+    csv = Path(path) if path is not None else _DEFAULT_CRYPTO_CSV
+    if not csv.exists():
+        raise FileNotFoundError(
+            f"crypto data not found at {csv}; run scripts/build_crypto.py to fetch it"
+        )
+    df = pd.read_csv(csv, parse_dates=["date"])
+    required = {"date", "symbol", "rv5", "bv", "medrv", "rk_parzen", "rsv", "rq", "close_price"}
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"crypto CSV missing required columns: {sorted(missing)}")
+
+    wanted = list(coins) if coins is not None else [
+        c for c in DEFAULT_COINS if c in set(df["symbol"])
+    ]
+    panel: dict[str, pd.DataFrame] = {}
+    for c in wanted:
+        sub = df[df["symbol"] == c].copy()
+        if sub.empty:
+            raise ValueError(f"coin {c!r} not present in {csv}")
+        sub = sub.sort_values("date").set_index("date").drop(columns=["symbol"])
+        rv = sub["rv5"].to_numpy(dtype=float)
+        if not np.all(np.isfinite(rv)) or np.any(rv <= 0):
+            raise ValueError(f"{c}: rv5 has non-finite or non-positive values")
+        ann_vol = float(np.sqrt(np.mean(rv) * CRYPTO_DAYS_PER_YEAR))
+        if not (_MIN_CRYPTO_ANN_VOL <= ann_vol <= _MAX_CRYPTO_ANN_VOL):
+            raise ValueError(
+                f"{c}: implied annualised vol {ann_vol:.3f} outside "
+                f"[{_MIN_CRYPTO_ANN_VOL}, {_MAX_CRYPTO_ANN_VOL}] — check data units"
+            )
+        panel[c] = _add_derived(sub)
+    return RealizedDataset(panel=panel)
 
 
 def load_vix(
