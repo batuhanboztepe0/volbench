@@ -53,6 +53,21 @@ simulated intraday returns).
 ### License / redistribution
 
 The Oxford-Man Realized Library was distributed for academic and research use.
-This repository redistributes a small subset purely so the benchmark is
-reproducible offline, with full attribution above. If you build on this data,
-cite Heber et al. (2009) and the Oxford-Man Institute.
+Its redistribution licence is unclear, so the `oxford_realized.csv` panel is
+**not committed** to the repository — `scripts/build_realized.py` fetches it from
+the Internet Archive. If you build on this data, cite Heber et al. (2009) and the
+Oxford-Man Institute.
+
+## `vix.csv`
+
+CBOE Volatility Index (VIX), daily close, used by the variance-risk-premium
+study (`volbench.vrp`).
+
+- **Source:** Federal Reserve Bank of St. Louis (FRED), series `VIXCLS`
+  (`https://fred.stlouisfed.org/series/VIXCLS`), which republishes CBOE's index.
+- **License:** public domain (FRED data) — committed directly to the repo;
+  `scripts/build_vix.py` refreshes it.
+- **Coverage:** 2000-01-03 to 2022-12-30, daily.
+- **Columns:** `date` (`YYYY-MM-DD`), `vix` (annualised implied volatility, in
+  percent). Convert to an implied **daily variance** with `(vix/100)**2 / 252`
+  before comparing to realized variance.

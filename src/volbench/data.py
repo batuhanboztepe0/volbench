@@ -30,6 +30,7 @@ import pandas as pd
 # Repo layout: this file is src/volbench/data.py -> repo root is parents[2].
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _DEFAULT_CSV = _REPO_ROOT / "data" / "oxford_realized.csv"
+_DEFAULT_VIX_CSV = _REPO_ROOT / "data" / "vix.csv"
 
 TRADING_DAYS: int = 252
 
@@ -201,3 +202,42 @@ def load_sp500_returns(
     if end is not None:
         ret = ret[ret.index <= pd.Timestamp(end)]
     return ret
+
+
+def load_vix(
+    path: str | Path | None = None,
+    start: str | None = None,
+    end: str | None = None,
+) -> pd.Series:
+    """Daily CBOE VIX close — implied volatility index, in annualised percent.
+
+    Public-domain data (FRED series ``VIXCLS``), bundled in ``data/vix.csv``.
+    To compare against a daily realized **variance**, convert with
+    ``(vix / 100) ** 2 / TRADING_DAYS`` (the implied daily variance). This is the
+    input to the variance-risk-premium analysis (``volbench.vrp``).
+
+    Parameters
+    ----------
+    path : str or pathlib.Path, optional
+        CSV path; defaults to the bundled ``data/vix.csv``.
+    start, end : str, optional
+        Optional ISO date bounds (inclusive).
+
+    Returns
+    -------
+    pandas.Series
+        Date-indexed VIX level named ``"vix"``.
+    """
+    csv = Path(path) if path is not None else _DEFAULT_VIX_CSV
+    if not csv.exists():
+        raise FileNotFoundError(
+            f"VIX data not found at {csv}; run scripts/build_vix.py to fetch it"
+        )
+    df = pd.read_csv(csv, parse_dates=["date"])
+    s = df.sort_values("date").set_index("date")["vix"].astype(float)
+    s.name = "vix"
+    if start is not None:
+        s = s[s.index >= pd.Timestamp(start)]
+    if end is not None:
+        s = s[s.index <= pd.Timestamp(end)]
+    return s
