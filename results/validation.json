@@ -3,11 +3,15 @@
   "n_steps": 390,
   "seed": 0,
   "clean": {
-    "rv_over_qv": 0.9990915120645101,
-    "bv_over_iv": 1.041687115474005,
-    "medrv_over_iv": 1.002165865668596,
-    "rvminusbv_over_jv": 0.9226569090132443,
-    "mean_jumps_per_day": 0.482
+    "rv_over_qv": 0.9996744606641282,
+    "bv_over_iv": 0.9978041446535617,
+    "medrv_over_iv": 0.9980623532977566
+  },
+  "jumps": {
+    "rv_over_qv": 0.999834473780892,
+    "bv_over_iv_with_jumps": 1.044349652307902,
+    "rvminusbv_over_jv": 0.9258507350369751,
+    "mean_jumps_per_day": 0.50425
   },
   "kernel_clean": {
     "rv_over_qv": 0.9985915041398482,

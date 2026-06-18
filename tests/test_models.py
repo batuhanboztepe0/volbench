@@ -252,20 +252,41 @@ def test_logshar_strictly_positive():
 # ---------------------------------------------------------------------------
 # Canonical no-look-ahead test
 # ---------------------------------------------------------------------------
+# Interior index at which the no-look-ahead probes corrupt their inputs. It must
+# be well inside the origin range so that origins t = _LEAK_IDX - k are themselves
+# valid forecast origins for every k in 1..h. Corrupting only the *final*
+# observation (the previous design) cannot detect look-ahead within the h-step
+# target window, because the origin that would consume rv[-1] does not exist.
+_LEAK_IDX = 350
+
+
 def _run_no_lookahead(model_1, model_2, rv1, rv2, horizon=5, min_train=120):
-    """
-    Run two model instances (one on original rv, one on corrupted rv where rv[-1]*=1000).
-    Check that forecasts at origins t < n-1-h are identical.
+    """Probe a forecaster for look-ahead by corrupting one interior observation.
+
+    A no-look-ahead forecaster at origin ``t`` uses ``rv`` only up to index ``t``,
+    so corrupting ``rv[c]`` must leave every forecast at origins ``t < c``
+    unchanged. Any model that peeks ``k >= 1`` steps ahead consumes ``rv[c]`` at
+    origin ``t = c - k < c`` and is therefore caught — including leakage of
+    ``1..h`` steps *within* the target window, which the old final-observation
+    probe missed. ``c`` is inferred from where ``rv1`` and ``rv2`` differ.
     """
     fc1, org1 = model_1.oos_forecast(rv1, horizon, min_train=min_train)
     fc2, org2 = model_2.oos_forecast(rv2, horizon, min_train=min_train)
-    n = rv1.size
-    # Origins where rv[-1] cannot be in the training window or prediction feature
-    mask = org1 < (n - 1 - horizon)
-    assert np.any(mask), "No origins satisfy the mask — extend n or reduce horizon"
+    np.testing.assert_array_equal(org1, org2)
+    diff = np.flatnonzero(np.asarray(rv1) != np.asarray(rv2))
+    assert diff.size, "rv2 is not corrupted — the probe would be vacuous"
+    c = int(diff.min())
+    before = org1 < c
+    assert np.any(before), "No origins before the corruption index — adjust _LEAK_IDX/min_train"
     np.testing.assert_allclose(
-        fc1[mask], fc2[mask], rtol=1e-10, atol=0.0,
-        err_msg="Look-ahead detected: forecast changed despite last obs outside training window"
+        fc1[before], fc2[before], rtol=1e-10, atol=0.0,
+        err_msg="Look-ahead detected: a forecast before the corrupted observation changed",
+    )
+    # Non-vacuity: the corruption must propagate to at least one later origin,
+    # otherwise the probe would pass for a model that ignores its inputs entirely.
+    after = org1 >= c
+    assert np.any(after) and not np.allclose(fc1[after], fc2[after], rtol=1e-10, atol=0.0), (
+        "Corruption did not affect any later forecast — the probe is vacuous"
     )
 
 
@@ -274,7 +295,7 @@ def test_no_lookahead_har_variants(model_name):
     rng = np.random.default_rng(7)
     rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
     rv2 = rv.copy()
-    rv2[-1] *= 1000.0
+    rv2[_LEAK_IDX] *= 1000.0
 
     model_map = {"HAR": HAR, "LogHAR": LogHAR, "AR1Log": AR1Log}
     cls = model_map[model_name]
@@ -287,9 +308,9 @@ def test_no_lookahead_harj(log):
     rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
     _, jump, _, _ = _make_measures(rv)
     rv2 = rv.copy()
-    rv2[-1] *= 1000.0
+    rv2[_LEAK_IDX] *= 1000.0
     jump2 = jump.copy()
-    jump2[-1] *= 1000.0
+    jump2[_LEAK_IDX] *= 1000.0
     _run_no_lookahead(HARJ(jump, log=log), HARJ(jump2, log=log), rv, rv2)
 
 
@@ -299,11 +320,11 @@ def test_no_lookahead_harcj(log):
     rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
     cont, jump, _, _ = _make_measures(rv)
     rv2 = rv.copy()
-    rv2[-1] *= 1000.0
+    rv2[_LEAK_IDX] *= 1000.0
     cont2 = cont.copy()
-    cont2[-1] *= 1000.0
+    cont2[_LEAK_IDX] *= 1000.0
     jump2 = jump.copy()
-    jump2[-1] *= 1000.0
+    jump2[_LEAK_IDX] *= 1000.0
     _run_no_lookahead(HARCJ(cont, jump, log=log), HARCJ(cont2, jump2, log=log), rv, rv2)
 
 
@@ -313,11 +334,11 @@ def test_no_lookahead_shar(log):
     rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
     _, _, rsv_minus, rsv_plus = _make_measures(rv)
     rv2 = rv.copy()
-    rv2[-1] *= 1000.0
+    rv2[_LEAK_IDX] *= 1000.0
     rsv_minus2 = rsv_minus.copy()
-    rsv_minus2[-1] *= 1000.0
+    rsv_minus2[_LEAK_IDX] *= 1000.0
     rsv_plus2 = rsv_plus.copy()
-    rsv_plus2[-1] *= 1000.0
+    rsv_plus2[_LEAK_IDX] *= 1000.0
     _run_no_lookahead(
         SHAR(rsv_minus, rsv_plus, log=log),
         SHAR(rsv_minus2, rsv_plus2, log=log),
@@ -329,5 +350,16 @@ def test_no_lookahead_gbrt():
     rng = np.random.default_rng(11)
     rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
     rv2 = rv.copy()
-    rv2[-1] *= 1000.0
+    rv2[_LEAK_IDX] *= 1000.0
     _run_no_lookahead(GBRT(refit_every=50), GBRT(refit_every=50), rv, rv2)
+
+
+def test_no_lookahead_harq():
+    rng = np.random.default_rng(12)
+    rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
+    rq = np.abs(rng.standard_normal(700)) * 1e-8 + 1e-8
+    rv2 = rv.copy()
+    rv2[_LEAK_IDX] *= 1000.0
+    rq2 = rq.copy()
+    rq2[_LEAK_IDX] *= 1000.0
+    _run_no_lookahead(HARQ(rq), HARQ(rq2), rv, rv2)

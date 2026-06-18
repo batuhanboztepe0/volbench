@@ -69,20 +69,38 @@ def validate(days: int = 4000, seed: int = 0) -> dict:
     """
     n_steps = 390
 
-    # --- Experiment 1: continuous + jumps, no microstructure noise. ----------
-    sim = simulate_many_days(
+    # --- Experiment 1a: pure continuous price (no jumps, no noise). The
+    #     jump-robust estimators (BV, medRV) are only *asymptotically* jump-robust,
+    #     so their unbiasedness target of 1.00 is only meaningful on jump-free
+    #     paths (here QV == IV). Validating "BV/IV = 1.00" on jump-contaminated
+    #     data conflated the estimator with the scenario. -----------------------
+    sim_clean = simulate_many_days(
         days, seed=seed, n_steps=n_steps, ann_vol=0.20, kappa=5.0, vol_of_vol=0.8,
+        jump_intensity=0.0, jump_size_vol=0.0, noise_ratio=0.0,
+    )
+    rv0 = np.array([realized_variance(r) for r in sim_clean["returns"]])
+    bv0 = np.array([bipower_variation(r) for r in sim_clean["returns"]])
+    mrv0 = np.array([median_rv(r) for r in sim_clean["returns"]])
+    clean = {
+        "rv_over_qv": _aggregate_ratio(rv0, sim_clean["qv"]),
+        "bv_over_iv": _aggregate_ratio(bv0, sim_clean["iv"]),
+        "medrv_over_iv": _aggregate_ratio(mrv0, sim_clean["iv"]),
+    }
+
+    # --- Experiment 1b: continuous + jumps. Validates the jump-variation
+    #     decomposition (RV-BV)/JV and the jump count, and reports BV/IV *under
+    #     jumps* — which carries a known finite-sample upward bias at M=390 (BV is
+    #     jump-robust only as M -> inf), not a 1.00 target. ---------------------
+    sim = simulate_many_days(
+        days, seed=seed + 5, n_steps=n_steps, ann_vol=0.20, kappa=5.0, vol_of_vol=0.8,
         jump_intensity=0.5, jump_size_vol=0.012, noise_ratio=0.0,
     )
     rv = np.array([realized_variance(r) for r in sim["returns"]])
     bv = np.array([bipower_variation(r) for r in sim["returns"]])
-    mrv = np.array([median_rv(r) for r in sim["returns"]])
     iv, jv, qv = sim["iv"], sim["jv"], sim["qv"]
-
-    clean = {
+    jumps = {
         "rv_over_qv": _aggregate_ratio(rv, qv),
-        "bv_over_iv": _aggregate_ratio(bv, iv),
-        "medrv_over_iv": _aggregate_ratio(mrv, iv),
+        "bv_over_iv_with_jumps": _aggregate_ratio(bv, iv),
         "rvminusbv_over_jv": _aggregate_ratio(np.maximum(rv - bv, 0.0), jv),
         "mean_jumps_per_day": float(np.mean(sim["n_jumps"])),
     }
@@ -142,6 +160,7 @@ def validate(days: int = 4000, seed: int = 0) -> dict:
         "n_steps": n_steps,
         "seed": seed,
         "clean": clean,
+        "jumps": jumps,
         "kernel_clean": kernel_clean,
         "noisy": noisy,
         "jump_test": jump_test,
@@ -155,7 +174,8 @@ def _print_table(res: dict) -> None:
         ("RV / QV (clean)", res["clean"]["rv_over_qv"], 1.0),
         ("BV / IV (clean)", res["clean"]["bv_over_iv"], 1.0),
         ("medRV / IV (clean)", res["clean"]["medrv_over_iv"], 1.0),
-        ("(RV - BV) / JV", res["clean"]["rvminusbv_over_jv"], 1.0),
+        ("BV / IV (with jumps)", res["jumps"]["bv_over_iv_with_jumps"], None),
+        ("(RV - BV) / JV", res["jumps"]["rvminusbv_over_jv"], 1.0),
         ("RK / QV (clean)", res["kernel_clean"]["rk_over_qv"], 1.0),
         ("RV / QV (noise)", res["noisy"]["rv_over_qv"], None),
         ("RK / QV (noise)", res["noisy"]["rk_over_qv"], 1.0),

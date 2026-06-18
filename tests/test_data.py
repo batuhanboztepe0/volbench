@@ -8,12 +8,11 @@ import pytest
 from volbench.data import (
     _DEFAULT_CSV,
     DEFAULT_TICKERS,
+    TRADING_DAYS,
     RealizedDataset,
     load_oxford_rv,
     load_sp500_returns,
 )
-
-TRADING_DAYS = 252
 
 # The Oxford-Man data is not redistributed in the repo; skip these tests until it
 # has been fetched with `python scripts/build_realized.py`.

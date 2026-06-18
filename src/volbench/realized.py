@@ -230,8 +230,12 @@ def subsampled_rv(intraday_returns: np.ndarray, n_grids: int = 5) -> float:
         estimates.append(np.sum(coarse_returns ** 2))
     if not estimates:
         return realized_variance(r)
-    # Rescale: coarse grids span ~1/n_grids of the observations; multiply back.
-    return float(np.mean(estimates) * n_grids)
+    # Each offset grid aggregates *consecutive* returns into blocks that tile the
+    # whole series, so its sum of coarse squared returns already estimates the full
+    # daily QV; the average over offsets is the subsampled estimator. (No n_grids
+    # rescaling: that would be correct only for sparse skip-K subsampling, where
+    # each grid spans ~1/n_grids of the observations — not for dense blocking.)
+    return float(np.mean(estimates))
 
 
 def bns_jump_test(intraday_returns: np.ndarray) -> dict[str, float]:

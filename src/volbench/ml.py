@@ -6,9 +6,10 @@ LightGBM, XGBoost and a small MLP, each:
 
 * fit in **log-variance** space (positivity, as required for any unbounded
   additive learner — see ``ROADMAP.md`` invariant 2),
-* with hyperparameters chosen by a **strict expanding-window inner CV** that only
-  ever sees data available at the origin (no leakage — the single most common
-  silent error in ML volatility studies),
+* with hyperparameters chosen **once on the first training window** by a strict
+  expanding-window inner CV that only ever sees data available at the origin (no
+  leakage — the single most common silent error in ML volatility studies); only
+  the model is then refit on the growing window,
 * on two feature sets: a **plain** HAR set and an **enriched** set that adds the
   continuous/jump decomposition, the realized semivariances and (optionally)
   peer indices' lagged realized variance.
@@ -160,7 +161,9 @@ class MLForecaster(VolForecaster):
     name : str
         Display name.
     refit_every : int, default 250
-        Origins between refits (and inner-CV hyperparameter re-selection).
+        Origins between model refits on the expanding window. Hyperparameters are
+        selected once by leakage-free inner CV on the first training window and
+        then reused; only the model is refit every ``refit_every`` origins.
     random_state : int, default 0
         Seed for the estimators.
     """

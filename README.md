@@ -3,7 +3,7 @@
 [![CI](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml/badge.svg)](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.9%20%7C%203.11-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-184-brightgreen)
+![Tests](https://img.shields.io/badge/tests-197-brightgreen)
 
 **A reproducible out-of-sample benchmark for realized-volatility forecasting.**
 
@@ -105,21 +105,36 @@ measures, the benchmark goes past "HAR vs everything":
   backtests (Kupiec / Christoffersen / Engle–Manganelli DQ), and a Black–Scholes
   option-pricing loss. The statistically-best model is *not* a clean economic
   winner: log-HAR delivers the most accurate option prices, but a simple EWMA
-  edges it on vol-targeted Sharpe. Normal VaR under-covers 5% (fat tails), and a
-  **Student-t / filtered-historical-simulation VaR fixes coverage** (FHS hits a
-  0.050 exceedance rate, DQ p = 0.85). `scripts/run_economic.py`.
+  edges it on vol-targeted Sharpe. On real index data normal VaR **under-covers**
+  the 5% tail (log-HAR: ~9.1% exceedances, averaged over 8 indices); a **Student-t
+  tail does not help** (~9.1% — at the 5% level the unit-variance t quantile is
+  *less* extreme than the normal), while **FHS substantially improves
+  unconditional coverage** (~6.5%, calibrated out-of-sample on a warm-up block).
+  None fully passes the Engle–Manganelli dynamic-quantile test on real data, so
+  the residual miss is in the conditional dynamics, not just the tail shape.
+  `scripts/run_economic.py`.
 - **The edge — variance risk premium.** A good RV forecast monetises through the
   variance risk premium: on the S&P 500, implied vol (VIX) averages 21.5% vs
   16.3% realized — the premium is positive **92% of days**. Selling variance
   earns a Sharpe of 1.45; **timing it with the log-HAR forecast lifts the Sharpe
   to 1.60 and cuts max drawdown by ~65%** (you scale down when your forecast says
-  implied is only fairly priced). `scripts/run_vrp.py`.
+  implied is only fairly priced). These Sharpes are gross of transaction costs and
+  computed on overlapping 22-day variance-swap payoffs (so the absolute level is
+  inflated vs a non-overlapping annualisation — read the *lift* over the naive book
+  and the drawdown cut, both of which survive realistic costs). On the honest,
+  **non-overlapping** payoffs the per-swap Sharpe is ~0.38, and the edge stays
+  decisive after a **Deflated Sharpe** test (PSR ≈ DSR ≈ 0.9996, deflating for the
+  three book configurations tried) — the variance risk premium is real, not a
+  selection artifact. `scripts/run_vrp.py`.
 - **The edge — volatility targeting.** Scaling exposure by `target_vol /
-  forecast_vol` (net of costs) holds realized vol near target and roughly
-  **halves max drawdown vs buy-and-hold** (−0.40 vs −0.62 across 8 indices); it
-  improves Sharpe on US indices, and a jump/regime overlay trims drawdown
-  further. A risk-control product, reported honestly — vol targeting is not free
-  alpha. `scripts/run_strategy.py`.
+  forecast_vol` (net of costs) holds realized vol near target and **cuts max
+  drawdown by 20–49% (median ~34%) vs buy-and-hold** (−0.40 vs −0.62 across 8
+  indices — close to halving only on the US indices); it improves Sharpe on US
+  indices, and a jump/regime overlay trims drawdown further. A **Probabilistic
+  Sharpe** check makes the nuance explicit: the targeted Sharpe is credibly > 0
+  only on the US indices (PSR ≈ 0.96 for SPX/DJI) and is **indistinguishable from
+  zero** on FTSE/CAC/STOXX (PSR < 0.5). A risk-control product, reported honestly —
+  vol targeting is not free alpha. `scripts/run_strategy.py`.
 - **Crypto generality test (Track 3).** Computed from real Binance 5-minute
   bars for BTC/ETH/BNB/SOL (69%–134% annualised vol), so the *full* estimator
   suite — including realized quarticity — runs on real data for the first time.
@@ -128,7 +143,10 @@ measures, the benchmark goes past "HAR vs everything":
   with equities: **HARQ (now testable on real quarticity) does not transfer** —
   crypto's heavy-tailed RQ makes it the worst model — and **cross-coin spillover
   is weak** (CrossHAR only marginally beats log-HAR on BTC, p≈0.09). A real-data
-  signature plot confirms the microstructure-noise inflation on BTC.
+  signature plot confirms the microstructure-noise inflation on BTC. *Caveat:* the
+  four coins are large assets that **survive today** (a dead coin such as LUNA is
+  not in the panel), so this is a "log-HAR generalises to surviving major coins"
+  result, not a claim over the full cross-section.
   `scripts/build_crypto.py`, `scripts/run_crypto.py`.
 - **Regime analysis.** Splitting the 2000–2022 sample into calm vs turbulent
   states and into the GFC and COVID crisis windows, then re-running the MCS in
@@ -147,15 +165,21 @@ intraday paths with **known** integrated variance and jump variation
 
 | Check                                   | Result | Target |
 |-----------------------------------------|-------:|-------:|
-| Realized variance / quadratic variation | 0.999  | 1.0    |
-| Bipower variation / integrated variance | 1.042  | 1.0    |
-| Median RV / integrated variance         | 1.002  | 1.0    |
-| (RV − bipower) / jump variation         | 0.923  | ~1.0   |
+| Realized variance / quadratic variation | 1.000  | 1.0    |
+| Bipower variation / integrated variance (clean) | 0.998 | 1.0 |
+| Median RV / integrated variance         | 0.998  | 1.0    |
+| Bipower variation / integrated variance (with jumps) | 1.044 | — (finite-*M* bias) |
+| (RV − bipower) / jump variation         | 0.926  | ~1.0   |
 | Realized kernel / QV (clean)            | 1.003  | 1.0    |
 | **Realized variance / QV (with noise)** | **3.00** (inflated) | — |
 | **Realized kernel / QV (with noise)**   | **1.008** (robust)  | 1.0 |
 | Jump-test false-positive rate @ 5%      | 0.052  | 0.05   |
 | Jump-test detection rate (injected)     | 0.938  | high   |
+
+Bipower variation is jump-robust only *asymptotically*: on jump-free paths it is
+unbiased (0.998), but on jump-contaminated days at *M* = 390 it carries a known
+finite-sample upward bias (1.044) — which is exactly why the headline forecasters
+model log-variance rather than relying on a level jump correction.
 
 The microstructure point is the classic **volatility signature plot**
 (`results/figures/signature_plot.png`): under additive noise, realized variance
@@ -206,7 +230,7 @@ volbench/
 ├── scripts/             # run_{benchmark,garch,har_family,multivariate,ml,economic,
 │   │                    #   vrp,strategy,regime,crypto}, validate_estimators,
 │   │                    #   make_figures, build_{realized,vix,crypto}
-├── tests/               # pytest suite (184 tests)
+├── tests/               # pytest suite (197 tests)
 ├── data/                # VIX (committed) + provenance; RV and crypto CSVs are fetched
 ├── results/             # tables, figures, JSON summaries (the deliverable)
 ├── docs/                # write-up: "why log-HAR is hard to beat"
@@ -251,7 +275,7 @@ python scripts/run_regime.py             # results/regime.json
 python scripts/build_crypto.py           # data/crypto_realized.csv (Binance 5-min bars)
 python scripts/run_crypto.py             # results/crypto.json  (Track 3: BTC/ETH/BNB/SOL)
 python scripts/make_figures.py           # results/figures/*.png
-pytest -q                                # 184 tests
+pytest -q                                # 197 tests
 ```
 
 Minimal programmatic use:

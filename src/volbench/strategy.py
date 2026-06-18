@@ -13,6 +13,8 @@ from __future__ import annotations
 
 import numpy as np
 
+from .deflated_sharpe import per_period_sharpe, probabilistic_sharpe_ratio
+
 # ---------------------------------------------------------------------------
 # Internal helpers (same pattern as economic.py)
 # ---------------------------------------------------------------------------
@@ -104,6 +106,11 @@ def _book_stats(
         "bh_sharpe": bh_sharpe,
         "bh_ann_vol": bh_ann_vol,
         "bh_max_drawdown": bh_mdd,
+        # Honest Sharpe: per-period Sharpe and the probability the *true* Sharpe is
+        # > 0 once skew, fat tails and sample length are accounted for (daily,
+        # non-overlapping returns, so n_eff = n).
+        "sharpe_pp": per_period_sharpe(strat_ret),
+        "psr": probabilistic_sharpe_ratio(strat_ret),
     }
 
 

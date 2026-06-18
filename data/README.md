@@ -72,6 +72,9 @@ including **realized quarticity** (`rq`), which enables HARQ on real data.
   measures are stored, not the raw bars.
 - **Redistribution:** exchange-data terms are unclear, so the panel is **not
   committed**; `build_crypto.py` regenerates it. Tests skip when it is absent.
+- **Survivorship:** the four coins are large assets still trading today, hardcoded
+  in `build_crypto.py`. A coin that has since died (e.g. LUNA) is not included, so
+  Track-3 results are over *surviving major* coins, not the full cross-section.
 - **Units:** all measures are daily variances (decimal returns²). Annualise with
   365 (24/7 trading), not 252.
 - **Columns:** `date`, `symbol`, `rv5`, `bv`, `medrv`, `rk_parzen`, `rsv`

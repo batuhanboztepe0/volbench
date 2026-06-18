@@ -325,6 +325,14 @@ class _LinearHARBase(VolForecaster):
                 resid = y_fit - X_train @ beta
                 s2 = float(resid @ resid) / max(resid.size - X_train.shape[1], 1)
                 pred = float(np.exp(pred + 0.5 * s2))
+            else:
+                # Level-space HAR can extrapolate to a non-positive or huge value;
+                # clamp to the training support so a numerical artifact cannot
+                # dominate the QLIKE mean (ROADMAP invariant 2), matching HARQ and
+                # the measure-augmented HAR models.
+                lo = max(float(np.min(y_train)) * 0.1, _LOG_FLOOR)
+                hi = float(np.max(y_train)) * 10.0
+                pred = min(max(pred, lo), hi)
             forecasts[k] = pred
         return forecasts, origins
 
@@ -526,6 +534,10 @@ class GBRT(VolForecaster):
                 model.fit(feats[rows], log_target[rows])
                 in_sample = model.predict(feats[rows])
                 resid = log_target[rows] - in_sample
+                # n-1 denominator (not n-p): the effective number of parameters of a
+                # gradient-boosted tree ensemble is not its feature count, so an OLS
+                # degrees-of-freedom correction does not apply. The choice shifts all
+                # GBRT forecasts by a common factor of <0.1% and is rank-irrelevant.
                 log_resid_var = float(resid @ resid) / max(resid.size - 1, 1)
             log_pred = float(model.predict(feats[t : t + 1])[0])
             forecasts[k] = float(np.exp(log_pred + 0.5 * log_resid_var))

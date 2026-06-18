@@ -49,7 +49,10 @@ def test_vrp_strategy_keys():
     assert set(out.keys()) == {"always_short", "timed", "longshort", "dm_timed_vs_always_short"}
     for book in ("always_short", "timed", "longshort"):
         stats = out[book]
-        assert set(stats.keys()) == {"ann_sharpe", "hit_rate", "mean_pnl", "total_pnl", "max_drawdown"}
+        assert set(stats.keys()) == {
+            "ann_sharpe", "hit_rate", "mean_pnl", "total_pnl", "max_drawdown",
+            "sharpe_pp", "psr", "dsr",
+        }
 
 
 def test_vrp_strategy_shapes_finite():

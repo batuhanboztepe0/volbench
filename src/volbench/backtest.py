@@ -91,7 +91,8 @@ def run_backtest(
     mcs_reps : int, default 2000
         Bootstrap replications for the MCS.
     block_length : int, default 10
-        Moving-block-bootstrap block length for the MCS.
+        Moving-block-bootstrap block length for the MCS. Floored at ``horizon + 2``
+        internally so overlapping multi-step losses are not under-blocked.
     seed : int, optional, default 0
         Seed for the MCS bootstrap.
     benchmark : str, default ``"HAR"``
@@ -141,10 +142,16 @@ def run_backtest(
     # MCS + Diebold-Mariano on the proxy-robust ranking losses only.
     mcs: dict[str, MCSResult] = {}
     dm_vs_har: dict[str, dict[str, dict[str, float]]] = {}
+    # Overlapping h-step forecast losses are autocorrelated up to lag h-1, so the
+    # moving-block bootstrap needs blocks at least that long to capture the
+    # dependence; otherwise the MCS null distribution is too narrow and the test
+    # over-rejects (spurious eliminations) — badly so at h=22 with the default
+    # block of 10. Floor the block length at horizon+2.
+    mcs_block = max(block_length, horizon + 2)
     for loss_name in RANKING_LOSSES:
         per_model = losses[loss_name]
         mcs[loss_name] = model_confidence_set(
-            per_model, alpha=mcs_alpha, block_length=block_length, reps=mcs_reps, seed=seed
+            per_model, alpha=mcs_alpha, block_length=mcs_block, reps=mcs_reps, seed=seed
         )
         bench_loss = per_model[benchmark]
         dm_vs_har[loss_name] = {

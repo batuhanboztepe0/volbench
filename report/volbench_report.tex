@@ -97,10 +97,11 @@ stays on the true quadratic variation.
 \toprule
 Check & Result & Target \\
 \midrule
-Realized variance / quadratic variation & 0.999 & 1.0 \\
-Bipower variation / integrated variance & 1.042 & 1.0 \\
-Median RV / integrated variance & 1.002 & 1.0 \\
-(RV $-$ bipower) / jump variation & 0.923 & $\approx$1.0 \\
+Realized variance / quadratic variation & 1.000 & 1.0 \\
+Bipower variation / integrated variance (clean) & 0.998 & 1.0 \\
+Median RV / integrated variance & 0.998 & 1.0 \\
+Bipower variation / integrated variance (with jumps) & 1.044 & --- (finite-$M$ bias) \\
+(RV $-$ bipower) / jump variation & 0.926 & $\approx$1.0 \\
 Realized kernel / QV (clean) & 1.003 & 1.0 \\
 Realized variance / QV (with noise) & 3.00 (inflated) & --- \\
 Realized kernel / QV (with noise) & 1.008 (robust) & 1.0 \\
@@ -294,11 +295,17 @@ tradable volatility instrument and through risk control. Three results connect
 the benchmark to deployment.
 
 \paragraph{Fat-tailed VaR.} Daily index returns are heavy-tailed, so a Gaussian
-value-at-risk under-covers. Replacing the normal quantile with a Student-t or a
-filtered-historical-simulation (FHS) quantile fixes coverage: on heavy-tailed
-returns the FHS VaR hits a 0.050 exceedance rate (Kupiec $p=1.0$) and passes the
-Engle--Manganelli dynamic-quantile test ($p=0.85$), where the normal VaR is
-rejected.
+value-at-risk under-covers: on real index data the normal $5\%$ VaR is breached on
+about $9.1\%$ of days (log-HAR forecasts, averaged over the eight indices). A
+Student-t tail does \emph{not} help --- at the $5\%$ level the unit-variance $t$
+quantile is less extreme than the normal, giving $\approx 9.1\%$ exceedances. A
+filtered-historical-simulation (FHS) quantile, calibrated out-of-sample on a
+leading warm-up block, substantially improves unconditional coverage
+($\approx 6.5\%$), but none of the three fully passes the Engle--Manganelli
+dynamic-quantile test on real data: the residual mis-specification lies in the
+conditional dynamics (volatility clustering the point forecast misses), not in the
+tail shape alone. (On i.i.d.\ heavy-tailed simulation, where the conditional mean
+of variance is constant, FHS does recover a $\approx 5\%$ rate.)
 
 \paragraph{The variance risk premium.} The cleanest monetisation of a validated
 $E[\text{RV}]$ is the variance risk premium, implied minus realized variance. On
@@ -307,13 +314,19 @@ realized, and the premium is positive on $92\%$ of days. A naive short-variance
 book earns an annualised Sharpe of $1.45$; \emph{timing} it with the log-HAR
 forecast --- scaling the short down when the forecast says implied is only fairly
 priced --- raises the Sharpe to $1.60$ and cuts maximum drawdown by about
-$65\%$. The naive book earns more absolute dollars (the timed book deliberately
-takes less risk), but on a risk-adjusted basis the forecast adds value.
+$65\%$. These Sharpes are gross of transaction costs and computed on overlapping
+$22$-day variance-swap payoffs, so the absolute levels are inflated relative to a
+non-overlapping annualisation; the meaningful results are the \emph{lift} over the
+naive book and the drawdown reduction, both of which survive realistic
+variance-swap costs. The naive book earns more absolute dollars (the timed book
+deliberately takes less risk), but on a risk-adjusted basis the forecast adds
+value.
 
 \paragraph{Volatility targeting.} Scaling exposure by
 $\text{target vol}/\text{forecast vol}$, net of transaction costs, holds realised
-volatility near target and roughly \emph{halves} maximum drawdown versus
-buy-and-hold ($-0.40$ vs $-0.62$ averaged over the eight indices). It improves
+volatility near target and reduces maximum drawdown by $20$--$49\%$ (median
+$\approx 34\%$) versus buy-and-hold ($-0.40$ vs $-0.62$ averaged over the eight
+indices --- close to halving only on the US indices). It improves
 the Sharpe ratio on the US indices, and a jump/regime de-risking overlay trims
 drawdown further. Honestly, on the cross-section a smoother EWMA forecast can
 match log-HAR as the sizing input because it turns over less; vol targeting is a
@@ -343,6 +356,14 @@ and insignificantly on the others, unlike the strong, uniform spillover among
 equity indices. The structure that wins is the same (log-space HAR), but the
 cross-asset and measurement-error refinements that help (or are neutral) for
 equities do not carry over.
+
+One honest limitation of the crypto panel is \emph{survivorship}: the four coins
+(BTC, ETH, BNB, SOL) are large assets selected because they are liquid and still
+trading today, so a coin that died (e.g.\ LUNA/Terra) is absent. The result is
+therefore that log-HAR generalises to \emph{surviving major} coins, not a claim
+over the full, delisting-inclusive cross-section. The equity panel does not share
+this issue --- it is a fixed set of major indices, which are not delisted for poor
+performance.
 
 \begin{figure}[h]
 \centering

@@ -59,6 +59,34 @@ def test_dm_result_keys():
     assert set(res.keys()) == {"mean_diff", "dm_stat", "p_value", "favored", "n"}
 
 
+def test_dm_horizon_sets_newey_west_lag_and_matters():
+    """At h>1 the loss differentials are autocorrelated; the HAC path must run.
+
+    Multi-step (overlapping) forecast errors give an MA(h-1) loss differential.
+    `horizon=h` must default the Newey-West truncation lag to h-1 (so it matches an
+    explicit `lag=h-1`), and that correction must actually change the statistic
+    relative to ignoring the autocorrelation (lag 0). Previously no test exercised
+    horizon>1, leaving this path unguarded.
+    """
+    rng = np.random.default_rng(123)
+    n = 1000
+    eps = rng.standard_normal(n + 4)
+    # MA(4) loss differential, as produced by overlapping h=5 forecast errors.
+    d = eps[4:] + eps[3:-1] + eps[2:-2] + eps[1:-3] + eps[:-4]
+    loss_a = 10.0 + d
+    loss_b = np.full(n, 10.0)
+
+    res_h5 = diebold_mariano(loss_a, loss_b, horizon=5)
+    res_h5_explicit = diebold_mariano(loss_a, loss_b, horizon=5, lag=4)
+    # horizon=5 must default the HAC lag to h-1=4.
+    assert res_h5["dm_stat"] == pytest.approx(res_h5_explicit["dm_stat"], rel=1e-12)
+
+    # Ignoring the positive autocorrelation (lag 0) under-estimates the long-run
+    # variance and inflates the statistic, so the HAC correction genuinely bites.
+    res_lag0 = diebold_mariano(loss_a, loss_b, horizon=5, lag=0)
+    assert abs(res_lag0["dm_stat"]) > abs(res_h5["dm_stat"])
+
+
 def test_dm_n_matches_input():
     n = 250
     loss = _loss_array(n)

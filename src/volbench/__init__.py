@@ -38,6 +38,12 @@ from .data import (
     load_sp500_returns,
     load_vix,
 )
+from .deflated_sharpe import (
+    deflated_sharpe_ratio,
+    expected_max_sharpe,
+    per_period_sharpe,
+    probabilistic_sharpe_ratio,
+)
 from .economic import (
     black_scholes_price,
     engle_manganelli_dq,
@@ -165,6 +171,11 @@ __all__ = [
     "CrossHAR",
     "align_panel",
     "spillover_backtest",
+    # deflated / probabilistic Sharpe (honest edge evaluation)
+    "probabilistic_sharpe_ratio",
+    "deflated_sharpe_ratio",
+    "expected_max_sharpe",
+    "per_period_sharpe",
     # variance risk premium (Tier 2D edge)
     "variance_risk_premium",
     "vrp_strategy",

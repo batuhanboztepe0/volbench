@@ -13,56 +13,136 @@
     ".SPX": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": 0.059343980570629305,
-          "ann_vol": 0.11736607287656851,
-          "sharpe": 0.5056314752308374,
-          "max_drawdown": -0.30464190293561955,
-          "turnover": 0.09535066866456197,
+          "ann_return": 0.05934398057062923,
+          "ann_vol": 0.1173660728765685,
+          "sharpe": 0.5056314752308367,
+          "max_drawdown": -0.3046419029356198,
+          "turnover": 0.09535066866456199,
           "avg_leverage": 0.932575112770171,
           "bh_sharpe": 0.3431863324262508,
           "bh_ann_vol": 0.19329063480949596
         },
         "var_backtest": {
-          "violation_rate": 0.07958820035636507,
+          "violation_rate": 0.08108108108108109,
           "expected_rate": 0.05,
-          "n_violations": 402.0,
-          "n": 5051.0,
-          "kupiec_stat": 79.53742530933783,
-          "kupiec_p": 4.73176781370621e-19,
-          "christoffersen_stat": 79.637997523752,
-          "christoffersen_p": 5.091298530211269e-18
+          "n_violations": 369.0,
+          "n": 4551.0,
+          "kupiec_stat": 78.54798817922511,
+          "kupiec_p": 7.807831025907682e-19,
+          "christoffersen_stat": 78.61475528986688,
+          "christoffersen_p": 8.49225039131665e-18,
+          "dq_stat": 110.01234190021852,
+          "dq_pvalue": 2.026299734953274e-21
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08108108108108109,
+            "expected_rate": 0.05,
+            "n_violations": 369.0,
+            "n": 4551.0,
+            "kupiec_stat": 78.54798817922511,
+            "kupiec_p": 7.807831025907682e-19,
+            "christoffersen_stat": 78.61475528986688,
+            "christoffersen_p": 8.49225039131665e-18,
+            "dq_stat": 110.01234190021852,
+            "dq_pvalue": 2.026299734953274e-21
+          },
+          "t": {
+            "violation_rate": 0.08174027686222808,
+            "expected_rate": 0.05,
+            "n_violations": 372.0,
+            "n": 4551.0,
+            "kupiec_stat": 81.67460964674041,
+            "kupiec_p": 1.6044150156908764e-19,
+            "christoffersen_stat": 81.74930374066543,
+            "christoffersen_p": 1.7715941723193432e-18,
+            "dq_stat": 116.94406404080446,
+            "dq_pvalue": 7.13900159208947e-23
+          },
+          "fhs": {
+            "violation_rate": 0.06240386728191606,
+            "expected_rate": 0.05,
+            "n_violations": 284.0,
+            "n": 4551.0,
+            "kupiec_stat": 13.711490196504656,
+            "kupiec_p": 0.00021314644299670718,
+            "christoffersen_stat": 13.7425659268781,
+            "christoffersen_p": 0.0010371455908078754,
+            "dq_stat": 30.577862822174378,
+            "dq_pvalue": 3.0513384662323435e-05
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.017298478007741914,
-          "rmse_price": 0.1315236785059706,
-          "mean_abs_price_error": 0.08295119165543455
+          "mean_squared_price_error": 0.017298478007741924,
+          "rmse_price": 0.13152367850597063,
+          "mean_abs_price_error": 0.08295119165543458
         },
-        "qlike": 0.20597535974702488
+        "qlike": 0.20597535974702494
       },
       "HAR": {
         "vol_targeting": {
           "ann_return": 0.05414306762456821,
           "ann_vol": 0.11055299690072806,
           "sharpe": 0.4897476246002305,
-          "max_drawdown": -0.30293910408675145,
+          "max_drawdown": -0.3029391040867518,
           "turnover": 0.06270467545894787,
           "avg_leverage": 0.8479051363451457,
           "bh_sharpe": 0.3431863324262508,
           "bh_ann_vol": 0.19329063480949596
         },
         "var_backtest": {
-          "violation_rate": 0.06968917046129479,
+          "violation_rate": 0.07009448472863107,
           "expected_rate": 0.05,
-          "n_violations": 352.0,
-          "n": 5051.0,
-          "kupiec_stat": 36.91897045326576,
-          "kupiec_p": 1.2314194572614632e-09,
-          "christoffersen_stat": 37.073946747600246,
-          "christoffersen_p": 8.902146817914177e-09
+          "n_violations": 319.0,
+          "n": 4551.0,
+          "kupiec_stat": 34.5780103397077,
+          "kupiec_p": 4.095062574512834e-09,
+          "christoffersen_stat": 34.62770824109742,
+          "christoffersen_p": 3.0247444948517337e-08,
+          "dq_stat": 75.64750948382822,
+          "dq_pvalue": 2.823612784556575e-14
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.07009448472863107,
+            "expected_rate": 0.05,
+            "n_violations": 319.0,
+            "n": 4551.0,
+            "kupiec_stat": 34.5780103397077,
+            "kupiec_p": 4.095062574512834e-09,
+            "christoffersen_stat": 34.62770824109742,
+            "christoffersen_p": 3.0247444948517337e-08,
+            "dq_stat": 75.64750948382822,
+            "dq_pvalue": 2.823612784556575e-14
+          },
+          "t": {
+            "violation_rate": 0.07075368050977807,
+            "expected_rate": 0.05,
+            "n_violations": 322.0,
+            "n": 4551.0,
+            "kupiec_stat": 36.763463284104745,
+            "kupiec_p": 1.33366407971482e-09,
+            "christoffersen_stat": 36.83950495652647,
+            "christoffersen_p": 1.0009286966610682e-08,
+            "dq_stat": 76.68436617255963,
+            "dq_pvalue": 1.7265091025792393e-14
+          },
+          "fhs": {
+            "violation_rate": 0.061085475719622064,
+            "expected_rate": 0.05,
+            "n_violations": 278.0,
+            "n": 4551.0,
+            "kupiec_stat": 11.030622670381987,
+            "kupiec_p": 0.0008961904040495404,
+            "christoffersen_stat": 11.120103807068347,
+            "christoffersen_p": 0.00384857663769743,
+            "dq_stat": 28.905033629294707,
+            "dq_pvalue": 6.340670098976981e-05
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.018797257581168715,
-          "rmse_price": 0.13710309107080232,
+          "mean_squared_price_error": 0.018797257581168705,
+          "rmse_price": 0.1371030910708023,
           "mean_abs_price_error": 0.0901859366686074
         },
         "qlike": 0.22553718828831698
@@ -79,14 +159,54 @@
           "bh_ann_vol": 0.19329063480949596
         },
         "var_backtest": {
-          "violation_rate": 0.09760443476539299,
+          "violation_rate": 0.0986596352450011,
           "expected_rate": 0.05,
-          "n_violations": 493.0,
-          "n": 5051.0,
-          "kupiec_stat": 190.8907155830907,
-          "kupiec_p": 2.0319330990235915e-43,
-          "christoffersen_stat": 192.76228256139473,
-          "christoffersen_p": 1.387401572040931e-42
+          "n_violations": 449.0,
+          "n": 4551.0,
+          "kupiec_stat": 178.96989505162043,
+          "kupiec_p": 8.134624493200826e-41,
+          "christoffersen_stat": 180.22544064612202,
+          "christoffersen_p": 7.320534882627356e-40,
+          "dq_stat": 235.54471000679544,
+          "dq_pvalue": 5.018196069387464e-48
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.0986596352450011,
+            "expected_rate": 0.05,
+            "n_violations": 449.0,
+            "n": 4551.0,
+            "kupiec_stat": 178.96989505162043,
+            "kupiec_p": 8.134624493200826e-41,
+            "christoffersen_stat": 180.22544064612202,
+            "christoffersen_p": 7.320534882627356e-40,
+            "dq_stat": 235.54471000679544,
+            "dq_pvalue": 5.018196069387464e-48
+          },
+          "t": {
+            "violation_rate": 0.1037134695671281,
+            "expected_rate": 0.05,
+            "n_violations": 472.0,
+            "n": 4551.0,
+            "kupiec_stat": 213.94032330653613,
+            "kupiec_p": 1.8977369586132847e-48,
+            "christoffersen_stat": 214.99159135821316,
+            "christoffersen_p": 2.0661845452544673e-47,
+            "dq_stat": 283.47468796268373,
+            "dq_pvalue": 2.8334801320453816e-58
+          },
+          "fhs": {
+            "violation_rate": 0.06833662931223906,
+            "expected_rate": 0.05,
+            "n_violations": 311.0,
+            "n": 4551.0,
+            "kupiec_stat": 29.04824740153009,
+            "kupiec_p": 7.05979406890669e-08,
+            "christoffersen_stat": 30.132405532295394,
+            "christoffersen_p": 2.8630654451907633e-07,
+            "dq_stat": 39.33092602925875,
+            "dq_pvalue": 6.164160832335842e-07
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.021609922343266256,
@@ -107,14 +227,54 @@
           "bh_ann_vol": 0.19329063480949596
         },
         "var_backtest": {
-          "violation_rate": 0.07602454959413978,
+          "violation_rate": 0.07734563832124808,
           "expected_rate": 0.05,
-          "n_violations": 384.0,
-          "n": 5051.0,
-          "kupiec_stat": 62.55189301354915,
-          "kupiec_p": 2.59515733557566e-15,
-          "christoffersen_stat": 66.1494240624736,
-          "christoffersen_p": 4.323496127250559e-15
+          "n_violations": 352.0,
+          "n": 4551.0,
+          "kupiec_stat": 61.84502536810044,
+          "kupiec_p": 3.7157993791146845e-15,
+          "christoffersen_stat": 65.6687925955882,
+          "christoffersen_p": 5.497976399190322e-15,
+          "dq_stat": 133.29225832244012,
+          "dq_pvalue": 2.6031828058669365e-26
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.07734563832124808,
+            "expected_rate": 0.05,
+            "n_violations": 352.0,
+            "n": 4551.0,
+            "kupiec_stat": 61.84502536810044,
+            "kupiec_p": 3.7157993791146845e-15,
+            "christoffersen_stat": 65.6687925955882,
+            "christoffersen_p": 5.497976399190322e-15,
+            "dq_stat": 133.29225832244012,
+            "dq_pvalue": 2.6031828058669365e-26
+          },
+          "t": {
+            "violation_rate": 0.07734563832124808,
+            "expected_rate": 0.05,
+            "n_violations": 352.0,
+            "n": 4551.0,
+            "kupiec_stat": 61.84502536810044,
+            "kupiec_p": 3.7157993791146845e-15,
+            "christoffersen_stat": 65.6687925955882,
+            "christoffersen_p": 5.497976399190322e-15,
+            "dq_stat": 133.29225832244012,
+            "dq_pvalue": 2.6031828058669365e-26
+          },
+          "fhs": {
+            "violation_rate": 0.06943528894748408,
+            "expected_rate": 0.05,
+            "n_violations": 316.0,
+            "n": 4551.0,
+            "kupiec_stat": 32.453237867860906,
+            "kupiec_p": 1.2209535855245197e-08,
+            "christoffersen_stat": 32.710855854025425,
+            "christoffersen_p": 7.887291686558826e-08,
+            "dq_stat": 94.52336848267561,
+            "dq_pvalue": 3.474343052318601e-18
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.026227322130601544,
@@ -128,84 +288,204 @@
           "ann_return": 0.061539655134632665,
           "ann_vol": 0.11929439782505594,
           "sharpe": 0.5158637476411924,
-          "max_drawdown": -0.3096218655351693,
+          "max_drawdown": -0.30962186553516946,
           "turnover": 0.09604452971532357,
           "avg_leverage": 0.9329186537618767,
           "bh_sharpe": 0.3431863324262508,
           "bh_ann_vol": 0.19329063480949596
         },
         "var_backtest": {
-          "violation_rate": 0.08137002573747773,
+          "violation_rate": 0.08042188529993408,
           "expected_rate": 0.05,
-          "n_violations": 411.0,
-          "n": 5051.0,
-          "kupiec_stat": 88.69157076587936,
-          "kupiec_p": 4.61427238887038e-21,
-          "christoffersen_stat": 88.76942543357848,
-          "christoffersen_p": 5.2961976740131363e-20
+          "n_violations": 366.0,
+          "n": 4551.0,
+          "kupiec_stat": 75.47445189797276,
+          "kupiec_p": 3.701656289612309e-18,
+          "christoffersen_stat": 75.5520569468336,
+          "christoffersen_p": 3.9271662408353577e-17,
+          "dq_stat": 106.3085096167688,
+          "dq_pvalue": 1.2072123843498074e-20
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08042188529993408,
+            "expected_rate": 0.05,
+            "n_violations": 366.0,
+            "n": 4551.0,
+            "kupiec_stat": 75.47445189797276,
+            "kupiec_p": 3.701656289612309e-18,
+            "christoffersen_stat": 75.5520569468336,
+            "christoffersen_p": 3.9271662408353577e-17,
+            "dq_stat": 106.3085096167688,
+            "dq_pvalue": 1.2072123843498074e-20
+          },
+          "t": {
+            "violation_rate": 0.08174027686222808,
+            "expected_rate": 0.05,
+            "n_violations": 372.0,
+            "n": 4551.0,
+            "kupiec_stat": 81.67460964674041,
+            "kupiec_p": 1.6044150156908764e-19,
+            "christoffersen_stat": 81.7559097696614,
+            "christoffersen_p": 1.7657522244141995e-18,
+            "dq_stat": 118.67135283762214,
+            "dq_pvalue": 3.0979956948893156e-23
+          },
+          "fhs": {
+            "violation_rate": 0.05800922874093606,
+            "expected_rate": 0.05,
+            "n_violations": 264.0,
+            "n": 4551.0,
+            "kupiec_stat": 5.8579381002017215,
+            "kupiec_p": 0.015506949503750174,
+            "christoffersen_stat": 6.8095168123651035,
+            "christoffersen_p": 0.03321484361359843,
+            "dq_stat": 12.55619370838474,
+            "dq_pvalue": 0.0506506688743959
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.021187754295839637,
           "rmse_price": 0.14556013979053345,
-          "mean_abs_price_error": 0.08633369819397387
+          "mean_abs_price_error": 0.08633369819397384
         },
-        "qlike": 0.2229331231066677
+        "qlike": 0.22293312310666766
       }
     },
     ".DJI": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": 0.05349572010051879,
+          "ann_return": 0.05349572010051889,
           "ann_vol": 0.11080577973077131,
-          "sharpe": 0.4827881743217657,
-          "max_drawdown": -0.30448748819671684,
-          "turnover": 0.08204341191354468,
-          "avg_leverage": 0.8947344211051603,
+          "sharpe": 0.48278817432176657,
+          "max_drawdown": -0.30448748819671567,
+          "turnover": 0.08204341191354464,
+          "avg_leverage": 0.8947344211051602,
           "bh_sharpe": 0.32685469673102685,
           "bh_ann_vol": 0.18572967506612592
         },
         "var_backtest": {
-          "violation_rate": 0.06576862123613313,
+          "violation_rate": 0.0679419525065963,
           "expected_rate": 0.05,
-          "n_violations": 332.0,
-          "n": 5048.0,
-          "kupiec_stat": 24.14418859935526,
-          "kupiec_p": 8.938549705939152e-07,
-          "christoffersen_stat": 26.64888369822441,
-          "christoffersen_p": 1.6340616232468707e-06
+          "n_violations": 309.0,
+          "n": 4548.0,
+          "kupiec_stat": 27.84868382308389,
+          "kupiec_p": 1.3118327823437462e-07,
+          "christoffersen_stat": 30.48601665256507,
+          "christoffersen_p": 2.3990847841210865e-07,
+          "dq_stat": 62.86277957850942,
+          "dq_pvalue": 1.1771578199554815e-11
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.0679419525065963,
+            "expected_rate": 0.05,
+            "n_violations": 309.0,
+            "n": 4548.0,
+            "kupiec_stat": 27.84868382308389,
+            "kupiec_p": 1.3118327823437462e-07,
+            "christoffersen_stat": 30.48601665256507,
+            "christoffersen_p": 2.3990847841210865e-07,
+            "dq_stat": 62.86277957850942,
+            "dq_pvalue": 1.1771578199554815e-11
+          },
+          "t": {
+            "violation_rate": 0.06882145998240985,
+            "expected_rate": 0.05,
+            "n_violations": 313.0,
+            "n": 4548.0,
+            "kupiec_stat": 30.50959810381758,
+            "kupiec_p": 3.322188042941631e-08,
+            "christoffersen_stat": 32.6524256421163,
+            "christoffersen_p": 8.12111875907475e-08,
+            "dq_stat": 67.66855855372472,
+            "dq_pvalue": 1.2282892020970284e-12
+          },
+          "fhs": {
+            "violation_rate": 0.07080035180299032,
+            "expected_rate": 0.05,
+            "n_violations": 322.0,
+            "n": 4548.0,
+            "kupiec_stat": 36.89614274511558,
+            "kupiec_p": 1.2459219659620164e-09,
+            "christoffersen_stat": 39.37995662029732,
+            "christoffersen_p": 2.810289567019127e-09,
+            "dq_stat": 75.65571135091459,
+            "dq_pvalue": 2.8126507568305254e-14
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.019810885300893647,
-          "rmse_price": 0.14075114671253533,
-          "mean_abs_price_error": 0.08755284749680516
+          "mean_squared_price_error": 0.01981088530089367,
+          "rmse_price": 0.1407511467125354,
+          "mean_abs_price_error": 0.08755284749680517
         },
-        "qlike": 0.22239651018898432
+        "qlike": 0.22239651018898426
       },
       "HAR": {
         "vol_targeting": {
           "ann_return": 0.04720069796839626,
-          "ann_vol": 0.10434153188497843,
-          "sharpe": 0.4523673087378884,
-          "max_drawdown": -0.3045884073076555,
-          "turnover": 0.06036960007393114,
-          "avg_leverage": 0.8166765705123041,
+          "ann_vol": 0.10434153188497844,
+          "sharpe": 0.45236730873788833,
+          "max_drawdown": -0.3045884073076547,
+          "turnover": 0.06036960007393113,
+          "avg_leverage": 0.8166765705123044,
           "bh_sharpe": 0.32685469673102685,
           "bh_ann_vol": 0.18572967506612592
         },
         "var_backtest": {
-          "violation_rate": 0.058042789223454835,
+          "violation_rate": 0.058927000879507474,
           "expected_rate": 0.05,
-          "n_violations": 293.0,
-          "n": 5048.0,
-          "kupiec_stat": 6.55097985149132,
-          "kupiec_p": 0.010482641419855478,
-          "christoffersen_stat": 11.261629207841693,
-          "christoffersen_p": 0.003585653250129408
+          "n_violations": 268.0,
+          "n": 4548.0,
+          "kupiec_stat": 7.2348624440020615,
+          "kupiec_p": 0.007150128835340732,
+          "christoffersen_stat": 13.622455808093164,
+          "christoffersen_p": 0.001101339729835261,
+          "dq_stat": 51.995776278939296,
+          "dq_pvalue": 1.868467965220849e-09
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.058927000879507474,
+            "expected_rate": 0.05,
+            "n_violations": 268.0,
+            "n": 4548.0,
+            "kupiec_stat": 7.2348624440020615,
+            "kupiec_p": 0.007150128835340732,
+            "christoffersen_stat": 13.622455808093164,
+            "christoffersen_p": 0.001101339729835261,
+            "dq_stat": 51.995776278939296,
+            "dq_pvalue": 1.868467965220849e-09
+          },
+          "t": {
+            "violation_rate": 0.060026385224274406,
+            "expected_rate": 0.05,
+            "n_violations": 273.0,
+            "n": 4548.0,
+            "kupiec_stat": 9.070591364481842,
+            "kupiec_p": 0.002597530529259244,
+            "christoffersen_stat": 14.616774982957097,
+            "christoffersen_p": 0.0006698963952587091,
+            "dq_stat": 52.047580710847534,
+            "dq_pvalue": 1.8241824186489541e-09
+          },
+          "fhs": {
+            "violation_rate": 0.06222515391380827,
+            "expected_rate": 0.05,
+            "n_violations": 283.0,
+            "n": 4548.0,
+            "kupiec_stat": 13.323337288935917,
+            "kupiec_p": 0.00026212323746873506,
+            "christoffersen_stat": 18.337362883702113,
+            "christoffersen_p": 0.00010425388395137518,
+            "dq_stat": 59.29956193254629,
+            "dq_pvalue": 6.245260406089662e-11
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.021310326909753714,
           "rmse_price": 0.14598057031589415,
-          "mean_abs_price_error": 0.0953565103773391
+          "mean_abs_price_error": 0.09535651037733907
         },
         "qlike": 0.24199364912130858
       },
@@ -221,14 +501,54 @@
           "bh_ann_vol": 0.18572967506612592
         },
         "var_backtest": {
-          "violation_rate": 0.08577654516640254,
+          "violation_rate": 0.08795074758135445,
           "expected_rate": 0.05,
-          "n_violations": 433.0,
-          "n": 5048.0,
-          "kupiec_stat": 113.08810175736426,
-          "kupiec_p": 2.0639701565716323e-26,
-          "christoffersen_stat": 113.20775181992536,
-          "christoffersen_p": 2.6136596785357855e-25
+          "n_violations": 400.0,
+          "n": 4548.0,
+          "kupiec_stat": 113.59191819006804,
+          "kupiec_p": 1.6008555002632207e-26,
+          "christoffersen_stat": 112.46503559785668,
+          "christoffersen_p": 3.7890280155389078e-25,
+          "dq_stat": 149.33603983796516,
+          "dq_pvalue": 1.0689602646883533e-29
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08795074758135445,
+            "expected_rate": 0.05,
+            "n_violations": 400.0,
+            "n": 4548.0,
+            "kupiec_stat": 113.59191819006804,
+            "kupiec_p": 1.6008555002632207e-26,
+            "christoffersen_stat": 112.46503559785668,
+            "christoffersen_p": 3.7890280155389078e-25,
+            "dq_stat": 149.33603983796516,
+            "dq_pvalue": 1.0689602646883533e-29
+          },
+          "t": {
+            "violation_rate": 0.09300791556728233,
+            "expected_rate": 0.05,
+            "n_violations": 423.0,
+            "n": 4548.0,
+            "kupiec_stat": 142.87155253816496,
+            "kupiec_p": 6.27069128962657e-33,
+            "christoffersen_stat": 141.64933557779642,
+            "christoffersen_p": 1.7427600531395898e-31,
+            "dq_stat": 186.86017895475334,
+            "dq_pvalue": 1.183224637568042e-37
+          },
+          "fhs": {
+            "violation_rate": 0.07519788918205805,
+            "expected_rate": 0.05,
+            "n_violations": 342.0,
+            "n": 4548.0,
+            "kupiec_stat": 53.007404629797776,
+            "kupiec_p": 3.3229334003062085e-13,
+            "christoffersen_stat": 52.32003035353196,
+            "christoffersen_p": 4.353612408281487e-12,
+            "dq_stat": 72.93143122208761,
+            "dq_pvalue": 1.02255879211368e-13
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.025466381844610992,
@@ -249,14 +569,54 @@
           "bh_ann_vol": 0.18572967506612592
         },
         "var_backtest": {
-          "violation_rate": 0.06477812995245642,
+          "violation_rate": 0.06684256816182937,
           "expected_rate": 0.05,
-          "n_violations": 327.0,
-          "n": 5048.0,
-          "kupiec_stat": 21.3165930606944,
-          "kupiec_p": 3.893467547459577e-06,
-          "christoffersen_stat": 23.6523145212644,
-          "christoffersen_p": 7.310804316545605e-06
+          "n_violations": 304.0,
+          "n": 4548.0,
+          "kupiec_stat": 24.6789493770585,
+          "kupiec_p": 6.771982220380926e-07,
+          "christoffersen_stat": 27.184539115832422,
+          "christoffersen_p": 1.2501218168526683e-06,
+          "dq_stat": 103.72751851008925,
+          "dq_pvalue": 4.1811621903503086e-20
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.06684256816182937,
+            "expected_rate": 0.05,
+            "n_violations": 304.0,
+            "n": 4548.0,
+            "kupiec_stat": 24.6789493770585,
+            "kupiec_p": 6.771982220380926e-07,
+            "christoffersen_stat": 27.184539115832422,
+            "christoffersen_p": 1.2501218168526683e-06,
+            "dq_stat": 103.72751851008925,
+            "dq_pvalue": 4.1811621903503086e-20
+          },
+          "t": {
+            "violation_rate": 0.06772207563764292,
+            "expected_rate": 0.05,
+            "n_violations": 308.0,
+            "n": 4548.0,
+            "kupiec_stat": 27.200764282518776,
+            "kupiec_p": 1.8338616609304095e-07,
+            "christoffersen_stat": 29.22469257844088,
+            "christoffersen_p": 4.507530135634507e-07,
+            "dq_stat": 102.04974113141049,
+            "dq_pvalue": 9.369851831611521e-20
+          },
+          "fhs": {
+            "violation_rate": 0.07695690413368514,
+            "expected_rate": 0.05,
+            "n_violations": 350.0,
+            "n": 4548.0,
+            "kupiec_stat": 60.1680405980249,
+            "kupiec_p": 8.709494648336022e-15,
+            "christoffersen_stat": 61.38646477056503,
+            "christoffersen_p": 4.678412844568855e-14,
+            "dq_stat": 134.3958916831393,
+            "dq_pvalue": 1.5237330403231886e-26
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.028131245832232466,
@@ -268,86 +628,206 @@
       "GBRT": {
         "vol_targeting": {
           "ann_return": 0.053144307671686486,
-          "ann_vol": 0.11277217716895972,
-          "sharpe": 0.471253717058806,
-          "max_drawdown": -0.30904536699900825,
+          "ann_vol": 0.11277217716895974,
+          "sharpe": 0.4712537170588059,
+          "max_drawdown": -0.30904536699900814,
           "turnover": 0.08660734897917714,
           "avg_leverage": 0.8991908987509426,
           "bh_sharpe": 0.32685469673102685,
           "bh_ann_vol": 0.18572967506612592
         },
         "var_backtest": {
-          "violation_rate": 0.06992868462757527,
+          "violation_rate": 0.07145998240985048,
           "expected_rate": 0.05,
-          "n_violations": 353.0,
-          "n": 5048.0,
-          "kupiec_stat": 37.755022129204775,
-          "kupiec_p": 8.020995634666866e-10,
-          "christoffersen_stat": 42.28294567810593,
-          "christoffersen_p": 6.582259601610632e-10
+          "n_violations": 325.0,
+          "n": 4548.0,
+          "kupiec_stat": 39.1460127923626,
+          "kupiec_p": 3.932655734928512e-10,
+          "christoffersen_stat": 43.683533647058624,
+          "christoffersen_p": 3.267692591782217e-10,
+          "dq_stat": 75.92267791158837,
+          "dq_pvalue": 2.4781279284684303e-14
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.07145998240985048,
+            "expected_rate": 0.05,
+            "n_violations": 325.0,
+            "n": 4548.0,
+            "kupiec_stat": 39.1460127923626,
+            "kupiec_p": 3.932655734928512e-10,
+            "christoffersen_stat": 43.683533647058624,
+            "christoffersen_p": 3.267692591782217e-10,
+            "dq_stat": 75.92267791158837,
+            "dq_pvalue": 2.4781279284684303e-14
+          },
+          "t": {
+            "violation_rate": 0.07321899736147758,
+            "expected_rate": 0.05,
+            "n_violations": 333.0,
+            "n": 4548.0,
+            "kupiec_stat": 45.43591407469191,
+            "kupiec_p": 1.577157220574237e-11,
+            "christoffersen_stat": 49.58345834740837,
+            "christoffersen_p": 1.7103650875717598e-11,
+            "dq_stat": 86.05330837367089,
+            "dq_pvalue": 1.997040522936503e-16
+          },
+          "fhs": {
+            "violation_rate": 0.06244503078276165,
+            "expected_rate": 0.05,
+            "n_violations": 284.0,
+            "n": 4548.0,
+            "kupiec_stat": 13.790478021825237,
+            "kupiec_p": 0.00020436940758457707,
+            "christoffersen_stat": 20.802589313825834,
+            "christoffersen_p": 3.039310887739475e-05,
+            "dq_stat": 47.056772621157556,
+            "dq_pvalue": 1.822975644210237e-08
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.023571420536613874,
           "rmse_price": 0.15352986854880674,
           "mean_abs_price_error": 0.090550692469718
         },
-        "qlike": 0.23968493153587173
+        "qlike": 0.2396849315358717
       }
     },
     ".FTSE": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": -0.00010999906684211222,
-          "ann_vol": 0.107049041500809,
-          "sharpe": -0.001027557699722897,
-          "max_drawdown": -0.3406348348752729,
-          "turnover": 0.07315880752691836,
+          "ann_return": -0.00010999906684216657,
+          "ann_vol": 0.10704904150080902,
+          "sharpe": -0.0010275576997234043,
+          "max_drawdown": -0.34063483487527224,
+          "turnover": 0.07315880752691829,
           "avg_leverage": 0.7986616942104493,
           "bh_sharpe": 0.09675012144333928,
           "bh_ann_vol": 0.18314695705978212
         },
         "var_backtest": {
-          "violation_rate": 0.06823992133726647,
+          "violation_rate": 0.0678298800436205,
           "expected_rate": 0.05,
-          "n_violations": 347.0,
-          "n": 5085.0,
-          "kupiec_stat": 32.13098107205718,
-          "kupiec_p": 1.4412064706576249e-08,
-          "christoffersen_stat": 38.67044245971255,
-          "christoffersen_p": 4.007007114178895e-09
+          "n_violations": 311.0,
+          "n": 4585.0,
+          "kupiec_stat": 27.74143423285153,
+          "kupiec_p": 1.3866079693764184e-07,
+          "christoffersen_stat": 33.493263527469736,
+          "christoffersen_p": 5.333720262812787e-08,
+          "dq_stat": 45.07008629533196,
+          "dq_pvalue": 4.532506918550503e-08
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.0678298800436205,
+            "expected_rate": 0.05,
+            "n_violations": 311.0,
+            "n": 4585.0,
+            "kupiec_stat": 27.74143423285153,
+            "kupiec_p": 1.3866079693764184e-07,
+            "christoffersen_stat": 33.493263527469736,
+            "christoffersen_p": 5.333720262812787e-08,
+            "dq_stat": 45.07008629533196,
+            "dq_pvalue": 4.532506918550503e-08
+          },
+          "t": {
+            "violation_rate": 0.0678298800436205,
+            "expected_rate": 0.05,
+            "n_violations": 311.0,
+            "n": 4585.0,
+            "kupiec_stat": 27.74143423285153,
+            "kupiec_p": 1.3866079693764184e-07,
+            "christoffersen_stat": 33.493263527469736,
+            "christoffersen_p": 5.333720262812787e-08,
+            "dq_stat": 45.07008629533196,
+            "dq_pvalue": 4.532506918550503e-08
+          },
+          "fhs": {
+            "violation_rate": 0.043838604143947656,
+            "expected_rate": 0.05,
+            "n_violations": 201.0,
+            "n": 4585.0,
+            "kupiec_stat": 3.8165279950148516,
+            "kupiec_p": 0.05074929687316986,
+            "christoffersen_stat": 3.971639337811517,
+            "christoffersen_p": 0.1372680536367734,
+            "dq_stat": 11.091742618663194,
+            "dq_pvalue": 0.0855820641914912
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.02323041477275579,
-          "rmse_price": 0.1524152707990764,
-          "mean_abs_price_error": 0.09066237869885588
+          "mean_squared_price_error": 0.023230414772755816,
+          "rmse_price": 0.1524152707990765,
+          "mean_abs_price_error": 0.0906623786988559
         },
         "qlike": 0.22055676675522184
       },
       "HAR": {
         "vol_targeting": {
-          "ann_return": 0.0006564718310312543,
+          "ann_return": 0.0006564718310312798,
           "ann_vol": 0.09933037716383207,
-          "sharpe": 0.006608973506145984,
-          "max_drawdown": -0.3049791026913321,
-          "turnover": 0.03579293718173542,
+          "sharpe": 0.006608973506146241,
+          "max_drawdown": -0.30497910269133616,
+          "turnover": 0.03579293718173545,
           "avg_leverage": 0.718807971650884,
           "bh_sharpe": 0.09675012144333928,
           "bh_ann_vol": 0.18314695705978212
         },
         "var_backtest": {
-          "violation_rate": 0.05506391347099312,
+          "violation_rate": 0.05387131952017448,
           "expected_rate": 0.05,
-          "n_violations": 280.0,
-          "n": 5085.0,
-          "kupiec_stat": 2.6615814569362897,
-          "kupiec_p": 0.102798480882962,
-          "christoffersen_stat": 9.559569674065024,
-          "christoffersen_p": 0.0083978056699051
+          "n_violations": 247.0,
+          "n": 4585.0,
+          "kupiec_stat": 1.4125923958452802,
+          "kupiec_p": 0.2346265170993351,
+          "christoffersen_stat": 6.82608454109095,
+          "christoffersen_p": 0.03294083285518408,
+          "dq_stat": 11.678510019072107,
+          "dq_pvalue": 0.06953735858354747
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.05387131952017448,
+            "expected_rate": 0.05,
+            "n_violations": 247.0,
+            "n": 4585.0,
+            "kupiec_stat": 1.4125923958452802,
+            "kupiec_p": 0.2346265170993351,
+            "christoffersen_stat": 6.82608454109095,
+            "christoffersen_p": 0.03294083285518408,
+            "dq_stat": 11.678510019072107,
+            "dq_pvalue": 0.06953735858354747
+          },
+          "t": {
+            "violation_rate": 0.054089422028353325,
+            "expected_rate": 0.05,
+            "n_violations": 248.0,
+            "n": 4585.0,
+            "kupiec_stat": 1.5741833137071808,
+            "kupiec_p": 0.20960053371758963,
+            "christoffersen_stat": 6.829379441653828,
+            "christoffersen_p": 0.03288660914852041,
+            "dq_stat": 12.084573311575552,
+            "dq_pvalue": 0.06010845466724929
+          },
+          "fhs": {
+            "violation_rate": 0.042748091603053436,
+            "expected_rate": 0.05,
+            "n_violations": 196.0,
+            "n": 4585.0,
+            "kupiec_stat": 5.327380256280684,
+            "kupiec_p": 0.020992916936828088,
+            "christoffersen_stat": 6.832879620936382,
+            "christoffersen_p": 0.03282910496792529,
+            "dq_stat": 8.796398576212242,
+            "dq_pvalue": 0.1853563958345188
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.025646047586130493,
+          "mean_squared_price_error": 0.025646047586130497,
           "rmse_price": 0.16014383405592142,
-          "mean_abs_price_error": 0.10282926057157968
+          "mean_abs_price_error": 0.1028292605715797
         },
         "qlike": 0.24022841538067288
       },
@@ -363,14 +843,54 @@
           "bh_ann_vol": 0.18314695705978212
         },
         "var_backtest": {
-          "violation_rate": 0.08574237954768928,
+          "violation_rate": 0.08571428571428572,
           "expected_rate": 0.05,
-          "n_violations": 436.0,
-          "n": 5085.0,
-          "kupiec_stat": 113.71619956528497,
-          "kupiec_p": 1.5035965782189996e-26,
-          "christoffersen_stat": 114.00669515395839,
-          "christoffersen_p": 1.7529143539005575e-25
+          "n_violations": 393.0,
+          "n": 4585.0,
+          "kupiec_stat": 102.38589126677863,
+          "kupiec_p": 4.569444046724711e-24,
+          "christoffersen_stat": 102.64809289052471,
+          "christoffersen_p": 5.131565065251683e-23,
+          "dq_stat": 133.6032573152085,
+          "dq_pvalue": 2.238545934341577e-26
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08571428571428572,
+            "expected_rate": 0.05,
+            "n_violations": 393.0,
+            "n": 4585.0,
+            "kupiec_stat": 102.38589126677863,
+            "kupiec_p": 4.569444046724711e-24,
+            "christoffersen_stat": 102.64809289052471,
+            "christoffersen_p": 5.131565065251683e-23,
+            "dq_stat": 133.6032573152085,
+            "dq_pvalue": 2.238545934341577e-26
+          },
+          "t": {
+            "violation_rate": 0.08745910577971647,
+            "expected_rate": 0.05,
+            "n_violations": 401.0,
+            "n": 4585.0,
+            "kupiec_stat": 111.79996998485149,
+            "kupiec_p": 3.9524181806155786e-26,
+            "christoffersen_stat": 111.90929897607668,
+            "christoffersen_p": 5.002700350820526e-25,
+            "dq_stat": 145.74116275508038,
+            "dq_pvalue": 6.147538150802612e-29
+          },
+          "fhs": {
+            "violation_rate": 0.050381679389312976,
+            "expected_rate": 0.05,
+            "n_violations": 231.0,
+            "n": 4585.0,
+            "kupiec_stat": 0.014028103763441546,
+            "kupiec_p": 0.9057187987137679,
+            "christoffersen_stat": 3.6386138438102065,
+            "christoffersen_p": 0.1621380863567759,
+            "dq_stat": 8.875379837409561,
+            "dq_pvalue": 0.1807088765171246
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.03225468330105646,
@@ -391,14 +911,54 @@
           "bh_ann_vol": 0.18314695705978212
         },
         "var_backtest": {
-          "violation_rate": 0.06509341199606686,
+          "violation_rate": 0.064340239912759,
           "expected_rate": 0.05,
-          "n_violations": 331.0,
-          "n": 5085.0,
-          "kupiec_stat": 22.361723785216043,
-          "kupiec_p": 2.2583022072755137e-06,
-          "christoffersen_stat": 42.05254987831606,
-          "christoffersen_p": 7.385923735158035e-10
+          "n_violations": 295.0,
+          "n": 4585.0,
+          "kupiec_stat": 18.27325216134588,
+          "kupiec_p": 1.9137553347471247e-05,
+          "christoffersen_stat": 34.13789645234101,
+          "christoffersen_p": 3.86411438162458e-08,
+          "dq_stat": 63.7320569625393,
+          "dq_pvalue": 7.82755273806757e-12
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.064340239912759,
+            "expected_rate": 0.05,
+            "n_violations": 295.0,
+            "n": 4585.0,
+            "kupiec_stat": 18.27325216134588,
+            "kupiec_p": 1.9137553347471247e-05,
+            "christoffersen_stat": 34.13789645234101,
+            "christoffersen_p": 3.86411438162458e-08,
+            "dq_stat": 63.7320569625393,
+            "dq_pvalue": 7.82755273806757e-12
+          },
+          "t": {
+            "violation_rate": 0.06586695747001091,
+            "expected_rate": 0.05,
+            "n_violations": 302.0,
+            "n": 4585.0,
+            "kupiec_stat": 22.19269608557542,
+            "kupiec_p": 2.4661017081464417e-06,
+            "christoffersen_stat": 37.652017764006075,
+            "christoffersen_p": 6.66757986292213e-09,
+            "dq_stat": 65.64583430788764,
+            "dq_pvalue": 3.1839027475398325e-12
+          },
+          "fhs": {
+            "violation_rate": 0.049727371864776444,
+            "expected_rate": 0.05,
+            "n_violations": 228.0,
+            "n": 4585.0,
+            "kupiec_stat": 0.007186811867879506,
+            "kupiec_p": 0.9324402163673703,
+            "christoffersen_stat": 15.915337905354543,
+            "christoffersen_p": 0.0003499679592479152,
+            "dq_stat": 47.73420254265599,
+            "dq_pvalue": 1.3352780203517139e-08
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.029540314599684765,
@@ -409,24 +969,64 @@
       },
       "GBRT": {
         "vol_targeting": {
-          "ann_return": -0.0018934826294830717,
+          "ann_return": -0.00189348262948308,
           "ann_vol": 0.10934094663715743,
-          "sharpe": -0.01731723281824604,
-          "max_drawdown": -0.38023740019178126,
+          "sharpe": -0.017317232818246115,
+          "max_drawdown": -0.3802374001917827,
           "turnover": 0.07158402343532785,
           "avg_leverage": 0.8094485351526898,
           "bh_sharpe": 0.09675012144333928,
           "bh_ann_vol": 0.18314695705978212
         },
         "var_backtest": {
-          "violation_rate": 0.07079646017699115,
+          "violation_rate": 0.07088331515812432,
           "expected_rate": 0.05,
-          "n_violations": 360.0,
-          "n": 5085.0,
-          "kupiec_stat": 41.237971614800074,
-          "kupiec_p": 1.3477868324115651e-10,
-          "christoffersen_stat": 46.66666560550445,
-          "christoffersen_p": 7.3529619627955e-11
+          "n_violations": 325.0,
+          "n": 4585.0,
+          "kupiec_stat": 37.47825941817652,
+          "kupiec_p": 9.24376203500473e-10,
+          "christoffersen_stat": 43.86463363662361,
+          "christoffersen_p": 2.984804085310025e-10,
+          "dq_stat": 57.080420171376524,
+          "dq_pvalue": 1.759700729371865e-10
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.07088331515812432,
+            "expected_rate": 0.05,
+            "n_violations": 325.0,
+            "n": 4585.0,
+            "kupiec_stat": 37.47825941817652,
+            "kupiec_p": 9.24376203500473e-10,
+            "christoffersen_stat": 43.86463363662361,
+            "christoffersen_p": 2.984804085310025e-10,
+            "dq_stat": 57.080420171376524,
+            "dq_pvalue": 1.759700729371865e-10
+          },
+          "t": {
+            "violation_rate": 0.07088331515812432,
+            "expected_rate": 0.05,
+            "n_violations": 325.0,
+            "n": 4585.0,
+            "kupiec_stat": 37.47825941817652,
+            "kupiec_p": 9.24376203500473e-10,
+            "christoffersen_stat": 43.86463363662361,
+            "christoffersen_p": 2.984804085310025e-10,
+            "dq_stat": 57.080420171376524,
+            "dq_pvalue": 1.759700729371865e-10
+          },
+          "fhs": {
+            "violation_rate": 0.045365321701199564,
+            "expected_rate": 0.05,
+            "n_violations": 208.0,
+            "n": 4585.0,
+            "kupiec_stat": 2.1370891794407,
+            "kupiec_p": 0.14377446724615311,
+            "christoffersen_stat": 4.260318430295214,
+            "christoffersen_p": 0.11881837466127855,
+            "dq_stat": 8.391788440438384,
+            "dq_pvalue": 0.21078160569471666
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.025235462554605827,
@@ -439,59 +1039,139 @@
     ".GDAXI": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": 0.03334335045648971,
-          "ann_vol": 0.12112363041776969,
-          "sharpe": 0.2752836118062558,
-          "max_drawdown": -0.3345649051121093,
-          "turnover": 0.061463928800001545,
+          "ann_return": 0.03334335045648969,
+          "ann_vol": 0.1211236304177697,
+          "sharpe": 0.2752836118062556,
+          "max_drawdown": -0.3345649051121088,
+          "turnover": 0.06146392880000151,
           "avg_leverage": 0.7221820014005816,
           "bh_sharpe": 0.23214784871365363,
           "bh_ann_vol": 0.2266248684635287
         },
         "var_backtest": {
-          "violation_rate": 0.08761979268531195,
+          "violation_rate": 0.09017992629525255,
           "expected_rate": 0.05,
-          "n_violations": 448.0,
-          "n": 5113.0,
-          "kupiec_stat": 125.66118561185249,
-          "kupiec_p": 3.647286351187026e-29,
-          "christoffersen_stat": 130.32954083143687,
-          "christoffersen_p": 5.0037982853408685e-29
+          "n_violations": 416.0,
+          "n": 4613.0,
+          "kupiec_stat": 127.95239714110107,
+          "kupiec_p": 1.149676202443743e-29,
+          "christoffersen_stat": 131.3387691095504,
+          "christoffersen_p": 3.0209856190095854e-29,
+          "dq_stat": 177.55786213258907,
+          "dq_pvalue": 1.119883564963192e-35
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.09017992629525255,
+            "expected_rate": 0.05,
+            "n_violations": 416.0,
+            "n": 4613.0,
+            "kupiec_stat": 127.95239714110107,
+            "kupiec_p": 1.149676202443743e-29,
+            "christoffersen_stat": 131.3387691095504,
+            "christoffersen_p": 3.0209856190095854e-29,
+            "dq_stat": 177.55786213258907,
+            "dq_pvalue": 1.119883564963192e-35
+          },
+          "t": {
+            "violation_rate": 0.09017992629525255,
+            "expected_rate": 0.05,
+            "n_violations": 416.0,
+            "n": 4613.0,
+            "kupiec_stat": 127.95239714110107,
+            "kupiec_p": 1.149676202443743e-29,
+            "christoffersen_stat": 131.3387691095504,
+            "christoffersen_p": 3.0209856190095854e-29,
+            "dq_stat": 177.55786213258907,
+            "dq_pvalue": 1.119883564963192e-35
+          },
+          "fhs": {
+            "violation_rate": 0.07934099284630393,
+            "expected_rate": 0.05,
+            "n_violations": 366.0,
+            "n": 4613.0,
+            "kupiec_stat": 71.51180119564873,
+            "kupiec_p": 2.75604811784766e-17,
+            "christoffersen_stat": 76.01797669354039,
+            "christoffersen_p": 3.1110436047444867e-17,
+            "dq_stat": 110.72578876728592,
+            "dq_pvalue": 1.4364606494154898e-21
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.017931528336234293,
+          "mean_squared_price_error": 0.01793152833623429,
           "rmse_price": 0.13390865668893215,
           "mean_abs_price_error": 0.08655784566423692
         },
-        "qlike": 0.15420268064976708
+        "qlike": 0.15420268064976714
       },
       "HAR": {
         "vol_targeting": {
-          "ann_return": 0.030626208087575088,
+          "ann_return": 0.03062620808757507,
           "ann_vol": 0.113792401304647,
-          "sharpe": 0.26914106510136887,
-          "max_drawdown": -0.32497668352789466,
-          "turnover": 0.051387012098486826,
+          "sharpe": 0.2691410651013687,
+          "max_drawdown": -0.3249766835278955,
+          "turnover": 0.05138701209848682,
           "avg_leverage": 0.6622485394620786,
           "bh_sharpe": 0.23214784871365363,
           "bh_ann_vol": 0.2266248684635287
         },
         "var_backtest": {
-          "violation_rate": 0.0778407979659691,
+          "violation_rate": 0.07847387817038803,
           "expected_rate": 0.05,
-          "n_violations": 398.0,
-          "n": 5113.0,
-          "kupiec_stat": 71.85666022898874,
-          "kupiec_p": 2.3141113444215134e-17,
-          "christoffersen_stat": 76.13049963426738,
-          "christoffersen_p": 2.9408444375466164e-17
+          "n_violations": 362.0,
+          "n": 4613.0,
+          "kupiec_stat": 67.61460989988564,
+          "kupiec_p": 1.987890659026337e-16,
+          "christoffersen_stat": 71.17697250000651,
+          "christoffersen_p": 3.500392964979929e-16,
+          "dq_stat": 101.23476247370014,
+          "dq_pvalue": 1.386358502926009e-19
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.07847387817038803,
+            "expected_rate": 0.05,
+            "n_violations": 362.0,
+            "n": 4613.0,
+            "kupiec_stat": 67.61460989988564,
+            "kupiec_p": 1.987890659026337e-16,
+            "christoffersen_stat": 71.17697250000651,
+            "christoffersen_p": 3.500392964979929e-16,
+            "dq_stat": 101.23476247370014,
+            "dq_pvalue": 1.386358502926009e-19
+          },
+          "t": {
+            "violation_rate": 0.07847387817038803,
+            "expected_rate": 0.05,
+            "n_violations": 362.0,
+            "n": 4613.0,
+            "kupiec_stat": 67.61460989988564,
+            "kupiec_p": 1.987890659026337e-16,
+            "christoffersen_stat": 71.17697250000651,
+            "christoffersen_p": 3.500392964979929e-16,
+            "dq_stat": 101.23476247370014,
+            "dq_pvalue": 1.386358502926009e-19
+          },
+          "fhs": {
+            "violation_rate": 0.06871883806633428,
+            "expected_rate": 0.05,
+            "n_violations": 317.0,
+            "n": 4613.0,
+            "kupiec_stat": 30.62496107812433,
+            "kupiec_p": 3.1304041955817194e-08,
+            "christoffersen_stat": 31.55604749952124,
+            "christoffersen_p": 1.4050486116097827e-07,
+            "dq_stat": 50.563830337258395,
+            "dq_pvalue": 3.623398140855171e-09
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.01897936219410345,
           "rmse_price": 0.13776560599113064,
-          "mean_abs_price_error": 0.09455774363340198
+          "mean_abs_price_error": 0.09455774363340196
         },
-        "qlike": 0.1670466578531371
+        "qlike": 0.16704665785313713
       },
       "RW": {
         "vol_targeting": {
@@ -505,14 +1185,54 @@
           "bh_ann_vol": 0.2266248684635287
         },
         "var_backtest": {
-          "violation_rate": 0.10189712497555252,
+          "violation_rate": 0.10275308909603295,
           "expected_rate": 0.05,
-          "n_violations": 521.0,
-          "n": 5113.0,
-          "kupiec_stat": 225.9093315039704,
-          "kupiec_p": 4.650325266052269e-51,
-          "christoffersen_stat": 226.04058914956875,
-          "christoffersen_p": 8.239668190092251e-50
+          "n_violations": 474.0,
+          "n": 4613.0,
+          "kupiec_stat": 209.92043542781454,
+          "kupiec_p": 1.4296329702061115e-47,
+          "christoffersen_stat": 210.07650692078477,
+          "christoffersen_p": 2.412493397244321e-46,
+          "dq_stat": 298.2660250517117,
+          "dq_pvalue": 1.924408472760308e-61
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.10275308909603295,
+            "expected_rate": 0.05,
+            "n_violations": 474.0,
+            "n": 4613.0,
+            "kupiec_stat": 209.92043542781454,
+            "kupiec_p": 1.4296329702061115e-47,
+            "christoffersen_stat": 210.07650692078477,
+            "christoffersen_p": 2.412493397244321e-46,
+            "dq_stat": 298.2660250517117,
+            "dq_pvalue": 1.924408472760308e-61
+          },
+          "t": {
+            "violation_rate": 0.1062215477996965,
+            "expected_rate": 0.05,
+            "n_violations": 490.0,
+            "n": 4613.0,
+            "kupiec_stat": 235.39445188187813,
+            "kupiec_p": 3.9715535225202802e-53,
+            "christoffersen_stat": 235.60614679367785,
+            "christoffersen_p": 6.898827287680234e-52,
+            "dq_stat": 336.38811888701787,
+            "dq_pvalue": 1.288259906629798e-69
+          },
+          "fhs": {
+            "violation_rate": 0.07348796878387166,
+            "expected_rate": 0.05,
+            "n_violations": 339.0,
+            "n": 4613.0,
+            "kupiec_stat": 47.098136088367795,
+            "kupiec_p": 6.751986715776415e-12,
+            "christoffersen_stat": 51.32983157500004,
+            "christoffersen_p": 7.1428033720287876e-12,
+            "dq_stat": 79.20774829319588,
+            "dq_pvalue": 5.207440147034116e-15
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.02176191689008897,
@@ -533,14 +1253,54 @@
           "bh_ann_vol": 0.2266248684635287
         },
         "var_backtest": {
-          "violation_rate": 0.08761979268531195,
+          "violation_rate": 0.08909603295035769,
           "expected_rate": 0.05,
-          "n_violations": 448.0,
-          "n": 5113.0,
-          "kupiec_stat": 125.66118561185249,
-          "kupiec_p": 3.647286351187026e-29,
-          "christoffersen_stat": 140.79393346435728,
-          "christoffersen_p": 2.672919045357946e-31
+          "n_violations": 411.0,
+          "n": 4613.0,
+          "kupiec_stat": 121.68870003297133,
+          "kupiec_p": 2.700542904809735e-28,
+          "christoffersen_stat": 136.14389902580086,
+          "christoffersen_p": 2.733555866663068e-30,
+          "dq_stat": 212.10691717350892,
+          "dq_pvalue": 5.009304732905232e-43
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08909603295035769,
+            "expected_rate": 0.05,
+            "n_violations": 411.0,
+            "n": 4613.0,
+            "kupiec_stat": 121.68870003297133,
+            "kupiec_p": 2.700542904809735e-28,
+            "christoffersen_stat": 136.14389902580086,
+            "christoffersen_p": 2.733555866663068e-30,
+            "dq_stat": 212.10691717350892,
+            "dq_pvalue": 5.009304732905232e-43
+          },
+          "t": {
+            "violation_rate": 0.08909603295035769,
+            "expected_rate": 0.05,
+            "n_violations": 411.0,
+            "n": 4613.0,
+            "kupiec_stat": 121.68870003297133,
+            "kupiec_p": 2.700542904809735e-28,
+            "christoffersen_stat": 136.14389902580086,
+            "christoffersen_p": 2.733555866663068e-30,
+            "dq_stat": 212.10691717350892,
+            "dq_pvalue": 5.009304732905232e-43
+          },
+          "fhs": {
+            "violation_rate": 0.07435508345978756,
+            "expected_rate": 0.05,
+            "n_violations": 343.0,
+            "n": 4613.0,
+            "kupiec_stat": 50.42996312070517,
+            "kupiec_p": 1.2349425041320756e-12,
+            "christoffersen_stat": 61.19737319728179,
+            "christoffersen_p": 5.142321870643137e-14,
+            "dq_stat": 112.779053898048,
+            "dq_pvalue": 5.334659996162352e-22
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.024885164273132518,
@@ -551,9 +1311,9 @@
       },
       "GBRT": {
         "vol_targeting": {
-          "ann_return": 0.034804991891325625,
+          "ann_return": 0.03480499189132562,
           "ann_vol": 0.12219309216983179,
-          "sharpe": 0.2848360023736155,
+          "sharpe": 0.28483600237361545,
           "max_drawdown": -0.3282726327600146,
           "turnover": 0.06759391608432624,
           "avg_leverage": 0.7254627630426553,
@@ -561,14 +1321,54 @@
           "bh_ann_vol": 0.2266248684635287
         },
         "var_backtest": {
-          "violation_rate": 0.08840211226285938,
+          "violation_rate": 0.09061348363321049,
           "expected_rate": 0.05,
-          "n_violations": 452.0,
-          "n": 5113.0,
-          "kupiec_stat": 130.51133764051025,
-          "kupiec_p": 3.1671809595983416e-30,
-          "christoffersen_stat": 138.49529790472786,
-          "christoffersen_p": 8.435836915432034e-31
+          "n_violations": 418.0,
+          "n": 4613.0,
+          "kupiec_stat": 130.4949462708919,
+          "kupiec_p": 3.193442418490714e-30,
+          "christoffersen_stat": 138.08514044726405,
+          "christoffersen_p": 1.0356016541590857e-30,
+          "dq_stat": 182.7461166123143,
+          "dq_pvalue": 8.857201535861005e-37
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.09061348363321049,
+            "expected_rate": 0.05,
+            "n_violations": 418.0,
+            "n": 4613.0,
+            "kupiec_stat": 130.4949462708919,
+            "kupiec_p": 3.193442418490714e-30,
+            "christoffersen_stat": 138.08514044726405,
+            "christoffersen_p": 1.0356016541590857e-30,
+            "dq_stat": 182.7461166123143,
+            "dq_pvalue": 8.857201535861005e-37
+          },
+          "t": {
+            "violation_rate": 0.09061348363321049,
+            "expected_rate": 0.05,
+            "n_violations": 418.0,
+            "n": 4613.0,
+            "kupiec_stat": 130.4949462708919,
+            "kupiec_p": 3.193442418490714e-30,
+            "christoffersen_stat": 138.08514044726405,
+            "christoffersen_p": 1.0356016541590857e-30,
+            "dq_stat": 182.7461166123143,
+            "dq_pvalue": 8.857201535861005e-37
+          },
+          "fhs": {
+            "violation_rate": 0.07608931281161933,
+            "expected_rate": 0.05,
+            "n_violations": 351.0,
+            "n": 4613.0,
+            "kupiec_stat": 57.39492086455374,
+            "kupiec_p": 3.5652678390855596e-14,
+            "christoffersen_stat": 59.6222863758953,
+            "christoffersen_p": 1.1302773227477649e-13,
+            "dq_stat": 85.87567571352933,
+            "dq_pvalue": 2.1737331303298294e-16
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.018552268133382992,
@@ -581,57 +1381,137 @@
     ".FCHI": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": 0.005337485147574739,
-          "ann_vol": 0.12295846835512166,
-          "sharpe": 0.04340884543355988,
-          "max_drawdown": -0.4240637327971389,
-          "turnover": 0.06639806642746968,
+          "ann_return": 0.005337485147574788,
+          "ann_vol": 0.12295846835512167,
+          "sharpe": 0.043408845433560266,
+          "max_drawdown": -0.42406373279713905,
+          "turnover": 0.06639806642746966,
           "avg_leverage": 0.7590060182613788,
           "bh_sharpe": 0.08384896695533539,
           "bh_ann_vol": 0.22083199846877058
         },
         "var_backtest": {
-          "violation_rate": 0.08930304795185401,
+          "violation_rate": 0.08901311545904107,
           "expected_rate": 0.05,
-          "n_violations": 460.0,
-          "n": 5151.0,
-          "kupiec_stat": 137.20524635109604,
-          "kupiec_p": 1.0874377985901442e-31,
-          "christoffersen_stat": 139.49727504748427,
-          "christoffersen_p": 5.111538110762038e-31
+          "n_violations": 414.0,
+          "n": 4651.0,
+          "kupiec_stat": 122.21352943708058,
+          "kupiec_p": 2.072841238739142e-28,
+          "christoffersen_stat": 125.43862106126704,
+          "christoffersen_p": 5.772308419406827e-28,
+          "dq_stat": 178.35141124811148,
+          "dq_pvalue": 7.59776112732944e-36
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08901311545904107,
+            "expected_rate": 0.05,
+            "n_violations": 414.0,
+            "n": 4651.0,
+            "kupiec_stat": 122.21352943708058,
+            "kupiec_p": 2.072841238739142e-28,
+            "christoffersen_stat": 125.43862106126704,
+            "christoffersen_p": 5.772308419406827e-28,
+            "dq_stat": 178.35141124811148,
+            "dq_pvalue": 7.59776112732944e-36
+          },
+          "t": {
+            "violation_rate": 0.08901311545904107,
+            "expected_rate": 0.05,
+            "n_violations": 414.0,
+            "n": 4651.0,
+            "kupiec_stat": 122.21352943708058,
+            "kupiec_p": 2.072841238739142e-28,
+            "christoffersen_stat": 125.43862106126704,
+            "christoffersen_p": 5.772308419406827e-28,
+            "dq_stat": 178.35141124811148,
+            "dq_pvalue": 7.59776112732944e-36
+          },
+          "fhs": {
+            "violation_rate": 0.05375188131584605,
+            "expected_rate": 0.05,
+            "n_violations": 250.0,
+            "n": 4651.0,
+            "kupiec_stat": 1.346838136014533,
+            "kupiec_p": 0.2458316396058049,
+            "christoffersen_stat": 9.048448074157726,
+            "christoffersen_p": 0.010843125035834565,
+            "dq_stat": 17.796405111370426,
+            "dq_pvalue": 0.006761649798701153
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.01548664117497573,
           "rmse_price": 0.12444533408278403,
-          "mean_abs_price_error": 0.07976715177059893
+          "mean_abs_price_error": 0.0797671517705989
         },
-        "qlike": 0.14720462271198165
+        "qlike": 0.14720462271198168
       },
       "HAR": {
         "vol_targeting": {
-          "ann_return": 0.005360881908082223,
-          "ann_vol": 0.11631775710797075,
-          "sharpe": 0.04608825033572509,
-          "max_drawdown": -0.39575265243628804,
-          "turnover": 0.04981040952516881,
+          "ann_return": 0.005360881908082152,
+          "ann_vol": 0.11631775710797078,
+          "sharpe": 0.04608825033572447,
+          "max_drawdown": -0.39575265243628865,
+          "turnover": 0.049810409525168846,
           "avg_leverage": 0.6997456451481966,
           "bh_sharpe": 0.08384896695533539,
           "bh_ann_vol": 0.22083199846877058
         },
         "var_backtest": {
-          "violation_rate": 0.0817317025820229,
+          "violation_rate": 0.07998279939797893,
           "expected_rate": 0.05,
-          "n_violations": 421.0,
-          "n": 5151.0,
-          "kupiec_stat": 92.39610723195307,
-          "kupiec_p": 7.095352517509319e-22,
-          "christoffersen_stat": 95.4153552353963,
-          "christoffersen_p": 1.9090568707840644e-21
+          "n_violations": 372.0,
+          "n": 4651.0,
+          "kupiec_stat": 75.0709229246171,
+          "kupiec_p": 4.541050635353425e-18,
+          "christoffersen_stat": 77.64831932023912,
+          "christoffersen_p": 1.3768343582854844e-17,
+          "dq_stat": 111.95315227287027,
+          "dq_pvalue": 7.946544645282201e-22
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.07998279939797893,
+            "expected_rate": 0.05,
+            "n_violations": 372.0,
+            "n": 4651.0,
+            "kupiec_stat": 75.0709229246171,
+            "kupiec_p": 4.541050635353425e-18,
+            "christoffersen_stat": 77.64831932023912,
+            "christoffersen_p": 1.3768343582854844e-17,
+            "dq_stat": 111.95315227287027,
+            "dq_pvalue": 7.946544645282201e-22
+          },
+          "t": {
+            "violation_rate": 0.07998279939797893,
+            "expected_rate": 0.05,
+            "n_violations": 372.0,
+            "n": 4651.0,
+            "kupiec_stat": 75.0709229246171,
+            "kupiec_p": 4.541050635353425e-18,
+            "christoffersen_stat": 77.64831932023912,
+            "christoffersen_p": 1.3768343582854844e-17,
+            "dq_stat": 111.95315227287027,
+            "dq_pvalue": 7.946544645282201e-22
+          },
+          "fhs": {
+            "violation_rate": 0.04730165555794453,
+            "expected_rate": 0.05,
+            "n_violations": 220.0,
+            "n": 4651.0,
+            "kupiec_stat": 0.7254207485934288,
+            "kupiec_p": 0.39437154120338436,
+            "christoffersen_stat": 4.6459963867532466,
+            "christoffersen_p": 0.09797938364846906,
+            "dq_stat": 12.451512442330044,
+            "dq_pvalue": 0.05262163837360347
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.016378419133832093,
-          "rmse_price": 0.12797819788476508,
-          "mean_abs_price_error": 0.08659330382643163
+          "mean_squared_price_error": 0.016378419133832086,
+          "rmse_price": 0.12797819788476505,
+          "mean_abs_price_error": 0.0865933038264316
         },
         "qlike": 0.15681856591427412
       },
@@ -647,14 +1527,54 @@
           "bh_ann_vol": 0.22083199846877058
         },
         "var_backtest": {
-          "violation_rate": 0.09959231217239371,
+          "violation_rate": 0.09847344657062997,
           "expected_rate": 0.05,
-          "n_violations": 513.0,
-          "n": 5151.0,
-          "kupiec_stat": 209.65098698222965,
-          "kupiec_p": 1.6368574061973683e-47,
-          "christoffersen_stat": 209.99415897537472,
-          "christoffersen_p": 2.513898637238396e-46
+          "n_violations": 458.0,
+          "n": 4651.0,
+          "kupiec_stat": 181.6360768895134,
+          "kupiec_p": 2.1291540539545243e-41,
+          "christoffersen_stat": 181.86388458322892,
+          "christoffersen_p": 3.2267047916589735e-40,
+          "dq_stat": 255.21953583095643,
+          "dq_pvalue": 3.1428678937063533e-52
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.09847344657062997,
+            "expected_rate": 0.05,
+            "n_violations": 458.0,
+            "n": 4651.0,
+            "kupiec_stat": 181.6360768895134,
+            "kupiec_p": 2.1291540539545243e-41,
+            "christoffersen_stat": 181.86388458322892,
+            "christoffersen_p": 3.2267047916589735e-40,
+            "dq_stat": 255.21953583095643,
+            "dq_pvalue": 3.1428678937063533e-52
+          },
+          "t": {
+            "violation_rate": 0.10126854439905397,
+            "expected_rate": 0.05,
+            "n_violations": 471.0,
+            "n": 4651.0,
+            "kupiec_stat": 201.02552382588289,
+            "kupiec_p": 1.2475054056023642e-45,
+            "christoffersen_stat": 201.50085764153158,
+            "christoffersen_p": 1.7564860854985622e-44,
+            "dq_stat": 287.35511699149964,
+            "dq_pvalue": 4.18236822598647e-59
+          },
+          "fhs": {
+            "violation_rate": 0.06063212212427435,
+            "expected_rate": 0.05,
+            "n_violations": 282.0,
+            "n": 4651.0,
+            "kupiec_stat": 10.395729987060179,
+            "kupiec_p": 0.00126307056177152,
+            "christoffersen_stat": 11.093074236997765,
+            "christoffersen_p": 0.003900942382494533,
+            "dq_stat": 20.24916698902324,
+            "dq_pvalue": 0.0025002414384350585
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.01907805426295504,
@@ -675,14 +1595,54 @@
           "bh_ann_vol": 0.22083199846877058
         },
         "var_backtest": {
-          "violation_rate": 0.0891089108910891,
+          "violation_rate": 0.08772307030746077,
           "expected_rate": 0.05,
-          "n_violations": 459.0,
-          "n": 5151.0,
-          "kupiec_stat": 135.9631061795268,
-          "kupiec_p": 2.0327250688554355e-31,
-          "christoffersen_stat": 146.66410861143487,
-          "christoffersen_p": 1.4200167539388123e-32
+          "n_violations": 408.0,
+          "n": 4651.0,
+          "kupiec_stat": 114.88507125098528,
+          "kupiec_p": 8.339321077284012e-27,
+          "christoffersen_stat": 128.16792913790778,
+          "christoffersen_p": 1.4746461089648673e-28,
+          "dq_stat": 219.88145380399618,
+          "dq_pvalue": 1.1029003464984256e-44
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08772307030746077,
+            "expected_rate": 0.05,
+            "n_violations": 408.0,
+            "n": 4651.0,
+            "kupiec_stat": 114.88507125098528,
+            "kupiec_p": 8.339321077284012e-27,
+            "christoffersen_stat": 128.16792913790778,
+            "christoffersen_p": 1.4746461089648673e-28,
+            "dq_stat": 219.88145380399618,
+            "dq_pvalue": 1.1029003464984256e-44
+          },
+          "t": {
+            "violation_rate": 0.08815308535798753,
+            "expected_rate": 0.05,
+            "n_violations": 410.0,
+            "n": 4651.0,
+            "kupiec_stat": 117.30652330305571,
+            "kupiec_p": 2.459600936272104e-27,
+            "christoffersen_stat": 131.2572128296917,
+            "christoffersen_p": 3.1467220185688737e-29,
+            "dq_stat": 224.61116422782663,
+            "dq_pvalue": 1.0809655295088847e-45
+          },
+          "fhs": {
+            "violation_rate": 0.05353687379058267,
+            "expected_rate": 0.05,
+            "n_violations": 249.0,
+            "n": 4651.0,
+            "kupiec_stat": 1.1984450234837638,
+            "kupiec_p": 0.27363268961940557,
+            "christoffersen_stat": 13.634310324951961,
+            "christoffersen_p": 0.0010948311128207585,
+            "dq_stat": 45.61415070249181,
+            "dq_pvalue": 3.53313882240501e-08
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.022509693000016286,
@@ -693,9 +1653,9 @@
       },
       "GBRT": {
         "vol_targeting": {
-          "ann_return": 0.0038432785224829062,
+          "ann_return": 0.003843278522482909,
           "ann_vol": 0.12460708683458109,
-          "sharpe": 0.03084317770453097,
+          "sharpe": 0.030843177704530992,
           "max_drawdown": -0.42736951570008985,
           "turnover": 0.06754889632466139,
           "avg_leverage": 0.7633645851206134,
@@ -703,14 +1663,54 @@
           "bh_ann_vol": 0.22083199846877058
         },
         "var_backtest": {
-          "violation_rate": 0.08930304795185401,
+          "violation_rate": 0.08901311545904107,
           "expected_rate": 0.05,
-          "n_violations": 460.0,
-          "n": 5151.0,
-          "kupiec_stat": 137.20524635109604,
-          "kupiec_p": 1.0874377985901442e-31,
-          "christoffersen_stat": 139.49727504748427,
-          "christoffersen_p": 5.111538110762038e-31
+          "n_violations": 414.0,
+          "n": 4651.0,
+          "kupiec_stat": 122.21352943708058,
+          "kupiec_p": 2.072841238739142e-28,
+          "christoffersen_stat": 125.43862106126704,
+          "christoffersen_p": 5.772308419406827e-28,
+          "dq_stat": 167.5575960812583,
+          "dq_pvalue": 1.4822970513646887e-33
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.08901311545904107,
+            "expected_rate": 0.05,
+            "n_violations": 414.0,
+            "n": 4651.0,
+            "kupiec_stat": 122.21352943708058,
+            "kupiec_p": 2.072841238739142e-28,
+            "christoffersen_stat": 125.43862106126704,
+            "christoffersen_p": 5.772308419406827e-28,
+            "dq_stat": 167.5575960812583,
+            "dq_pvalue": 1.4822970513646887e-33
+          },
+          "t": {
+            "violation_rate": 0.08901311545904107,
+            "expected_rate": 0.05,
+            "n_violations": 414.0,
+            "n": 4651.0,
+            "kupiec_stat": 122.21352943708058,
+            "kupiec_p": 2.072841238739142e-28,
+            "christoffersen_stat": 125.43862106126704,
+            "christoffersen_p": 5.772308419406827e-28,
+            "dq_stat": 167.5575960812583,
+            "dq_pvalue": 1.4822970513646887e-33
+          },
+          "fhs": {
+            "violation_rate": 0.05052676843689529,
+            "expected_rate": 0.05,
+            "n_violations": 235.0,
+            "n": 4651.0,
+            "kupiec_stat": 0.027080242043332703,
+            "kupiec_p": 0.8692897230746562,
+            "christoffersen_stat": 6.496163046856998,
+            "christoffersen_p": 0.03884866664192967,
+            "dq_stat": 13.871875931320712,
+            "dq_pvalue": 0.031100589636871775
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.01600568882699611,
@@ -723,57 +1723,137 @@
     ".STOXX50E": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": -0.006615912981593697,
-          "ann_vol": 0.11239967162234246,
-          "sharpe": -0.05886060774112267,
-          "max_drawdown": -0.4483244457058841,
-          "turnover": 0.05363760045780924,
-          "avg_leverage": 0.6829296693768909,
+          "ann_return": -0.0066159129815936395,
+          "ann_vol": 0.11239967162234252,
+          "sharpe": -0.05886060774112213,
+          "max_drawdown": -0.448324445705883,
+          "turnover": 0.05363760045780929,
+          "avg_leverage": 0.6829296693768913,
           "bh_sharpe": 0.015843913224731523,
           "bh_ann_vol": 0.22334780041354038
         },
         "var_backtest": {
-          "violation_rate": 0.07557460070120764,
+          "violation_rate": 0.0759602934829521,
           "expected_rate": 0.05,
-          "n_violations": 388.0,
-          "n": 5134.0,
-          "kupiec_stat": 61.53029894106646,
-          "kupiec_p": 4.359822370193542e-15,
-          "christoffersen_stat": 63.78024281876492,
-          "christoffersen_p": 1.4135014055606051e-14
+          "n_violations": 352.0,
+          "n": 4634.0,
+          "kupiec_stat": 57.12192526663327,
+          "kupiec_p": 4.096135913547226e-14,
+          "christoffersen_stat": 59.93809580141655,
+          "christoffersen_p": 9.651790104538992e-14,
+          "dq_stat": 89.11974928801189,
+          "dq_pvalue": 4.6156891231059394e-17
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.0759602934829521,
+            "expected_rate": 0.05,
+            "n_violations": 352.0,
+            "n": 4634.0,
+            "kupiec_stat": 57.12192526663327,
+            "kupiec_p": 4.096135913547226e-14,
+            "christoffersen_stat": 59.93809580141655,
+            "christoffersen_p": 9.651790104538992e-14,
+            "dq_stat": 89.11974928801189,
+            "dq_pvalue": 4.6156891231059394e-17
+          },
+          "t": {
+            "violation_rate": 0.0759602934829521,
+            "expected_rate": 0.05,
+            "n_violations": 352.0,
+            "n": 4634.0,
+            "kupiec_stat": 57.12192526663327,
+            "kupiec_p": 4.096135913547226e-14,
+            "christoffersen_stat": 59.93809580141655,
+            "christoffersen_p": 9.651790104538992e-14,
+            "dq_stat": 89.11974928801189,
+            "dq_pvalue": 4.6156891231059394e-17
+          },
+          "fhs": {
+            "violation_rate": 0.06387570133793699,
+            "expected_rate": 0.05,
+            "n_violations": 296.0,
+            "n": 4634.0,
+            "kupiec_stat": 17.33405761340711,
+            "kupiec_p": 3.135173037187184e-05,
+            "christoffersen_stat": 20.907296412092393,
+            "christoffersen_p": 2.8842856440666235e-05,
+            "dq_stat": 37.960872694151114,
+            "dq_pvalue": 1.1433196685690474e-06
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.02514554718573599,
-          "rmse_price": 0.15857347566896549,
-          "mean_abs_price_error": 0.09984312158854045
+          "mean_squared_price_error": 0.025145547185736,
+          "rmse_price": 0.1585734756689655,
+          "mean_abs_price_error": 0.09984312158854043
         },
-        "qlike": 0.20602438682356666
+        "qlike": 0.20602438682356672
       },
       "HAR": {
         "vol_targeting": {
-          "ann_return": -0.00588069493920689,
-          "ann_vol": 0.10802139104093018,
-          "sharpe": -0.05444009637849087,
-          "max_drawdown": -0.41383285936154696,
-          "turnover": 0.0442905376852254,
-          "avg_leverage": 0.6393982285422212,
+          "ann_return": -0.0058806949392068725,
+          "ann_vol": 0.10802139104093017,
+          "sharpe": -0.05444009637849072,
+          "max_drawdown": -0.4138328593615479,
+          "turnover": 0.04429053768522539,
+          "avg_leverage": 0.6393982285422211,
           "bh_sharpe": 0.015843913224731523,
           "bh_ann_vol": 0.22334780041354038
         },
         "var_backtest": {
-          "violation_rate": 0.06856252434748734,
+          "violation_rate": 0.06754423823910229,
           "expected_rate": 0.05,
-          "n_violations": 352.0,
-          "n": 5134.0,
-          "kupiec_stat": 33.54341619795025,
-          "kupiec_p": 6.969087272143328e-09,
-          "christoffersen_stat": 36.297047621498194,
-          "christoffersen_p": 1.3127930059578545e-08
+          "n_violations": 313.0,
+          "n": 4634.0,
+          "kupiec_stat": 27.186355475076937,
+          "kupiec_p": 1.8475799384375897e-07,
+          "christoffersen_stat": 31.062708375949427,
+          "christoffersen_p": 1.7981196194065625e-07,
+          "dq_stat": 59.91612991279517,
+          "dq_pvalue": 4.6811033302056135e-11
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.06754423823910229,
+            "expected_rate": 0.05,
+            "n_violations": 313.0,
+            "n": 4634.0,
+            "kupiec_stat": 27.186355475076937,
+            "kupiec_p": 1.8475799384375897e-07,
+            "christoffersen_stat": 31.062708375949427,
+            "christoffersen_p": 1.7981196194065625e-07,
+            "dq_stat": 59.91612991279517,
+            "dq_pvalue": 4.6811033302056135e-11
+          },
+          "t": {
+            "violation_rate": 0.06754423823910229,
+            "expected_rate": 0.05,
+            "n_violations": 313.0,
+            "n": 4634.0,
+            "kupiec_stat": 27.186355475076937,
+            "kupiec_p": 1.8475799384375897e-07,
+            "christoffersen_stat": 31.062708375949427,
+            "christoffersen_p": 1.7981196194065625e-07,
+            "dq_stat": 59.91612991279517,
+            "dq_pvalue": 4.6811033302056135e-11
+          },
+          "fhs": {
+            "violation_rate": 0.04618040569702201,
+            "expected_rate": 0.05,
+            "n_violations": 214.0,
+            "n": 4634.0,
+            "kupiec_stat": 1.459015661787042,
+            "kupiec_p": 0.22708680419595556,
+            "christoffersen_stat": 2.441249599586712,
+            "christoffersen_p": 0.2950457647899341,
+            "dq_stat": 6.822320544575758,
+            "dq_pvalue": 0.33759204616156263
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.02628386376708032,
           "rmse_price": 0.16212298963157667,
-          "mean_abs_price_error": 0.10544557549711882
+          "mean_abs_price_error": 0.10544557549711885
         },
         "qlike": 0.2099945646384634
       },
@@ -789,14 +1869,54 @@
           "bh_ann_vol": 0.22334780041354038
         },
         "var_backtest": {
-          "violation_rate": 0.09602649006622517,
+          "violation_rate": 0.09602934829520932,
           "expected_rate": 0.05,
-          "n_violations": 493.0,
-          "n": 5134.0,
-          "kupiec_stat": 182.50265709777693,
-          "kupiec_p": 1.377238322333381e-41,
-          "christoffersen_stat": 185.55276255227477,
-          "christoffersen_p": 5.101872027622982e-41
+          "n_violations": 445.0,
+          "n": 4634.0,
+          "kupiec_stat": 164.74733599532783,
+          "kupiec_p": 1.0387334687462596e-37,
+          "christoffersen_stat": 167.16841520901,
+          "christoffersen_p": 5.010024655162022e-37,
+          "dq_stat": 238.11403647506708,
+          "dq_pvalue": 1.4189568451192466e-48
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.09602934829520932,
+            "expected_rate": 0.05,
+            "n_violations": 445.0,
+            "n": 4634.0,
+            "kupiec_stat": 164.74733599532783,
+            "kupiec_p": 1.0387334687462596e-37,
+            "christoffersen_stat": 167.16841520901,
+            "christoffersen_p": 5.010024655162022e-37,
+            "dq_stat": 238.11403647506708,
+            "dq_pvalue": 1.4189568451192466e-48
+          },
+          "t": {
+            "violation_rate": 0.11825636599050496,
+            "expected_rate": 0.05,
+            "n_violations": 548.0,
+            "n": 4634.0,
+            "kupiec_stat": 334.16220256190763,
+            "kupiec_p": 1.1919856123636197e-74,
+            "christoffersen_stat": 334.9989997614849,
+            "christoffersen_p": 1.8025672663118517e-73,
+            "dq_stat": 497.4431280423742,
+            "dq_pvalue": 2.988727201784966e-104
+          },
+          "fhs": {
+            "violation_rate": 0.055891238670694864,
+            "expected_rate": 0.05,
+            "n_violations": 259.0,
+            "n": 4634.0,
+            "kupiec_stat": 3.2668851110635373,
+            "kupiec_p": 0.0706917298744488,
+            "christoffersen_stat": 4.293088665997068,
+            "christoffersen_p": 0.11688738454116047,
+            "dq_stat": 22.355723982240775,
+            "dq_pvalue": 0.0010436309941437628
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.031085128763837202,
@@ -817,14 +1937,54 @@
           "bh_ann_vol": 0.22334780041354038
         },
         "var_backtest": {
-          "violation_rate": 0.07460070120763537,
+          "violation_rate": 0.0755287009063444,
           "expected_rate": 0.05,
-          "n_violations": 383.0,
-          "n": 5134.0,
-          "kupiec_stat": 57.19640742897488,
-          "kupiec_p": 3.943909460108139e-14,
-          "christoffersen_stat": 74.49575284599723,
-          "christoffersen_p": 6.659671492598916e-17
+          "n_violations": 350.0,
+          "n": 4634.0,
+          "kupiec_stat": 55.35066574144747,
+          "kupiec_p": 1.0083571079528826e-13,
+          "christoffersen_stat": 74.09404433901352,
+          "christoffersen_p": 8.141092716750219e-17,
+          "dq_stat": 151.8138164656505,
+          "dq_pvalue": 3.199062653517684e-30
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.0755287009063444,
+            "expected_rate": 0.05,
+            "n_violations": 350.0,
+            "n": 4634.0,
+            "kupiec_stat": 55.35066574144747,
+            "kupiec_p": 1.0083571079528826e-13,
+            "christoffersen_stat": 74.09404433901352,
+            "christoffersen_p": 8.141092716750219e-17,
+            "dq_stat": 151.8138164656505,
+            "dq_pvalue": 3.199062653517684e-30
+          },
+          "t": {
+            "violation_rate": 0.0755287009063444,
+            "expected_rate": 0.05,
+            "n_violations": 350.0,
+            "n": 4634.0,
+            "kupiec_stat": 55.35066574144747,
+            "kupiec_p": 1.0083571079528826e-13,
+            "christoffersen_stat": 74.09404433901352,
+            "christoffersen_p": 8.141092716750219e-17,
+            "dq_stat": 151.8138164656505,
+            "dq_pvalue": 3.199062653517684e-30
+          },
+          "fhs": {
+            "violation_rate": 0.050496331463098836,
+            "expected_rate": 0.05,
+            "n_violations": 234.0,
+            "n": 4634.0,
+            "kupiec_stat": 0.023957928183084398,
+            "kupiec_p": 0.8769920089209456,
+            "christoffersen_stat": 9.46442080985888,
+            "christoffersen_p": 0.008806982511335472,
+            "dq_stat": 31.141685644847716,
+            "dq_pvalue": 2.3818083057487684e-05
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.033687389549163706,
@@ -835,29 +1995,69 @@
       },
       "GBRT": {
         "vol_targeting": {
-          "ann_return": -0.008867644962588211,
+          "ann_return": -0.008867644962588215,
           "ann_vol": 0.11499362088861771,
-          "sharpe": -0.07711423376412654,
-          "max_drawdown": -0.4473459335785492,
+          "sharpe": -0.07711423376412657,
+          "max_drawdown": -0.44734593357854874,
           "turnover": 0.06777221678719282,
           "avg_leverage": 0.6951427555535308,
           "bh_sharpe": 0.015843913224731523,
           "bh_ann_vol": 0.22334780041354038
         },
         "var_backtest": {
-          "violation_rate": 0.07888585897935332,
+          "violation_rate": 0.07919723780750972,
           "expected_rate": 0.05,
-          "n_violations": 405.0,
-          "n": 5134.0,
-          "kupiec_stat": 77.29861840387252,
-          "kupiec_p": 1.4696880255833356e-18,
-          "christoffersen_stat": 78.26091366651855,
-          "christoffersen_p": 1.0135811447976501e-17
+          "n_violations": 367.0,
+          "n": 4634.0,
+          "kupiec_stat": 71.18168642159566,
+          "kupiec_p": 3.25798183172377e-17,
+          "christoffersen_stat": 72.59652825226186,
+          "christoffersen_p": 1.7213301961330595e-16,
+          "dq_stat": 100.33832165081044,
+          "dq_pvalue": 2.132861837451364e-19
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.07919723780750972,
+            "expected_rate": 0.05,
+            "n_violations": 367.0,
+            "n": 4634.0,
+            "kupiec_stat": 71.18168642159566,
+            "kupiec_p": 3.25798183172377e-17,
+            "christoffersen_stat": 72.59652825226186,
+            "christoffersen_p": 1.7213301961330595e-16,
+            "dq_stat": 100.33832165081044,
+            "dq_pvalue": 2.132861837451364e-19
+          },
+          "t": {
+            "violation_rate": 0.07919723780750972,
+            "expected_rate": 0.05,
+            "n_violations": 367.0,
+            "n": 4634.0,
+            "kupiec_stat": 71.18168642159566,
+            "kupiec_p": 3.25798183172377e-17,
+            "christoffersen_stat": 72.59652825226186,
+            "christoffersen_p": 1.7213301961330595e-16,
+            "dq_stat": 100.33832165081044,
+            "dq_pvalue": 2.132861837451364e-19
+          },
+          "fhs": {
+            "violation_rate": 0.04682779456193353,
+            "expected_rate": 0.05,
+            "n_violations": 217.0,
+            "n": 4634.0,
+            "kupiec_stat": 1.0020333534924042,
+            "kupiec_p": 0.31681899555437115,
+            "christoffersen_stat": 3.232981315267601,
+            "christoffersen_p": 0.19859441340839717,
+            "dq_stat": 10.959943758425867,
+            "dq_pvalue": 0.08962233619271856
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.026210007404500392,
-          "rmse_price": 0.1618950505867934,
-          "mean_abs_price_error": 0.09926716814248127
+          "mean_squared_price_error": 0.026210007404500402,
+          "rmse_price": 0.16189505058679343,
+          "mean_abs_price_error": 0.09926716814248128
         },
         "qlike": 0.20997370982193328
       }
@@ -865,57 +2065,137 @@
     ".N225": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": 0.03217570268529981,
-          "ann_vol": 0.15427551267274467,
-          "sharpe": 0.20856001142288982,
-          "max_drawdown": -0.4846398855839198,
-          "turnover": 0.08156556680565401,
+          "ann_return": 0.032175702685299644,
+          "ann_vol": 0.1542755126727447,
+          "sharpe": 0.20856001142288869,
+          "max_drawdown": -0.4846398855839196,
+          "turnover": 0.08156556680565416,
           "avg_leverage": 0.8265317257193734,
           "bh_sharpe": 0.20906478144601426,
           "bh_ann_vol": 0.2318397348727461
         },
         "var_backtest": {
-          "violation_rate": 0.12786885245901639,
+          "violation_rate": 0.13013698630136986,
           "expected_rate": 0.05,
-          "n_violations": 624.0,
-          "n": 4880.0,
-          "kupiec_stat": 443.8849742534952,
-          "kupiec_p": 1.5450211762787576e-98,
-          "christoffersen_stat": 444.6217144080232,
-          "christoffersen_p": 2.8289251006461356e-97
+          "n_violations": 570.0,
+          "n": 4380.0,
+          "kupiec_stat": 418.96172398386614,
+          "kupiec_p": 4.106198848983935e-93,
+          "christoffersen_stat": 419.22446072659,
+          "christoffersen_p": 9.259019820682001e-92,
+          "dq_stat": 632.5933310314134,
+          "dq_pvalue": 2.167748310364878e-133
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.13013698630136986,
+            "expected_rate": 0.05,
+            "n_violations": 570.0,
+            "n": 4380.0,
+            "kupiec_stat": 418.96172398386614,
+            "kupiec_p": 4.106198848983935e-93,
+            "christoffersen_stat": 419.22446072659,
+            "christoffersen_p": 9.259019820682001e-92,
+            "dq_stat": 632.5933310314134,
+            "dq_pvalue": 2.167748310364878e-133
+          },
+          "t": {
+            "violation_rate": 0.1312785388127854,
+            "expected_rate": 0.05,
+            "n_violations": 575.0,
+            "n": 4380.0,
+            "kupiec_stat": 429.4589292187268,
+            "kupiec_p": 2.131337478186496e-95,
+            "christoffersen_stat": 429.6776506250063,
+            "christoffersen_p": 4.973746748054559e-94,
+            "dq_stat": 644.8846662496636,
+            "dq_pvalue": 4.8266062366029095e-136
+          },
+          "fhs": {
+            "violation_rate": 0.07374429223744292,
+            "expected_rate": 0.05,
+            "n_violations": 323.0,
+            "n": 4380.0,
+            "kupiec_stat": 45.64436950990398,
+            "kupiec_p": 1.417930688806432e-11,
+            "christoffersen_stat": 45.76165658535248,
+            "christoffersen_p": 1.1560657401374247e-10,
+            "dq_stat": 80.45166404024879,
+            "dq_pvalue": 2.882089370259507e-15
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.014836051939861,
-          "rmse_price": 0.1218033330408532,
-          "mean_abs_price_error": 0.07640794916273
+          "mean_squared_price_error": 0.014836051939861004,
+          "rmse_price": 0.12180333304085321,
+          "mean_abs_price_error": 0.07640794916273004
         },
-        "qlike": 0.19453184691326086
+        "qlike": 0.19453184691326098
       },
       "HAR": {
         "vol_targeting": {
-          "ann_return": 0.029768415233530653,
-          "ann_vol": 0.14616002839054384,
-          "sharpe": 0.20367001540249144,
-          "max_drawdown": -0.47879875588537124,
-          "turnover": 0.05996301341508685,
-          "avg_leverage": 0.7695041225966143,
+          "ann_return": 0.029768415233530698,
+          "ann_vol": 0.14616002839054382,
+          "sharpe": 0.2036700154024918,
+          "max_drawdown": -0.47879875588537174,
+          "turnover": 0.05996301341508683,
+          "avg_leverage": 0.7695041225966142,
           "bh_sharpe": 0.20906478144601426,
           "bh_ann_vol": 0.2318397348727461
         },
         "var_backtest": {
-          "violation_rate": 0.11967213114754098,
+          "violation_rate": 0.12123287671232877,
           "expected_rate": 0.05,
-          "n_violations": 584.0,
-          "n": 4880.0,
-          "kupiec_stat": 364.92011421697896,
-          "kupiec_p": 2.3892584309994156e-81,
-          "christoffersen_stat": 365.08757362386257,
-          "christoffersen_p": 5.275221281555653e-80
+          "n_violations": 531.0,
+          "n": 4380.0,
+          "kupiec_stat": 340.60514472141153,
+          "kupiec_p": 4.7106538051401273e-76,
+          "christoffersen_stat": 340.89678786469176,
+          "christoffersen_p": 9.44502400217524e-75,
+          "dq_stat": 521.0878295958157,
+          "dq_pvalue": 2.4059195597129254e-109
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.12123287671232877,
+            "expected_rate": 0.05,
+            "n_violations": 531.0,
+            "n": 4380.0,
+            "kupiec_stat": 340.60514472141153,
+            "kupiec_p": 4.7106538051401273e-76,
+            "christoffersen_stat": 340.89678786469176,
+            "christoffersen_p": 9.44502400217524e-75,
+            "dq_stat": 521.0878295958157,
+            "dq_pvalue": 2.4059195597129254e-109
+          },
+          "t": {
+            "violation_rate": 0.12123287671232877,
+            "expected_rate": 0.05,
+            "n_violations": 531.0,
+            "n": 4380.0,
+            "kupiec_stat": 340.60514472141153,
+            "kupiec_p": 4.7106538051401273e-76,
+            "christoffersen_stat": 340.89678786469176,
+            "christoffersen_p": 9.44502400217524e-75,
+            "dq_stat": 521.0878295958157,
+            "dq_pvalue": 2.4059195597129254e-109
+          },
+          "fhs": {
+            "violation_rate": 0.07123287671232877,
+            "expected_rate": 0.05,
+            "n_violations": 312.0,
+            "n": 4380.0,
+            "kupiec_stat": 36.94747782492388,
+            "kupiec_p": 1.21354574364524e-09,
+            "christoffersen_stat": 37.379594258069005,
+            "christoffersen_p": 7.640543259477713e-09,
+            "dq_stat": 73.29974613999134,
+            "dq_pvalue": 8.589456213742686e-14
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.01585738845198087,
-          "rmse_price": 0.12592612299273281,
-          "mean_abs_price_error": 0.08334132093859649
+          "mean_squared_price_error": 0.015857388451980876,
+          "rmse_price": 0.12592612299273284,
+          "mean_abs_price_error": 0.0833413209385965
         },
         "qlike": 0.2034351208573579
       },
@@ -931,14 +2211,54 @@
           "bh_ann_vol": 0.2318397348727461
         },
         "var_backtest": {
-          "violation_rate": 0.14344262295081966,
+          "violation_rate": 0.145662100456621,
           "expected_rate": 0.05,
-          "n_violations": 700.0,
-          "n": 4880.0,
-          "kupiec_stat": 609.8768777048584,
-          "kupiec_p": 1.1899492986351151e-134,
-          "christoffersen_stat": 614.9112105573734,
-          "christoffersen_p": 2.976646057176578e-134
+          "n_violations": 638.0,
+          "n": 4380.0,
+          "kupiec_stat": 570.0682694196826,
+          "kupiec_p": 5.4258308712784615e-126,
+          "christoffersen_stat": 574.195083604216,
+          "christoffersen_p": 2.0659596130909877e-125,
+          "dq_stat": 880.5575019824697,
+          "dq_pvalue": 5.994682833039181e-187
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.145662100456621,
+            "expected_rate": 0.05,
+            "n_violations": 638.0,
+            "n": 4380.0,
+            "kupiec_stat": 570.0682694196826,
+            "kupiec_p": 5.4258308712784615e-126,
+            "christoffersen_stat": 574.195083604216,
+            "christoffersen_p": 2.0659596130909877e-125,
+            "dq_stat": 880.5575019824697,
+            "dq_pvalue": 5.994682833039181e-187
+          },
+          "t": {
+            "violation_rate": 0.14748858447488583,
+            "expected_rate": 0.05,
+            "n_violations": 646.0,
+            "n": 4380.0,
+            "kupiec_stat": 588.9917096708534,
+            "kupiec_p": 4.1517053479768905e-130,
+            "christoffersen_stat": 593.2092288822788,
+            "christoffersen_p": 1.5355099718668936e-129,
+            "dq_stat": 914.2528003522166,
+            "dq_pvalue": 3.115082718266672e-194
+          },
+          "fhs": {
+            "violation_rate": 0.07123287671232877,
+            "expected_rate": 0.05,
+            "n_violations": 312.0,
+            "n": 4380.0,
+            "kupiec_stat": 36.94747782492388,
+            "kupiec_p": 1.21354574364524e-09,
+            "christoffersen_stat": 40.98675779488201,
+            "christoffersen_p": 1.2584577200336927e-09,
+            "dq_stat": 58.9739875239928,
+            "dq_pvalue": 7.27155903674829e-11
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.018562271828480498,
@@ -959,14 +2279,54 @@
           "bh_ann_vol": 0.2318397348727461
         },
         "var_backtest": {
-          "violation_rate": 0.125,
+          "violation_rate": 0.1267123287671233,
           "expected_rate": 0.05,
-          "n_violations": 610.0,
-          "n": 4880.0,
-          "kupiec_stat": 415.5613339427282,
-          "kupiec_p": 2.2572856382743557e-92,
-          "christoffersen_stat": 416.10407545837734,
-          "christoffersen_p": 4.407050889728103e-91
+          "n_violations": 555.0,
+          "n": 4380.0,
+          "kupiec_stat": 388.07822133659374,
+          "kupiec_p": 2.168969366962422e-86,
+          "christoffersen_stat": 389.31266148748557,
+          "christoffersen_p": 2.89620761075656e-85,
+          "dq_stat": 621.4236435467619,
+          "dq_pvalue": 5.572516491510611e-131
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.1267123287671233,
+            "expected_rate": 0.05,
+            "n_violations": 555.0,
+            "n": 4380.0,
+            "kupiec_stat": 388.07822133659374,
+            "kupiec_p": 2.168969366962422e-86,
+            "christoffersen_stat": 389.31266148748557,
+            "christoffersen_p": 2.89620761075656e-85,
+            "dq_stat": 621.4236435467619,
+            "dq_pvalue": 5.572516491510611e-131
+          },
+          "t": {
+            "violation_rate": 0.12922374429223743,
+            "expected_rate": 0.05,
+            "n_violations": 566.0,
+            "n": 4380.0,
+            "kupiec_stat": 410.63653108310666,
+            "kupiec_p": 2.6642210880742305e-91,
+            "christoffersen_stat": 412.85971680432226,
+            "christoffersen_p": 2.2317811023883396e-90,
+            "dq_stat": 659.8779597140608,
+            "dq_pvalue": 2.80408710779281e-139
+          },
+          "fhs": {
+            "violation_rate": 0.0730593607305936,
+            "expected_rate": 0.05,
+            "n_violations": 320.0,
+            "n": 4380.0,
+            "kupiec_stat": 43.19118436169012,
+            "kupiec_p": 4.9643853882847616e-11,
+            "christoffersen_stat": 47.39697993059414,
+            "christoffersen_p": 5.103599410901598e-11,
+            "dq_stat": 107.49297426871264,
+            "dq_pvalue": 6.823773643069535e-21
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.02035794143943843,
@@ -987,19 +2347,59 @@
           "bh_ann_vol": 0.2318397348727461
         },
         "var_backtest": {
-          "violation_rate": 0.12991803278688524,
+          "violation_rate": 0.1319634703196347,
           "expected_rate": 0.05,
-          "n_violations": 634.0,
-          "n": 4880.0,
-          "kupiec_stat": 464.557982382447,
-          "kupiec_p": 4.897856814227793e-103,
-          "christoffersen_stat": 464.7646421441834,
-          "christoffersen_p": 1.1957496612783242e-101
+          "n_violations": 578.0,
+          "n": 4380.0,
+          "kupiec_stat": 435.80534667094673,
+          "kupiec_p": 8.858787469092866e-97,
+          "christoffersen_stat": 436.11232059726046,
+          "christoffersen_p": 1.9925665588245106e-95,
+          "dq_stat": 659.8043255281902,
+          "dq_pvalue": 2.9086021822371047e-139
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.1319634703196347,
+            "expected_rate": 0.05,
+            "n_violations": 578.0,
+            "n": 4380.0,
+            "kupiec_stat": 435.80534667094673,
+            "kupiec_p": 8.858787469092866e-97,
+            "christoffersen_stat": 436.11232059726046,
+            "christoffersen_p": 1.9925665588245106e-95,
+            "dq_stat": 659.8043255281902,
+            "dq_pvalue": 2.9086021822371047e-139
+          },
+          "t": {
+            "violation_rate": 0.13310502283105022,
+            "expected_rate": 0.05,
+            "n_violations": 583.0,
+            "n": 4380.0,
+            "kupiec_stat": 446.4623567024861,
+            "kupiec_p": 4.2463064440582505e-99,
+            "christoffersen_stat": 446.83959333792257,
+            "christoffersen_p": 9.33286875907832e-98,
+            "dq_stat": 678.7303439972604,
+            "dq_pvalue": 2.3902450784295688e-143
+          },
+          "fhs": {
+            "violation_rate": 0.07625570776255708,
+            "expected_rate": 0.05,
+            "n_violations": 334.0,
+            "n": 4380.0,
+            "kupiec_stat": 55.15028215352689,
+            "kupiec_p": 1.1165763829367462e-13,
+            "christoffersen_stat": 55.218951000911915,
+            "christoffersen_p": 1.0217793982244875e-12,
+            "dq_stat": 88.67922618779052,
+            "dq_pvalue": 5.697542082727898e-17
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.01660480764216964,
           "rmse_price": 0.12885964318656806,
-          "mean_abs_price_error": 0.07806405549473594
+          "mean_abs_price_error": 0.07806405549473593
         },
         "qlike": 0.20561690600703988
       }
@@ -1007,57 +2407,137 @@
     ".HSI": {
       "LogHAR": {
         "vol_targeting": {
-          "ann_return": 0.034940817614413554,
-          "ann_vol": 0.14626487759827064,
-          "sharpe": 0.23888727210630556,
-          "max_drawdown": -0.401195481183624,
-          "turnover": 0.045486703277215934,
-          "avg_leverage": 0.8166634455284377,
+          "ann_return": 0.03494081761441345,
+          "ann_vol": 0.14626487759827062,
+          "sharpe": 0.2388872721063049,
+          "max_drawdown": -0.40119548118362364,
+          "turnover": 0.04548670327721589,
+          "avg_leverage": 0.8166634455284374,
           "bh_sharpe": 0.17266653248558564,
           "bh_ann_vol": 0.22290452050787538
         },
         "var_backtest": {
-          "violation_rate": 0.11918781725888325,
+          "violation_rate": 0.12225988700564971,
           "expected_rate": 0.05,
-          "n_violations": 587.0,
-          "n": 4925.0,
-          "kupiec_stat": 363.7694131880428,
-          "kupiec_p": 4.254188978328797e-81,
-          "christoffersen_stat": 364.8409878998651,
-          "christoffersen_p": 5.96741293695994e-80
+          "n_violations": 541.0,
+          "n": 4425.0,
+          "kupiec_stat": 352.90671000416216,
+          "kupiec_p": 9.866649253940846e-79,
+          "christoffersen_stat": 354.41316198018853,
+          "christoffersen_p": 1.0968815185008848e-77,
+          "dq_stat": 517.4643389712303,
+          "dq_pvalue": 1.452360503058317e-108
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.12225988700564971,
+            "expected_rate": 0.05,
+            "n_violations": 541.0,
+            "n": 4425.0,
+            "kupiec_stat": 352.90671000416216,
+            "kupiec_p": 9.866649253940846e-79,
+            "christoffersen_stat": 354.41316198018853,
+            "christoffersen_p": 1.0968815185008848e-77,
+            "dq_stat": 517.4643389712303,
+            "dq_pvalue": 1.452360503058317e-108
+          },
+          "t": {
+            "violation_rate": 0.12610169491525425,
+            "expected_rate": 0.05,
+            "n_violations": 558.0,
+            "n": 4425.0,
+            "kupiec_stat": 386.59998602598387,
+            "kupiec_p": 4.5506415859155036e-86,
+            "christoffersen_stat": 387.8080216643175,
+            "christoffersen_p": 6.145512079989094e-85,
+            "dq_stat": 574.8134968593286,
+            "dq_pvalue": 6.306975692970418e-121
+          },
+          "fhs": {
+            "violation_rate": 0.07050847457627119,
+            "expected_rate": 0.05,
+            "n_violations": 312.0,
+            "n": 4425.0,
+            "kupiec_stat": 34.948330824302275,
+            "kupiec_p": 3.3857152014619515e-09,
+            "christoffersen_stat": 35.04568743075248,
+            "christoffersen_p": 2.454288809326833e-08,
+            "dq_stat": 48.40724241836405,
+            "dq_pvalue": 9.796702277961883e-09
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.01127261839724215,
-          "rmse_price": 0.10617258778631211,
-          "mean_abs_price_error": 0.06683163334511086
+          "mean_squared_price_error": 0.011272618397242156,
+          "rmse_price": 0.10617258778631213,
+          "mean_abs_price_error": 0.06683163334511087
         },
         "qlike": 0.14186663439378025
       },
       "HAR": {
         "vol_targeting": {
-          "ann_return": 0.03262152303338632,
+          "ann_return": 0.032621523033386286,
           "ann_vol": 0.1426760186645684,
-          "sharpe": 0.22864054757569027,
-          "max_drawdown": -0.405727820345914,
+          "sharpe": 0.22864054757569002,
+          "max_drawdown": -0.40572782034591365,
           "turnover": 0.04858723431067709,
           "avg_leverage": 0.792815324313775,
           "bh_sharpe": 0.17266653248558564,
           "bh_ann_vol": 0.22290452050787538
         },
         "var_backtest": {
-          "violation_rate": 0.11573604060913706,
+          "violation_rate": 0.1184180790960452,
           "expected_rate": 0.05,
-          "n_violations": 570.0,
-          "n": 4925.0,
-          "kupiec_stat": 332.2270699770638,
-          "kupiec_p": 3.1458166772368985e-74,
-          "christoffersen_stat": 332.86131772994065,
-          "christoffersen_p": 5.249080527231753e-73
+          "n_violations": 524.0,
+          "n": 4425.0,
+          "kupiec_stat": 320.43081787367396,
+          "kupiec_p": 1.1669707611486514e-71,
+          "christoffersen_stat": 321.3626161531446,
+          "christoffersen_p": 1.648141736605612e-70,
+          "dq_stat": 462.4251359389497,
+          "dq_pvalue": 1.038501396579426e-96
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.1184180790960452,
+            "expected_rate": 0.05,
+            "n_violations": 524.0,
+            "n": 4425.0,
+            "kupiec_stat": 320.43081787367396,
+            "kupiec_p": 1.1669707611486514e-71,
+            "christoffersen_stat": 321.3626161531446,
+            "christoffersen_p": 1.648141736605612e-70,
+            "dq_stat": 462.4251359389497,
+            "dq_pvalue": 1.038501396579426e-96
+          },
+          "t": {
+            "violation_rate": 0.1215819209039548,
+            "expected_rate": 0.05,
+            "n_violations": 538.0,
+            "n": 4425.0,
+            "kupiec_stat": 347.0862687302114,
+            "kupiec_p": 1.8266416133042986e-77,
+            "christoffersen_stat": 347.8386839688054,
+            "christoffersen_p": 2.936225999642163e-76,
+            "dq_stat": 504.05192649262176,
+            "dq_pvalue": 1.1267351093859978e-105
+          },
+          "fhs": {
+            "violation_rate": 0.07028248587570622,
+            "expected_rate": 0.05,
+            "n_violations": 311.0,
+            "n": 4425.0,
+            "kupiec_stat": 34.22071409662905,
+            "kupiec_p": 4.920243382924961e-09,
+            "christoffersen_stat": 34.30373862818155,
+            "christoffersen_p": 3.5566227535428067e-08,
+            "dq_stat": 45.756825079999,
+            "dq_pvalue": 3.309585461149297e-08
+          }
         },
         "option_loss": {
-          "mean_squared_price_error": 0.011728033867600903,
-          "rmse_price": 0.10829604733138187,
-          "mean_abs_price_error": 0.06959243475831714
+          "mean_squared_price_error": 0.011728033867600905,
+          "rmse_price": 0.10829604733138189,
+          "mean_abs_price_error": 0.06959243475831715
         },
         "qlike": 0.1416591197175613
       },
@@ -1073,14 +2553,54 @@
           "bh_ann_vol": 0.22290452050787538
         },
         "var_backtest": {
-          "violation_rate": 0.13177664974619288,
+          "violation_rate": 0.1344632768361582,
           "expected_rate": 0.05,
-          "n_violations": 649.0,
-          "n": 4925.0,
-          "kupiec_stat": 488.08183131984845,
-          "kupiec_p": 3.725507351659427e-108,
-          "christoffersen_stat": 491.22331208340836,
-          "christoffersen_p": 2.1488845824549466e-107
+          "n_violations": 595.0,
+          "n": 4425.0,
+          "kupiec_stat": 463.9897592333592,
+          "kupiec_p": 6.511166585909901e-103,
+          "christoffersen_stat": 467.1254848174847,
+          "christoffersen_p": 3.672736691380775e-102,
+          "dq_stat": 678.2606519946598,
+          "dq_pvalue": 3.018806262590501e-143
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.1344632768361582,
+            "expected_rate": 0.05,
+            "n_violations": 595.0,
+            "n": 4425.0,
+            "kupiec_stat": 463.9897592333592,
+            "kupiec_p": 6.511166585909901e-103,
+            "christoffersen_stat": 467.1254848174847,
+            "christoffersen_p": 3.672736691380775e-102,
+            "dq_stat": 678.2606519946598,
+            "dq_pvalue": 3.018806262590501e-143
+          },
+          "t": {
+            "violation_rate": 0.14259887005649718,
+            "expected_rate": 0.05,
+            "n_violations": 631.0,
+            "n": 4425.0,
+            "kupiec_stat": 544.3960921586696,
+            "kupiec_p": 2.0848702920280885e-120,
+            "christoffersen_stat": 547.6805062332752,
+            "christoffersen_p": 1.1821950823486829e-119,
+            "dq_stat": 809.0882512750176,
+            "dq_pvalue": 1.6740461412270708e-171
+          },
+          "fhs": {
+            "violation_rate": 0.06847457627118644,
+            "expected_rate": 0.05,
+            "n_violations": 303.0,
+            "n": 4425.0,
+            "kupiec_stat": 28.650542878532406,
+            "kupiec_p": 8.668968561318665e-08,
+            "christoffersen_stat": 32.471870130476134,
+            "christoffersen_p": 8.888387759696724e-08,
+            "dq_stat": 43.30947623222201,
+            "dq_pvalue": 1.0129784102725419e-07
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.015242999883413768,
@@ -1101,14 +2621,54 @@
           "bh_ann_vol": 0.22290452050787538
         },
         "var_backtest": {
-          "violation_rate": 0.11776649746192894,
+          "violation_rate": 0.12090395480225989,
           "expected_rate": 0.05,
-          "n_violations": 580.0,
-          "n": 4925.0,
-          "kupiec_stat": 350.6443802450092,
-          "kupiec_p": 3.067729357132073e-78,
-          "christoffersen_stat": 350.8252691394638,
-          "christoffersen_p": 6.595697818518747e-77
+          "n_violations": 535.0,
+          "n": 4425.0,
+          "kupiec_stat": 341.3039156998633,
+          "kupiec_p": 3.318199836910641e-76,
+          "christoffersen_stat": 341.51714747377514,
+          "christoffersen_p": 6.926178635518216e-75,
+          "dq_stat": 508.01395671698305,
+          "dq_pvalue": 1.5785260278382009e-106
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.12090395480225989,
+            "expected_rate": 0.05,
+            "n_violations": 535.0,
+            "n": 4425.0,
+            "kupiec_stat": 341.3039156998633,
+            "kupiec_p": 3.318199836910641e-76,
+            "christoffersen_stat": 341.51714747377514,
+            "christoffersen_p": 6.926178635518216e-75,
+            "dq_stat": 508.01395671698305,
+            "dq_pvalue": 1.5785260278382009e-106
+          },
+          "t": {
+            "violation_rate": 0.12361581920903955,
+            "expected_rate": 0.05,
+            "n_violations": 547.0,
+            "n": 4425.0,
+            "kupiec_stat": 364.6611315105348,
+            "kupiec_p": 2.7205319894481376e-81,
+            "christoffersen_stat": 364.8302135722163,
+            "christoffersen_p": 5.999647115502501e-80,
+            "dq_stat": 536.7534135564338,
+            "dq_pvalue": 1.0119830596478127e-112
+          },
+          "fhs": {
+            "violation_rate": 0.06598870056497175,
+            "expected_rate": 0.05,
+            "n_violations": 292.0,
+            "n": 4425.0,
+            "kupiec_stat": 21.73441707971628,
+            "kupiec_p": 3.13122939748245e-06,
+            "christoffersen_stat": 22.086795699512948,
+            "christoffersen_p": 1.5992385587915576e-05,
+            "dq_stat": 48.92729755369301,
+            "dq_pvalue": 7.70997349179998e-09
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.013488304837498414,
@@ -1119,9 +2679,9 @@
       },
       "GBRT": {
         "vol_targeting": {
-          "ann_return": 0.03583861013418648,
+          "ann_return": 0.03583861013418649,
           "ann_vol": 0.14821980688273867,
-          "sharpe": 0.24179366366695867,
+          "sharpe": 0.24179366366695873,
           "max_drawdown": -0.38691469615043633,
           "turnover": 0.0510498138708985,
           "avg_leverage": 0.8231698872128693,
@@ -1129,14 +2689,54 @@
           "bh_ann_vol": 0.22290452050787538
         },
         "var_backtest": {
-          "violation_rate": 0.1218274111675127,
+          "violation_rate": 0.12519774011299434,
           "expected_rate": 0.05,
-          "n_violations": 600.0,
-          "n": 4925.0,
-          "kupiec_stat": 388.6458854712372,
-          "kupiec_p": 1.6318150344311936e-86,
-          "christoffersen_stat": 390.0041221031073,
-          "christoffersen_p": 2.0496557514766858e-85
+          "n_violations": 554.0,
+          "n": 4425.0,
+          "kupiec_stat": 378.5643555724155,
+          "kupiec_p": 2.55578979198617e-84,
+          "christoffersen_stat": 380.092303242501,
+          "christoffersen_p": 2.9107509236402512e-83,
+          "dq_stat": 564.4827498502092,
+          "dq_pvalue": 1.0651655472278807e-118
+        },
+        "var_by_dist": {
+          "normal": {
+            "violation_rate": 0.12519774011299434,
+            "expected_rate": 0.05,
+            "n_violations": 554.0,
+            "n": 4425.0,
+            "kupiec_stat": 378.5643555724155,
+            "kupiec_p": 2.55578979198617e-84,
+            "christoffersen_stat": 380.092303242501,
+            "christoffersen_p": 2.9107509236402512e-83,
+            "dq_stat": 564.4827498502092,
+            "dq_pvalue": 1.0651655472278807e-118
+          },
+          "t": {
+            "violation_rate": 0.13016949152542373,
+            "expected_rate": 0.05,
+            "n_violations": 576.0,
+            "n": 4425.0,
+            "kupiec_stat": 423.5666940675419,
+            "kupiec_p": 4.0843301398679556e-94,
+            "christoffersen_stat": 424.90020635614405,
+            "christoffersen_p": 5.42116355455773e-93,
+            "dq_stat": 640.2962333905219,
+            "dq_pvalue": 4.7187231933566126e-135
+          },
+          "fhs": {
+            "violation_rate": 0.07661016949152542,
+            "expected_rate": 0.05,
+            "n_violations": 339.0,
+            "n": 4425.0,
+            "kupiec_stat": 57.1367210321298,
+            "kupiec_p": 4.065435509413125e-14,
+            "christoffersen_stat": 57.60728537338892,
+            "christoffersen_p": 3.095543579532688e-13,
+            "dq_stat": 80.48652024526183,
+            "dq_pvalue": 2.834688977756712e-15
+          }
         },
         "option_loss": {
           "mean_squared_price_error": 0.012303780634277893,
@@ -1149,29 +2749,49 @@
   },
   "summary": {
     "LogHAR": {
-      "avg_sharpe": 0.2118339031100961,
-      "avg_viol_dev": 0.039143856748254734,
-      "avg_opt_rmse": 0.13369918541067866
+      "avg_sharpe": 0.21183390311009592,
+      "avg_viol_dev": 0.040550390271945395,
+      "avg_opt_rmse": 0.13369918541067868
     },
     "HAR": {
-      "avg_sharpe": 0.20522796111013122,
-      "avg_viol_dev": 0.030792383725987513,
+      "avg_sharpe": 0.20522796111013117,
+      "avg_viol_dev": 0.031068084593019525,
       "avg_opt_rmse": 0.13816455740927563
     },
     "RW": {
       "avg_sharpe": 0.19076875260374282,
-      "avg_viol_dev": 0.05523231992383359,
+      "avg_viol_dev": 0.056213241224411584,
       "avg_opt_rmse": 0.15097989835519002
     },
     "EWMA": {
       "avg_sharpe": 0.22939301622491626,
-      "avg_viol_dev": 0.03749899922357855,
+      "avg_viol_dev": 0.038561566766172804,
       "avg_opt_rmse": 0.15646118658197566
     },
     "GBRT": {
       "avg_sharpe": 0.20670029978906523,
-      "avg_viol_dev": 0.041303954211313595,
+      "avg_viol_dev": 0.042343778775037394,
       "avg_opt_rmse": 0.1402930185927025
+    }
+  },
+  "var_coverage_by_dist": {
+    "normal": {
+      "avg_violation_rate": 0.09055039027194539,
+      "avg_viol_dev": 0.040550390271945395,
+      "dq_reject_frac": 1.0,
+      "n_indices": 8.0
+    },
+    "t": {
+      "avg_violation_rate": 0.09136564823169298,
+      "avg_viol_dev": 0.041365648231692975,
+      "dq_reject_frac": 1.0,
+      "n_indices": 8.0
+    },
+    "fhs": {
+      "avg_violation_rate": 0.06478302069283189,
+      "avg_viol_dev": 0.01632336965684497,
+      "dq_reject_frac": 0.875,
+      "n_indices": 8.0
     }
   }
 }

@@ -37,7 +37,10 @@ TRADING_DAYS: int = 252
 CRYPTO_DAYS_PER_YEAR: int = 365  # crypto trades 24/7/365
 
 # Plausibility band for annualised volatility, used to catch a units mistake
-# (e.g. loading volatility as variance, or a mis-scaled column).
+# (e.g. loading volatility as variance, or a mis-scaled column). Note: this is a
+# coarse guard — it catches order-of-magnitude errors but NOT a 252-vs-365
+# annualisation swap (~20% off), which stays inside the band; the correct factor
+# is enforced by using TRADING_DAYS / CRYPTO_DAYS_PER_YEAR in the loaders.
 _MIN_ANN_VOL: float = 0.03
 _MAX_ANN_VOL: float = 0.80
 

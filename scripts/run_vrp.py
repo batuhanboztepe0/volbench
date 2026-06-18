@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from volbench.backtest import run_backtest  # noqa: E402
-from volbench.data import load_oxford_rv, load_vix  # noqa: E402
+from volbench.data import TRADING_DAYS, load_oxford_rv, load_vix  # noqa: E402
 from volbench.models import HAR, LogHAR  # noqa: E402
 from volbench.vrp import vrp_strategy  # noqa: E402
 
@@ -100,16 +100,16 @@ def run_vrp() -> dict:
     n_kept = keep_mask.sum()
     print(f"  Origins: {origins.size}  |  With VIX: {n_kept}")
 
-    # Implied daily variance from VIX: (VIX/100)^2 / 252
-    implied_var = (vix_vals / 100.0) ** 2 / 252.0
+    # Implied daily variance from VIX: (VIX/100)^2 / TRADING_DAYS
+    implied_var = (vix_vals / 100.0) ** 2 / TRADING_DAYS
 
     # ------------------------------------------------------------------
     # 3. Compute ex-ante VRP and summary statistics
     # ------------------------------------------------------------------
     vrp_realized = implied_var - realized_k   # ex-post VRP
 
-    mean_implied_vol = float(np.sqrt(np.mean(implied_var) * 252) * 100)
-    mean_realized_vol = float(np.sqrt(np.mean(realized_k) * 252) * 100)
+    mean_implied_vol = float(np.sqrt(np.mean(implied_var) * TRADING_DAYS) * 100)
+    mean_realized_vol = float(np.sqrt(np.mean(realized_k) * TRADING_DAYS) * 100)
     mean_vrp = float(np.mean(vrp_realized))
     vrp_positive_fraction = float(np.mean(vrp_realized > 0))
 
@@ -123,12 +123,24 @@ def run_vrp() -> dict:
     # ------------------------------------------------------------------
     strat = vrp_strategy(implied_var, forecast_k, realized_k, horizon=HORIZON)
 
-    print(f"\n  {'Book':<15} {'Sharpe':>8} {'HitRate':>9} {'MaxDD':>10}")
-    print(f"  {'-' * 45}")
+    print(f"\n  {'Book':<15} {'AnnSh':>7} {'Sh/swap':>8} {'HitRate':>9} {'MaxDD':>10} {'PSR':>8} {'DSR':>8}")
+    print(f"  {'-' * 66}")
     for book in ("always_short", "timed", "longshort"):
         b = strat[book]
-        print(f"  {book:<15} {b['ann_sharpe']:>8.3f} {b['hit_rate']:>9.3f} "
-              f"{b['max_drawdown']:>10.4e}")
+        print(f"  {book:<15} {b['ann_sharpe']:>7.3f} {b['sharpe_pp']:>8.3f} {b['hit_rate']:>9.3f} "
+              f"{b['max_drawdown']:>10.4e} {b['psr']:>8.4f} {b['dsr']:>8.4f}")
+    print("  (AnnSh is gross of costs on overlapping payoffs and inflated; Sh/swap, PSR and DSR "
+          "use the\n   non-overlapping 22-day payoffs and a best-of-3-books selection benchmark — "
+          "the honest figures.)")
+
+    # NOTE: on this dataset the "timed" and "longshort" books are identical. The
+    # raw signal (iv - forecast)/iv never falls below -1 (the LogHAR forecast never
+    # exceeds ~2x implied variance), so the wider long/short clip [-2, 2] is never
+    # exercised and collapses onto the timed clip [-1, 2]. They are reported
+    # separately only to document this degeneracy, not as two distinct strategies.
+    if np.allclose(strat["timed"]["ann_sharpe"], strat["longshort"]["ann_sharpe"]):
+        print("  (timed == longshort here: signal never breaches -1, so the "
+              "long/short bound is inactive)")
 
     dm = strat["dm_timed_vs_always_short"]
     print("\n  DM timed vs always-short:")

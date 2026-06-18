@@ -44,6 +44,10 @@ RESULTS_DIR = ROOT / "results"
 # Models to report (must be present in default_models()).
 REPORT_MODELS: tuple[str, ...] = ("LogHAR", "HAR", "RW", "EWMA", "GBRT")
 
+# VaR tail-distribution assumptions to backtest on real data (the t/fhs shapes are
+# calibrated out-of-sample on a leading warm-up block — see economic.var_backtest).
+VAR_DISTS: tuple[str, ...] = ("normal", "t", "fhs")
+
 
 def _next_day_returns(close: np.ndarray, origins: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Build aligned next-day log returns for each origin.
@@ -111,12 +115,14 @@ def run_economic() -> dict:
             rv_realized = res.realized[mask]
 
             vt = volatility_targeting(ret_next, fc)
-            vr = var_backtest(ret_next, fc)
+            var_by_dist = {d: var_backtest(ret_next, fc, dist=d) for d in VAR_DISTS}
+            vr = var_by_dist["normal"]  # kept as the back-compat default
             opl = option_pricing_loss(fc, rv_realized, horizon_days=HORIZON)
 
             ticker_results[name] = {
                 "vol_targeting": vt,
                 "var_backtest": vr,
+                "var_by_dist": var_by_dist,
                 "option_loss": opl,
                 "qlike": res.mean_losses["QLIKE"].get(name, float("nan")),
             }
@@ -163,6 +169,38 @@ def run_economic() -> dict:
         print(f"\n  Headline: economic Sharpe winner = {best_econ}, "
               f"VaR coverage winner = {best_var}")
 
+    # VaR coverage by tail distribution, averaged across indices (for the headline
+    # forecaster). This is what grounds the "which distribution fixes 5% coverage"
+    # claim: normal vs Student-t vs FHS, each evaluated out-of-sample.
+    HEADLINE_VAR_MODEL = "LogHAR"
+    coverage_by_dist: dict[str, dict[str, float]] = {}
+    print(f"\n  VaR coverage by tail distribution ({HEADLINE_VAR_MODEL}, nominal 5%)")
+    print(f"  {'Dist':<8} {'AvgViolRate':>12} {'AvgViolDev':>12} {'DQ_reject_frac':>15}")
+    print(f"  {'-' * 49}")
+    for d in VAR_DISTS:
+        rates, devs, dq_reject = [], [], []
+        for tk in tickers:
+            r = all_results.get(tk, {}).get(HEADLINE_VAR_MODEL)
+            if r is None or "var_by_dist" not in r:
+                continue
+            vd = r["var_by_dist"][d]
+            rates.append(vd["violation_rate"])
+            devs.append(abs(vd["violation_rate"] - 0.05))
+            dqp = vd.get("dq_pvalue")
+            if dqp is not None and not np.isnan(dqp):
+                dq_reject.append(1.0 if dqp < 0.05 else 0.0)
+        if not rates:
+            continue
+        coverage_by_dist[d] = {
+            "avg_violation_rate": float(np.nanmean(rates)),
+            "avg_viol_dev": float(np.nanmean(devs)),
+            "dq_reject_frac": float(np.nanmean(dq_reject)) if dq_reject else float("nan"),
+            "n_indices": float(len(rates)),
+        }
+        c = coverage_by_dist[d]
+        print(f"  {d:<8} {c['avg_violation_rate']:>12.4f} {c['avg_viol_dev']:>12.4f} "
+              f"{c['dq_reject_frac']:>15.3f}")
+
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = RESULTS_DIR / "economic.json"
     # Convert numpy scalars to plain Python floats for JSON serialisation.
@@ -176,8 +214,12 @@ def run_economic() -> dict:
         return obj
 
     with open(out_path, "w") as fh:
-        json.dump(_jsonify({"tickers": tickers, "by_ticker": all_results, "summary": summary_rows}),
-                  fh, indent=2)
+        json.dump(_jsonify({
+            "tickers": tickers,
+            "by_ticker": all_results,
+            "summary": summary_rows,
+            "var_coverage_by_dist": coverage_by_dist,
+        }), fh, indent=2)
     print(f"\n  Saved results to {out_path}")
     return all_results
 

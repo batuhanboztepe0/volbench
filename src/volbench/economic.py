@@ -433,6 +433,7 @@ def var_backtest(
     forecast_variance: np.ndarray,
     alpha: float = 0.05,
     dist: str = "normal",
+    warmup: int = 500,
 ) -> dict[str, float]:
     """VaR backtest with Kupiec, Christoffersen, and Dynamic Quantile tests.
 
@@ -449,6 +450,13 @@ def var_backtest(
       ``z_t = return_t / sqrt(forecast_variance[t])`` and multiply back by
       ``sqrt(forecast_variance[t])``.
 
+    The estimated distributions (``"t"``, ``"fhs"``) are calibrated **only on a
+    leading warm-up block** of standardised residuals and coverage is evaluated on
+    the held-out remainder; otherwise the tail shape would be fit on the very
+    residuals it is scored against (for ``"fhs"`` the violation rate would equal
+    ``alpha`` by construction). ``"normal"`` needs no calibration but is scored on
+    the same held-out window so all distributions share one out-of-sample sample.
+
     A violation occurs when ``future_returns[t] < -VaR_t``.
 
     Parameters
@@ -461,6 +469,10 @@ def var_backtest(
         VaR confidence level (5 % tail).
     dist : str, default ``"normal"``
         Distribution assumption: ``"normal"``, ``"t"``, or ``"fhs"``.
+    warmup : int, default 500
+        Number of leading observations used to calibrate the estimated
+        distributions (``"t"``, ``"fhs"``); these are excluded from scoring. Capped
+        at ``n // 3`` so a majority of the sample is always evaluated.
 
     Returns
     -------
@@ -485,25 +497,40 @@ def var_backtest(
     vol_t = np.sqrt(np.maximum(fvar, 0.0))
     z = np.where(vol_t > 0.0, ret / vol_t, 0.0)  # standardised residuals
 
+    # Calibrate any *estimated* tail shape on a leading warm-up block only, then
+    # score coverage on the held-out remainder (see the docstring): this removes
+    # the in-sample look-ahead — and, for FHS, the violation-rate == alpha
+    # tautology — that arises from fitting the quantile on the scored residuals.
+    w = min(int(warmup), ret.size // 3)
+    z_train = z[:w]
+    if dist in ("t", "fhs") and z_train.size < 30:
+        raise ValueError(
+            f"dist={dist!r} needs at least 30 warm-up observations to calibrate; "
+            f"got {z_train.size} from n={ret.size}"
+        )
+
     if dist == "normal":
-        z_alpha = float(norm.ppf(1.0 - alpha))
-        var_t = z_alpha * vol_t
+        mult = float(norm.ppf(1.0 - alpha))
     elif dist == "t":
-        # Fit Student-t dof to the standardised residuals via MLE.
+        # Fit Student-t dof on the warm-up residuals only (out-of-sample).
         # scipy's t.fit returns (df, loc, scale); we fix loc=0.
-        fit_df, fit_loc, fit_scale = t_dist.fit(z, floc=0.0)
+        fit_df, _, _ = t_dist.fit(z_train, floc=0.0)
         dof = max(float(fit_df), 2.1)  # guard: t variance needs dof > 2
         # Scale so that the t distribution used for VaR has unit variance.
         unit_var_scale = float(np.sqrt((dof - 2.0) / dof))
-        z_alpha_t = float(t_dist.ppf(1.0 - alpha, dof, scale=unit_var_scale))
-        var_t = z_alpha_t * vol_t
+        mult = float(t_dist.ppf(1.0 - alpha, dof, scale=unit_var_scale))
     else:  # fhs
-        q_alpha = float(np.quantile(z, alpha))  # negative number for left tail
-        var_t = -q_alpha * vol_t
+        mult = -float(np.quantile(z_train, alpha))  # empirical quantile, past only
 
-    violations = ret < -var_t  # boolean array
+    var_t = mult * vol_t
 
-    n = int(ret.size)
+    # Evaluate only on the held-out window [w:].
+    ret_s = ret[w:]
+    var_s = var_t[w:]
+    fvar_s = fvar[w:]
+    violations = ret_s < -var_s  # boolean array
+
+    n = int(ret_s.size)
     n_viol = int(violations.sum())
     violation_rate = n_viol / n
 
@@ -519,8 +546,8 @@ def var_backtest(
 
     christoffersen_stat, christoffersen_p = _christoffersen_lr(n00, n01, n10, n11, alpha)
 
-    # Dynamic Quantile test.
-    dq = engle_manganelli_dq(violations.astype(int), fvar, alpha)
+    # Dynamic Quantile test (on the held-out window).
+    dq = engle_manganelli_dq(v, fvar_s, alpha)
 
     return {
         "violation_rate": float(violation_rate),
