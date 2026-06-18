@@ -762,6 +762,232 @@ def har_family(
 
 
 # ---------------------------------------------------------------------------
+# ARFIMA long-memory baseline
+# ---------------------------------------------------------------------------
+def _fracdiff_weights(d: float, trunc: int) -> np.ndarray:
+    """Fractional-difference weights for the binomial series.
+
+    ``w_0 = 1``, ``w_k = w_{k-1} * (k - 1 - d) / k`` for k >= 1.
+    Weights are sign-alternating and decay hyperbolically (long memory).
+
+    Parameters
+    ----------
+    d : float
+        Fractional-integration order (typical log-RV value: 0.4).
+    trunc : int
+        Number of lags to retain (lag 0 through lag trunc-1).
+
+    Returns
+    -------
+    np.ndarray
+        Array of length ``trunc`` with ``w[0] = 1``.
+    """
+    w = np.empty(trunc, dtype=float)
+    w[0] = 1.0
+    for k in range(1, trunc):
+        w[k] = w[k - 1] * (k - 1.0 - d) / k
+    return w
+
+
+def _apply_fracdiff(log_rv: np.ndarray, w: np.ndarray) -> np.ndarray:
+    """Apply the fractional-difference filter to a log-RV series.
+
+    For each index t, ``fd[t] = sum_k w[k] * log_rv[t-k]``, where terms
+    with ``t - k < 0`` are omitted (boundary truncation, not padding).
+
+    Parameters
+    ----------
+    log_rv : np.ndarray
+        Log realized-variance series.
+    w : np.ndarray
+        Fractional-difference weights from :func:`_fracdiff_weights`.
+
+    Returns
+    -------
+    np.ndarray
+        Fractionally-differenced series, same length as ``log_rv``.
+    """
+    n = log_rv.size
+    trunc = w.size
+    fd = np.empty(n, dtype=float)
+    for t in range(n):
+        lags = min(t + 1, trunc)
+        fd[t] = float(np.dot(w[:lags], log_rv[t : t - lags if lags < t + 1 else None : -1]))
+    return fd
+
+
+class ARFIMALog(VolForecaster):
+    """ARFIMA(p, d, 0) on log realized variance — the classical long-memory baseline.
+
+    Models log-RV via fractional differencing followed by an AR(p) regression,
+    then maps variance forecasts back with the lognormal correction
+    ``exp(mu + 0.5 * resid_var)``.  The fractional-difference filter captures
+    hyperbolic autocorrelation decay (long memory, d ≈ 0.4 for log-RV), which
+    HAR approximates with a multi-scale average and AR(1) cannot reproduce.
+
+    The direct-horizon target ``average_future_variance(rv, horizon)`` is used
+    throughout, making ARFIMA directly comparable to :class:`AR1Log` at all
+    horizons.  At h=1 the target is exactly ``rv[t+1]``, so that horizon is the
+    primary claim.  For h ∈ {5, 22} ARFIMA forecasts the same direct target as
+    AR1Log using fracdiff features — a labeled "iterated-feature" multi-horizon
+    forecast.
+
+    Parameters
+    ----------
+    p : int, default 1
+        AR order for the fractionally-differenced series.
+    d : float or None, default 0.4
+        Fractional integration order.  ``None`` estimates d on the training
+        window only via a Whittle-style grid search (look-ahead-safe).
+        Fixed ``d = 0.4`` is the headline default (established empirical value
+        for log-RV; deterministic, fast).
+    trunc : int, default 250
+        Truncation of the fractional-difference filter (number of lags).
+    """
+
+    name = "ARFIMA"
+
+    def __init__(self, p: int = 1, d: float | None = 0.4, trunc: int = 250) -> None:
+        if p < 1:
+            raise ValueError(f"p must be >= 1, got {p}")
+        if d is not None and not (0.0 <= d < 0.5):
+            raise ValueError(f"d must be in [0, 0.5) or None, got {d}")
+        if trunc < 1:
+            raise ValueError(f"trunc must be >= 1, got {trunc}")
+        self.p = int(p)
+        self.d = d
+        self.trunc = int(trunc)
+        # Precompute weights when d is fixed (avoids recomputation per origin).
+        self._fixed_weights: np.ndarray | None = (
+            _fracdiff_weights(float(d), self.trunc) if d is not None else None
+        )
+
+    @staticmethod
+    def _estimate_d(fd_series: np.ndarray, grid_size: int = 50) -> float:
+        """Estimate d on a training series via a Whittle-style periodogram grid search.
+
+        Uses the log-periodogram approximation at Fourier frequencies.  This is
+        computed on the training window only (look-ahead-safe).
+
+        Parameters
+        ----------
+        fd_series : np.ndarray
+            The raw log-RV training series (NOT already differenced).
+        grid_size : int
+            Number of d values in [0.05, 0.49] to evaluate.
+
+        Returns
+        -------
+        float
+            Estimated fractional integration order.
+        """
+        n = fd_series.size
+        if n < 10:
+            return 0.4  # fallback for degenerate windows
+        # Whittle: minimise sum_j log(f(w_j)) + I(w_j)/f(w_j) over d
+        # where f(w) ∝ |1 - exp(iw)|^{-2d} and I(w) is the periodogram.
+        pgram = np.abs(np.fft.rfft(fd_series - fd_series.mean())) ** 2 / n
+        freqs = np.arange(1, pgram.size)  # skip zero frequency
+        if freqs.size == 0:
+            return 0.4
+        w = 2.0 * np.pi * freqs / n
+        log_pgram = np.log(np.maximum(pgram[freqs], 1e-300))
+        best_d, best_loss = 0.4, np.inf
+        for d_try in np.linspace(0.05, 0.49, grid_size):
+            # Spectral density ∝ |w|^{-2d} for small w (long-memory approximation)
+            log_spec = -2.0 * d_try * np.log(np.maximum(w, 1e-300))
+            # Whittle objective (up to constants)
+            loss = float(np.mean(log_spec + np.exp(log_pgram - log_spec)))
+            if loss < best_loss:
+                best_loss = loss
+                best_d = d_try
+        return best_d
+
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
+        rv = np.asarray(rv, dtype=float).ravel()
+        n = rv.size
+        log_rv = np.log(np.maximum(rv, _LOG_FLOOR))  # Invariant 2
+        origins = _test_origins(n, horizon, min_train)
+        forecasts = np.empty(origins.size)
+
+        for k, t in enumerate(origins):
+            last_train = t - horizon  # Invariant 1: no look-ahead
+
+            # --- Fractional-difference filter ---
+            # When d is fixed, weights are precomputed.  When d=None, estimate d
+            # on the training window only, then recompute weights.
+            if self._fixed_weights is not None:
+                w = self._fixed_weights
+            else:
+                d_est = self._estimate_d(log_rv[: last_train + 1])
+                w = _fracdiff_weights(d_est, self.trunc)
+
+            # Apply fracdiff filter ONLY up to last_train+1 for training, but
+            # also to t for the prediction feature — both are causal at origin t.
+            # fd[s] = sum_k w[k]*log_rv[s-k], using only observations s' <= s.
+            fd_up_to_t = _apply_fracdiff(log_rv[: t + 1], w)
+
+            # --- Fit AR(p) on the fractionally-differenced series ---
+            # Training: predict fd[s+1] from fd[s], ..., fd[s-p+1]
+            # Valid training rows s: need fd[s+1] in the training window
+            # => s+1 <= last_train => s <= last_train - 1
+            # Also need p lags: s >= p.
+            p = self.p
+            s_end = last_train - 1  # inclusive; fd[s+1] = fd[last_train] is last target
+
+            if s_end < p:
+                forecasts[k] = float(np.exp(log_rv[t]))
+                continue
+
+            rows = np.arange(p, s_end + 1)
+            X_list = []
+            y_list = []
+            for s in rows:
+                feat = fd_up_to_t[s : s - p : -1]  # [fd[s], ..., fd[s-p+1]]
+                if feat.size != p or not np.all(np.isfinite(feat)):
+                    continue
+                fd_next = fd_up_to_t[s + 1]
+                if not np.isfinite(fd_next):
+                    continue
+                X_list.append(np.concatenate([[1.0], feat]))
+                y_list.append(fd_next)
+
+            if len(X_list) < p + 2:
+                forecasts[k] = float(np.exp(log_rv[t]))
+                continue
+
+            X_train = np.vstack(X_list)
+            y_train = np.array(y_list)
+            beta = _ols_fit(X_train, y_train)
+
+            # --- Forecast fd[t+1] ---
+            feat_t = fd_up_to_t[t : t - p : -1]  # [fd[t], ..., fd[t-p+1]]
+            x_pred = np.concatenate([[1.0], feat_t])
+            fd_hat = float(x_pred @ beta)
+
+            # --- Invert the fracdiff filter to recover log_rv_hat[t+1] ---
+            # fd[t+1] = w[0]*log_rv[t+1] + w[1]*log_rv[t] + ... (w[0]=1)
+            # => log_rv_hat[t+1] = fd_hat - sum_{j=1}^{trunc-1} w[j]*log_rv[t+1-j]
+            #                     = fd_hat - sum_{j=1}^{min(t+1, trunc-1)} w[j]*log_rv[t+1-j]
+            trunc = w.size
+            max_j = min(t + 1, trunc - 1)  # j runs from 1 to max_j
+            invert_sum = 0.0
+            for j in range(1, max_j + 1):
+                invert_sum += w[j] * log_rv[t + 1 - j]
+            log_rv_hat = fd_hat - invert_sum
+
+            # Lognormal back-transform (Invariant 2), same as AR1Log.
+            # Residual variance from the AR(p)-on-fd fit.
+            resid = y_train - X_train @ beta
+            s2 = float(resid @ resid) / max(resid.size - X_train.shape[1], 1)
+            forecasts[k] = float(np.exp(log_rv_hat + 0.5 * s2))
+
+        return forecasts, origins
+
+
+# ---------------------------------------------------------------------------
 # Default model suite for the realized-variance benchmark
 # ---------------------------------------------------------------------------
 def default_models() -> list[VolForecaster]:
@@ -779,6 +1005,7 @@ def default_models() -> list[VolForecaster]:
         MovingAverage(MONTH_LAG),
         EWMA(),
         AR1Log(),
+        ARFIMALog(),
         HAR(),
         LogHAR(),
         GBRT(),

@@ -14,6 +14,7 @@ from volbench.models import (
     HARQ,
     SHAR,
     AR1Log,
+    ARFIMALog,
     HistoricalMean,
     LogHAR,
     MovingAverage,
@@ -363,3 +364,116 @@ def test_no_lookahead_harq():
     rq2 = rq.copy()
     rq2[_LEAK_IDX] *= 1000.0
     _run_no_lookahead(HARQ(rq), HARQ(rq2), rv, rv2)
+
+
+# ---------------------------------------------------------------------------
+# ARFIMA tests
+# ---------------------------------------------------------------------------
+def test_arfima_no_lookahead():
+    """Mutating rv[origins[k]+horizon:] must not change forecast[k].
+
+    Covers the fracdiff warm-up region specifically: the fracdiff filter uses
+    a causal slice log_rv[:t+1], so only observations <= t are touched.
+    We also corrupt values well inside the series (not just the tail) to
+    probe whether the filter picks up future information via the warm-up.
+    """
+    rng = np.random.default_rng(42)
+    n = 700
+    horizon = 1
+    min_train = 120
+    rv = np.exp(rng.standard_normal(n) * 0.4 - 9)
+
+    model = ARFIMALog(p=1, d=0.4, trunc=50)
+    fc_orig, origins = model.oos_forecast(rv, horizon, min_train=min_train)
+
+    # For each test origin t, corrupt ALL observations after t+horizon.
+    # The forecast at k must remain identical since those observations are
+    # strictly outside the causal window used at origin t.
+    for k in range(0, len(origins), max(1, len(origins) // 20)):
+        t = origins[k]
+        rv_corrupt = rv.copy()
+        rv_corrupt[t + horizon :] *= 1e6  # large corruption after the origin's window
+        fc_c, _ = model.oos_forecast(rv_corrupt, horizon, min_train=min_train)
+        assert fc_c[k] == pytest.approx(fc_orig[k], rel=1e-10), (
+            f"Look-ahead at origin {t}: forecast changed from {fc_orig[k]} "
+            f"to {fc_c[k]} after corrupting rv[{t + horizon}:]"
+        )
+
+    # Specifically probe the fracdiff warm-up: corrupt a stretch in the
+    # middle of the series (between two consecutive origins).
+    k_mid = len(origins) // 2
+    t_mid = origins[k_mid]
+    rv_mid = rv.copy()
+    rv_mid[t_mid + horizon :] *= 1e6
+    fc_mid, _ = model.oos_forecast(rv_mid, horizon, min_train=min_train)
+    assert fc_mid[k_mid] == pytest.approx(fc_orig[k_mid], rel=1e-10), (
+        "Fracdiff warm-up look-ahead: forecast changed after corrupting future obs"
+    )
+
+
+def test_arfima_positivity():
+    """All ARFIMA forecasts must be strictly positive (Invariant 2)."""
+    rng = np.random.default_rng(99)
+    rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
+    model = ARFIMALog(p=1, d=0.4, trunc=50)
+    fc, origins = model.oos_forecast(rv, horizon=1, min_train=120)
+    assert fc.size > 0, "No forecasts produced"
+    assert np.all(fc > 0.0), f"Non-positive forecast found: min={fc.min()}"
+
+
+def test_arfima_recovers_long_memory():
+    """ARFIMA beats AR1Log on QLIKE for a true ARFIMA(0,0.4,0) log-RV path.
+
+    Simulates log-RV via fractional differencing of Gaussian noise (d=0.4),
+    then compares OOS QLIKE of ARFIMALog vs AR1Log.  The fractional-integration
+    structure is exactly what the ARFIMA model captures and AR(1) cannot.
+    """
+    from volbench.losses import qlike
+
+    rng = np.random.default_rng(2024)
+    n = 1200  # longer series to let the long-memory signal dominate
+
+    # Simulate ARFIMA(0, 0.4, 0) log-RV: invert fracdiff on white noise.
+    # log_rv[t] = sum_k w_k * eps[t-k] where w are fracdiff weights for -d
+    d = 0.4
+    trunc = 300
+    from volbench.models import _fracdiff_weights
+
+    # Weights for the MA-inf representation (inverse of fracdiff operator)
+    # = fracdiff weights with d replaced by -d
+    w_inv = _fracdiff_weights(-d, trunc)
+    eps = rng.standard_normal(n + trunc)
+    log_rv_sim = np.array([
+        float(np.dot(w_inv[:min(t + 1, trunc)], eps[t : t - min(t + 1, trunc) if min(t + 1, trunc) <= t else None : -1]))
+        for t in range(n + trunc)
+    ])[trunc:]  # discard warm-up
+    # Convert to variance scale
+    rv_sim = np.exp(log_rv_sim)
+
+    horizon = 1
+    min_train = 300
+
+    arfima = ARFIMALog(p=1, d=0.4, trunc=100)
+    ar1 = AR1Log()
+
+    fc_arfima, orig_arfima = arfima.oos_forecast(rv_sim, horizon, min_train=min_train)
+    fc_ar1, orig_ar1 = ar1.oos_forecast(rv_sim, horizon, min_train=min_train)
+
+    # Align on common origins
+    common = np.intersect1d(orig_arfima, orig_ar1)
+    assert common.size >= 100, f"Too few common origins: {common.size}"
+
+    idx_a = np.searchsorted(orig_arfima, common)
+    idx_b = np.searchsorted(orig_ar1, common)
+
+    realized_common = np.array([
+        rv_sim[t + 1] for t in common
+    ])  # h=1: realized = rv[t+1]
+
+    ql_arfima = qlike(realized_common, fc_arfima[idx_a]).mean()
+    ql_ar1 = qlike(realized_common, fc_ar1[idx_b]).mean()
+
+    assert ql_arfima < ql_ar1, (
+        f"ARFIMA did not beat AR1Log on long-memory data: "
+        f"QLIKE_ARFIMA={ql_arfima:.6f}, QLIKE_AR1={ql_ar1:.6f}"
+    )
