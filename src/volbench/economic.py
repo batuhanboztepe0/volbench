@@ -16,6 +16,18 @@ decisions:
    normal VaR against the nominal level via the Kupiec unconditional-coverage
    test and the Christoffersen conditional-coverage test.
 
+4. **Expected Shortfall (ES/CVaR)** — Basel-FRTB risk measure: the conditional
+   mean return given a VaR breach.  ES forecasts are ranked via the
+   Fissler-Ziegel (FZ0) loss and tested with the Acerbi-Székely (2014) Z1/Z2
+   statistics.  ES is a *risk-layer* quantity: never compare FZ0 values to
+   QLIKE from the RV-forecast track (Invariant 4).
+
+Sign conventions
+----------------
+All ES values in this module are **negative** (left-tail losses on decimal
+returns).  A breach occurs when ``return_t < -VaR_t`` (VaR positive), and the
+ES is the conditional mean of those negative returns.
+
 All public functions take raw numpy arrays and return plain dicts so they are
 trivially unit-testable without any backtest infrastructure.
 
@@ -27,6 +39,11 @@ References
   Economic Review*.
 - Black & Scholes (1973), "The pricing of options and corporate liabilities",
   *Journal of Political Economy*.
+- Acerbi & Székely (2014), "Backtesting Expected Shortfall", *Risk*, 27, 76–81.
+- Fissler & Ziegel (2016), "Higher order elicitability and Osband's principle",
+  *Annals of Statistics*.
+- Taylor (2019), "Forecasting value at risk and expected shortfall using a
+  semiparametric approach", *Management Science*.
 """
 
 from __future__ import annotations
@@ -434,6 +451,8 @@ def var_backtest(
     alpha: float = 0.05,
     dist: str = "normal",
     warmup: int = 500,
+    *,
+    return_es: bool = False,
 ) -> dict[str, float]:
     """VaR backtest with Kupiec, Christoffersen, and Dynamic Quantile tests.
 
@@ -473,6 +492,10 @@ def var_backtest(
         Number of leading observations used to calibrate the estimated
         distributions (``"t"``, ``"fhs"``); these are excluded from scoring. Capped
         at ``n // 3`` so a majority of the sample is always evaluated.
+    return_es : bool, default False
+        If True, also compute ES forecasts and append Acerbi-Székely backtest
+        and FZ loss to the output dict.  Default ``False`` preserves the
+        original return signature exactly.
 
     Returns
     -------
@@ -480,6 +503,8 @@ def var_backtest(
         Keys: ``violation_rate``, ``expected_rate``, ``n_violations``, ``n``,
         ``kupiec_stat``, ``kupiec_p``, ``christoffersen_stat``,
         ``christoffersen_p``, ``dq_stat``, ``dq_pvalue``.
+        When ``return_es=True`` the dict additionally contains
+        ``es_mean``, ``as_Z1``, ``as_Z2``, ``as_p``, ``fz_mean``.
     """
     _VALID_DISTS = {"normal", "t", "fhs"}
     ret = np.asarray(future_returns, dtype=float).ravel()
@@ -549,7 +574,7 @@ def var_backtest(
     # Dynamic Quantile test (on the held-out window).
     dq = engle_manganelli_dq(v, fvar_s, alpha)
 
-    return {
+    result: dict[str, float] = {
         "violation_rate": float(violation_rate),
         "expected_rate": float(alpha),
         "n_violations": float(n_viol),
@@ -561,3 +586,354 @@ def var_backtest(
         "dq_stat": dq["dq_stat"],
         "dq_pvalue": dq["dq_pvalue"],
     }
+
+    if return_es:
+        es_dict = expected_shortfall_forecast(
+            future_returns=ret,
+            forecast_variance=fvar,
+            alpha=alpha,
+            dist=dist,
+        )
+        es_fc = es_dict["es_forecast"]
+        var_fc = es_dict["var_forecast"]
+        as_res = acerbi_szekely_backtest(ret, es_fc, var_fc, alpha)
+        fz = fz_loss(ret, var_fc, es_fc, alpha)
+        result["es_mean"] = float(np.mean(es_fc))
+        result["as_Z1"] = as_res["Z1"]
+        result["as_Z2"] = as_res["Z2"]
+        result["as_p"] = as_res["p"]
+        result["fz_mean"] = float(np.mean(fz))
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# 5. Expected Shortfall forecasts
+# ---------------------------------------------------------------------------
+
+def expected_shortfall_forecast(
+    future_returns: np.ndarray,
+    forecast_variance: np.ndarray,
+    alpha: float = 0.05,
+    dist: str = "normal",
+    warmup: int = 0,
+) -> dict[str, np.ndarray]:
+    """One-step ES forecasts under normal, Student-t, or FHS assumptions.
+
+    ES is the conditional mean return given a VaR breach; it is a **negative**
+    number (left-tail loss in decimal return units).
+
+    Computation mirrors ``var_backtest``: standardised residuals
+    ``z_t = return_t / sqrt(forecast_variance[t])`` are computed over the full
+    input window.  For ``dist="fhs"`` the first ``warmup`` observations are
+    used to calibrate the empirical tail (if ``warmup=0``, half the series
+    is used as warmup, mirroring the walk-forward convention).
+
+    Parameters
+    ----------
+    future_returns : np.ndarray
+        Realized returns, decimal. Shape ``(T,)``.
+    forecast_variance : np.ndarray
+        Variance forecasts (daily, decimal²). Shape ``(T,)``.
+        Must be strictly positive; values ≤ 0 are clipped to ``1e-300``.
+    alpha : float, default 0.05
+        VaR / ES probability level (left-tail, 5 %).
+    dist : str, default ``"normal"``
+        One of ``"normal"``, ``"t"``, ``"fhs"``.
+    warmup : int, default 0
+        Number of observations used to calibrate standardised residuals for
+        FHS.  If 0, defaults to ``max(1, T // 2)``.  Has no effect for
+        ``dist`` in ``{"normal", "t"}``.
+
+    Returns
+    -------
+    dict[str, np.ndarray]
+        ``"es_forecast"`` : shape ``(T,)``, negative decimal returns (units:
+            decimal daily return; ES at level ``alpha`` so approx -1.6 * sigma
+            for normal at 5 %).
+        ``"var_forecast"`` : shape ``(T,)``, the VaR thresholds used (positive,
+            decimal daily return) so that a breach is ``return_t < -var_t``.
+    """
+    _VALID_DISTS = {"normal", "t", "fhs"}
+    ret = np.asarray(future_returns, dtype=float).ravel()
+    fvar = np.asarray(forecast_variance, dtype=float).ravel()
+    if ret.shape != fvar.shape:
+        raise ValueError(
+            f"future_returns and forecast_variance must match in length, "
+            f"got {ret.shape} and {fvar.shape}"
+        )
+    if ret.size == 0:
+        raise ValueError("inputs are empty")
+    if dist not in _VALID_DISTS:
+        raise ValueError(f"dist={dist!r} not in {_VALID_DISTS}")
+
+    vol_t = np.sqrt(np.maximum(fvar, 1e-300))
+    z = np.where(vol_t > 0.0, ret / vol_t, 0.0)  # standardised residuals
+
+    if dist == "normal":
+        # ES_normal = -sigma * phi(z_alpha) / alpha   (negative, z_alpha < 0)
+        # Derivation: E[Z | Z < z_alpha] = -phi(z_alpha)/alpha for Z ~ N(0,1).
+        z_alpha = float(norm.ppf(alpha))          # e.g. -1.645 at 5%
+        es_z = -norm.pdf(z_alpha) / alpha         # negative scalar ~-2.06 at 5%
+        # VaR threshold (positive) = -z_alpha * sigma
+        var_t = -z_alpha * vol_t                  # positive
+        es_t = es_z * vol_t                       # negative
+
+    elif dist == "t":
+        # Fit Student-t to standardised residuals (same as var_backtest).
+        fit_df, _fit_loc, _fit_scale = t_dist.fit(z, floc=0.0)
+        dof = max(float(fit_df), 2.1)  # variance requires dof > 2
+
+        # Unit-variance Student-t: scale s.t. Var = 1 -> scale = sqrt((nu-2)/nu).
+        # The alpha-quantile of the unit-variance t is:
+        #   q = t.ppf(alpha, nu) * sqrt((nu-2)/nu)
+        unit_var_scale = float(np.sqrt((dof - 2.0) / dof))
+        q_alpha = float(t_dist.ppf(alpha, dof)) * unit_var_scale  # negative
+
+        # Truncated-t mean (analytical, NOT a single arithmetic op):
+        # For X ~ t(nu) scaled to unit variance,
+        #   E[X | X < q_alpha] = -t_pdf(q_alpha/scale, nu) * (nu + (q_alpha/scale)^2)
+        #                        / ((nu - 1) * alpha) * scale
+        # where scale = sqrt((nu-2)/nu).
+        # Unscaled quantile (back in t(nu) units):
+        q_unscaled = q_alpha / unit_var_scale     # t.ppf(alpha, nu)
+        # PDF of t(nu) evaluated at q_unscaled (strictly positive):
+        pdf_q = float(t_dist.pdf(q_unscaled, dof))
+        # Truncated mean of unit-variance t distribution:
+        es_z = -(pdf_q * (dof + q_unscaled ** 2) / (dof - 1.0)) / alpha * unit_var_scale
+
+        var_t = -q_alpha * vol_t                  # positive
+        es_t = es_z * vol_t                       # negative
+
+    else:  # fhs
+        T = ret.size
+        w = warmup if warmup > 0 else max(1, T // 2)
+        # Calibrate on warmup residuals; apply to all T periods.
+        z_calib = z[:w]
+        tail = z_calib[z_calib <= np.quantile(z_calib, alpha)]
+        if tail.size == 0:
+            # Fallback: use all calibration residuals at or below the quantile.
+            tail = z_calib
+        es_z = float(np.mean(tail))              # negative
+        q_alpha = float(np.quantile(z_calib, alpha))  # negative
+        var_t = -q_alpha * vol_t                  # positive
+        es_t = es_z * vol_t                       # negative
+
+    return {
+        "es_forecast": es_t,      # np.ndarray, negative, units: decimal return
+        "var_forecast": var_t,    # np.ndarray, positive, units: decimal return
+    }
+
+
+# ---------------------------------------------------------------------------
+# 6. Acerbi-Székely backtest
+# ---------------------------------------------------------------------------
+
+def acerbi_szekely_backtest(
+    future_returns: np.ndarray,
+    es_forecast: np.ndarray,
+    var_forecast: np.ndarray,
+    alpha: float = 0.05,
+    n_boot: int = 2000,
+    seed: int = 0,
+) -> dict[str, float]:
+    """Acerbi-Székely (2014) expected-shortfall backtest (Z1 and Z2 tests).
+
+    Both statistics are approximately zero under H0 (well-specified ES) and
+    **negative** when the model underestimates tail risk.  p-values are
+    one-sided (lower tail) via Monte Carlo under H0.
+
+    Sign convention: this module uses **negative** ES (left-tail conditional
+    mean), so the formulas are re-expressed relative to the original paper
+    (which uses positive ES = loss magnitude) as follows:
+
+    .. math::
+
+        Z_1 = 1 - \\frac{1}{n_{\\text{breach}}}
+              \\sum_{t:\\,r_t < -\\text{VaR}_t} \\frac{r_t}{\\text{ES}_t}
+
+        Z_2 = \\frac{\\sum_{t} r_t I_t}{n \\alpha (-\\overline{\\text{ES}})} + 1
+
+    where :math:`I_t = \\mathbf{1}\\{r_t < -\\text{VaR}_t\\}`,
+    :math:`\\text{ES}_t < 0`, and :math:`\\overline{\\text{ES}} = \\text{mean}(\\text{ES}_t)`.
+    Under H0: both :math:`Z_1 \\approx 0` and :math:`Z_2 \\approx 0`.
+    ES underestimation (|ES| too small) gives :math:`Z_1 < 0` and :math:`Z_2 < 0`.
+
+    Parameters
+    ----------
+    future_returns : np.ndarray
+        Realized returns, decimal. Shape ``(T,)``.
+    es_forecast : np.ndarray
+        ES forecasts, **negative** decimal returns. Shape ``(T,)``.
+    var_forecast : np.ndarray
+        VaR forecasts, **positive** decimal returns (breach = return < -VaR).
+        Shape ``(T,)``.
+    alpha : float, default 0.05
+        Tail probability used to build breach indicators.
+    n_boot : int, default 2000
+        Monte-Carlo replications for p-value estimation.
+    seed : int, default 0
+        RNG seed for reproducibility.
+
+    Returns
+    -------
+    dict[str, float]
+        ``Z1`` : test statistic (≈ 0 under H0; < 0 when ES underestimated).
+        ``Z2`` : test statistic (≈ 0 under H0; < 0 when ES underestimated).
+        ``p``  : min(p_Z1, p_Z2) — joint p-value proxy (one-sided lower tail).
+    """
+    ret = np.asarray(future_returns, dtype=float).ravel()
+    es = np.asarray(es_forecast, dtype=float).ravel()
+    var = np.asarray(var_forecast, dtype=float).ravel()
+    n = ret.size
+    if not (es.shape == var.shape == ret.shape):
+        raise ValueError("future_returns, es_forecast, var_forecast must have the same shape")
+    if n == 0:
+        raise ValueError("inputs are empty")
+
+    # Clip ES away from zero; ES must be negative (left-tail convention).
+    es_safe = np.where(es < -1e-300, es, -1e-300)
+
+    breach = ret < -var      # boolean indicator I_t
+    n_breach = int(breach.sum())
+
+    # Z1 = 1 - mean(r_t / ES_t | breach)
+    # With ES_t < 0 and r_t < 0 on breach days:
+    #   Under H0: r_t ≈ ES_t, ratio ≈ 1 → Z1 ≈ 0.
+    #   ES underestimated (|ES| too small): |r_t| > |ES_t| → r_t/ES_t > 1 → Z1 < 0.
+    # This matches the sign convention of Acerbi-Szekely (2014):
+    # their Z1 = mean(r/ES_paper | breach) + 1 with ES_paper > 0; translates
+    # to 1 - mean(r/ES_neg | breach) with our negative-ES convention.
+    if n_breach == 0:
+        Z1 = float("nan")
+    else:
+        Z1 = 1.0 - float(np.mean(ret[breach] / es_safe[breach]))
+
+    # Z2 = sum(r_t * I_t) / (n * alpha * (-mean(ES))) + 1
+    # With ES_t < 0: -mean(ES) > 0, and sum(r_t*I_t) < 0 under H0.
+    # Under H0: sum(r_t*I_t) ≈ n*alpha*mean(ES) → ratio → -1 → Z2 ≈ 0.
+    # ES underestimated: |sum(r*I)| > n*alpha*|ES| → ratio < -1 → Z2 < 0.
+    mean_es = float(np.mean(es_safe))  # negative
+    denom_z2 = n * alpha * (-mean_es)   # positive
+    if abs(denom_z2) < 1e-300:
+        Z2 = float("nan")
+    else:
+        Z2 = float(np.sum(ret * breach.astype(float))) / denom_z2 + 1.0
+
+    # Monte-Carlo p-values under H0.
+    # H0: the forecast (VaR_t, ES_t) is the TRUE (VaR, ES) of r_t.  For a normal
+    # assumption, the H0 return distribution has
+    #   sigma_null_t = |ES_t| * alpha / phi(Phi^{-1}(alpha))
+    # so that E[r | r < -VaR_t] = ES_t exactly.  (``var`` here is the VaR threshold,
+    # already a positive return level, not a variance — breach when r < -var.)
+    rng = np.random.default_rng(seed)
+    sigma_null = np.abs(es_safe) * alpha / float(norm.pdf(norm.ppf(alpha)))
+
+    boot_Z1 = np.empty(n_boot)
+    boot_Z2 = np.empty(n_boot)
+    for b in range(n_boot):
+        r_sim = rng.normal(0.0, 1.0, n) * sigma_null
+        breach_sim = r_sim < -var  # var is the VaR threshold (positive)
+        n_breach_sim = int(breach_sim.sum())
+        if n_breach_sim == 0:
+            boot_Z1[b] = 0.0
+        else:
+            boot_Z1[b] = 1.0 - float(np.mean(r_sim[breach_sim] / es_safe[breach_sim]))
+        denom_sim = n * alpha * (-mean_es)
+        if abs(denom_sim) < 1e-300:
+            boot_Z2[b] = 0.0
+        else:
+            boot_Z2[b] = float(np.sum(r_sim * breach_sim.astype(float))) / denom_sim + 1.0
+
+    # One-sided p-value: probability that the null statistic is <= observed.
+    p_Z1 = float(np.mean(boot_Z1 <= Z1)) if np.isfinite(Z1) else float("nan")
+    p_Z2 = float(np.mean(boot_Z2 <= Z2)) if np.isfinite(Z2) else float("nan")
+    # Joint p-value: use the minimum (most significant).
+    if np.isfinite(p_Z1) and np.isfinite(p_Z2):
+        p = min(p_Z1, p_Z2)
+    elif np.isfinite(p_Z1):
+        p = p_Z1
+    elif np.isfinite(p_Z2):
+        p = p_Z2
+    else:
+        p = float("nan")
+
+    return {"Z1": Z1, "Z2": Z2, "p": p}
+
+
+# ---------------------------------------------------------------------------
+# 7. Fissler-Ziegel (FZ0) loss
+# ---------------------------------------------------------------------------
+
+def fz_loss(
+    future_returns: np.ndarray,
+    var_forecast: np.ndarray,
+    es_forecast: np.ndarray,
+    alpha: float = 0.05,
+) -> np.ndarray:
+    """Fissler-Ziegel FZ0 per-origin loss for joint (VaR, ES) forecasts.
+
+    FZ0 is a strictly consistent scoring rule for the joint (VaR, ES) pair
+    (Fissler & Ziegel 2016; Taylor 2019).  It enables DM/MCS comparison of
+    tail models — exactly analogous to QLIKE for variance models, but in the
+    risk layer.
+
+    The formula (Taylor 2019, eq. 2; sign-corrected for left-tail losses
+    with VaR > 0, ES < 0)::
+
+        FZ0_t = (I_t - alpha) * VaR_t / alpha
+                - I_t * r_t / (alpha * (-ES_t))
+                + log(-ES_t)
+
+    where ``I_t = 1{r_t < -VaR_t}``.  This is minimised (in expectation) by
+    the true (VaR, ES) pair.
+
+    **Invariant note:** FZ0 is a risk-layer loss; never place FZ0 values in
+    the same DM/MCS table as Track-1 QLIKE (Invariant 4).
+
+    Parameters
+    ----------
+    future_returns : np.ndarray
+        Realized returns, decimal. Shape ``(T,)``.
+    var_forecast : np.ndarray
+        VaR forecasts, **positive** decimal returns. Shape ``(T,)``.
+    es_forecast : np.ndarray
+        ES forecasts, **negative** decimal returns. Shape ``(T,)``.
+    alpha : float, default 0.05
+        Tail probability (5 % left tail).
+
+    Returns
+    -------
+    np.ndarray
+        Per-origin FZ0 loss values. Shape ``(T,)``. Units: dimensionless
+        (log-scale loss; comparable across models on the same return series).
+    """
+    ret = np.asarray(future_returns, dtype=float).ravel()
+    var = np.asarray(var_forecast, dtype=float).ravel()
+    es = np.asarray(es_forecast, dtype=float).ravel()
+    if not (var.shape == es.shape == ret.shape):
+        raise ValueError("future_returns, var_forecast, es_forecast must have the same shape")
+    if ret.size == 0:
+        raise ValueError("inputs are empty")
+
+    # Guard: ES must be strictly negative for log(-ES) to be defined.
+    # Values near zero indicate a degenerate forecast; clip to -1e-300.
+    es_safe = np.where(es < -1e-300, es, -1e-300)
+
+    I_t = (ret < -var).astype(float)  # breach indicator
+
+    # FZ0 formula (Patton, Ziegel & Chen 2019 eq. 2; Fissler & Ziegel 2016 with G(e)=-1/e):
+    # With q = -VaR < 0 and e = ES < 0:
+    #   FZ0(r; q, e) = (I-alpha)/alpha * q - 1/alpha + I*r/(alpha*e) + log(-e)
+    # Substituting q = -var (var > 0):
+    #   FZ0 = (I-alpha)/alpha * (-var) - 1/alpha + I*r/(alpha*e) + log(-e)
+    #       = (alpha-I)/alpha * var - 1/alpha + I*r/(alpha*e) + log(-e)
+    # The -1/alpha constant does not affect model comparisons (same for all models
+    # on the same return series), but is included for correctness.
+    loss = (
+        (alpha - I_t) / alpha * var
+        - 1.0 / alpha
+        + I_t * ret / (alpha * es_safe)
+        + np.log(-es_safe)
+    )
+    return loss

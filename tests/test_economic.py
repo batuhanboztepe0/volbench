@@ -10,8 +10,11 @@ import numpy as np
 import pytest
 
 from volbench.economic import (
+    acerbi_szekely_backtest,
     black_scholes_price,
     engle_manganelli_dq,
+    expected_shortfall_forecast,
+    fz_loss,
     option_pricing_loss,
     var_backtest,
     volatility_targeting,
@@ -345,3 +348,185 @@ def test_var_backtest_invalid_dist_raises():
     fvar = np.full(n, 1e-4)
     with pytest.raises(ValueError, match="dist="):
         var_backtest(returns, fvar, dist="cauchy")
+
+
+# ---------------------------------------------------------------------------
+# 9. Expected Shortfall — normal analytical value
+# ---------------------------------------------------------------------------
+
+def test_es_normal_equals_analytical():
+    """Normal ES must exactly match the closed-form formula within float precision."""
+    from scipy.stats import norm as scipy_norm
+
+    rng = np.random.default_rng(100)
+    n = 500
+    sigma = 0.015
+    alpha = 0.05
+    returns = rng.normal(0.0, sigma, n)
+    fvar = np.full(n, sigma ** 2)
+
+    res = expected_shortfall_forecast(returns, fvar, alpha=alpha, dist="normal")
+
+    # Closed-form: ES = -sigma * phi(z_alpha) / alpha  (negative number)
+    z_alpha = float(scipy_norm.ppf(alpha))
+    es_analytical = -sigma * float(scipy_norm.pdf(z_alpha)) / alpha
+
+    # All ES forecasts are constant (constant variance), so just check the first.
+    assert res["es_forecast"][0] == pytest.approx(es_analytical, rel=1e-10), (
+        f"Normal ES {res['es_forecast'][0]:.8f} differs from analytical {es_analytical:.8f}"
+    )
+    # ES must be negative (left-tail loss).
+    assert np.all(res["es_forecast"] < 0.0), "ES forecasts must be strictly negative"
+    # VaR must be positive.
+    assert np.all(res["var_forecast"] > 0.0), "VaR forecasts must be strictly positive"
+
+
+def test_es_normal_all_distributions_return_negative_es():
+    """ES forecasts must be negative for all dist choices."""
+    rng = np.random.default_rng(101)
+    n = 600
+    sigma = 0.01
+    returns = rng.normal(0.0, sigma, n)
+    fvar = np.full(n, sigma ** 2)
+
+    for dist in ("normal", "t", "fhs"):
+        res = expected_shortfall_forecast(returns, fvar, alpha=0.05, dist=dist)
+        assert np.all(res["es_forecast"] < 0.0), (
+            f"ES forecasts for dist={dist!r} must be strictly negative"
+        )
+
+
+# ---------------------------------------------------------------------------
+# 10. Acerbi-Székely backtest — calibrated vs mis-specified
+# ---------------------------------------------------------------------------
+
+def test_acerbi_szekely_z1_near_zero_for_calibrated_model():
+    """Z1 should be near 0 (and p > 0.05) for a well-specified normal ES."""
+    rng = np.random.default_rng(200)
+    n = 5000
+    sigma = 0.01
+    alpha = 0.05
+    returns = rng.normal(0.0, sigma, n)
+    fvar = np.full(n, sigma ** 2)
+
+    res = expected_shortfall_forecast(returns, fvar, alpha=alpha, dist="normal")
+    as_res = acerbi_szekely_backtest(
+        returns, res["es_forecast"], res["var_forecast"], alpha=alpha, n_boot=2000, seed=42
+    )
+
+    assert abs(as_res["Z1"]) < 0.05, (
+        f"Z1={as_res['Z1']:.4f} should be near 0 for calibrated ES"
+    )
+    assert as_res["p"] > 0.05, (
+        f"p={as_res['p']:.4f} should be > 0.05 for calibrated ES"
+    )
+
+
+def test_acerbi_szekely_rejects_underforecast_es():
+    """Z1 and Z2 should be strongly negative and p small for a halved (under-forecast) ES."""
+    rng = np.random.default_rng(201)
+    n = 5000
+    sigma = 0.01
+    alpha = 0.05
+    returns = rng.normal(0.0, sigma, n)
+    fvar = np.full(n, sigma ** 2)
+
+    res = expected_shortfall_forecast(returns, fvar, alpha=alpha, dist="normal")
+    # Halve the ES magnitude (less negative) — ES underestimated.
+    es_bad = res["es_forecast"] * 0.5
+
+    as_res = acerbi_szekely_backtest(
+        returns, es_bad, res["var_forecast"], alpha=alpha, n_boot=2000, seed=42
+    )
+
+    assert as_res["Z1"] < -0.5, (
+        f"Z1={as_res['Z1']:.4f} should be << 0 for under-forecast ES"
+    )
+    assert as_res["Z2"] < -0.5, (
+        f"Z2={as_res['Z2']:.4f} should be << 0 for under-forecast ES"
+    )
+    assert as_res["p"] < 0.05, (
+        f"p={as_res['p']:.4f} should be < 0.05 for strongly under-forecast ES"
+    )
+
+
+# ---------------------------------------------------------------------------
+# 11. FZ loss — well-specified model strictly lower than mis-specified
+# ---------------------------------------------------------------------------
+
+def test_fz_loss_well_specified_lower_than_misspecified():
+    """FZ0 mean loss must be strictly lower for the true (VaR, ES) than for an under-forecast pair."""
+    rng = np.random.default_rng(300)
+    n = 5000
+    sigma = 0.01
+    alpha = 0.05
+    returns = rng.normal(0.0, sigma, n)
+    fvar = np.full(n, sigma ** 2)
+
+    res = expected_shortfall_forecast(returns, fvar, alpha=alpha, dist="normal")
+    es_good = res["es_forecast"]
+    var_good = res["var_forecast"]
+
+    # Mis-specified: ES underestimated by 50 % (less negative than the truth).
+    es_bad = es_good * 0.5
+
+    fz_good = fz_loss(returns, var_good, es_good, alpha=alpha)
+    fz_bad = fz_loss(returns, var_good, es_bad, alpha=alpha)
+
+    assert fz_good.mean() < fz_bad.mean(), (
+        f"FZ well-spec mean={fz_good.mean():.4f} should be < mis-spec mean={fz_bad.mean():.4f}"
+    )
+
+
+def test_fz_loss_returns_array_of_correct_shape():
+    """fz_loss must return a 1-D array with the same length as inputs."""
+    rng = np.random.default_rng(301)
+    n = 300
+    returns = rng.normal(0.0, 0.01, n)
+    fvar = np.full(n, 1e-4)
+
+    res = expected_shortfall_forecast(returns, fvar, alpha=0.05, dist="normal")
+    fz = fz_loss(returns, res["var_forecast"], res["es_forecast"], alpha=0.05)
+
+    assert fz.shape == (n,), f"Expected shape ({n},), got {fz.shape}"
+    assert np.all(np.isfinite(fz)), "All FZ0 loss values must be finite"
+
+
+# ---------------------------------------------------------------------------
+# 12. var_backtest backward compatibility with return_es flag
+# ---------------------------------------------------------------------------
+
+def test_var_backtest_default_return_es_false():
+    """var_backtest with default return_es=False must not include ES keys."""
+    rng = np.random.default_rng(400)
+    n = 500
+    returns = rng.normal(0.0, 0.01, n)
+    fvar = np.full(n, 1e-4)
+
+    result = var_backtest(returns, fvar)
+    es_keys = {"es_mean", "as_Z1", "as_Z2", "as_p", "fz_mean"}
+    assert es_keys.isdisjoint(result.keys()), (
+        f"ES keys should be absent when return_es=False; found {es_keys & result.keys()}"
+    )
+
+
+def test_var_backtest_return_es_true_adds_keys():
+    """var_backtest with return_es=True must include both original and ES keys."""
+    rng = np.random.default_rng(401)
+    n = 500
+    returns = rng.normal(0.0, 0.01, n)
+    fvar = np.full(n, 1e-4)
+
+    result_default = var_backtest(returns, fvar)
+    result_es = var_backtest(returns, fvar, return_es=True)
+
+    # All original keys must still be present.
+    for key in result_default:
+        assert key in result_es, f"Original key {key!r} missing when return_es=True"
+
+    # ES-specific keys must now be present.
+    for key in ("es_mean", "as_Z1", "as_Z2", "as_p", "fz_mean"):
+        assert key in result_es, f"ES key {key!r} missing when return_es=True"
+
+    # ES mean must be negative (left-tail convention).
+    assert result_es["es_mean"] < 0.0, "es_mean must be negative (left-tail ES)"
