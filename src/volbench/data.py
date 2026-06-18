@@ -113,6 +113,128 @@ def _add_derived(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+@dataclass(frozen=True)
+class AssetClassConfig:
+    """Per-asset-class knobs for loading a dated realized-measure panel.
+
+    Asset classes differ only in a handful of parameters: the trading calendar
+    (days per year), the plausible annualised-vol band used as a units guard,
+    which measure columns the source must carry, and the default symbol
+    universe. Capturing them here lets a new class (FX, commodity/rate futures,
+    single equities, a VOLARE export) plug into :func:`load_realized_panel` by
+    declaring a config rather than writing a bespoke loader — while the
+    realized-measure maths and the downstream no-look-ahead / positivity
+    invariants stay shared and untouched. See ``docs/EXPANSION_PLAN.md`` §5.
+
+    Attributes
+    ----------
+    name : str
+        Human-readable class label, used in error messages.
+    days_per_year : int
+        Annualisation factor for the units sanity check (equities/futures 252,
+        crypto 365, FX ~252 — document the choice per class).
+    ann_vol_band : tuple[float, float]
+        ``(min, max)`` plausible annualised volatility; a series whose implied
+        vol falls outside flags a units mistake (ROADMAP invariant 6).
+    required_columns : tuple[str, ...]
+        Measure columns (besides ``date`` / ``symbol``) that must be present.
+    default_symbols : tuple[str, ...]
+        Symbols loaded when the caller does not name a subset.
+    """
+
+    name: str
+    days_per_year: int
+    ann_vol_band: tuple[float, float]
+    required_columns: tuple[str, ...]
+    default_symbols: tuple[str, ...]
+
+
+# Per-class configs for the two classes that have bundled data. A new class is
+# added by declaring another AssetClassConfig (units / band / columns / universe)
+# and pointing load_realized_panel at its CSV — no new loader code.
+EQUITY_INDEX_CONFIG = AssetClassConfig(
+    name="equity-index",
+    days_per_year=TRADING_DAYS,
+    ann_vol_band=(_MIN_ANN_VOL, _MAX_ANN_VOL),
+    required_columns=_MEASURE_COLUMNS,
+    default_symbols=DEFAULT_TICKERS,
+)
+CRYPTO_CONFIG = AssetClassConfig(
+    name="crypto",
+    days_per_year=CRYPTO_DAYS_PER_YEAR,
+    ann_vol_band=(_MIN_CRYPTO_ANN_VOL, _MAX_CRYPTO_ANN_VOL),
+    required_columns=("rv5", "bv", "medrv", "rk_parzen", "rsv", "rq", "close_price"),
+    default_symbols=DEFAULT_COINS,
+)
+
+
+def load_realized_panel(
+    path: str | Path,
+    config: AssetClassConfig,
+    symbols: list[str] | tuple[str, ...] | None = None,
+) -> RealizedDataset:
+    """Load a dated realized-measure panel for one asset class.
+
+    The shared core behind every per-class loader: read the CSV, check the
+    class's required columns are present, and for each requested symbol sort by
+    date, attach the jump/semivariance decomposition, and enforce the units
+    sanity band (``sqrt(mean(rv5) * days_per_year)`` inside
+    ``config.ann_vol_band``). All class-specific behaviour lives in ``config``;
+    this function is asset-agnostic.
+
+    Parameters
+    ----------
+    path : str or pathlib.Path
+        CSV with at least ``date``, ``symbol`` and ``config.required_columns``.
+    config : AssetClassConfig
+        Per-class calendar / units / columns / universe.
+    symbols : sequence of str, optional
+        Subset to load; defaults to the config's symbols present in the file.
+
+    Returns
+    -------
+    RealizedDataset
+        Per-symbol frames with derived jump/semivariance columns attached.
+
+    Raises
+    ------
+    FileNotFoundError
+        If ``path`` does not exist.
+    ValueError
+        If a required column is absent or a series fails the units check.
+    """
+    csv = Path(path)
+    if not csv.exists():
+        raise FileNotFoundError(f"{config.name} realized data not found at {csv}")
+    df = pd.read_csv(csv, parse_dates=["date"])
+    required = {"date", "symbol", *config.required_columns}
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"{config.name}: CSV missing required columns: {sorted(missing)}")
+
+    wanted = list(symbols) if symbols is not None else [
+        s for s in config.default_symbols if s in set(df["symbol"])
+    ]
+    lo, hi = config.ann_vol_band
+    panel: dict[str, pd.DataFrame] = {}
+    for sym in wanted:
+        sub = df[df["symbol"] == sym].copy()
+        if sub.empty:
+            raise ValueError(f"symbol {sym!r} not present in {csv}")
+        sub = sub.sort_values("date").set_index("date").drop(columns=["symbol"])
+        rv = sub["rv5"].to_numpy(dtype=float)
+        if not np.all(np.isfinite(rv)) or np.any(rv <= 0):
+            raise ValueError(f"{sym}: rv5 has non-finite or non-positive values")
+        ann_vol = float(np.sqrt(np.mean(rv) * config.days_per_year))
+        if not (lo <= ann_vol <= hi):
+            raise ValueError(
+                f"{sym}: implied annualised vol {ann_vol:.3f} outside "
+                f"[{lo}, {hi}] — check data units"
+            )
+        panel[sym] = _add_derived(sub)
+    return RealizedDataset(panel=panel)
+
+
 def load_oxford_rv(
     path: str | Path | None = None,
     tickers: list[str] | tuple[str, ...] | None = None,
@@ -137,39 +259,18 @@ def load_oxford_rv(
         If the CSV is missing.
     ValueError
         If a required column is absent or a series fails the units sanity check.
+
+    Notes
+    -----
+    A thin wrapper over :func:`load_realized_panel` with
+    :data:`EQUITY_INDEX_CONFIG`; see that function for the shared loading logic.
     """
     csv = Path(path) if path is not None else _DEFAULT_CSV
     if not csv.exists():
         raise FileNotFoundError(
             f"realized data not found at {csv}; run scripts/build_realized.py to fetch it"
         )
-    df = pd.read_csv(csv, parse_dates=["date"])
-    required = {"date", "symbol", *(_MEASURE_COLUMNS)}
-    missing = required - set(df.columns)
-    if missing:
-        raise ValueError(f"CSV missing required columns: {sorted(missing)}")
-
-    wanted = list(tickers) if tickers is not None else [
-        t for t in DEFAULT_TICKERS if t in set(df["symbol"])
-    ]
-    panel: dict[str, pd.DataFrame] = {}
-    for tk in wanted:
-        sub = df[df["symbol"] == tk].copy()
-        if sub.empty:
-            raise ValueError(f"ticker {tk!r} not present in {csv}")
-        sub = sub.sort_values("date").set_index("date")
-        sub = sub.drop(columns=["symbol"])
-        rv = sub["rv5"].to_numpy(dtype=float)
-        if not np.all(np.isfinite(rv)) or np.any(rv <= 0):
-            raise ValueError(f"{tk}: rv5 has non-finite or non-positive values")
-        ann_vol = float(np.sqrt(np.mean(rv) * TRADING_DAYS))
-        if not (_MIN_ANN_VOL <= ann_vol <= _MAX_ANN_VOL):
-            raise ValueError(
-                f"{tk}: implied annualised vol {ann_vol:.3f} outside "
-                f"[{_MIN_ANN_VOL}, {_MAX_ANN_VOL}] — check data units"
-            )
-        panel[tk] = _add_derived(sub)
-    return RealizedDataset(panel=panel)
+    return load_realized_panel(csv, EQUITY_INDEX_CONFIG, symbols=tickers)
 
 
 def load_sp500_returns(
@@ -237,38 +338,18 @@ def load_crypto_rv(
     -------
     RealizedDataset
         Per-coin frames with the derived jump/semivariance columns plus ``rq``.
+
+    Notes
+    -----
+    A thin wrapper over :func:`load_realized_panel` with :data:`CRYPTO_CONFIG`
+    (365-day annualisation, wider vol band, ``rq`` required).
     """
     csv = Path(path) if path is not None else _DEFAULT_CRYPTO_CSV
     if not csv.exists():
         raise FileNotFoundError(
             f"crypto data not found at {csv}; run scripts/build_crypto.py to fetch it"
         )
-    df = pd.read_csv(csv, parse_dates=["date"])
-    required = {"date", "symbol", "rv5", "bv", "medrv", "rk_parzen", "rsv", "rq", "close_price"}
-    missing = required - set(df.columns)
-    if missing:
-        raise ValueError(f"crypto CSV missing required columns: {sorted(missing)}")
-
-    wanted = list(coins) if coins is not None else [
-        c for c in DEFAULT_COINS if c in set(df["symbol"])
-    ]
-    panel: dict[str, pd.DataFrame] = {}
-    for c in wanted:
-        sub = df[df["symbol"] == c].copy()
-        if sub.empty:
-            raise ValueError(f"coin {c!r} not present in {csv}")
-        sub = sub.sort_values("date").set_index("date").drop(columns=["symbol"])
-        rv = sub["rv5"].to_numpy(dtype=float)
-        if not np.all(np.isfinite(rv)) or np.any(rv <= 0):
-            raise ValueError(f"{c}: rv5 has non-finite or non-positive values")
-        ann_vol = float(np.sqrt(np.mean(rv) * CRYPTO_DAYS_PER_YEAR))
-        if not (_MIN_CRYPTO_ANN_VOL <= ann_vol <= _MAX_CRYPTO_ANN_VOL):
-            raise ValueError(
-                f"{c}: implied annualised vol {ann_vol:.3f} outside "
-                f"[{_MIN_CRYPTO_ANN_VOL}, {_MAX_CRYPTO_ANN_VOL}] — check data units"
-            )
-        panel[c] = _add_derived(sub)
-    return RealizedDataset(panel=panel)
+    return load_realized_panel(csv, CRYPTO_CONFIG, symbols=coins)
 
 
 def load_vix(

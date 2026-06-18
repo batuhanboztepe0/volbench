@@ -33,9 +33,11 @@ _warnings.filterwarnings(
 from .backtest import BacktestResult, run_backtest
 from .conditional_var import ewma_variance_forecast, garch_variance_forecast
 from .data import (
+    AssetClassConfig,
     RealizedDataset,
     load_crypto_rv,
     load_oxford_rv,
+    load_realized_panel,
     load_sp500_returns,
     load_vix,
 )
@@ -161,6 +163,8 @@ __all__ = [
     "load_sp500_returns",
     "load_vix",
     "load_crypto_rv",
+    "load_realized_panel",
+    "AssetClassConfig",
     "RealizedDataset",
     # economic
     "volatility_targeting",
