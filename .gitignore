@@ -19,6 +19,7 @@ venv/
 # Internet Archive). See data/README.md for provenance.
 data/oxford_realized.csv
 data/crypto_realized.csv
+data/crypto_expanded_realized.csv
 data/raw/
 
 # LaTeX build artifacts
