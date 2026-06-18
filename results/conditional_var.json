@@ -1,0 +1,721 @@
+{
+  "tickers": [
+    ".SPX",
+    ".DJI",
+    ".FTSE",
+    ".GDAXI",
+    ".FCHI",
+    ".STOXX50E",
+    ".N225",
+    ".HSI"
+  ],
+  "min_train": 1000,
+  "refit_every": 63,
+  "alpha": 0.05,
+  "by_ticker": {
+    ".SPX": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.059506172839506176,
+          "expected_rate": 0.05,
+          "n_violations": 241.0,
+          "n": 4050.0,
+          "kupiec_stat": 7.282038259148578,
+          "kupiec_p": 0.006964746447521143,
+          "christoffersen_stat": 7.335587975587302,
+          "christoffersen_p": 0.02553273338645842,
+          "dq_stat": 35.95625518161842,
+          "dq_pvalue": 2.811119167811583e-06
+        },
+        "fhs": {
+          "violation_rate": 0.05703703703703704,
+          "expected_rate": 0.05,
+          "n_violations": 231.0,
+          "n": 4050.0,
+          "kupiec_stat": 4.046788988879847,
+          "kupiec_p": 0.04425544817152243,
+          "christoffersen_stat": 4.064413382994843,
+          "christoffersen_p": 0.13104602370391535,
+          "dq_stat": 38.39200562471694,
+          "dq_pvalue": 9.415561284530106e-07
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.052592592592592594,
+          "expected_rate": 0.05,
+          "n_violations": 213.0,
+          "n": 4050.0,
+          "kupiec_stat": 0.5639519966528859,
+          "kupiec_p": 0.4526722911689267,
+          "christoffersen_stat": 0.6309962045395672,
+          "christoffersen_p": 0.7294254552917432,
+          "dq_stat": 30.846279166710698,
+          "dq_pvalue": 2.712096579692267e-05
+        },
+        "fhs": {
+          "violation_rate": 0.0691358024691358,
+          "expected_rate": 0.05,
+          "n_violations": 280.0,
+          "n": 4050.0,
+          "kupiec_stat": 28.039508365515758,
+          "kupiec_p": 1.18863779509697e-07,
+          "christoffersen_stat": 28.23628511482869,
+          "christoffersen_p": 7.388709512624314e-07,
+          "dq_stat": 58.525596675801125,
+          "dq_pvalue": 8.965825357999963e-11
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.05506172839506173,
+          "expected_rate": 0.05,
+          "n_violations": 223.0,
+          "n": 4050.0,
+          "kupiec_stat": 2.118041952193437,
+          "kupiec_p": 0.14557254981982148,
+          "christoffersen_stat": 2.6323531030460643,
+          "christoffersen_p": 0.2681586351134235,
+          "dq_stat": 25.176002773397745,
+          "dq_pvalue": 0.00031675791526408244
+        },
+        "fhs": {
+          "violation_rate": 0.06790123456790123,
+          "expected_rate": 0.05,
+          "n_violations": 275.0,
+          "n": 4050.0,
+          "kupiec_stat": 24.691975690174047,
+          "kupiec_p": 6.726364697633308e-07,
+          "christoffersen_stat": 24.83572294009994,
+          "christoffersen_p": 4.045677745570847e-06,
+          "dq_stat": 48.093683327125895,
+          "dq_pvalue": 1.1317670001926685e-08
+        }
+      }
+    },
+    ".DJI": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.0583148010872251,
+          "expected_rate": 0.05,
+          "n_violations": 236.0,
+          "n": 4047.0,
+          "kupiec_stat": 5.604526746788565,
+          "kupiec_p": 0.017914132982753635,
+          "christoffersen_stat": 6.426176847335839,
+          "christoffersen_p": 0.04023216722242482,
+          "dq_stat": 43.965497531732176,
+          "dq_pvalue": 7.5094630669115e-08
+        },
+        "fhs": {
+          "violation_rate": 0.05436125525080306,
+          "expected_rate": 0.05,
+          "n_violations": 220.0,
+          "n": 4047.0,
+          "kupiec_stat": 1.5777688241768288,
+          "kupiec_p": 0.20908236928571708,
+          "christoffersen_stat": 3.7138577263091577,
+          "christoffersen_p": 0.1561514572139756,
+          "dq_stat": 38.871356346520415,
+          "dq_pvalue": 7.58540935448693e-07
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.05337286879169755,
+          "expected_rate": 0.05,
+          "n_violations": 216.0,
+          "n": 4047.0,
+          "kupiec_stat": 0.9492799634122555,
+          "kupiec_p": 0.32990264416084625,
+          "christoffersen_stat": 1.5122826570223324,
+          "christoffersen_p": 0.46947448422411,
+          "dq_stat": 29.871737181450104,
+          "dq_pvalue": 4.1577939118686115e-05
+        },
+        "fhs": {
+          "violation_rate": 0.06646898937484556,
+          "expected_rate": 0.05,
+          "n_violations": 269.0,
+          "n": 4047.0,
+          "kupiec_stat": 21.037494317265185,
+          "kupiec_p": 4.503828352568082e-06,
+          "christoffersen_stat": 22.09464200316083,
+          "christoffersen_p": 1.592976794080837e-05,
+          "dq_stat": 63.47002016718003,
+          "dq_pvalue": 8.852385025747577e-12
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.0506548060291574,
+          "expected_rate": 0.05,
+          "n_violations": 205.0,
+          "n": 4047.0,
+          "kupiec_stat": 0.036381188775265194,
+          "kupiec_p": 0.8487304462542089,
+          "christoffersen_stat": 1.308558707886185,
+          "christoffersen_p": 0.5198165313747649,
+          "dq_stat": 20.967339050691386,
+          "dq_pvalue": 0.0018595692861881831
+        },
+        "fhs": {
+          "violation_rate": 0.06770447244872745,
+          "expected_rate": 0.05,
+          "n_violations": 274.0,
+          "n": 4047.0,
+          "kupiec_stat": 24.15848388213641,
+          "kupiec_p": 8.872444264420913e-07,
+          "christoffersen_stat": 24.895919039314293,
+          "christoffersen_p": 3.92572496370422e-06,
+          "dq_stat": 51.098548425854574,
+          "dq_pvalue": 2.8299724394968715e-09
+        }
+      }
+    },
+    ".FTSE": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.06243878550440744,
+          "expected_rate": 0.05,
+          "n_violations": 255.0,
+          "n": 4084.0,
+          "kupiec_stat": 12.371525980062486,
+          "kupiec_p": 0.00043593116874061184,
+          "christoffersen_stat": 25.549840548391074,
+          "christoffersen_p": 2.830887548229376e-06,
+          "dq_stat": 52.02580706556936,
+          "dq_pvalue": 1.8426669254965646e-09
+        },
+        "fhs": {
+          "violation_rate": 0.05582761998041136,
+          "expected_rate": 0.05,
+          "n_violations": 228.0,
+          "n": 4084.0,
+          "kupiec_stat": 2.8183464575040915,
+          "kupiec_p": 0.09319236309648311,
+          "christoffersen_stat": 13.499876335897952,
+          "christoffersen_p": 0.0011709520209179309,
+          "dq_stat": 32.49122955911059,
+          "dq_pvalue": 1.3134220768860007e-05
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.05582761998041136,
+          "expected_rate": 0.05,
+          "n_violations": 228.0,
+          "n": 4084.0,
+          "kupiec_stat": 2.8183464575040915,
+          "kupiec_p": 0.09319236309648311,
+          "christoffersen_stat": 5.8864460760647574,
+          "christoffersen_p": 0.052695614773168656,
+          "dq_stat": 14.134180685562596,
+          "dq_pvalue": 0.028172682700662508
+        },
+        "fhs": {
+          "violation_rate": 0.07345739471106758,
+          "expected_rate": 0.05,
+          "n_violations": 300.0,
+          "n": 4084.0,
+          "kupiec_stat": 41.59474799479014,
+          "kupiec_p": 1.1229453560304357e-10,
+          "christoffersen_stat": 45.47908658525597,
+          "christoffersen_p": 1.331502011952108e-10,
+          "dq_stat": 66.83175691336983,
+          "dq_pvalue": 1.8218919172406572e-12
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.059255631733594515,
+          "expected_rate": 0.05,
+          "n_violations": 242.0,
+          "n": 4084.0,
+          "kupiec_stat": 6.970983673860701,
+          "kupiec_p": 0.00828419448319711,
+          "christoffersen_stat": 7.199876232451814,
+          "christoffersen_p": 0.027325413394680434,
+          "dq_stat": 15.12455553241158,
+          "dq_pvalue": 0.01930976370956175
+        },
+        "fhs": {
+          "violation_rate": 0.06953966699314397,
+          "expected_rate": 0.05,
+          "n_violations": 284.0,
+          "n": 4084.0,
+          "kupiec_stat": 29.42132303338795,
+          "kupiec_p": 5.8233377272636997e-08,
+          "christoffersen_stat": 31.565998412860182,
+          "christoffersen_p": 1.3980752154251265e-07,
+          "dq_stat": 43.09190658096624,
+          "dq_pvalue": 1.1185930629236398e-07
+        }
+      }
+    },
+    ".GDAXI": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.064931906614786,
+          "expected_rate": 0.05,
+          "n_violations": 267.0,
+          "n": 4112.0,
+          "kupiec_stat": 17.71297974221453,
+          "kupiec_p": 2.568678873042715e-05,
+          "christoffersen_stat": 22.116387203128042,
+          "christoffersen_p": 1.5757508099280262e-05,
+          "dq_stat": 55.510993202174845,
+          "dq_pvalue": 3.6549179899547993e-10
+        },
+        "fhs": {
+          "violation_rate": 0.05982490272373541,
+          "expected_rate": 0.05,
+          "n_violations": 246.0,
+          "n": 4112.0,
+          "kupiec_stat": 7.883573921889692,
+          "kupiec_p": 0.004988579897726627,
+          "christoffersen_stat": 9.855580334844234,
+          "christoffersen_p": 0.0072424903015649795,
+          "dq_stat": 41.62334250525594,
+          "dq_pvalue": 2.1820556051473272e-07
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.05617704280155642,
+          "expected_rate": 0.05,
+          "n_violations": 231.0,
+          "n": 4112.0,
+          "kupiec_stat": 3.181665486382691,
+          "kupiec_p": 0.07446878962194978,
+          "christoffersen_stat": 3.5325843486403556,
+          "christoffersen_p": 0.17096572617048109,
+          "dq_stat": 12.309263941129132,
+          "dq_pvalue": 0.05541460835544419
+        },
+        "fhs": {
+          "violation_rate": 0.07101167315175097,
+          "expected_rate": 0.05,
+          "n_violations": 292.0,
+          "n": 4112.0,
+          "kupiec_stat": 34.00482375158904,
+          "kupiec_p": 5.497561096176354e-09,
+          "christoffersen_stat": 34.3264430519684,
+          "christoffersen_p": 3.516475529472785e-08,
+          "dq_stat": 56.77964270184992,
+          "dq_pvalue": 2.024527336731525e-10
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.05860894941634241,
+          "expected_rate": 0.05,
+          "n_violations": 241.0,
+          "n": 4112.0,
+          "kupiec_stat": 6.094410837838083,
+          "kupiec_p": 0.0135610134640154,
+          "christoffersen_stat": 6.951482248772393,
+          "christoffersen_p": 0.03093889575412026,
+          "dq_stat": 11.07161944431536,
+          "dq_pvalue": 0.08618800746115138
+        },
+        "fhs": {
+          "violation_rate": 0.06152723735408561,
+          "expected_rate": 0.05,
+          "n_violations": 253.0,
+          "n": 4112.0,
+          "kupiec_stat": 10.750708266653035,
+          "kupiec_p": 0.0010423941791016117,
+          "christoffersen_stat": 12.45192073189611,
+          "christoffersen_p": 0.0019774238526365337,
+          "dq_stat": 16.459021536053033,
+          "dq_pvalue": 0.011491186568308295
+        }
+      }
+    },
+    ".FCHI": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.06216867469879518,
+          "expected_rate": 0.05,
+          "n_violations": 258.0,
+          "n": 4150.0,
+          "kupiec_stat": 12.049015413824236,
+          "kupiec_p": 0.0005181974244418836,
+          "christoffersen_stat": 18.125239986434337,
+          "christoffersen_p": 0.0001159188717253748,
+          "dq_stat": 53.2981498807731,
+          "dq_pvalue": 1.0217690598631376e-09
+        },
+        "fhs": {
+          "violation_rate": 0.06216867469879518,
+          "expected_rate": 0.05,
+          "n_violations": 258.0,
+          "n": 4150.0,
+          "kupiec_stat": 12.049015413824236,
+          "kupiec_p": 0.0005181974244418836,
+          "christoffersen_stat": 18.125239986434337,
+          "christoffersen_p": 0.0001159188717253748,
+          "dq_stat": 53.2981498807731,
+          "dq_pvalue": 1.0217690598631376e-09
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.056626506024096385,
+          "expected_rate": 0.05,
+          "n_violations": 235.0,
+          "n": 4150.0,
+          "kupiec_stat": 3.6857294742703743,
+          "kupiec_p": 0.05487996041048661,
+          "christoffersen_stat": 6.147791396603843,
+          "christoffersen_p": 0.04624066384082131,
+          "dq_stat": 21.96702331352822,
+          "dq_pvalue": 0.0012276468761805214
+        },
+        "fhs": {
+          "violation_rate": 0.08096385542168674,
+          "expected_rate": 0.05,
+          "n_violations": 336.0,
+          "n": 4150.0,
+          "kupiec_stat": 71.12496797767622,
+          "kupiec_p": 3.3529992118681446e-17,
+          "christoffersen_stat": 73.64812511976453,
+          "christoffersen_p": 1.0174494210145461e-16,
+          "dq_stat": 105.48709439204663,
+          "dq_pvalue": 1.7928398208785134e-20
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.05903614457831325,
+          "expected_rate": 0.05,
+          "n_violations": 245.0,
+          "n": 4150.0,
+          "kupiec_stat": 6.759992968037338,
+          "kupiec_p": 0.009322412784024132,
+          "christoffersen_stat": 7.6912337619331055,
+          "christoffersen_p": 0.021373212765467723,
+          "dq_stat": 11.21962990824284,
+          "dq_pvalue": 0.0818211001916952
+        },
+        "fhs": {
+          "violation_rate": 0.06867469879518072,
+          "expected_rate": 0.05,
+          "n_violations": 285.0,
+          "n": 4150.0,
+          "kupiec_stat": 27.42751322566349,
+          "kupiec_p": 1.6309428787835445e-07,
+          "christoffersen_stat": 28.12554594658468,
+          "christoffersen_p": 7.809357371330445e-07,
+          "dq_stat": 33.99938831679899,
+          "dq_pvalue": 6.729228648599289e-06
+        }
+      }
+    },
+    ".STOXX50E": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.06121461408178079,
+          "expected_rate": 0.05,
+          "n_violations": 253.0,
+          "n": 4133.0,
+          "kupiec_stat": 10.244972518254016,
+          "kupiec_p": 0.001370576263127148,
+          "christoffersen_stat": 15.978096680866884,
+          "christoffersen_p": 0.0003391566915425674,
+          "dq_stat": 47.783344382103344,
+          "dq_pvalue": 1.305440618731262e-08
+        },
+        "fhs": {
+          "violation_rate": 0.05250423421243649,
+          "expected_rate": 0.05,
+          "n_violations": 217.0,
+          "n": 4133.0,
+          "kupiec_stat": 0.5372396382481845,
+          "kupiec_p": 0.46357896659166553,
+          "christoffersen_stat": 4.230848845831819,
+          "christoffersen_p": 0.12058210088424086,
+          "dq_stat": 26.059105716887753,
+          "dq_pvalue": 0.00021706791386530972
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.05516573917251391,
+          "expected_rate": 0.05,
+          "n_violations": 228.0,
+          "n": 4133.0,
+          "kupiec_stat": 2.2498083149071917,
+          "kupiec_p": 0.1336309547450005,
+          "christoffersen_stat": 2.4343995809362795,
+          "christoffersen_p": 0.2960580318081447,
+          "dq_stat": 22.12988929322003,
+          "dq_pvalue": 0.0011469635588777101
+        },
+        "fhs": {
+          "violation_rate": 0.08492620372610694,
+          "expected_rate": 0.05,
+          "n_violations": 351.0,
+          "n": 4133.0,
+          "kupiec_stat": 88.56449998939098,
+          "kupiec_p": 4.920406381934762e-21,
+          "christoffersen_stat": 91.14434867016496,
+          "christoffersen_p": 1.615311027465984e-20,
+          "dq_stat": 138.85155569739177,
+          "dq_pvalue": 1.751010062888594e-27
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.05661746915073796,
+          "expected_rate": 0.05,
+          "n_violations": 234.0,
+          "n": 4133.0,
+          "kupiec_stat": 3.6608181771051633,
+          "kupiec_p": 0.055706271230881434,
+          "christoffersen_stat": 3.8115452848735956,
+          "christoffersen_p": 0.14870770034325348,
+          "dq_stat": 9.94833572086287,
+          "dq_pvalue": 0.12684464299405518
+        },
+        "fhs": {
+          "violation_rate": 0.06823130897653036,
+          "expected_rate": 0.05,
+          "n_violations": 282.0,
+          "n": 4133.0,
+          "kupiec_stat": 26.091989554909333,
+          "kupiec_p": 3.255317587584906e-07,
+          "christoffersen_stat": 26.134393865331788,
+          "christoffersen_p": 2.1134329698753675e-06,
+          "dq_stat": 36.66453667753258,
+          "dq_pvalue": 2.0468835470017224e-06
+        }
+      }
+    },
+    ".N225": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.06264501160092807,
+          "expected_rate": 0.05,
+          "n_violations": 243.0,
+          "n": 3879.0,
+          "kupiec_stat": 12.129868120219243,
+          "kupiec_p": 0.0004962062890807562,
+          "christoffersen_stat": 13.152759947071644,
+          "christoffersen_p": 0.0013928824505935935,
+          "dq_stat": 43.42061886481569,
+          "dq_pvalue": 9.6291899969907e-08
+        },
+        "fhs": {
+          "violation_rate": 0.068574374838876,
+          "expected_rate": 0.05,
+          "n_violations": 266.0,
+          "n": 3879.0,
+          "kupiec_stat": 25.374618320610125,
+          "kupiec_p": 4.7208891241159376e-07,
+          "christoffersen_stat": 26.25714957395917,
+          "christoffersen_p": 1.9876156827002347e-06,
+          "dq_stat": 66.85877457619027,
+          "dq_pvalue": 1.7988559215362043e-12
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.05491105955143078,
+          "expected_rate": 0.05,
+          "n_violations": 213.0,
+          "n": 3879.0,
+          "kupiec_stat": 1.9113446027071532,
+          "kupiec_p": 0.16681397449279528,
+          "christoffersen_stat": 1.930326864981211,
+          "christoffersen_p": 0.3809209397939125,
+          "dq_stat": 20.95662531151549,
+          "dq_pvalue": 0.0018678268039528708
+        },
+        "fhs": {
+          "violation_rate": 0.09280742459396751,
+          "expected_rate": 0.05,
+          "n_violations": 360.0,
+          "n": 3879.0,
+          "kupiec_stat": 120.81989397261816,
+          "kupiec_p": 4.184476717943974e-28,
+          "christoffersen_stat": 122.41097632485736,
+          "christoffersen_p": 2.62297546857494e-27,
+          "dq_stat": 183.10985513578555,
+          "dq_pvalue": 7.413443047071407e-37
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.05465326114978087,
+          "expected_rate": 0.05,
+          "n_violations": 212.0,
+          "n": 3879.0,
+          "kupiec_stat": 1.7185701219618466,
+          "kupiec_p": 0.1898772057382773,
+          "christoffersen_stat": 1.7624745846491408,
+          "christoffersen_p": 0.4142700213316729,
+          "dq_stat": 15.07138435642825,
+          "dq_pvalue": 0.01970871267233871
+        },
+        "fhs": {
+          "violation_rate": 0.09435421500386698,
+          "expected_rate": 0.05,
+          "n_violations": 366.0,
+          "n": 3879.0,
+          "kupiec_stat": 128.90490947868705,
+          "kupiec_p": 7.114653544140749e-30,
+          "christoffersen_stat": 129.4563752428778,
+          "christoffersen_p": 7.742929275635833e-29,
+          "dq_stat": 180.60426381527012,
+          "dq_pvalue": 2.5250288506872795e-36
+        }
+      }
+    },
+    ".HSI": {
+      "EWMA": {
+        "normal": {
+          "violation_rate": 0.059123343527013254,
+          "expected_rate": 0.05,
+          "n_violations": 232.0,
+          "n": 3924.0,
+          "kupiec_stat": 6.51262248035566,
+          "kupiec_p": 0.010711142881723945,
+          "christoffersen_stat": 6.575308708579755,
+          "christoffersen_p": 0.0373413362947586,
+          "dq_stat": 23.61720682368517,
+          "dq_pvalue": 0.0006140466832840068
+        },
+        "fhs": {
+          "violation_rate": 0.04357798165137615,
+          "expected_rate": 0.05,
+          "n_violations": 171.0,
+          "n": 3924.0,
+          "kupiec_stat": 3.5548911219243777,
+          "kupiec_p": 0.059370202887641006,
+          "christoffersen_stat": 3.8717853510813214,
+          "christoffersen_p": 0.1442954023378228,
+          "dq_stat": 19.2330327807154,
+          "dq_pvalue": 0.003787653702940654
+        }
+      },
+      "GARCH": {
+        "normal": {
+          "violation_rate": 0.054281345565749234,
+          "expected_rate": 0.05,
+          "n_violations": 213.0,
+          "n": 3924.0,
+          "kupiec_stat": 1.4749717244995821,
+          "kupiec_p": 0.2245629028708085,
+          "christoffersen_stat": 1.5021252518357286,
+          "christoffersen_p": 0.47186487039687786,
+          "dq_stat": 12.632645359601899,
+          "dq_pvalue": 0.04925497322309506
+        },
+        "fhs": {
+          "violation_rate": 0.05682976554536188,
+          "expected_rate": 0.05,
+          "n_violations": 223.0,
+          "n": 3924.0,
+          "kupiec_stat": 3.697736717398037,
+          "kupiec_p": 0.05448632902765629,
+          "christoffersen_stat": 3.7533953726257323,
+          "christoffersen_p": 0.15309483908685007,
+          "dq_stat": 15.175040061524042,
+          "dq_pvalue": 0.01893812490822185
+        }
+      },
+      "GJR-GARCH": {
+        "normal": {
+          "violation_rate": 0.05606523955147808,
+          "expected_rate": 0.05,
+          "n_violations": 220.0,
+          "n": 3924.0,
+          "kupiec_stat": 2.929194278945559,
+          "kupiec_p": 0.08699089723616064,
+          "christoffersen_stat": 2.9813316082057,
+          "christoffersen_p": 0.22522265144292314,
+          "dq_stat": 13.888675962610984,
+          "dq_pvalue": 0.030904739771766044
+        },
+        "fhs": {
+          "violation_rate": 0.06829765545361875,
+          "expected_rate": 0.05,
+          "n_violations": 268.0,
+          "n": 3924.0,
+          "kupiec_stat": 24.944786984042196,
+          "kupiec_p": 5.89958351987667e-07,
+          "christoffersen_stat": 25.331950356311523,
+          "christoffersen_p": 3.15672589032511e-06,
+          "dq_stat": 36.37868022027437,
+          "dq_pvalue": 2.326686422802346e-06
+        }
+      }
+    }
+  },
+  "summary": {
+    "EWMA": {
+      "normal": {
+        "avg_violation_rate": 0.06129291374430525,
+        "avg_viol_dev": 0.01129291374430525,
+        "dq_reject_frac": 1.0,
+        "n_indices": 8.0
+      },
+      "fhs": {
+        "avg_violation_rate": 0.05673451004918384,
+        "avg_viol_dev": 0.008340014636339797,
+        "dq_reject_frac": 1.0,
+        "n_indices": 8.0
+      }
+    },
+    "GARCH": {
+      "normal": {
+        "avg_violation_rate": 0.05486934681000603,
+        "avg_viol_dev": 0.004869346810006027,
+        "dq_reject_frac": 0.875,
+        "n_indices": 8.0
+      },
+      "fhs": {
+        "avg_violation_rate": 0.07445013862424037,
+        "avg_viol_dev": 0.02445013862424037,
+        "dq_reject_frac": 1.0,
+        "n_indices": 8.0
+      }
+    },
+    "GJR-GARCH": {
+      "normal": {
+        "avg_violation_rate": 0.05624415375055827,
+        "avg_viol_dev": 0.006244153750558275,
+        "dq_reject_frac": 0.625,
+        "n_indices": 8.0
+      },
+      "fhs": {
+        "avg_violation_rate": 0.07077881119913187,
+        "avg_viol_dev": 0.02077881119913188,
+        "dq_reject_frac": 1.0,
+        "n_indices": 8.0
+      }
+    }
+  },
+  "loghar_rv_baseline": {
+    "normal": {
+      "avg_violation_rate": 0.09055039027194539,
+      "avg_viol_dev": 0.040550390271945395,
+      "dq_reject_frac": 1.0,
+      "n_indices": 8.0
+    },
+    "t": {
+      "avg_violation_rate": 0.09136564823169298,
+      "avg_viol_dev": 0.041365648231692975,
+      "dq_reject_frac": 1.0,
+      "n_indices": 8.0
+    },
+    "fhs": {
+      "avg_violation_rate": 0.06478302069283189,
+      "avg_viol_dev": 0.01632336965684497,
+      "dq_reject_frac": 0.875,
+      "n_indices": 8.0
+    }
+  }
+}

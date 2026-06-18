@@ -31,6 +31,7 @@ _warnings.filterwarnings(
 )
 
 from .backtest import BacktestResult, run_backtest
+from .conditional_var import ewma_variance_forecast, garch_variance_forecast
 from .data import (
     RealizedDataset,
     load_crypto_rv,
@@ -171,6 +172,9 @@ __all__ = [
     "CrossHAR",
     "align_panel",
     "spillover_backtest",
+    # conditional-variance VaR engines (risk layer)
+    "ewma_variance_forecast",
+    "garch_variance_forecast",
     # deflated / probabilistic Sharpe (honest edge evaluation)
     "probabilistic_sharpe_ratio",
     "deflated_sharpe_ratio",
