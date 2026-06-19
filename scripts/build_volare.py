@@ -53,6 +53,15 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://volare.unime.it/api"
 DATA = ROOT / "data"
 
+# Auto-load credentials from a local .env (gitignored) so they need not be
+# re-exported every shell session. Optional dependency: works without it too.
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(ROOT / ".env")
+except ImportError:
+    pass
+
 # Confirmed VOLARE header -> volbench panel column (5-min measures; rsn=downside).
 _RENAME = {
     "observation_date": "date",

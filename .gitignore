@@ -51,6 +51,7 @@ report/*.pdf
 .env
 *.env
 .env.*
+!.env.example          # but DO commit the template (no real secrets)
 .netrc
 secrets/
 *.key
