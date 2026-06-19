@@ -588,17 +588,21 @@ def var_backtest(
     }
 
     if return_es:
+        # Use the SAME warm-up block ``w`` so the ES VaR thresholds coincide with
+        # the thresholds scored above, then evaluate ES on the SAME held-out
+        # window ``[w:]`` (WFB-2: no VaR-vs-ES threshold mismatch for t / FHS).
         es_dict = expected_shortfall_forecast(
             future_returns=ret,
             forecast_variance=fvar,
             alpha=alpha,
             dist=dist,
+            warmup=w,
         )
-        es_fc = es_dict["es_forecast"]
-        var_fc = es_dict["var_forecast"]
-        as_res = acerbi_szekely_backtest(ret, es_fc, var_fc, alpha)
-        fz = fz_loss(ret, var_fc, es_fc, alpha)
-        result["es_mean"] = float(np.mean(es_fc))
+        es_s = es_dict["es_forecast"][w:]
+        var_es_s = es_dict["var_forecast"][w:]
+        as_res = acerbi_szekely_backtest(ret_s, es_s, var_es_s, alpha)
+        fz = fz_loss(ret_s, var_es_s, es_s, alpha)
+        result["es_mean"] = float(np.mean(es_s))
         result["as_Z1"] = as_res["Z1"]
         result["as_Z2"] = as_res["Z2"]
         result["as_p"] = as_res["p"]
@@ -670,6 +674,13 @@ def expected_shortfall_forecast(
     vol_t = np.sqrt(np.maximum(fvar, 1e-300))
     z = np.where(vol_t > 0.0, ret / vol_t, 0.0)  # standardised residuals
 
+    # Calibrate any estimated tail (the t dof, the FHS quantile) on the leading
+    # warm-up block only, so that when var_backtest calls this with its own
+    # ``warmup`` the ES thresholds coincide with the VaR thresholds it scored
+    # (consistency — WFB-2). ``warmup=0`` defaults to half the window.
+    w_es = warmup if warmup > 0 else max(1, ret.size // 2)
+    z_calib = z[:w_es]
+
     if dist == "normal":
         # ES_normal = -sigma * phi(z_alpha) / alpha   (negative, z_alpha < 0)
         # Derivation: E[Z | Z < z_alpha] = -phi(z_alpha)/alpha for Z ~ N(0,1).
@@ -680,8 +691,9 @@ def expected_shortfall_forecast(
         es_t = es_z * vol_t                       # negative
 
     elif dist == "t":
-        # Fit Student-t to standardised residuals (same as var_backtest).
-        fit_df, _fit_loc, _fit_scale = t_dist.fit(z, floc=0.0)
+        # Fit Student-t to the warm-up standardised residuals (same window as
+        # var_backtest, so the t dof — hence the VaR/ES thresholds — coincide).
+        fit_df, _fit_loc, _fit_scale = t_dist.fit(z_calib, floc=0.0)
         dof = max(float(fit_df), 2.1)  # variance requires dof > 2
 
         # Unit-variance Student-t: scale s.t. Var = 1 -> scale = sqrt((nu-2)/nu).
@@ -706,10 +718,7 @@ def expected_shortfall_forecast(
         es_t = es_z * vol_t                       # negative
 
     else:  # fhs
-        T = ret.size
-        w = warmup if warmup > 0 else max(1, T // 2)
-        # Calibrate on warmup residuals; apply to all T periods.
-        z_calib = z[:w]
+        # z_calib (the warm-up block) was computed once above (WFB-2 consistency).
         tail = z_calib[z_calib <= np.quantile(z_calib, alpha)]
         if tail.size == 0:
             # Fallback: use all calibration residuals at or below the quantile.
@@ -758,6 +767,12 @@ def acerbi_szekely_backtest(
     :math:`\\text{ES}_t < 0`, and :math:`\\overline{\\text{ES}} = \\text{mean}(\\text{ES}_t)`.
     Under H0: both :math:`Z_1 \\approx 0` and :math:`Z_2 \\approx 0`.
     ES underestimation (|ES| too small) gives :math:`Z_1 < 0` and :math:`Z_2 < 0`.
+
+    Acerbi-Székely's third test (Z3) is intentionally **not** reported: it is
+    rank/ESF-based and needs the full one-step predictive CDF, whereas this
+    function — and the DM/MCS pipeline it feeds — carries only the point
+    ``(VaR, ES)`` forecasts. Z1 (conditional) and Z2 (unconditional) are the
+    tail-severity statistics computable from a ``(VaR, ES)`` pair alone.
 
     Parameters
     ----------
@@ -878,15 +893,18 @@ def fz_loss(
     tail models — exactly analogous to QLIKE for variance models, but in the
     risk layer.
 
-    The formula (Taylor 2019, eq. 2; sign-corrected for left-tail losses
-    with VaR > 0, ES < 0)::
+    The formula (Patton, Ziegel & Chen 2019 eq. 2 / Taylor 2019; written for
+    left-tail losses with VaR > 0, ES < 0, substituting the quantile ``q=-VaR``)::
 
-        FZ0_t = (I_t - alpha) * VaR_t / alpha
-                - I_t * r_t / (alpha * (-ES_t))
+        FZ0_t = (alpha - I_t) / alpha * VaR_t
+                - 1 / alpha
+                + I_t * r_t / (alpha * ES_t)
                 + log(-ES_t)
 
-    where ``I_t = 1{r_t < -VaR_t}``.  This is minimised (in expectation) by
-    the true (VaR, ES) pair.
+    where ``I_t = 1{r_t < -VaR_t}`` and ``ES_t < 0`` (so on a breach the term
+    ``I_t * r_t / (alpha * ES_t) > 0``).  The ``-1/alpha`` constant is identical
+    for every model on the same series and does not affect comparisons.  FZ0 is
+    minimised (in expectation) by the true (VaR, ES) pair.
 
     **Invariant note:** FZ0 is a risk-layer loss; never place FZ0 values in
     the same DM/MCS table as Track-1 QLIKE (Invariant 4).

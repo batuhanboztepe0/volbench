@@ -48,8 +48,11 @@ from .deflated_sharpe import (
     probabilistic_sharpe_ratio,
 )
 from .economic import (
+    acerbi_szekely_backtest,
     black_scholes_price,
     engle_manganelli_dq,
+    expected_shortfall_forecast,
+    fz_loss,
     option_pricing_loss,
     var_backtest,
     volatility_targeting,
@@ -82,6 +85,7 @@ from .models import (
     HARQ,
     SHAR,
     AR1Log,
+    ARFIMALog,
     HistoricalMean,
     LogHAR,
     MovingAverage,
@@ -131,6 +135,7 @@ __all__ = [
     "MovingAverage",
     "EWMA",
     "AR1Log",
+    "ARFIMALog",
     "HAR",
     "LogHAR",
     "HARQ",
@@ -172,6 +177,9 @@ __all__ = [
     "engle_manganelli_dq",
     "option_pricing_loss",
     "black_scholes_price",
+    "expected_shortfall_forecast",
+    "acerbi_szekely_backtest",
+    "fz_loss",
     # multivariate / spillover
     "CrossHAR",
     "align_panel",

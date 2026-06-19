@@ -825,12 +825,15 @@ class ARFIMALog(VolForecaster):
     hyperbolic autocorrelation decay (long memory, d ≈ 0.4 for log-RV), which
     HAR approximates with a multi-scale average and AR(1) cannot reproduce.
 
-    The direct-horizon target ``average_future_variance(rv, horizon)`` is used
-    throughout, making ARFIMA directly comparable to :class:`AR1Log` at all
-    horizons.  At h=1 the target is exactly ``rv[t+1]``, so that horizon is the
-    primary claim.  For h ∈ {5, 22} ARFIMA forecasts the same direct target as
-    AR1Log using fracdiff features — a labeled "iterated-feature" multi-horizon
-    forecast.
+    A causal one-step ARFIMA log-RV predictor (fracdiff → AR(p) → filter
+    inversion — the inversion is what carries the long memory) is used as the
+    single feature in a log-space regression onto the **direct-horizon** target
+    ``average_future_variance(rv, horizon)``, exactly the :class:`AR1Log`
+    structure.  ARFIMA is therefore scored on the same target as every other
+    model at every horizon (apples-to-apples MCS).  At h=1 the target is
+    ``rv[t+1]`` and the calibrating regression is ≈ identity, so the forecast
+    reduces to the genuine one-step ARFIMA — the primary, headline horizon;
+    h ∈ {5, 22} are labelled iterated-feature direct-horizon forecasts.
 
     Parameters
     ----------
@@ -891,98 +894,115 @@ class ARFIMALog(VolForecaster):
         if freqs.size == 0:
             return 0.4
         w = 2.0 * np.pi * freqs / n
-        log_pgram = np.log(np.maximum(pgram[freqs], 1e-300))
+        log_w = np.log(np.maximum(w, 1e-300))
+        pg = pgram[freqs]
+        mean_log_w = float(np.mean(log_w))
         best_d, best_loss = 0.4, np.inf
         for d_try in np.linspace(0.05, 0.49, grid_size):
-            # Spectral density ∝ |w|^{-2d} for small w (long-memory approximation)
-            log_spec = -2.0 * d_try * np.log(np.maximum(w, 1e-300))
-            # Whittle objective (up to constants)
-            loss = float(np.mean(log_spec + np.exp(log_pgram - log_spec)))
+            # Profiled Whittle: spectral density f(w) = C * w^{-2d}; concentrate
+            # out the scale C (its profile MLE is C_hat = mean(I(w) * w^{2d})), so
+            # the objective reduces to log C_hat(d) - 2d * mean(log w).
+            c_hat = float(np.mean(pg * np.exp(2.0 * d_try * log_w)))
+            loss = float(np.log(max(c_hat, 1e-300)) - 2.0 * d_try * mean_log_w)
             if loss < best_loss:
                 best_loss = loss
                 best_d = d_try
         return best_d
+
+    @staticmethod
+    def _fd_and_inversion(
+        log_rv: np.ndarray, w: np.ndarray
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Causal fracdiff series and its one-step inversion term.
+
+        Returns ``(fd, cinv)`` with ``fd[m] = sum_{j>=0} w[j] log_rv[m-j]`` and
+        ``cinv[m] = fd[m] - log_rv[m] = sum_{j>=1} w[j] log_rv[m-j]``. Since
+        ``w[0] = 1`` the ``log_rv[m]`` term cancels, so ``cinv[m]`` depends only on
+        ``log_rv[:m]`` — i.e. ``cinv[s+1]`` is the look-ahead-safe inversion term
+        for a one-step forecast made with information up to ``s`` (even though it is
+        computed here from the full series).
+        """
+        fd = _apply_fracdiff(log_rv, w)
+        return fd, fd - log_rv
+
+    def _forecast_one(
+        self,
+        t: int,
+        last_train: int,
+        log_rv: np.ndarray,
+        y_all: np.ndarray,
+        fd: np.ndarray,
+        cinv: np.ndarray,
+        p: int,
+    ) -> float:
+        """One direct-horizon forecast at origin ``t`` (see :meth:`oos_forecast`)."""
+        fallback = float(np.exp(log_rv[t]))
+        s_end = last_train - 1  # last s whose AR target fd[s+1] is in the training window
+        if s_end < p:
+            return fallback
+
+        # 1) AR(p) on the fracdiff series: fd[s+1] ~ [1, fd[s], ..., fd[s-p+1]].
+        s_ar = np.arange(p, s_end + 1)
+        x_ar = np.column_stack([np.ones(s_ar.size), *[fd[s_ar - j] for j in range(p)]])
+        y_ar = fd[s_ar + 1]
+        ok = np.isfinite(x_ar).all(axis=1) & np.isfinite(y_ar)
+        if int(ok.sum()) < p + 2:
+            return fallback
+        phi = _ols_fit(x_ar[ok], y_ar[ok])
+
+        # 2) ARFIMA one-step log-RV predictor as a long-memory feature:
+        #    lr1[s] = fd_hat(s+1) - cinv[s+1],  fd_hat(s+1) = [1, fd[s..s-p+1]] @ phi.
+        #    The inversion term cinv carries the hyperbolic long memory AR(1) lacks.
+        # 3) Direct-horizon regression (mirrors AR1Log): regress the log
+        #    average-future-variance y_all[s] on [1, lr1[s]] over training rows
+        #    s in [p, last_train], then predict at t. This makes ARFIMA score on
+        #    the SAME target every other model does, at every horizon.
+        s_rg = np.arange(p, last_train + 1)
+        m_feat = np.column_stack([np.ones(s_rg.size), *[fd[s_rg - j] for j in range(p)]])
+        lr1 = m_feat @ phi - cinv[s_rg + 1]
+        y = y_all[s_rg]
+        good = np.isfinite(lr1) & np.isfinite(y)
+        if int(good.sum()) < 3:
+            return fallback
+        x_rg = np.column_stack([np.ones(int(good.sum())), lr1[good]])
+        y_rg = y[good]
+        beta = _ols_fit(x_rg, y_rg)
+
+        feat_t = np.array([1.0, *[fd[t - j] for j in range(p)]])
+        lr1_t = float(feat_t @ phi) - cinv[t + 1]
+        mu = float(np.array([1.0, lr1_t]) @ beta)
+        resid = y_rg - x_rg @ beta
+        s2 = float(resid @ resid) / max(resid.size - 2, 1)
+        return float(np.exp(mu + 0.5 * s2))  # lognormal back-transform (Invariant 2)
 
     def oos_forecast(
         self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
     ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         n = rv.size
-        log_rv = np.log(np.maximum(rv, _LOG_FLOOR))  # Invariant 2
+        log_rv = np.log(np.maximum(rv, _LOG_FLOOR))            # Invariant 2 (log space)
+        target = average_future_variance(rv, horizon)          # direct-horizon target
+        y_all = np.log(np.maximum(target, _LOG_FLOOR))
         origins = _test_origins(n, horizon, min_train)
         forecasts = np.empty(origins.size)
+        p = self.p
+
+        # For a fixed d the fracdiff series and its inversion term are
+        # origin-independent (each value is causal in log_rv), so compute once.
+        fd_full = cinv_full = None
+        if self._fixed_weights is not None:
+            fd_full, cinv_full = self._fd_and_inversion(log_rv, self._fixed_weights)
 
         for k, t in enumerate(origins):
-            last_train = t - horizon  # Invariant 1: no look-ahead
-
-            # --- Fractional-difference filter ---
-            # When d is fixed, weights are precomputed.  When d=None, estimate d
-            # on the training window only, then recompute weights.
-            if self._fixed_weights is not None:
-                w = self._fixed_weights
+            last_train = t - horizon                           # Invariant 1: no look-ahead
+            if fd_full is not None and cinv_full is not None:
+                fd, cinv = fd_full, cinv_full
             else:
-                d_est = self._estimate_d(log_rv[: last_train + 1])
-                w = _fracdiff_weights(d_est, self.trunc)
-
-            # Apply fracdiff filter ONLY up to last_train+1 for training, but
-            # also to t for the prediction feature — both are causal at origin t.
-            # fd[s] = sum_k w[k]*log_rv[s-k], using only observations s' <= s.
-            fd_up_to_t = _apply_fracdiff(log_rv[: t + 1], w)
-
-            # --- Fit AR(p) on the fractionally-differenced series ---
-            # Training: predict fd[s+1] from fd[s], ..., fd[s-p+1]
-            # Valid training rows s: need fd[s+1] in the training window
-            # => s+1 <= last_train => s <= last_train - 1
-            # Also need p lags: s >= p.
-            p = self.p
-            s_end = last_train - 1  # inclusive; fd[s+1] = fd[last_train] is last target
-
-            if s_end < p:
-                forecasts[k] = float(np.exp(log_rv[t]))
-                continue
-
-            rows = np.arange(p, s_end + 1)
-            X_list = []
-            y_list = []
-            for s in rows:
-                feat = fd_up_to_t[s : s - p : -1]  # [fd[s], ..., fd[s-p+1]]
-                if feat.size != p or not np.all(np.isfinite(feat)):
-                    continue
-                fd_next = fd_up_to_t[s + 1]
-                if not np.isfinite(fd_next):
-                    continue
-                X_list.append(np.concatenate([[1.0], feat]))
-                y_list.append(fd_next)
-
-            if len(X_list) < p + 2:
-                forecasts[k] = float(np.exp(log_rv[t]))
-                continue
-
-            X_train = np.vstack(X_list)
-            y_train = np.array(y_list)
-            beta = _ols_fit(X_train, y_train)
-
-            # --- Forecast fd[t+1] ---
-            feat_t = fd_up_to_t[t : t - p : -1]  # [fd[t], ..., fd[t-p+1]]
-            x_pred = np.concatenate([[1.0], feat_t])
-            fd_hat = float(x_pred @ beta)
-
-            # --- Invert the fracdiff filter to recover log_rv_hat[t+1] ---
-            # fd[t+1] = w[0]*log_rv[t+1] + w[1]*log_rv[t] + ... (w[0]=1)
-            # => log_rv_hat[t+1] = fd_hat - sum_{j=1}^{trunc-1} w[j]*log_rv[t+1-j]
-            #                     = fd_hat - sum_{j=1}^{min(t+1, trunc-1)} w[j]*log_rv[t+1-j]
-            trunc = w.size
-            max_j = min(t + 1, trunc - 1)  # j runs from 1 to max_j
-            invert_sum = 0.0
-            for j in range(1, max_j + 1):
-                invert_sum += w[j] * log_rv[t + 1 - j]
-            log_rv_hat = fd_hat - invert_sum
-
-            # Lognormal back-transform (Invariant 2), same as AR1Log.
-            # Residual variance from the AR(p)-on-fd fit.
-            resid = y_train - X_train @ beta
-            s2 = float(resid @ resid) / max(resid.size - X_train.shape[1], 1)
-            forecasts[k] = float(np.exp(log_rv_hat + 0.5 * s2))
+                # d=None: estimate d on the training window only (look-ahead-safe),
+                # then rebuild the origin-specific fracdiff series.
+                w = _fracdiff_weights(self._estimate_d(log_rv[: last_train + 1]), self.trunc)
+                fd, cinv = self._fd_and_inversion(log_rv, w)
+            forecasts[k] = self._forecast_one(t, last_train, log_rv, y_all, fd, cinv, p)
 
         return forecasts, origins
 

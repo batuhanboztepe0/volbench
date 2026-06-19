@@ -115,7 +115,9 @@ def run_economic() -> dict:
             rv_realized = res.realized[mask]
 
             vt = volatility_targeting(ret_next, fc)
-            var_by_dist = {d: var_backtest(ret_next, fc, dist=d) for d in VAR_DISTS}
+            # return_es=True also attaches the Expected-Shortfall backtest
+            # (Acerbi-Szekely Z1/Z2, FZ0 loss) on the same held-out window (C1d).
+            var_by_dist = {d: var_backtest(ret_next, fc, dist=d, return_es=True) for d in VAR_DISTS}
             vr = var_by_dist["normal"]  # kept as the back-compat default
             opl = option_pricing_loss(fc, rv_realized, horizon_days=HORIZON)
 
@@ -201,6 +203,49 @@ def run_economic() -> dict:
         print(f"  {d:<8} {c['avg_violation_rate']:>12.4f} {c['avg_viol_dev']:>12.4f} "
               f"{c['dq_reject_frac']:>15.3f}")
 
+    # Expected Shortfall by tail distribution (C1d), averaged across indices for
+    # the headline forecaster. Goes beyond *how often* VaR breaches (coverage,
+    # above) to *how bad*: Acerbi-Szekely Z (≈0 well-specified, <0 understated
+    # tail) and the FZ0 loss (lower is better; a strictly consistent (VaR,ES)
+    # score — siloed risk layer, never mixed with Track-1 QLIKE).
+    es_by_dist: dict[str, dict[str, float]] = {}
+    print(f"\n  Expected Shortfall by tail distribution ({HEADLINE_VAR_MODEL}, nominal 5%)")
+    print(f"  {'Dist':<8} {'AS_Z1':>9} {'AS_Z2':>9} {'AS_rej_frac':>12} {'FZ_mean':>10}")
+    print(f"  {'-' * 50}")
+    for d in VAR_DISTS:
+        z1s, z2s, rej, fzs = [], [], [], []
+        for tk in tickers:
+            r = all_results.get(tk, {}).get(HEADLINE_VAR_MODEL)
+            if r is None or "var_by_dist" not in r:
+                continue
+            vd = r["var_by_dist"][d]
+            if "as_Z1" not in vd:
+                continue
+            if not np.isnan(vd["as_Z1"]):
+                z1s.append(vd["as_Z1"])
+            if not np.isnan(vd["as_Z2"]):
+                z2s.append(vd["as_Z2"])
+            asp = vd.get("as_p")
+            if asp is not None and not np.isnan(asp):
+                rej.append(1.0 if asp < 0.05 else 0.0)
+            fzs.append(vd["fz_mean"])
+        if not fzs:
+            continue
+        es_by_dist[d] = {
+            "avg_as_Z1": float(np.nanmean(z1s)) if z1s else float("nan"),
+            "avg_as_Z2": float(np.nanmean(z2s)) if z2s else float("nan"),
+            "as_reject_frac": float(np.nanmean(rej)) if rej else float("nan"),
+            "avg_fz_loss": float(np.nanmean(fzs)),
+            "n_indices": float(len(fzs)),
+        }
+        e = es_by_dist[d]
+        print(f"  {d:<8} {e['avg_as_Z1']:>9.3f} {e['avg_as_Z2']:>9.3f} "
+              f"{e['as_reject_frac']:>12.3f} {e['avg_fz_loss']:>10.4f}")
+    if es_by_dist:
+        best_fz = min(es_by_dist, key=lambda dd: es_by_dist[dd]["avg_fz_loss"])
+        print(f"\n  ES headline: lowest FZ0 loss = {best_fz} "
+              f"(the best-scoring (VaR, ES) tail model by the consistent FZ rule)")
+
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = RESULTS_DIR / "economic.json"
     # Convert numpy scalars to plain Python floats for JSON serialisation.
@@ -219,6 +264,7 @@ def run_economic() -> dict:
             "by_ticker": all_results,
             "summary": summary_rows,
             "var_coverage_by_dist": coverage_by_dist,
+            "es_by_dist": es_by_dist,
         }), fh, indent=2)
     print(f"\n  Saved results to {out_path}")
     return all_results
