@@ -357,7 +357,14 @@ def model_confidence_set(
         col_means = sub.mean(axis=0)  # (k,)
 
         # Bootstrap column means: (reps, k). Average over resampled rows.
-        boot_means = sub[boot_idx, :].mean(axis=1)  # (reps, k)
+        # Chunk over reps so the transient ``sub[idx]`` array of shape (reps, n, k)
+        # never materialises in full: at B=10000 it is multi-GB and thrashes swap.
+        # Each row depends only on its own bootstrap index, so chunking is exact.
+        boot_means = np.empty((reps, k), dtype=float)
+        chunk = max(1, 50_000_000 // (n * k))
+        for s in range(0, reps, chunk):
+            e = min(s + chunk, reps)
+            boot_means[s:e] = sub[boot_idx[s:e], :].mean(axis=1)
         boot_centered = boot_means - col_means[None, :]  # center at sample mean
 
         # Pairwise differences. dbar_ij = col_means[i] - col_means[j].
