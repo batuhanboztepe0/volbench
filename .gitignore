@@ -42,7 +42,8 @@ report/*.pdf
 # Local / internal-only (never committed, never on the remote)
 /CLAUDE.md
 /.claude/
-/extraipynb/          # third-party tutorial notebooks (not ours to redistribute)
+# third-party tutorial notebooks (not ours to redistribute)
+/extraipynb/
 
 # Secrets / credentials — NEVER commit (e.g. VOLARE / vendor API tokens)
 .env
