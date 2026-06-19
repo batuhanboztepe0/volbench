@@ -20,6 +20,8 @@ venv/
 data/oxford_realized.csv
 data/crypto_realized.csv
 data/crypto_expanded_realized.csv
+data/volare_*.parquet
+data/volare_*_realized.csv
 data/raw/
 
 # LaTeX build artifacts
