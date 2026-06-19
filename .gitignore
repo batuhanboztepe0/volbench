@@ -32,6 +32,13 @@ report/*.fls
 report/*.synctex.gz
 report/*.pdf
 
+# Internal planning / handoff / pre-registration docs — kept LOCAL only, never
+# pushed (private repo). Purged from history via git-filter-repo. README.md,
+# data/README.md and report/ stay tracked.
+/HANDOFF.md
+/ROADMAP.md
+/docs/
+
 # OS
 .DS_Store
 
