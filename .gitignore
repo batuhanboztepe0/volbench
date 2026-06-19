@@ -39,6 +39,24 @@ report/*.pdf
 /ROADMAP.md
 /docs/
 
+# Local / internal-only (never committed, never on the remote)
+/CLAUDE.md
+/.claude/
+/extraipynb/          # third-party tutorial notebooks (not ours to redistribute)
+
+# Secrets / credentials — NEVER commit (e.g. VOLARE / vendor API tokens)
+.env
+*.env
+.env.*
+.netrc
+secrets/
+*.key
+*.pem
+credentials*.json
+*token*.json
+*_token
+*.secret
+
 # OS
 .DS_Store
 
