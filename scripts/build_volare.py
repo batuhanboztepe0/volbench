@@ -30,9 +30,11 @@ Usage
     python scripts/build_volare.py --fetch futures      # -> data/volare_futures_realized.csv
     python scripts/build_volare.py --fetch stocks --start 2015-01-01 --end 2026-06-01
 
-⚠️ The pagination parameter names (skip/limit vs page/…) and the date-filter param
-names are inferred; ``--probe`` prints the raw response envelope so they can be
-confirmed/adjusted on a live account.
+Pagination is confirmed: the envelope is ``{total, page, limit, has_more}`` and
+``--fetch`` walks ``page`` until ``has_more`` is false. The 13 futures include two
+US Treasury futures — ``FV`` (5-yr) and ``TY`` (10-yr) — so the bond-futures
+break-HAR test runs on VOLARE alone. The optional ``--start/--end`` date-filter
+param names are still inferred (the full panel paginates without them).
 """
 
 from __future__ import annotations
@@ -65,7 +67,7 @@ _VOLBENCH_COLS = [
     "date", "symbol", "rv5", "bv", "medrv", "rk_parzen", "rsv", "rq",
     "close_price", "open_to_close", "nobs",
 ]
-_DEFAULT_PAGE = 10000
+_DEFAULT_LIMIT = 20000  # API caps per-page; envelope carries page/total/has_more
 
 
 def get_token(email: str, password: str) -> str:
@@ -111,36 +113,31 @@ def probe(token: str, asset_type: str) -> None:
 
 
 def fetch_asset(
-    token: str, asset_type: str, start: str | None, end: str | None, page: int = _DEFAULT_PAGE
+    token: str, asset_type: str, start: str | None, end: str | None, limit: int = _DEFAULT_LIMIT
 ) -> list[dict]:
     """Paginate /financial-data for one asset class and return all records.
 
-    Best-effort skip/limit pagination with a no-progress guard (if the API ignores
-    the params it stops after one page rather than looping). Confirm via --probe.
+    Uses the confirmed envelope: ``{total, page, limit, has_more}`` — follow
+    ``page`` until ``has_more`` is false.
     """
     records: list[dict] = []
-    skip, last_first = 0, None
+    page_num = 1
     while True:
-        q = f"asset_type={asset_type}&skip={skip}&limit={page}"
+        q = f"asset_type={asset_type}&page={page_num}&limit={limit}"
         if start:
             q += f"&start_date={start}"
         if end:
             q += f"&end_date={end}"
         env = _get(token, f"/financial-data?{q}")
-        rows = env.get("data", env if isinstance(env, list) else [])
+        rows = env.get("data", []) if isinstance(env, dict) else env
         if not rows:
             break
-        first = (rows[0].get("symbol"), rows[0].get("observation_date"))
-        if first == last_first:
-            print("  ⚠️ pagination not advancing (skip/limit may be unsupported); "
-                  "run --probe and adjust the params", file=sys.stderr)
-            break
-        last_first = first
         records.extend(rows)
-        print(f"  fetched {len(records)} records (skip={skip})...", flush=True)
-        if len(rows) < page:
+        total = env.get("total", "?") if isinstance(env, dict) else "?"
+        print(f"  page {page_num}: +{len(rows)} -> {len(records)}/{total}", flush=True)
+        if not (isinstance(env, dict) and env.get("has_more")):
             break
-        skip += page
+        page_num += 1
     return records
 
 
