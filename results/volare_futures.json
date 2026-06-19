@@ -1,0 +1,1068 @@
+{
+  "data": "volare_futures_realized.csv",
+  "contracts": [
+    "C",
+    "CL",
+    "ES",
+    "EU",
+    "FV",
+    "GC",
+    "HG",
+    "NG",
+    "NQ",
+    "S",
+    "SI",
+    "TY",
+    "W"
+  ],
+  "subclass": {
+    "FV": "rates",
+    "TY": "rates",
+    "CL": "commodity",
+    "NG": "commodity",
+    "GC": "commodity",
+    "SI": "commodity",
+    "HG": "commodity",
+    "C": "commodity",
+    "S": "commodity",
+    "W": "commodity",
+    "ES": "equity_index",
+    "NQ": "equity_index",
+    "EU": "fx"
+  },
+  "horizons": [
+    1,
+    5,
+    22
+  ],
+  "benchmark": "LogHAR",
+  "mcs_reps": 10000,
+  "by_horizon": {
+    "1": {
+      "per_contract": {
+        "C": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3768,
+          "mcs": [
+            "ARFIMA",
+            "GBRT",
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.3436979439671501,
+            "p_value": 0.2900636394479701,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": 0.00014703596803624812,
+            "p_value": 0.896628022751964,
+            "favored": 1,
+            "beats_loghar": false
+          }
+        },
+        "CL": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3806,
+          "mcs": [
+            "LogHAR-CJ",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 1.6711557885390456,
+            "p_value": 0.16073694130854688,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0018689722093065938,
+            "p_value": 0.008791684450943922,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "ES": {
+          "subclass": "equity_index",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3808,
+          "mcs": [
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.013655747007015726,
+            "p_value": 0.002854207236809406,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.004819163179949986,
+            "p_value": 0.009021044325178062,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "EU": {
+          "subclass": "fx",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3809,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.2046378710459749,
+            "p_value": 0.31447423030685273,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0004863858677145661,
+            "p_value": 0.12093271439029751,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "FV": {
+          "subclass": "rates",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3810,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.012116803089693737,
+            "p_value": 3.919156400561651e-06,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.003283934563252833,
+            "p_value": 1.7633745925544263e-06,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "GC": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3789,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 1.1454066456899628,
+            "p_value": 0.0,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0008750909186145117,
+            "p_value": 0.00819658458972543,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "HG": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR",
+          "n_test": 3780,
+          "mcs": [
+            "AR1Log",
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "SHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.1297086736464664,
+            "p_value": 0.2700555973875186,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": 0.000306196552805475,
+            "p_value": 0.7583574505292757,
+            "favored": 1,
+            "beats_loghar": false
+          }
+        },
+        "NG": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3804,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.22814233526875946,
+            "p_value": 0.13232153047564987,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.003152755875072436,
+            "p_value": 4.5967157327931115e-05,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "NQ": {
+          "subclass": "equity_index",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3808,
+          "mcs": [
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.007162552749746229,
+            "p_value": 0.006817649173723992,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.004739873047713418,
+            "p_value": 5.365072163438885e-05,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "S": {
+          "subclass": "commodity",
+          "verdict": "competitive",
+          "best": "GBRT",
+          "n_test": 3741,
+          "mcs": [
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.4462443003904999,
+            "p_value": 0.13718970068220937,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": 0.0011653492724762785,
+            "p_value": 0.30057734051896834,
+            "favored": 1,
+            "beats_loghar": false
+          }
+        },
+        "SI": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3774,
+          "mcs": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.6965086022212923,
+            "p_value": 0.30665253291191186,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0002556652359056001,
+            "p_value": 0.3198403499330994,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "TY": {
+          "subclass": "rates",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3810,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.018531037573276187,
+            "p_value": 0.26892248418156595,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0024753459513853467,
+            "p_value": 1.786970809819463e-06,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "W": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "HAR-J",
+          "n_test": 3650,
+          "mcs": [
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": -0.001319074080289206,
+            "p_value": 0.8212694731706234,
+            "favored": -1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": 0.0050784939194312775,
+            "p_value": 0.2469723054567199,
+            "favored": 1,
+            "beats_loghar": false
+          }
+        }
+      },
+      "by_subclass": {
+        "commodity": {
+          "dominates": 7,
+          "degrades": 0,
+          "competitive": 1,
+          "insufficient-data": 0
+        },
+        "equity_index": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "fx": {
+          "dominates": 1,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "rates": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        }
+      }
+    },
+    "5": {
+      "per_contract": {
+        "C": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3764,
+          "mcs": [
+            "GBRT",
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.0878952807040457,
+            "p_value": 0.17596237097273637,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0010027676849391322,
+            "p_value": 0.10522983747324521,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "CL": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3802,
+          "mcs": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 14.535353632516852,
+            "p_value": 0.22753257918138448,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -6.306725401192027e-05,
+            "p_value": 0.9524273178479531,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "ES": {
+          "subclass": "equity_index",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3804,
+          "mcs": [
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 2.6774367279657123,
+            "p_value": 0.31467984931489124,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.004419136911071656,
+            "p_value": 8.182605263704725e-05,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "EU": {
+          "subclass": "fx",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3805,
+          "mcs": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.06859570640262277,
+            "p_value": 0.2959417642017438,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00030386819341385795,
+            "p_value": 0.0943753854509678,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "FV": {
+          "subclass": "rates",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3806,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.017120118592623943,
+            "p_value": 8.353974057654462e-08,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0021894427522171703,
+            "p_value": 1.0336211515215852e-05,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "GC": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3785,
+          "mcs": [
+            "ARFIMA",
+            "EWMA",
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 1.0288600527493257,
+            "p_value": 0.0,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0004975546760621666,
+            "p_value": 0.015062250917352575,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "HG": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3776,
+          "mcs": [
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.06385342605017036,
+            "p_value": 0.11903142931181387,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00048260856136288807,
+            "p_value": 0.3763970240969302,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "NG": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3800,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.06003479940432362,
+            "p_value": 0.15798242639257964,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.003040796690434139,
+            "p_value": 3.8109844867916496e-05,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "NQ": {
+          "subclass": "equity_index",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3804,
+          "mcs": [
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.008735539457688993,
+            "p_value": 0.006184142099683548,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00317101836406413,
+            "p_value": 0.0002050505987445778,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "S": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-J",
+          "n_test": 3737,
+          "mcs": [
+            "GBRT",
+            "LogHAR-J"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.0899154013969987,
+            "p_value": 0.0644331425646054,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00029800028701552087,
+            "p_value": 0.30411995845743156,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "SI": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3770,
+          "mcs": [
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.2271072379485399,
+            "p_value": 0.29459120628332014,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -8.541299481381974e-05,
+            "p_value": 0.4970750367440169,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "TY": {
+          "subclass": "rates",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3806,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.009723594764264591,
+            "p_value": 0.10002593553069761,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.001686961737081186,
+            "p_value": 6.1862529003980456e-06,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "W": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3646,
+          "mcs": [
+            "EWMA",
+            "GBRT",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.005216701389736027,
+            "p_value": 0.0771173815715521,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": 0.0022126728107733106,
+            "p_value": 0.3059328080713317,
+            "favored": 1,
+            "beats_loghar": false
+          }
+        }
+      },
+      "by_subclass": {
+        "commodity": {
+          "dominates": 8,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "equity_index": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "fx": {
+          "dominates": 1,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "rates": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        }
+      }
+    },
+    "22": {
+      "per_contract": {
+        "C": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3747,
+          "mcs": [
+            "GBRT",
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.021964502780743075,
+            "p_value": 2.6993051902486546e-07,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0007845905159083974,
+            "p_value": 0.029432813749442874,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "CL": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3785,
+          "mcs": [
+            "AR1Log",
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogSHAR",
+            "MA22",
+            "SHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 5.017539271704443,
+            "p_value": 0.25535867649105304,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0004036218183701264,
+            "p_value": 0.31246548138038843,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "ES": {
+          "subclass": "equity_index",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3787,
+          "mcs": [
+            "AR1Log",
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-J",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.6298475922348721,
+            "p_value": 0.3064330749003491,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0032767189307281812,
+            "p_value": 0.09495039772631775,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "EU": {
+          "subclass": "fx",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3788,
+          "mcs": [
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.040272919587035765,
+            "p_value": 0.28670151463937177,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00047432518389985557,
+            "p_value": 0.023869602477306504,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "FV": {
+          "subclass": "rates",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3789,
+          "mcs": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.024160246979290673,
+            "p_value": 0.0010628050010320416,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0009235524076982136,
+            "p_value": 0.017784773219954385,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "GC": {
+          "subclass": "commodity",
+          "verdict": "degrades",
+          "best": "EWMA",
+          "n_test": 3768,
+          "mcs": [
+            "EWMA"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.8350684041672302,
+            "p_value": 7.220727778019557e-116,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00026760142408680584,
+            "p_value": 0.13970835367863543,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "HG": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3759,
+          "mcs": [
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "SHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.10077906581703622,
+            "p_value": 0.24766799417207686,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00015833538503507753,
+            "p_value": 0.6932683912163666,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "NG": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3783,
+          "mcs": [
+            "LogHAR-CJ"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.0578272307891985,
+            "p_value": 0.09970912119772712,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0016612032662818093,
+            "p_value": 3.193454498279231e-05,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "NQ": {
+          "subclass": "equity_index",
+          "verdict": "dominates",
+          "best": "LogSHAR",
+          "n_test": 3787,
+          "mcs": [
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.10423376695975296,
+            "p_value": 0.24343955301596376,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0016895317526741894,
+            "p_value": 0.014502525737711474,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "S": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-J",
+          "n_test": 3720,
+          "mcs": [
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.038970501111070595,
+            "p_value": 0.11100451921139276,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00044189911617425933,
+            "p_value": 0.03055334797637127,
+            "favored": -1,
+            "beats_loghar": true
+          }
+        },
+        "SI": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3753,
+          "mcs": [
+            "EWMA",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.08152627887720422,
+            "p_value": 0.16492625279237727,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.00017122786113509477,
+            "p_value": 0.30930887830193676,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "TY": {
+          "subclass": "rates",
+          "verdict": "dominates",
+          "best": "LogHAR-CJ",
+          "n_test": 3789,
+          "mcs": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.015901563187300544,
+            "p_value": 0.005866202577148257,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": -0.0006969441801171712,
+            "p_value": 0.059258969420401146,
+            "favored": -1,
+            "beats_loghar": false
+          }
+        },
+        "W": {
+          "subclass": "commodity",
+          "verdict": "dominates",
+          "best": "LogHAR",
+          "n_test": 3629,
+          "mcs": [
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "q1_harq_vs_loghar": {
+            "mean_diff": 0.011159414511729443,
+            "p_value": 3.6837250013376565e-05,
+            "favored": 1,
+            "beats_loghar": false
+          },
+          "q2_logshar_vs_loghar": {
+            "mean_diff": 0.0003280426769130865,
+            "p_value": 0.27115424845797786,
+            "favored": 1,
+            "beats_loghar": false
+          }
+        }
+      },
+      "by_subclass": {
+        "commodity": {
+          "dominates": 7,
+          "degrades": 1,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "equity_index": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "fx": {
+          "dominates": 1,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "rates": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        }
+      }
+    }
+  }
+}

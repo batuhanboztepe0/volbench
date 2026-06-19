@@ -88,6 +88,9 @@ def run_all(data: Path, symbols: list[str] | None, mcs_reps: int, seed: int) -> 
         "by_horizon": {},
     }
 
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    out = RESULTS_DIR / "volare_futures.json"
+
     for h in HORIZONS:
         print(f"\n{'=' * 72}\nVOLARE FUTURES  h = {h}\n{'=' * 72}")
         per_contract: dict[str, dict] = {}
@@ -136,10 +139,11 @@ def run_all(data: Path, symbols: list[str] | None, mcs_reps: int, seed: int) -> 
             hit = "  <-- HAR BREAKS" if counts.get("degrades", 0) else ""
             print(f"    {sub:<13} {counts}{hit}")
 
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    out = RESULTS_DIR / "volare_futures.json"
-    with open(out, "w") as fh:
-        json.dump(summary, fh, indent=2)
+        # Checkpoint after each horizon so a crash never discards completed work.
+        with open(out, "w") as fh:
+            json.dump(summary, fh, indent=2)
+        print(f"  checkpointed {out} (through h={h})")
+
     print(f"\nSaved {out}")
     return summary
 
