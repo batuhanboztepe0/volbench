@@ -50,6 +50,7 @@ from run_crypto_expanded import (  # noqa: E402  (reuse the MCS/verdict/Q1/Q2 lo
 
 from volbench.backtest import run_backtest  # noqa: E402
 from volbench.data import AssetClassConfig, load_realized_panel  # noqa: E402
+from volbench.models import ARFIMALog  # noqa: E402
 
 DEFAULT_DATA = ROOT / "data" / "volare_futures_realized.csv"
 RESULTS_DIR = ROOT / "results"
@@ -94,8 +95,9 @@ def run_all(data: Path, symbols: list[str] | None, mcs_reps: int, seed: int) -> 
         for c in contracts:
             fr = ds.frame(c)
             rv = fr["rv5"].to_numpy()
+            suite = build_suite(fr) + [ARFIMALog()]  # full registered set (+ARFIMA)
             try:
-                res = run_backtest(rv, horizon=h, models=build_suite(fr),
+                res = run_backtest(rv, horizon=h, models=suite,
                                    mcs_reps=mcs_reps, seed=seed, benchmark=BENCHMARK)
             except ValueError as exc:
                 print(f"  {c:<5} SKIP ({exc})")
