@@ -1,0 +1,972 @@
+{
+  "Equities (8)": {
+    "track": "exploratory",
+    "by_horizon": {
+      "1": {
+        "n": 8,
+        "mcs": {
+          "RW": 0,
+          "HistMean": 0,
+          "MA22": 0,
+          "EWMA": 0,
+          "AR1Log": 0,
+          "ARFIMA": 0,
+          "HAR": 2,
+          "LogHAR": 8,
+          "GBRT": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HistMean",
+          "LogHAR",
+          "MA22",
+          "RW"
+        ],
+        "harfam_in": 8,
+        "best": "LogHAR (7/8) [MZ-best]",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 8
+        },
+        "cracks": [],
+        "harq_bl": null,
+        "logshar_bl": 6
+      },
+      "5": {
+        "n": 8,
+        "mcs": {
+          "RW": 0,
+          "HistMean": 0,
+          "MA22": 0,
+          "EWMA": 0,
+          "AR1Log": 0,
+          "ARFIMA": 1,
+          "HAR": 0,
+          "LogHAR": 8,
+          "GBRT": 2
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HistMean",
+          "LogHAR",
+          "MA22",
+          "RW"
+        ],
+        "harfam_in": 8,
+        "best": "LogHAR (8/8) [MZ-best]",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 8
+        },
+        "cracks": [],
+        "harq_bl": null,
+        "logshar_bl": 5
+      },
+      "22": {
+        "n": 8,
+        "mcs": {
+          "RW": 0,
+          "HistMean": 0,
+          "MA22": 0,
+          "EWMA": 2,
+          "AR1Log": 3,
+          "ARFIMA": 4,
+          "HAR": 3,
+          "LogHAR": 8,
+          "GBRT": 2
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HistMean",
+          "LogHAR",
+          "MA22",
+          "RW"
+        ],
+        "harfam_in": 8,
+        "best": "LogHAR (8/8) [MZ-best]",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 8
+        },
+        "cracks": [],
+        "harq_bl": null,
+        "logshar_bl": 5
+      }
+    }
+  },
+  "Crypto \u2014 4 coins": {
+    "track": "exploratory",
+    "by_horizon": {
+      "1": {
+        "n": 4,
+        "mcs": {
+          "RW": 0,
+          "HistMean": 0,
+          "MA22": 0,
+          "EWMA": 0,
+          "AR1Log": 3,
+          "HAR": 0,
+          "LogHAR": 4,
+          "GBRT": 0,
+          "HARQ": 0
+        },
+        "ran": [
+          "AR1Log",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HARQ",
+          "HistMean",
+          "LogHAR",
+          "MA22",
+          "RW"
+        ],
+        "harfam_in": 4,
+        "best": "LogHAR [min avg-rank]",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 4
+        },
+        "cracks": [],
+        "harq_bl": "1 (vs HAR)",
+        "logshar_bl": null
+      },
+      "5": {
+        "n": 4,
+        "mcs": {
+          "RW": 0,
+          "HistMean": 0,
+          "MA22": 0,
+          "EWMA": 0,
+          "AR1Log": 1,
+          "HAR": 0,
+          "LogHAR": 4,
+          "GBRT": 3,
+          "HARQ": 1
+        },
+        "ran": [
+          "AR1Log",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HARQ",
+          "HistMean",
+          "LogHAR",
+          "MA22",
+          "RW"
+        ],
+        "harfam_in": 4,
+        "best": "LogHAR [min avg-rank]",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 4
+        },
+        "cracks": [],
+        "harq_bl": "3 (vs HAR)",
+        "logshar_bl": null
+      },
+      "22": {
+        "n": 4,
+        "mcs": {
+          "RW": 0,
+          "HistMean": 0,
+          "MA22": 0,
+          "EWMA": 3,
+          "AR1Log": 1,
+          "HAR": 0,
+          "LogHAR": 4,
+          "GBRT": 2,
+          "HARQ": 0
+        },
+        "ran": [
+          "AR1Log",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HARQ",
+          "HistMean",
+          "LogHAR",
+          "MA22",
+          "RW"
+        ],
+        "harfam_in": 4,
+        "best": "LogHAR [min avg-rank]",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 4
+        },
+        "cracks": [],
+        "harq_bl": "2 (vs HAR)",
+        "logshar_bl": null
+      }
+    }
+  },
+  "Crypto \u2014 22 coins": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 22,
+        "mcs": {
+          "LogHAR-CJ": 21,
+          "AR1Log": 17,
+          "GBRT": 11,
+          "HARQ": 5,
+          "LogHAR": 18,
+          "LogHAR-J": 20,
+          "LogSHAR": 18,
+          "HAR": 3,
+          "SHAR": 3,
+          "RW": 2,
+          "EWMA": 1,
+          "HAR-CJ": 2,
+          "HAR-J": 2,
+          "HistMean": 1,
+          "MA22": 1
+        },
+        "ran": [
+          "AR1Log",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "HistMean",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "RW",
+          "SHAR"
+        ],
+        "harfam_in": 22,
+        "best": "LogHAR-CJ (12/22)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 19,
+          "degrades": 0,
+          "competitive": 3,
+          "insufficient-data": 0
+        },
+        "cracks": [
+          {
+            "name": "FTT",
+            "verdict": "competitive",
+            "best": "RW"
+          },
+          {
+            "name": "LUNA",
+            "verdict": "competitive",
+            "best": "RW"
+          },
+          {
+            "name": "XRP",
+            "verdict": "competitive",
+            "best": "AR1Log"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 0
+      },
+      "5": {
+        "n": 22,
+        "mcs": {
+          "LogHAR": 20,
+          "LogHAR-CJ": 21,
+          "LogHAR-J": 20,
+          "LogSHAR": 20,
+          "GBRT": 15,
+          "AR1Log": 9,
+          "EWMA": 9,
+          "HAR": 6,
+          "HAR-J": 6,
+          "HARQ": 4,
+          "HAR-CJ": 5,
+          "SHAR": 5,
+          "HistMean": 2,
+          "MA22": 2,
+          "RW": 2
+        },
+        "ran": [
+          "AR1Log",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "HistMean",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "RW",
+          "SHAR"
+        ],
+        "harfam_in": 22,
+        "best": "LogHAR-CJ (13/22)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 19,
+          "degrades": 0,
+          "competitive": 3,
+          "insufficient-data": 0
+        },
+        "cracks": [
+          {
+            "name": "DOGE",
+            "verdict": "competitive",
+            "best": "EWMA"
+          },
+          {
+            "name": "FTT",
+            "verdict": "competitive",
+            "best": "AR1Log"
+          },
+          {
+            "name": "LUNA",
+            "verdict": "competitive",
+            "best": "AR1Log"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 3
+      },
+      "22": {
+        "n": 22,
+        "mcs": {
+          "LogHAR-CJ": 21,
+          "LogHAR-J": 21,
+          "LogSHAR": 22,
+          "AR1Log": 8,
+          "EWMA": 17,
+          "GBRT": 17,
+          "LogHAR": 20,
+          "HAR": 6,
+          "HAR-CJ": 5,
+          "HAR-J": 6,
+          "HARQ": 6,
+          "MA22": 5,
+          "SHAR": 6,
+          "HistMean": 2,
+          "RW": 2
+        },
+        "ran": [
+          "AR1Log",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "HistMean",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "RW",
+          "SHAR"
+        ],
+        "harfam_in": 22,
+        "best": "LogHAR-CJ (10/22)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 18,
+          "degrades": 0,
+          "competitive": 4,
+          "insufficient-data": 0
+        },
+        "cracks": [
+          {
+            "name": "DOGE",
+            "verdict": "competitive",
+            "best": "EWMA"
+          },
+          {
+            "name": "FTT",
+            "verdict": "competitive",
+            "best": "HistMean"
+          },
+          {
+            "name": "LUNA",
+            "verdict": "competitive",
+            "best": "HistMean"
+          },
+          {
+            "name": "SOL",
+            "verdict": "competitive",
+            "best": "GBRT"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 3
+      }
+    }
+  },
+  "Futures \u2014 rates (FV/TY)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 2,
+        "mcs": {
+          "LogHAR-CJ": 2
+        },
+        "ran": [
+          "LogHAR-CJ"
+        ],
+        "harfam_in": 2,
+        "best": "LogHAR-CJ (2/2)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 2
+      },
+      "5": {
+        "n": 2,
+        "mcs": {
+          "LogHAR-CJ": 2
+        },
+        "ran": [
+          "LogHAR-CJ"
+        ],
+        "harfam_in": 2,
+        "best": "LogHAR-CJ (2/2)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 2
+      },
+      "22": {
+        "n": 2,
+        "mcs": {
+          "LogHAR-CJ": 2,
+          "LogHAR-J": 2,
+          "LogSHAR": 1
+        },
+        "ran": [
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR"
+        ],
+        "harfam_in": 2,
+        "best": "LogHAR-CJ (2/2)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 1
+      }
+    }
+  },
+  "Futures \u2014 commodity (8)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 8,
+        "mcs": {
+          "ARFIMA": 2,
+          "GBRT": 3,
+          "LogHAR-CJ": 8,
+          "LogSHAR": 3,
+          "AR1Log": 1,
+          "EWMA": 1,
+          "HAR": 1,
+          "HAR-CJ": 2,
+          "HAR-J": 2,
+          "HARQ": 2,
+          "LogHAR": 4,
+          "LogHAR-J": 3,
+          "MA22": 1,
+          "SHAR": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "SHAR"
+        ],
+        "harfam_in": 8,
+        "best": "LogHAR-CJ (4/8)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 7,
+          "degrades": 0,
+          "competitive": 1,
+          "insufficient-data": 0
+        },
+        "cracks": [
+          {
+            "name": "S",
+            "verdict": "competitive",
+            "best": "GBRT"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 3
+      },
+      "5": {
+        "n": 8,
+        "mcs": {
+          "GBRT": 5,
+          "LogHAR-CJ": 7,
+          "LogHAR": 4,
+          "LogSHAR": 4,
+          "ARFIMA": 2,
+          "EWMA": 3,
+          "LogHAR-J": 5,
+          "HAR": 1,
+          "HAR-CJ": 2,
+          "HAR-J": 2,
+          "SHAR": 1,
+          "HARQ": 1
+        },
+        "ran": [
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "SHAR"
+        ],
+        "harfam_in": 8,
+        "best": "LogHAR-CJ (5/8)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 8,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 2
+      },
+      "22": {
+        "n": 8,
+        "mcs": {
+          "GBRT": 5,
+          "LogHAR-CJ": 7,
+          "AR1Log": 1,
+          "ARFIMA": 4,
+          "EWMA": 6,
+          "HAR": 2,
+          "LogHAR": 5,
+          "LogSHAR": 5,
+          "MA22": 2,
+          "SHAR": 2,
+          "HAR-CJ": 1,
+          "HAR-J": 1,
+          "LogHAR-J": 4
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "SHAR"
+        ],
+        "harfam_in": 7,
+        "best": "LogHAR-CJ (3/8)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 7,
+          "degrades": 1,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [
+          {
+            "name": "GC",
+            "verdict": "degrades",
+            "best": "EWMA"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 3
+      }
+    }
+  },
+  "Futures \u2014 equity-index (ES/NQ)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 2,
+        "mcs": {
+          "LogSHAR": 2
+        },
+        "ran": [
+          "LogSHAR"
+        ],
+        "harfam_in": 2,
+        "best": "LogSHAR (2/2)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 2
+      },
+      "5": {
+        "n": 2,
+        "mcs": {
+          "LogSHAR": 2
+        },
+        "ran": [
+          "LogSHAR"
+        ],
+        "harfam_in": 2,
+        "best": "LogSHAR (2/2)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 2
+      },
+      "22": {
+        "n": 2,
+        "mcs": {
+          "AR1Log": 1,
+          "ARFIMA": 1,
+          "EWMA": 1,
+          "GBRT": 1,
+          "HAR": 1,
+          "HAR-J": 1,
+          "HARQ": 1,
+          "LogHAR": 1,
+          "LogHAR-CJ": 1,
+          "LogHAR-J": 1,
+          "LogSHAR": 2,
+          "SHAR": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "SHAR"
+        ],
+        "harfam_in": 2,
+        "best": "LogSHAR (2/2)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 2,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 1
+      }
+    }
+  },
+  "Futures \u2014 fx (EU)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 1,
+        "mcs": {
+          "LogHAR-CJ": 1
+        },
+        "ran": [
+          "LogHAR-CJ"
+        ],
+        "harfam_in": 1,
+        "best": "LogHAR-CJ (1/1)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 1,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 0
+      },
+      "5": {
+        "n": 1,
+        "mcs": {
+          "LogHAR-CJ": 1,
+          "LogHAR-J": 1
+        },
+        "ran": [
+          "LogHAR-CJ",
+          "LogHAR-J"
+        ],
+        "harfam_in": 1,
+        "best": "LogHAR-CJ (1/1)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 1,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 0
+      },
+      "22": {
+        "n": 1,
+        "mcs": {
+          "ARFIMA": 1,
+          "EWMA": 1,
+          "GBRT": 1,
+          "HAR": 1,
+          "HAR-CJ": 1,
+          "HAR-J": 1,
+          "LogHAR": 1,
+          "LogHAR-CJ": 1,
+          "LogHAR-J": 1,
+          "LogSHAR": 1,
+          "SHAR": 1
+        },
+        "ran": [
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "SHAR"
+        ],
+        "harfam_in": 1,
+        "best": "LogHAR-CJ (1/1)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 1,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 1
+      }
+    }
+  },
+  "Futures \u2014 all (13)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 13,
+        "mcs": {
+          "ARFIMA": 2,
+          "GBRT": 3,
+          "LogHAR-CJ": 11,
+          "LogSHAR": 5,
+          "AR1Log": 1,
+          "EWMA": 1,
+          "HAR": 1,
+          "HAR-CJ": 2,
+          "HAR-J": 2,
+          "HARQ": 2,
+          "LogHAR": 4,
+          "LogHAR-J": 3,
+          "MA22": 1,
+          "SHAR": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "SHAR"
+        ],
+        "harfam_in": 13,
+        "best": "LogHAR-CJ (7/13)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 12,
+          "competitive": 1
+        },
+        "cracks": [
+          {
+            "name": "S",
+            "verdict": "competitive",
+            "best": "GBRT"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 7
+      },
+      "5": {
+        "n": 13,
+        "mcs": {
+          "GBRT": 5,
+          "LogHAR-CJ": 10,
+          "LogHAR": 4,
+          "LogSHAR": 6,
+          "LogHAR-J": 6,
+          "ARFIMA": 2,
+          "EWMA": 3,
+          "HAR": 1,
+          "HAR-CJ": 2,
+          "HAR-J": 2,
+          "SHAR": 1,
+          "HARQ": 1
+        },
+        "ran": [
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "SHAR"
+        ],
+        "harfam_in": 13,
+        "best": "LogHAR-CJ (8/13)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 13
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 6
+      },
+      "22": {
+        "n": 13,
+        "mcs": {
+          "GBRT": 7,
+          "LogHAR-CJ": 11,
+          "AR1Log": 2,
+          "ARFIMA": 6,
+          "EWMA": 8,
+          "HAR": 4,
+          "LogHAR": 7,
+          "LogSHAR": 9,
+          "MA22": 2,
+          "SHAR": 4,
+          "HAR-J": 3,
+          "HARQ": 1,
+          "LogHAR-J": 8,
+          "HAR-CJ": 2
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "SHAR"
+        ],
+        "harfam_in": 12,
+        "best": "LogHAR-CJ (6/13)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 12,
+          "degrades": 1
+        },
+        "cracks": [
+          {
+            "name": "GC",
+            "verdict": "degrades",
+            "best": "EWMA"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 6
+      }
+    }
+  }
+}

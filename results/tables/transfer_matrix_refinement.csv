@@ -1,0 +1,17 @@
+asset_class,refinement,h=1,h=5,h=22
+Equities (8),HARQ beats LogHAR,n/a,n/a,n/a
+Equities (8),LogSHAR beats LogHAR,6/8,5/8,5/8
+Crypto — 4 coins,HARQ beats LogHAR,1 (vs HAR),3 (vs HAR),2 (vs HAR)
+Crypto — 4 coins,LogSHAR beats LogHAR,n/a,n/a,n/a
+Crypto — 22 coins,HARQ beats LogHAR,0/22,0/22,0/22
+Crypto — 22 coins,LogSHAR beats LogHAR,0/22,3/22,3/22
+Futures — rates (FV/TY),HARQ beats LogHAR,0/2,0/2,0/2
+Futures — rates (FV/TY),LogSHAR beats LogHAR,2/2,2/2,1/2
+Futures — commodity (8),HARQ beats LogHAR,0/8,0/8,0/8
+Futures — commodity (8),LogSHAR beats LogHAR,3/8,2/8,3/8
+Futures — equity-index (ES/NQ),HARQ beats LogHAR,0/2,0/2,0/2
+Futures — equity-index (ES/NQ),LogSHAR beats LogHAR,2/2,2/2,1/2
+Futures — fx (EU),HARQ beats LogHAR,0/1,0/1,0/1
+Futures — fx (EU),LogSHAR beats LogHAR,0/1,0/1,1/1
+Futures — all (13),HARQ beats LogHAR,0/13,0/13,0/13
+Futures — all (13),LogSHAR beats LogHAR,7/13,6/13,6/13

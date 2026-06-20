@@ -1,0 +1,9 @@
+asset_class,track,h=1,h=5,h=22
+Equities (8),exploratory,DOMINATES (8/8) · best LogHAR (7/8) [MZ-best],DOMINATES (8/8) · best LogHAR (8/8) [MZ-best],DOMINATES (8/8) · best LogHAR (8/8) [MZ-best]
+Crypto — 4 coins,exploratory,DOMINATES (4/4) · best LogHAR [min avg-rank],DOMINATES (4/4) · best LogHAR [min avg-rank],DOMINATES (4/4) · best LogHAR [min avg-rank]
+Crypto — 22 coins,confirmatory,DOMINATES 19/22 · competitive: FTT→RW · competitive: LUNA→RW · competitive: XRP→AR1Log · best LogHAR-CJ (12/22),DOMINATES 19/22 · competitive: DOGE→EWMA · competitive: FTT→AR1Log · competitive: LUNA→AR1Log · best LogHAR-CJ (13/22),DOMINATES 18/22 · competitive: DOGE→EWMA · competitive: FTT→HistMean · competitive: LUNA→HistMean · competitive: SOL→GBRT · best LogHAR-CJ (10/22)
+Futures — rates (FV/TY),confirmatory,DOMINATES (2/2) · best LogHAR-CJ (2/2),DOMINATES (2/2) · best LogHAR-CJ (2/2),DOMINATES (2/2) · best LogHAR-CJ (2/2)
+Futures — commodity (8),confirmatory,DOMINATES 7/8 · competitive: S→GBRT · best LogHAR-CJ (4/8),DOMINATES (8/8) · best LogHAR-CJ (5/8),DOMINATES 7/8 · DEGRADE: GC→EWMA · best LogHAR-CJ (3/8) · HAR-fam MCS 7/8
+Futures — equity-index (ES/NQ),confirmatory,DOMINATES (2/2) · best LogSHAR (2/2),DOMINATES (2/2) · best LogSHAR (2/2),DOMINATES (2/2) · best LogSHAR (2/2)
+Futures — fx (EU),confirmatory,DOMINATES (1/1) · best LogHAR-CJ (1/1),DOMINATES (1/1) · best LogHAR-CJ (1/1),DOMINATES (1/1) · best LogHAR-CJ (1/1)
+Futures — all (13),confirmatory,DOMINATES 12/13 · competitive: S→GBRT · best LogHAR-CJ (7/13),DOMINATES (13/13) · best LogHAR-CJ (8/13),DOMINATES 12/13 · DEGRADE: GC→EWMA · best LogHAR-CJ (6/13) · HAR-fam MCS 12/13
