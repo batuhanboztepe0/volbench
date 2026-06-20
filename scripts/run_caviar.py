@@ -5,8 +5,9 @@ Completes the VaR layer (ROADMAP method gap): the variance-based VaR families
 Engle-Manganelli Dynamic-Quantile test on real data. CAViaR (Engle-Manganelli
 2004) models the 5% return quantile *directly* by regression-quantile
 minimisation. This script runs three CAViaR specifications and, on the *same*
-held-out window per index, the normal/t/FHS baselines, so the Dynamic-Quantile
-pass-rates are directly comparable.
+held-out window per index, the normal/t/FHS baselines and the return-based
+GARCH / GJR-GARCH / EWMA conditional-variance engines, so the Dynamic-Quantile
+pass-rates are all directly comparable.
 
 Specifications:
   SAV       symmetric absolute value
@@ -30,6 +31,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from volbench.backtest import run_backtest  # noqa: E402
 from volbench.caviar import caviar_var_forecasts  # noqa: E402
+from volbench.conditional_var import ewma_variance_forecast, garch_variance_forecast  # noqa: E402
 from volbench.data import load_oxford_rv  # noqa: E402
 from volbench.economic import backtest_var_forecasts, var_backtest  # noqa: E402
 from volbench.models import HAR, LogHAR  # noqa: E402
@@ -86,6 +88,22 @@ def run_caviar() -> dict:
             bt = var_backtest(ret_next, fc_loghar, alpha=ALPHA, dist=d, warmup=MIN_TRAIN)
             bt["dq_reject"] = bool(bt["dq_pvalue"] < 0.05)
             models[d] = bt
+
+        # same-window return-based conditional-variance VaR engines: re-run the
+        # GARCH family on this exact ret_next / min_train so the Dynamic-Quantile
+        # pass-rate is directly comparable to CAViaR (arch wants percent units;
+        # VaR coverage + DQ are scale-invariant).
+        ret_pct = ret_next * 100.0
+        for label, o in (("GARCH", 0), ("GJR-GARCH", 1)):
+            gv, gorig = garch_variance_forecast(
+                ret_pct, min_train=MIN_TRAIN, refit_every=REFIT_EVERY, o=o)
+            bt = var_backtest(ret_pct[gorig + 1], gv, alpha=ALPHA, dist="normal", warmup=0)
+            bt["dq_reject"] = bool(bt["dq_pvalue"] < 0.05)
+            models[label] = bt
+        ev, eorig = ewma_variance_forecast(ret_pct, min_train=MIN_TRAIN)
+        bt = var_backtest(ret_pct[eorig + 1], ev, alpha=ALPHA, dist="normal", warmup=0)
+        bt["dq_reject"] = bool(bt["dq_pvalue"] < 0.05)
+        models["EWMA-RM"] = bt
 
         by_ticker[tk] = models
         for name, bt in models.items():
