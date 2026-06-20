@@ -968,5 +968,385 @@
         "logshar_bl": 6
       }
     }
+  },
+  "FX \u2014 major (7)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 7,
+        "mcs": {
+          "LogHAR-CJ": 6,
+          "AR1Log": 1,
+          "ARFIMA": 1,
+          "LogHAR": 2,
+          "LogSHAR": 2,
+          "LogHAR-J": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR"
+        ],
+        "harfam_in": 7,
+        "best": "LogHAR-CJ (6/7)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 6,
+          "degrades": 0,
+          "competitive": 1,
+          "insufficient-data": 0
+        },
+        "cracks": [
+          {
+            "name": "USDCHF",
+            "verdict": "competitive",
+            "best": "AR1Log"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 2
+      },
+      "5": {
+        "n": 7,
+        "mcs": {
+          "GBRT": 2,
+          "LogHAR": 3,
+          "LogHAR-CJ": 6,
+          "LogHAR-J": 5,
+          "LogSHAR": 5,
+          "AR1Log": 1,
+          "ARFIMA": 1,
+          "EWMA": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR"
+        ],
+        "harfam_in": 7,
+        "best": "LogHAR-CJ (5/7)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 7,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 4
+      },
+      "22": {
+        "n": 7,
+        "mcs": {
+          "AR1Log": 1,
+          "ARFIMA": 6,
+          "EWMA": 6,
+          "HAR-CJ": 4,
+          "HAR-J": 5,
+          "LogHAR": 7,
+          "LogHAR-CJ": 6,
+          "LogHAR-J": 6,
+          "LogSHAR": 7,
+          "GBRT": 4,
+          "HAR": 3,
+          "SHAR": 4,
+          "HARQ": 2,
+          "MA22": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "SHAR"
+        ],
+        "harfam_in": 7,
+        "best": "LogHAR-CJ (4/7)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 7,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 3
+      }
+    }
+  },
+  "FX \u2014 secondary/EM (6)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 6,
+        "mcs": {
+          "EWMA": 1,
+          "LogHAR": 3,
+          "LogHAR-CJ": 6,
+          "LogHAR-J": 3,
+          "LogSHAR": 3,
+          "HAR-CJ": 2,
+          "HAR-J": 2,
+          "HAR": 1
+        },
+        "ran": [
+          "EWMA",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR"
+        ],
+        "harfam_in": 6,
+        "best": "LogHAR-CJ (4/6)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 6,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 2
+      },
+      "5": {
+        "n": 6,
+        "mcs": {
+          "EWMA": 1,
+          "GBRT": 1,
+          "LogHAR": 2,
+          "LogHAR-J": 4,
+          "LogSHAR": 5,
+          "LogHAR-CJ": 5,
+          "HAR-CJ": 1,
+          "HAR-J": 1,
+          "HARQ": 1,
+          "SHAR": 1
+        },
+        "ran": [
+          "EWMA",
+          "GBRT",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "SHAR"
+        ],
+        "harfam_in": 6,
+        "best": "LogHAR-CJ (4/6)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 6,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 3
+      },
+      "22": {
+        "n": 6,
+        "mcs": {
+          "EWMA": 4,
+          "GBRT": 2,
+          "LogHAR": 5,
+          "LogHAR-J": 6,
+          "LogSHAR": 6,
+          "AR1Log": 2,
+          "ARFIMA": 2,
+          "HAR-CJ": 4,
+          "HAR-J": 4,
+          "LogHAR-CJ": 5,
+          "HAR": 3,
+          "SHAR": 3,
+          "HARQ": 2
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "SHAR"
+        ],
+        "harfam_in": 6,
+        "best": "LogHAR-CJ (4/6)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 6,
+          "degrades": 0,
+          "competitive": 0,
+          "insufficient-data": 0
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 1
+      }
+    }
+  },
+  "FX \u2014 all (13)": {
+    "track": "confirmatory",
+    "by_horizon": {
+      "1": {
+        "n": 13,
+        "mcs": {
+          "LogHAR-CJ": 12,
+          "AR1Log": 1,
+          "ARFIMA": 1,
+          "LogHAR": 5,
+          "LogSHAR": 5,
+          "LogHAR-J": 4,
+          "EWMA": 1,
+          "HAR-CJ": 2,
+          "HAR-J": 2,
+          "HAR": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR"
+        ],
+        "harfam_in": 13,
+        "best": "LogHAR-CJ (10/13)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 12,
+          "competitive": 1
+        },
+        "cracks": [
+          {
+            "name": "USDCHF",
+            "verdict": "competitive",
+            "best": "AR1Log"
+          }
+        ],
+        "harq_bl": 0,
+        "logshar_bl": 4
+      },
+      "5": {
+        "n": 13,
+        "mcs": {
+          "GBRT": 3,
+          "LogHAR": 5,
+          "LogHAR-CJ": 11,
+          "LogHAR-J": 9,
+          "LogSHAR": 10,
+          "AR1Log": 1,
+          "ARFIMA": 1,
+          "EWMA": 2,
+          "HAR-CJ": 1,
+          "HAR-J": 1,
+          "HARQ": 1,
+          "SHAR": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "SHAR"
+        ],
+        "harfam_in": 13,
+        "best": "LogHAR-CJ (9/13)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 13
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 7
+      },
+      "22": {
+        "n": 13,
+        "mcs": {
+          "AR1Log": 3,
+          "ARFIMA": 8,
+          "EWMA": 10,
+          "HAR-CJ": 8,
+          "HAR-J": 9,
+          "LogHAR": 12,
+          "LogHAR-CJ": 11,
+          "LogHAR-J": 12,
+          "LogSHAR": 13,
+          "GBRT": 6,
+          "HAR": 6,
+          "SHAR": 7,
+          "HARQ": 4,
+          "MA22": 1
+        },
+        "ran": [
+          "AR1Log",
+          "ARFIMA",
+          "EWMA",
+          "GBRT",
+          "HAR",
+          "HAR-CJ",
+          "HAR-J",
+          "HARQ",
+          "LogHAR",
+          "LogHAR-CJ",
+          "LogHAR-J",
+          "LogSHAR",
+          "MA22",
+          "SHAR"
+        ],
+        "harfam_in": 13,
+        "best": "LogHAR-CJ (8/13)",
+        "verdict": "dominates",
+        "verdict_counts": {
+          "dominates": 13
+        },
+        "cracks": [],
+        "harq_bl": 0,
+        "logshar_bl": 4
+      }
+    }
   }
 }

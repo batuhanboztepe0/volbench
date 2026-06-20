@@ -7,3 +7,6 @@ Futures — commodity (8),confirmatory,DOMINATES 7/8 · competitive: S→GBRT ·
 Futures — equity-index (ES/NQ),confirmatory,DOMINATES (2/2) · best LogSHAR (2/2),DOMINATES (2/2) · best LogSHAR (2/2),DOMINATES (2/2) · best LogSHAR (2/2)
 Futures — fx (EU),confirmatory,DOMINATES (1/1) · best LogHAR-CJ (1/1),DOMINATES (1/1) · best LogHAR-CJ (1/1),DOMINATES (1/1) · best LogHAR-CJ (1/1)
 Futures — all (13),confirmatory,DOMINATES 12/13 · competitive: S→GBRT · best LogHAR-CJ (7/13),DOMINATES (13/13) · best LogHAR-CJ (8/13),DOMINATES 12/13 · DEGRADE: GC→EWMA · best LogHAR-CJ (6/13) · HAR-fam MCS 12/13
+FX — major (7),confirmatory,DOMINATES 6/7 · competitive: USDCHF→AR1Log · best LogHAR-CJ (6/7),DOMINATES (7/7) · best LogHAR-CJ (5/7),DOMINATES (7/7) · best LogHAR-CJ (4/7)
+FX — secondary/EM (6),confirmatory,DOMINATES (6/6) · best LogHAR-CJ (4/6),DOMINATES (6/6) · best LogHAR-CJ (4/6),DOMINATES (6/6) · best LogHAR-CJ (4/6)
+FX — all (13),confirmatory,DOMINATES 12/13 · competitive: USDCHF→AR1Log · best LogHAR-CJ (10/13),DOMINATES (13/13) · best LogHAR-CJ (9/13),DOMINATES (13/13) · best LogHAR-CJ (8/13)

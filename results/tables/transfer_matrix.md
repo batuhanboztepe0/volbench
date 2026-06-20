@@ -17,6 +17,9 @@ Verdict per the pre-registration: **DOMINATES** = HAR family in the MCS and sing
 | Futures — equity-index (ES/NQ) | confirmatory | DOMINATES (2/2) · best LogSHAR (2/2) | DOMINATES (2/2) · best LogSHAR (2/2) | DOMINATES (2/2) · best LogSHAR (2/2) |
 | Futures — fx (EU) | confirmatory | DOMINATES (1/1) · best LogHAR-CJ (1/1) | DOMINATES (1/1) · best LogHAR-CJ (1/1) | DOMINATES (1/1) · best LogHAR-CJ (1/1) |
 | Futures — all (13) | confirmatory | DOMINATES 12/13 · competitive: S→GBRT · best LogHAR-CJ (7/13) | DOMINATES (13/13) · best LogHAR-CJ (8/13) | DOMINATES 12/13 · DEGRADE: GC→EWMA · best LogHAR-CJ (6/13) · HAR-fam MCS 12/13 |
+| FX — major (7) | confirmatory | DOMINATES 6/7 · competitive: USDCHF→AR1Log · best LogHAR-CJ (6/7) | DOMINATES (7/7) · best LogHAR-CJ (5/7) | DOMINATES (7/7) · best LogHAR-CJ (4/7) |
+| FX — secondary/EM (6) | confirmatory | DOMINATES (6/6) · best LogHAR-CJ (4/6) | DOMINATES (6/6) · best LogHAR-CJ (4/6) | DOMINATES (6/6) · best LogHAR-CJ (4/6) |
+| FX — all (13) | confirmatory | DOMINATES 12/13 · competitive: USDCHF→AR1Log · best LogHAR-CJ (10/13) | DOMINATES (13/13) · best LogHAR-CJ (9/13) | DOMINATES (13/13) · best LogHAR-CJ (8/13) |
 
 ## B. Refinement transfer — does the equity-tuned refinement carry over?
 
@@ -40,49 +43,55 @@ Count of instruments where the refinement **DM-beats LogHAR** (α = 0.05), per c
 | Futures — fx (EU) | LogSHAR vs LogHAR | 0/1 | 0/1 | 1/1 |
 | Futures — all (13) | HARQ vs LogHAR | 0/13 | 0/13 | 0/13 |
 | Futures — all (13) | LogSHAR vs LogHAR | 7/13 | 6/13 | 6/13 |
+| FX — major (7) | HARQ vs LogHAR | 0/7 | 0/7 | 0/7 |
+| FX — major (7) | LogSHAR vs LogHAR | 2/7 | 4/7 | 3/7 |
+| FX — secondary/EM (6) | HARQ vs LogHAR | 0/6 | 0/6 | 0/6 |
+| FX — secondary/EM (6) | LogSHAR vs LogHAR | 2/6 | 3/6 | 1/6 |
+| FX — all (13) | HARQ vs LogHAR | 0/13 | 0/13 | 0/13 |
+| FX — all (13) | LogSHAR vs LogHAR | 4/13 | 7/13 | 4/13 |
 
 ## C. Model 90% MCS survival (k / n instruments) — h = 1
 
 `n/c` = ran in a separate within-family MCS (not comparable); `sim-only` = real-data run not available; `–` = model not in this class's set.
 
-| Model | Equities (8) | Crypto — 4 coins | Crypto — 22 coins | Futures — rates (FV/TY) | Futures — commodity (8) | Futures — equity-index (ES/NQ) | Futures — fx (EU) | Futures — all (13) |
-|---|---|---|---|---|---|---|---|---|
-| RW | 0/8 | 0/4 | 2/22 | – | – | – | – | – |
-| HistMean | 0/8 | 0/4 | 1/22 | – | – | – | – | – |
-| MA22 | 0/8 | 0/4 | 1/22 | – | 1/8 | – | – | 1/13 |
-| EWMA | 0/8 | 0/4 | 1/22 | – | 1/8 | – | – | 1/13 |
-| AR1Log | 0/8 | 3/4 | 17/22 | – | 1/8 | – | – | 1/13 |
-| ARFIMA | 0/8 | – | – | – | 2/8 | – | – | 2/13 |
-| HAR | 2/8 | 0/4 | 3/22 | – | 1/8 | – | – | 1/13 |
-| LogHAR | 8/8 | 4/4 | 18/22 | – | 4/8 | – | – | 4/13 |
-| HAR-J | n/c | – | 2/22 | – | 2/8 | – | – | 2/13 |
-| LogHAR-J | n/c | – | 20/22 | – | 3/8 | – | – | 3/13 |
-| HAR-CJ | n/c | – | 2/22 | – | 2/8 | – | – | 2/13 |
-| LogHAR-CJ | n/c | – | 21/22 | 2/2 | 8/8 | – | 1/1 | 11/13 |
-| SHAR | n/c | – | 3/22 | – | 1/8 | – | – | 1/13 |
-| LogSHAR | n/c | – | 18/22 | – | 3/8 | 2/2 | – | 5/13 |
-| HARQ | sim-only | 0/4 | 5/22 | – | 2/8 | – | – | 2/13 |
-| GBRT | 1/8 | 0/4 | 11/22 | – | 3/8 | – | – | 3/13 |
+| Model | Equities (8) | Crypto — 4 coins | Crypto — 22 coins | Futures — rates (FV/TY) | Futures — commodity (8) | Futures — equity-index (ES/NQ) | Futures — fx (EU) | Futures — all (13) | FX — major (7) | FX — secondary/EM (6) | FX — all (13) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| RW | 0/8 | 0/4 | 2/22 | – | – | – | – | – | – | – | – |
+| HistMean | 0/8 | 0/4 | 1/22 | – | – | – | – | – | – | – | – |
+| MA22 | 0/8 | 0/4 | 1/22 | – | 1/8 | – | – | 1/13 | – | – | – |
+| EWMA | 0/8 | 0/4 | 1/22 | – | 1/8 | – | – | 1/13 | – | 1/6 | 1/13 |
+| AR1Log | 0/8 | 3/4 | 17/22 | – | 1/8 | – | – | 1/13 | 1/7 | – | 1/13 |
+| ARFIMA | 0/8 | – | – | – | 2/8 | – | – | 2/13 | 1/7 | – | 1/13 |
+| HAR | 2/8 | 0/4 | 3/22 | – | 1/8 | – | – | 1/13 | – | 1/6 | 1/13 |
+| LogHAR | 8/8 | 4/4 | 18/22 | – | 4/8 | – | – | 4/13 | 2/7 | 3/6 | 5/13 |
+| HAR-J | n/c | – | 2/22 | – | 2/8 | – | – | 2/13 | – | 2/6 | 2/13 |
+| LogHAR-J | n/c | – | 20/22 | – | 3/8 | – | – | 3/13 | 1/7 | 3/6 | 4/13 |
+| HAR-CJ | n/c | – | 2/22 | – | 2/8 | – | – | 2/13 | – | 2/6 | 2/13 |
+| LogHAR-CJ | n/c | – | 21/22 | 2/2 | 8/8 | – | 1/1 | 11/13 | 6/7 | 6/6 | 12/13 |
+| SHAR | n/c | – | 3/22 | – | 1/8 | – | – | 1/13 | – | – | – |
+| LogSHAR | n/c | – | 18/22 | – | 3/8 | 2/2 | – | 5/13 | 2/7 | 3/6 | 5/13 |
+| HARQ | sim-only | 0/4 | 5/22 | – | 2/8 | – | – | 2/13 | – | – | – |
+| GBRT | 1/8 | 0/4 | 11/22 | – | 3/8 | – | – | 3/13 | – | – | – |
 
 ## C. Model 90% MCS survival (k / n instruments) — h = 22
 
 `n/c` = ran in a separate within-family MCS (not comparable); `sim-only` = real-data run not available; `–` = model not in this class's set.
 
-| Model | Equities (8) | Crypto — 4 coins | Crypto — 22 coins | Futures — rates (FV/TY) | Futures — commodity (8) | Futures — equity-index (ES/NQ) | Futures — fx (EU) | Futures — all (13) |
-|---|---|---|---|---|---|---|---|---|
-| RW | 0/8 | 0/4 | 2/22 | – | – | – | – | – |
-| HistMean | 0/8 | 0/4 | 2/22 | – | – | – | – | – |
-| MA22 | 0/8 | 0/4 | 5/22 | – | 2/8 | – | – | 2/13 |
-| EWMA | 2/8 | 3/4 | 17/22 | – | 6/8 | 1/2 | 1/1 | 8/13 |
-| AR1Log | 3/8 | 1/4 | 8/22 | – | 1/8 | 1/2 | – | 2/13 |
-| ARFIMA | 4/8 | – | – | – | 4/8 | 1/2 | 1/1 | 6/13 |
-| HAR | 3/8 | 0/4 | 6/22 | – | 2/8 | 1/2 | 1/1 | 4/13 |
-| LogHAR | 8/8 | 4/4 | 20/22 | – | 5/8 | 1/2 | 1/1 | 7/13 |
-| HAR-J | n/c | – | 6/22 | – | 1/8 | 1/2 | 1/1 | 3/13 |
-| LogHAR-J | n/c | – | 21/22 | 2/2 | 4/8 | 1/2 | 1/1 | 8/13 |
-| HAR-CJ | n/c | – | 5/22 | – | 1/8 | – | 1/1 | 2/13 |
-| LogHAR-CJ | n/c | – | 21/22 | 2/2 | 7/8 | 1/2 | 1/1 | 11/13 |
-| SHAR | n/c | – | 6/22 | – | 2/8 | 1/2 | 1/1 | 4/13 |
-| LogSHAR | n/c | – | 22/22 | 1/2 | 5/8 | 2/2 | 1/1 | 9/13 |
-| HARQ | sim-only | 0/4 | 6/22 | – | – | 1/2 | – | 1/13 |
-| GBRT | 2/8 | 2/4 | 17/22 | – | 5/8 | 1/2 | 1/1 | 7/13 |
+| Model | Equities (8) | Crypto — 4 coins | Crypto — 22 coins | Futures — rates (FV/TY) | Futures — commodity (8) | Futures — equity-index (ES/NQ) | Futures — fx (EU) | Futures — all (13) | FX — major (7) | FX — secondary/EM (6) | FX — all (13) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| RW | 0/8 | 0/4 | 2/22 | – | – | – | – | – | – | – | – |
+| HistMean | 0/8 | 0/4 | 2/22 | – | – | – | – | – | – | – | – |
+| MA22 | 0/8 | 0/4 | 5/22 | – | 2/8 | – | – | 2/13 | 1/7 | – | 1/13 |
+| EWMA | 2/8 | 3/4 | 17/22 | – | 6/8 | 1/2 | 1/1 | 8/13 | 6/7 | 4/6 | 10/13 |
+| AR1Log | 3/8 | 1/4 | 8/22 | – | 1/8 | 1/2 | – | 2/13 | 1/7 | 2/6 | 3/13 |
+| ARFIMA | 4/8 | – | – | – | 4/8 | 1/2 | 1/1 | 6/13 | 6/7 | 2/6 | 8/13 |
+| HAR | 3/8 | 0/4 | 6/22 | – | 2/8 | 1/2 | 1/1 | 4/13 | 3/7 | 3/6 | 6/13 |
+| LogHAR | 8/8 | 4/4 | 20/22 | – | 5/8 | 1/2 | 1/1 | 7/13 | 7/7 | 5/6 | 12/13 |
+| HAR-J | n/c | – | 6/22 | – | 1/8 | 1/2 | 1/1 | 3/13 | 5/7 | 4/6 | 9/13 |
+| LogHAR-J | n/c | – | 21/22 | 2/2 | 4/8 | 1/2 | 1/1 | 8/13 | 6/7 | 6/6 | 12/13 |
+| HAR-CJ | n/c | – | 5/22 | – | 1/8 | – | 1/1 | 2/13 | 4/7 | 4/6 | 8/13 |
+| LogHAR-CJ | n/c | – | 21/22 | 2/2 | 7/8 | 1/2 | 1/1 | 11/13 | 6/7 | 5/6 | 11/13 |
+| SHAR | n/c | – | 6/22 | – | 2/8 | 1/2 | 1/1 | 4/13 | 4/7 | 3/6 | 7/13 |
+| LogSHAR | n/c | – | 22/22 | 1/2 | 5/8 | 2/2 | 1/1 | 9/13 | 7/7 | 6/6 | 13/13 |
+| HARQ | sim-only | 0/4 | 6/22 | – | – | 1/2 | – | 1/13 | 2/7 | 2/6 | 4/13 |
+| GBRT | 2/8 | 2/4 | 17/22 | – | 5/8 | 1/2 | 1/1 | 7/13 | 4/7 | 2/6 | 6/13 |

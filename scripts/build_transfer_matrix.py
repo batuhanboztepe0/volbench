@@ -47,6 +47,7 @@ harfam = load("har_family")
 crypto4 = load("crypto")
 crypto22 = load("crypto_expanded")
 futures = load("volare_futures")
+fx = load("volare_fx")
 
 
 def modal(counter: Counter):
@@ -127,12 +128,11 @@ def crypto_small(h):
     )
 
 
-def fut_subset(h, subclass=None):
-    per = futures["by_horizon"][h]["per_contract"]
+def vol_subset(dataset, h, subclass=None):
+    """Subset a VOLARE-style dataset (per_contract + by_subclass) for one sub-class."""
+    per = dataset["by_horizon"][h]["per_contract"]
     inst = {k: v for k, v in per.items() if subclass is None or v["subclass"] == subclass}
-    vc = None
-    if subclass is not None:
-        vc = futures["by_horizon"][h]["by_subclass"].get(subclass)
+    vc = dataset["by_horizon"][h]["by_subclass"].get(subclass) if subclass is not None else None
     return summarize_instruments(inst, vc)
 
 
@@ -143,11 +143,14 @@ CLASSES = [
     ("Crypto — 22 coins", "confirmatory",
      lambda h: summarize_instruments(crypto22["by_horizon"][h]["per_coin"],
                                      crypto22["by_horizon"][h]["verdict_counts"])),
-    ("Futures — rates (FV/TY)", "confirmatory", lambda h: fut_subset(h, "rates")),
-    ("Futures — commodity (8)", "confirmatory", lambda h: fut_subset(h, "commodity")),
-    ("Futures — equity-index (ES/NQ)", "confirmatory", lambda h: fut_subset(h, "equity_index")),
-    ("Futures — fx (EU)", "confirmatory", lambda h: fut_subset(h, "fx")),
-    ("Futures — all (13)", "confirmatory", lambda h: fut_subset(h, None)),
+    ("Futures — rates (FV/TY)", "confirmatory", lambda h: vol_subset(futures, h, "rates")),
+    ("Futures — commodity (8)", "confirmatory", lambda h: vol_subset(futures, h, "commodity")),
+    ("Futures — equity-index (ES/NQ)", "confirmatory", lambda h: vol_subset(futures, h, "equity_index")),
+    ("Futures — fx (EU)", "confirmatory", lambda h: vol_subset(futures, h, "fx")),
+    ("Futures — all (13)", "confirmatory", lambda h: vol_subset(futures, h, None)),
+    ("FX — major (7)", "confirmatory", lambda h: vol_subset(fx, h, "major")),
+    ("FX — secondary/EM (6)", "confirmatory", lambda h: vol_subset(fx, h, "secondary_em")),
+    ("FX — all (13)", "confirmatory", lambda h: vol_subset(fx, h, None)),
 ]
 
 matrix = {label: {"track": track, "by_horizon": {h: fn(h) for h in HORIZONS}}
