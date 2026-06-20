@@ -611,6 +611,82 @@ def var_backtest(
     return result
 
 
+def backtest_var_forecasts(
+    future_returns: np.ndarray,
+    var_forecasts: np.ndarray,
+    alpha: float = 0.05,
+) -> dict[str, float]:
+    """Backtest VaR forecasts supplied **directly** (e.g. from CAViaR).
+
+    Unlike :func:`var_backtest`, which derives the VaR from a variance forecast and
+    a distributional assumption, this scores models that produce the ``alpha``-tail
+    VaR itself. Origins with a non-finite ``var_forecasts`` value (e.g. the leading
+    walk-forward warm-up) are dropped; the remainder is scored with the same
+    Kupiec, Christoffersen, and Engle-Manganelli Dynamic-Quantile tests as
+    :func:`var_backtest`, so the two are directly comparable.
+
+    A violation occurs when ``future_returns[t] < -var_forecasts[t]``.
+
+    Parameters
+    ----------
+    future_returns : np.ndarray
+        Realized returns (decimal). Shape ``(T,)``.
+    var_forecasts : np.ndarray
+        One-step VaR forecasts (positive loss thresholds). Shape ``(T,)``; may
+        contain leading/missing ``nan`` which are excluded from scoring.
+    alpha : float, default 0.05
+        VaR confidence level.
+
+    Returns
+    -------
+    dict[str, float]
+        Same keys as :func:`var_backtest` (minus the ES extras): ``violation_rate``,
+        ``expected_rate``, ``n_violations``, ``n``, ``kupiec_stat``, ``kupiec_p``,
+        ``christoffersen_stat``, ``christoffersen_p``, ``dq_stat``, ``dq_pvalue``.
+    """
+    ret = np.asarray(future_returns, dtype=float).ravel()
+    var = np.asarray(var_forecasts, dtype=float).ravel()
+    if ret.shape != var.shape:
+        raise ValueError(
+            f"future_returns and var_forecasts must match in length, "
+            f"got {ret.shape} and {var.shape}"
+        )
+    mask = np.isfinite(var) & np.isfinite(ret)
+    ret_s = ret[mask]
+    var_s = var[mask]
+    if ret_s.size < 30:
+        raise ValueError(f"need at least 30 scored origins, got {ret_s.size}")
+
+    violations = ret_s < -var_s
+    n = int(ret_s.size)
+    n_viol = int(violations.sum())
+
+    kupiec_stat, kupiec_p = _kupiec_lr(n, n_viol, alpha)
+
+    v = violations.astype(int)
+    n00 = int(((v[:-1] == 0) & (v[1:] == 0)).sum())
+    n01 = int(((v[:-1] == 0) & (v[1:] == 1)).sum())
+    n10 = int(((v[:-1] == 1) & (v[1:] == 0)).sum())
+    n11 = int(((v[:-1] == 1) & (v[1:] == 1)).sum())
+    christoffersen_stat, christoffersen_p = _christoffersen_lr(n00, n01, n10, n11, alpha)
+
+    # Use the VaR level itself as the DQ specification regressor.
+    dq = engle_manganelli_dq(v, var_s, alpha)
+
+    return {
+        "violation_rate": float(n_viol / n),
+        "expected_rate": float(alpha),
+        "n_violations": float(n_viol),
+        "n": float(n),
+        "kupiec_stat": float(kupiec_stat),
+        "kupiec_p": float(kupiec_p),
+        "christoffersen_stat": float(christoffersen_stat),
+        "christoffersen_p": float(christoffersen_p),
+        "dq_stat": dq["dq_stat"],
+        "dq_pvalue": dq["dq_pvalue"],
+    }
+
+
 # ---------------------------------------------------------------------------
 # 5. Expected Shortfall forecasts
 # ---------------------------------------------------------------------------
