@@ -409,8 +409,8 @@ def model_confidence_set(
 
     # Any model never eliminated belongs to the set with MCS p-value 1.
     survivors = [names[j] for j in alive]
-    for s in survivors:
-        elimination_order.append(s)
+    for survivor in survivors:
+        elimination_order.append(survivor)
         raw_pvalues.append(1.0)
 
     # MCS p-values are the cumulative maximum along the elimination order.

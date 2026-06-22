@@ -11,6 +11,9 @@ Figures
 3. ``qlike_by_horizon.png`` — average QLIKE rank by model across horizons.
 4. ``spx_realized_vol.png`` — real .SPX annualised realized volatility with the
    GFC and COVID crisis windows shaded.
+5. ``transfer_matrix.png`` — the Q5 cross-asset transfer matrix: where the HAR
+   family stays in / leaves the 90% MCS across asset classes and horizons (the
+   project's primary pre-registered deliverable).
 
 Usage
 -----
@@ -213,6 +216,94 @@ def figure_spx_realized_vol() -> None:
     print("  wrote spx_realized_vol.png")
 
 
+def figure_transfer_matrix() -> None:
+    """Q5 cross-asset transfer matrix (the primary pre-registered deliverable).
+
+    For each asset class and horizon, colour the cell by its *worst* per-instrument
+    state — green if a HAR-family model is in the 90% MCS and single-best for
+    every instrument, amber if some instruments are only competitive, red if at
+    least one instrument shows a genuine HAR degradation. The annotation gives the
+    dominate fraction (``k/n``) and names the actual crack. Reads the committed
+    ``results/transfer_matrix.json`` (built by ``scripts/build_transfer_matrix.py``).
+    """
+    from matplotlib.colors import ListedColormap  # noqa: PLC0415
+    from matplotlib.patches import Patch  # noqa: PLC0415
+
+    path = RESULTS_DIR / "transfer_matrix.json"
+    if not path.exists():
+        print("  (skip transfer matrix: run scripts/build_transfer_matrix.py first)")
+        return
+    tm = json.loads(path.read_text())
+    rows = [
+        ("Equities (8)", "Equities (8)"),
+        ("Crypto — 4 coins", "Crypto (4)"),
+        ("Crypto — 22 coins", "Crypto (22, +dead)"),
+        ("Futures — rates (FV/TY)", "Rate futures (FV/TY)"),
+        ("Futures — commodity (8)", "Commodity futures (8)"),
+        ("Futures — equity-index (ES/NQ)", "Equity-idx futures (ES/NQ)"),
+        ("Futures — fx (EU)", "FX future (EU)"),
+        ("FX — major (7)", "FX major (7)"),
+        ("FX — secondary/EM (6)", "FX secondary/EM (6)"),
+    ]
+    horizons = ["1", "5", "22"]
+    state = np.zeros((len(rows), len(horizons)), dtype=int)
+    cell_text = [["" for _ in horizons] for _ in rows]
+    for i, (key, _) in enumerate(rows):
+        by_h = tm[key]["by_horizon"]
+        for j, h in enumerate(horizons):
+            cell = by_h[h]
+            counts = cell["verdict_counts"]
+            n = sum(counts.values())
+            dom = counts.get("dominates", 0)
+            n_degr = counts.get("degrades", 0)
+            n_comp = counts.get("competitive", 0)
+            if n_degr > 0:
+                state[i, j] = 2
+            elif n_comp > 0:
+                state[i, j] = 1
+            else:
+                state[i, j] = 0
+            txt = f"{dom}/{n}"
+            degr = [f"{c['name']}→{c['best']}" for c in cell["cracks"]
+                    if c["verdict"] == "degrades"]
+            if degr:
+                txt += "\n↓ " + ", ".join(degr)
+            elif n_comp > 0:
+                txt += f"\n~{n_comp} comp."
+            cell_text[i][j] = txt
+
+    cmap = ListedColormap(["#1a9850", "#fdae61", "#d73027"])
+    fig, ax = plt.subplots(figsize=(7.8, 6.6))
+    ax.imshow(state, cmap=cmap, vmin=0, vmax=2, aspect="auto")
+    ax.set_xticks(range(len(horizons)), [f"h = {h}" for h in horizons])
+    ax.set_yticks(range(len(rows)), [r[1] for r in rows])
+    ax.set_xlabel("Forecast horizon (days)")
+    for i in range(len(rows)):
+        for j in range(len(horizons)):
+            ax.text(j, i, cell_text[i][j], ha="center", va="center", fontsize=8.5,
+                    color="#5a3d00" if state[i, j] == 1 else "white", fontweight="bold")
+    ax.set_xticks(np.arange(-0.5, len(horizons), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(rows), 1), minor=True)
+    ax.grid(which="minor", color="white", linewidth=2)
+    ax.tick_params(which="minor", length=0)
+    ax.set_title(
+        "Q5 cross-asset transfer matrix — where the HAR family stays in the 90% MCS\n"
+        "cell = instruments where a HAR model is in-MCS & single-best (QLIKE)",
+        fontsize=10,
+    )
+    handles = [
+        Patch(color="#1a9850", label="HAR dominates (all)"),
+        Patch(color="#fdae61", label="competitive (some instr.)"),
+        Patch(color="#d73027", label="HAR degrades (≥1 instr.)"),
+    ]
+    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.07),
+              ncol=3, frameon=False, fontsize=8)
+    fig.tight_layout()
+    fig.savefig(FIG_DIR / "transfer_matrix.png", dpi=140, bbox_inches="tight")
+    plt.close(fig)
+    print("  wrote transfer_matrix.png")
+
+
 def main() -> None:
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     print("Generating figures ...")
@@ -221,6 +312,7 @@ def main() -> None:
     figure_spx_realized_vol()
     figure_leaderboard()
     figure_qlike_by_horizon()
+    figure_transfer_matrix()
     print(f"Figures in {FIG_DIR}")
 
 

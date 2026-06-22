@@ -18,3 +18,7 @@ mypy==1.8.0
 # Machine learning (Tier 2D)
 lightgbm==4.6.0
 xgboost==2.1.4
+
+# Optional data-fetch deps for the VOLARE cross-asset arms (scripts/build_volare.py)
+python-dotenv==1.2.2
+requests==2.33.1

@@ -61,29 +61,40 @@ def test_unknown_learner_raises():
 
 @pytest.mark.parametrize("kind", ["plain", "enriched"])
 def test_ml_no_lookahead(kind):
-    """Corrupting the final observation must not change earlier forecasts."""
-    rv = _rv(n=600, seed=3)
-    cont, jump, rm, rp = _measures(rv)
-    h, min_train = 5, 150
+    """Corrupting an interior observation must not change earlier forecasts."""
+    n, h, min_train = 600, 5, 150
+    c = 300  # interior corruption index, well inside the origin range
+
+    rv = _rv(n=n, seed=3)
+    rv2 = rv.copy()
+    rv2[c] *= 1000.0
 
     if kind == "plain":
         m1 = plain_ml("lgbm", refit_every=200, random_state=0)
         m2 = plain_ml("lgbm", refit_every=200, random_state=0)
     else:
+        cont, jump, rm, rp = _measures(rv)
         m1 = enriched_ml("lgbm", cont, jump, rm, rp, refit_every=200, random_state=0)
-        rv2c, j2, r2m, r2p = _measures(rv.copy())
-        m2 = enriched_ml("lgbm", rv2c, j2, r2m, r2p, refit_every=200, random_state=0)
+        cont2, jump2, rm2, rp2 = _measures(rv2)
+        m2 = enriched_ml("lgbm", cont2, jump2, rm2, rp2, refit_every=200, random_state=0)
 
     fc1, org = m1.oos_forecast(rv, h, min_train)
-    rv2 = rv.copy()
-    rv2[-1] *= 1000.0
-    # For enriched, the measure series are derived from rv but bound at build
-    # time; corrupting only rv[-1] still cannot reach origins t < n-1-h.
-    fc2, _ = m2.oos_forecast(rv2, h, min_train)
+    fc2, org2 = m2.oos_forecast(rv2, h, min_train)
+    np.testing.assert_array_equal(org, org2)
 
-    mask = org < (rv.size - 1 - h)
-    assert mask.sum() > 0
-    assert np.allclose(fc1[mask], fc2[mask])
+    # (a) Forecasts at all origins before the corruption index must be unchanged.
+    before = org < c
+    assert before.sum() > 0, "No origins before the corruption index"
+    np.testing.assert_allclose(
+        fc1[before], fc2[before], rtol=1e-10, atol=0.0,
+        err_msg="Look-ahead detected: a forecast before the corrupted observation changed",
+    )
+
+    # (b) Non-vacuity: at least one origin >= c must have a changed forecast.
+    after = org >= c
+    assert after.sum() > 0 and not np.allclose(fc1[after], fc2[after], rtol=1e-10, atol=0.0), (
+        "Corruption did not affect any later forecast — the probe is vacuous"
+    )
 
 
 def test_ensemble_averages_members():

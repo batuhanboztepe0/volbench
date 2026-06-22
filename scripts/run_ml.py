@@ -38,6 +38,7 @@ from volbench.backtest import run_backtest  # noqa: E402
 from volbench.data import load_oxford_rv  # noqa: E402
 from volbench.evaluation import diebold_mariano, model_confidence_set  # noqa: E402
 from volbench.losses import mean_loss, qlike  # noqa: E402
+from volbench.meta import run_meta  # noqa: E402
 from volbench.ml import enriched_ml, plain_ml  # noqa: E402
 from volbench.models import LogHAR  # noqa: E402
 
@@ -75,7 +76,9 @@ def run_all(horizons=(1, 5, 22), mcs_reps: int = 1000, seed: int = 0,
     tickers = ds.tickers
     names = ALL_NAMES
     summary: dict = {"tickers": tickers, "horizons": list(horizons),
-                     "benchmark": BENCHMARK, "refit_every": refit_every, "by_horizon": {}}
+                     "benchmark": BENCHMARK, "refit_every": refit_every,
+                     "meta": run_meta(seed, mcs_reps, refit_every=refit_every),
+                     "by_horizon": {}}
 
     for h in horizons:
         print(f"\n{'=' * 64}\nML COMPARISON  h = {h}\n{'=' * 64}")
@@ -101,7 +104,8 @@ def run_all(horizons=(1, 5, 22), mcs_reps: int = 1000, seed: int = 0,
             ql[COMBO] = mean_loss(combo_loss)
             qlike_table[tk] = pd.Series(ql)
 
-            mcs = model_confidence_set(loss_dict, alpha=0.10, reps=mcs_reps, seed=seed)
+            mcs = model_confidence_set(loss_dict, alpha=0.10,
+                                       block_length=max(10, h + 2), reps=mcs_reps, seed=seed)
             for n in mcs.included:
                 mcs_counts[n] += 1
             dm_all = dict(res.dm_vs_har["QLIKE"])

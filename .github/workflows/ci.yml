@@ -22,16 +22,17 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install package + dev tools
+      - name: Install package + dev tools (pinned)
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[dev]" pytest-cov
+          pip install -r requirements.lock
+          pip install -e . --no-deps
 
       - name: Lint (ruff)
         run: ruff check src scripts tests
 
-      - name: Type-check (mypy, non-blocking)
-        run: mypy src/volbench || true
+      - name: Type-check (mypy)
+        run: mypy src/volbench
 
       - name: Fetch data (from the Internet Archive; data tests skip if it fails)
         run: python scripts/build_realized.py || echo "data fetch failed; data-dependent tests will skip"

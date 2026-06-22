@@ -25,6 +25,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from volbench.backtest import run_backtest  # noqa: E402
 from volbench.data import load_oxford_rv  # noqa: E402
 from volbench.losses import mincer_zarnowitz  # noqa: E402
+from volbench.meta import run_meta  # noqa: E402
 from volbench.models import default_models  # noqa: E402
 
 HORIZONS: tuple[int, ...] = (1, 5, 22)
@@ -52,7 +53,8 @@ def run_all() -> dict:
     ds = load_oxford_rv()
     tickers = ds.tickers
     names = _model_names()
-    summary: dict = {"tickers": tickers, "horizons": list(HORIZONS), "by_horizon": {}}
+    summary: dict = {"tickers": tickers, "horizons": list(HORIZONS),
+                     "meta": run_meta(SEED, MCS_REPS), "by_horizon": {}}
 
     for h in HORIZONS:
         print(f"\n{'=' * 64}\nHORIZON h = {h}\n{'=' * 64}")

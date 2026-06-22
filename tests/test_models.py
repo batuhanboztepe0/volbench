@@ -303,6 +303,15 @@ def test_no_lookahead_har_variants(model_name):
     _run_no_lookahead(cls(), cls(), rv, rv2)
 
 
+@pytest.mark.parametrize("model_cls", [RandomWalk, HistoricalMean, MovingAverage, EWMA])
+def test_no_lookahead_simple_models(model_cls):
+    rng = np.random.default_rng(13)
+    rv = np.exp(rng.standard_normal(700) * 0.4 - 9)
+    rv2 = rv.copy()
+    rv2[_LEAK_IDX] *= 1000.0
+    _run_no_lookahead(model_cls(), model_cls(), rv, rv2)
+
+
 @pytest.mark.parametrize("log", [False, True])
 def test_no_lookahead_harj(log):
     rng = np.random.default_rng(8)

@@ -7,6 +7,8 @@ Runs:
 """
 
 from __future__ import annotations
+
+import json
 import sys
 from pathlib import Path
 
@@ -14,15 +16,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-import json
-import numpy as np
+from run_crypto_expanded import BENCHMARK, HAR_FAMILY, _verdict, build_suite  # noqa: E402
+from run_volare_futures import VOLARE_FUTURES_CONFIG  # noqa: E402
 
-from run_crypto_expanded import build_suite, BENCHMARK, HAR_FAMILY, _verdict
-from volbench.data import load_realized_panel
-from run_volare_futures import VOLARE_FUTURES_CONFIG
-from volbench.models import ARFIMALog
-from volbench.backtest import run_backtest
-from volbench.evaluation import model_confidence_set
+from volbench.backtest import run_backtest  # noqa: E402
+from volbench.data import load_realized_panel  # noqa: E402
+from volbench.models import ARFIMALog  # noqa: E402
 
 DATA = ROOT / "data" / "volare_futures_realized.csv"
 
