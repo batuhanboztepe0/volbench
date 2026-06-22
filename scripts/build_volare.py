@@ -1,8 +1,10 @@
 """Fetch realized-measure panels from the VOLARE token-authenticated REST API.
 
 VOLARE (VOLatility Archive for Realized Estimates) publishes precomputed daily
-realized-volatility measures for stocks, FX and futures, free under **CC-BY 4.0**.
-If you use this data you MUST cite:
+realized-volatility measures for stocks, FX and futures. Access is free with a
+VOLARE account. VOLARE requests citation but grants no explicit redistribution
+licence, so these panels are fetched here, not committed to the repo. If you use
+this data you MUST cite:
 
     Cipollini, F., Cruciani, G., Gallo, G. M., Insana, A., Otranto, E., &
     Spagnolo, F. (2026). VOLatility Archive for Realized Estimates (VOLARE).

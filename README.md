@@ -90,15 +90,15 @@ displaces log-HAR at any horizon.
 
 ---
 
-## Cross-asset generalisation (internal pre-registration): where does log-HAR stop winning?
+## Cross-asset generalisation (internal pre-specified protocol): where does log-HAR stop winning?
 
 The equity headline above is a textbook result, rigorously reproduced. The
 distinctive question is the next one: **does it generalise, and where does it
 break?** It is answered under an *internal, pre-specified* protocol
 (`docs/PREREGISTRATION.md`, kept local to the maintainer's tree: author-attested
-decision rules fixed in advance as a discipline, **not** externally registered or
-committed to this public repo) so the result cannot be quietly reframed after the
-fact. A single falsifiable hypothesis
+decision rules fixed in advance as a discipline, **not** externally registered,
+timestamped, or committed to this public repo) so the result cannot be quietly
+reframed after the fact. A single falsifiable hypothesis
 predicts the HAR family *dominates* mature, calendar-synchronised markets and
 *degrades* under reversed leverage (crypto), 24/7 calendars, microstructure noise,
 or event-driven breaks (commodities, rates). The primary deliverable is the **Q5
@@ -114,10 +114,10 @@ applied to *models*: where a HAR-family model stays in the 90% Model Confidence 
   90% MCS and single-best across equities (8/8), surviving major crypto (4/4), the
   survivorship-corrected 22-coin universe (18–19/22), US Treasury futures (FV/TY),
   37/39 futures cells, and **38/39 FX cells** (7 majors + 6 EM/secondary pairs).
-- **The pre-registered *primary* prediction was FALSIFIED.** The headline bet was
+- **The *primary* pre-specified prediction was FALSIFIED.** The headline bet was
   that **rates futures (FV/TY)** would break HAR around the FOMC/auction calendar.
   They did not. HAR dominates both at every horizon. This is logged as a falsified
-  prediction in the internal pre-registration's §9 amendment log, not reframed.
+  prediction in the internal protocol's §9 amendment log, not reframed.
 - **The only genuine degrade is gold (GC) @ h = 22** (the single red cell above),
   where the MCS collapses to `{EWMA}` (EWMA beats the best HAR variant by ~25%). It
   is adversarially verified as robust (stable across 7 seeds and B ∈ {2k…20k}) **but**
@@ -323,7 +323,7 @@ volbench/
 - **Significance.** Diebold-Mariano with a Newey-West HAC variance and the
   Harvey-Leybourne-Newbold small-sample correction; the Model Confidence Set
   with a moving-block bootstrap (2,000 replications for the equity benchmark;
-  10,000 for the pre-registered cross-asset arms).
+  10,000 for the pre-specified cross-asset arms).
 
 ## Quickstart
 

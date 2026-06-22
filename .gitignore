@@ -21,6 +21,8 @@ data/oxford_realized.csv
 data/crypto_realized.csv
 data/crypto_expanded_realized.csv
 data/volare_*.parquet
+# VOLARE requests citation but grants no explicit redistribution licence, so its
+# realized panels are fetched (build_volare.py), not committed, like the others.
 data/volare_*_realized.csv
 data/raw/
 

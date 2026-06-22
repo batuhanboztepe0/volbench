@@ -3,7 +3,7 @@
 ## `oxford_realized.csv`
 
 A subset of the **Oxford-Man Institute Realized Library** (final public release,
-v0.3), redistributed here for reproducibility. The library reports daily
+v0.3), used as the equity realized-volatility track. The library reports daily
 realized measures computed from high-frequency intraday prices for international
 equity indices.
 
@@ -80,6 +80,39 @@ including **realized quarticity** (`rq`), which enables HARQ on real data.
 - **Columns:** `date`, `symbol`, `rv5`, `bv`, `medrv`, `rk_parzen`, `rsv`
   (downside), `rsv_plus` (upside), `rq` (realized quarticity), `close_price`,
   `open_to_close`, `nobs`.
+
+## `volare_futures_realized.csv` and `volare_forex_realized.csv` (cross-asset arms)
+
+Daily realized measures from **VOLARE** (VOLatility Archive for Realized
+Estimates) for 13 futures contracts and 13 FX pairs. These two panels feed the
+pre-specified cross-asset transfer matrix (the futures and FX confirmatory arms).
+
+- **Source:** VOLARE token-authenticated REST API (`https://volare.unime.it/api`),
+  pulled by `scripts/build_volare.py --fetch futures` and `--fetch forex`. A (free)
+  VOLARE account is required.
+- **Redistribution:** VOLARE requests citation but grants no explicit
+  redistribution licence (the arXiv CC-BY tag covers the paper, not the data, and
+  the portal states only a citation requirement). So, like the Oxford-Man and
+  crypto panels, these CSVs are **not committed**; `build_volare.py` re-fetches
+  them, and the cross-asset scripts skip when they are absent. If you use the data
+  you MUST cite VOLARE:
+  > Cipollini, F., Cruciani, G., Gallo, G. M., Insana, A., Otranto, E., &
+  > Spagnolo, F. (2026). VOLatility Archive for Realized Estimates (VOLARE).
+  > arXiv:2602.19732. https://doi.org/10.48550/arXiv.2602.19732. VOLARE page:
+  > https://volare.unime.it.
+- **Coverage (futures, 13):** `C` (corn), `CL` (WTI crude), `ES` (E-mini S&P 500),
+  `EU` (euro FX future), `FV` (5-yr T-note), `GC` (gold), `HG` (copper), `NG`
+  (natural gas), `NQ` (E-mini Nasdaq), `S` (soybeans), `SI` (silver), `TY` (10-yr
+  T-note), `W` (wheat). 2009-09-28 to 2026-05-29, daily.
+- **Coverage (FX, 13):** `AUDUSD`, `EURUSD`, `GBPUSD`, `NZDUSD`, `USDCAD`,
+  `USDCHF`, `USDJPY`, `USDKRW`, `USDNOK`, `USDPLN`, `USDSEK`, `USDSGD`, `ZARUSD`
+  (7 majors plus 6 secondary/EM). 2009-09-25 to 2026-05-29, daily.
+- **Units:** all measures are daily variances (decimal returns²), the same
+  convention as the equity panel. They are loaded as-is, not squared.
+- **Columns:** `date`, `symbol`, `rv5` (5-min realized variance), `bv` (bipower
+  variation), `medrv` (median realized variance), `rk_parzen` (realized kernel,
+  Parzen weights), `rsv` (downside semivariance), `rq` (realized quarticity),
+  `close_price`, `open_to_close` (log return), `nobs` (intraday observations used).
 
 ## `vix.csv`
 

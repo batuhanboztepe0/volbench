@@ -84,9 +84,13 @@ confirm exact volume/pages at typesetting) ·
   volatility: Do other cryptocurrencies help?" *North American Journal of Economics
   and Finance*, 62, 101731. DOI:10.1016/j.najef.2022.101731. (positive cross-crypto
   predictors with DM/MCS)
-- `✓✓` Korkusuz, B., Sahiner, M. (2025). "Cross-cryptocurrency volatility
-  spillovers and forecasting." *Financial Innovation*, 11(1), Springer. (DM/MCS:
-  **large-cap (BTC/ETH) null**, mid-caps gain; corroborates volbench's large-cap null)
+- `✓` Korkusuz, B., Sahiner, M. (2025). "Coin impact on cross-crypto realized
+  volatility and dynamic cryptocurrency volatility connectedness." *Financial
+  Innovation*, 11(1). DOI:10.1186/s40854-025-00881-x. (HAR vs LSTM under the MCS,
+  plus a TVP-VAR / Diebold-Yilmaz connectedness arm. Adding large-cap RV improves
+  mid-cap (XRP/LTC) forecasts but not large-cap (BTC/ETH). Consistent with the weak
+  large-cap spillover gain found here, but its method is connectedness, not a DM
+  horse-race.)
 - `⚠` Lyócsa, Š., et al. ("crypto positive high-frequency leverage effect").
   **Year unconfirmed.** The deep-research could not locate a 2024 paper; Lyócsa's
   crypto-leverage work is 2020/2021/2022. *Supply the exact reference before citing.*
@@ -144,16 +148,17 @@ confirm exact volume/pages at typesetting) ·
   survivorship-corrected 22-coin universe (20 live + LUNA/FTT dead). Builder:
   `scripts/build_crypto_expanded.py`.
 - **VOLARE (VOLatility Archive for Realized Estimates).** Accessed via the VOLARE
-  REST API (`https://volare.unime.it/api`) under CC-BY. `✓✓`
+  REST API (`https://volare.unime.it/api`); fetched, not redistributed (VOLARE
+  requests citation; no explicit redistribution licence found). `✓✓`
   *Used for:* 13 futures contracts (rates FV/TY; commodity CL/NG/GC/SI/HG/C/S/W;
   equity-index ES/NQ; FX EU) and 13 FX pairs (7 major, 6 EM/secondary),
   2009-09-28 to 2026-05-29. Access: `scripts/build_volare.py --fetch futures` and
   `--fetch forex`.
-  **Required attribution (CC-BY).** Cite both the paper and the VOLARE page:
+  **Required attribution.** VOLARE asks that you cite both the paper and the page:
   Cipollini, F., Cruciani, G., Gallo, G. M., Insana, A., Otranto, E., & Spagnolo, F.
   (2026). VOLatility Archive for Realized Estimates (VOLARE). arXiv:2602.19732
   [q-fin.ST]. https://doi.org/10.48550/arXiv.2602.19732. VOLARE page:
-  https://volare.unime.it. Retain the CC-BY notice.
+  https://volare.unime.it.
 - **CBOE VIX.** CBOE Volatility Index daily series. `✓` *Used for:* the variance
   risk premium (implied vs realized) edge layer.
 - **S&P 500 daily returns.** *Used for:* Track 2 (return-based GARCH reference,
