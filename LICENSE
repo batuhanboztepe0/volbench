@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-The bundled data in `data/oxford_realized.csv` is a redistributed subset of the
-Oxford-Man Institute Realized Library (Heber, Lunde, Shephard & Sheppard, 2009)
-and is provided for reproducibility under its original academic-use terms. See
-`data/README.md` for provenance and attribution.
