@@ -12,8 +12,8 @@ arch==7.2.0
 # Dev / test tooling
 pytest==8.4.2
 pytest-cov==5.0.0
-ruff==0.1.15
-mypy==1.8.0
+ruff==0.15.17
+mypy==2.1.0
 
 # Machine learning (Tier 2D)
 lightgbm==4.6.0

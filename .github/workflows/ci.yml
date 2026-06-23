@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.11"]
+        python-version: ["3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
 
@@ -43,18 +43,25 @@ jobs:
       - name: Smoke-test the pipeline (fast settings)
         run: |
           python scripts/validate_estimators.py --days 300
-          python -c "import sys; sys.path.insert(0,'src'); \
-            from volbench.data import load_oxford_rv; from volbench.backtest import run_backtest; \
-            rv = load_oxford_rv(tickers=['.SPX']).series('.SPX'); \
-            r = run_backtest(rv, horizon=1, min_train=500, mcs_reps=100); \
-            assert 'LogHAR' in r.mean_losses['QLIKE'], 'LogHAR missing from mean_losses'; \
-            assert 'LogHAR' in r.mcs['QLIKE'].included, 'LogHAR not in 90% MCS on SPX h=1'; \
-            print('pipeline OK: LogHAR in mean_losses and MCS')"
+          python -c "
+          import os, sys; sys.path.insert(0, 'src')
+          if not os.path.exists('data/oxford_realized.csv'):
+              print('skip pipeline check: no Oxford data (Internet Archive fetch failed)'); sys.exit(0)
+          from volbench.data import load_oxford_rv
+          from volbench.backtest import run_backtest
+          rv = load_oxford_rv(tickers=['.SPX']).series('.SPX')
+          r = run_backtest(rv, horizon=1, min_train=500, mcs_reps=100)
+          assert 'LogHAR' in r.mean_losses['QLIKE'], 'LogHAR missing from mean_losses'
+          assert 'LogHAR' in r.mcs['QLIKE'].included, 'LogHAR not in 90% MCS on SPX h=1'
+          print('pipeline OK: LogHAR in mean_losses and MCS')
+          "
 
       - name: Equity-only benchmark sanity check
         run: |
           python -c "
-          import sys; sys.path.insert(0, 'src')
+          import os, sys; sys.path.insert(0, 'src')
+          if not os.path.exists('data/oxford_realized.csv'):
+              print('skip equity sanity: no Oxford data (Internet Archive fetch failed)'); sys.exit(0)
           from volbench.data import load_oxford_rv
           from volbench.backtest import run_backtest
           ds = load_oxford_rv(tickers=['.SPX'])
