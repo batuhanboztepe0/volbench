@@ -22,6 +22,7 @@ import pandas as pd
 
 from .backtest import run_backtest
 from .data import RealizedDataset
+from .evaluation import clark_west
 from .models import (
     _LOG_FLOOR,
     DEFAULT_MIN_TRAIN,
@@ -250,7 +251,14 @@ def spillover_backtest(
             Diebold-Mariano result dict comparing CrossHAR against LogHAR
             (negative ``mean_diff`` favours CrossHAR).
         ``crosshar_beats_loghar``
-            ``True`` if CrossHAR has lower mean QLIKE AND DM p-value < 0.10.
+            ``True`` if CrossHAR has lower mean QLIKE AND the (descriptive,
+            nesting-invalid) QLIKE DM p-value < 0.10.
+        ``cw_crosshar_vs_loghar``
+            Clark-West (2007) nested-model test of CrossHAR vs LogHAR on the MSE
+            channel (the valid significance test; positive favours CrossHAR).
+        ``crosshar_improves_cw``
+            ``True`` if the Clark-West one-sided p-value < 0.10 and it favours
+            CrossHAR. This is the spillover significance verdict.
     """
     all_tickers = [target] + list(peers)
     _dates, rv_dict = align_panel(dataset, all_tickers)
@@ -293,6 +301,25 @@ def spillover_backtest(
         and dm_result.get("favored", 0.0) == -1.0
     )
 
+    # CrossHAR nests LogHAR (set the peer coefficients to zero), so the QLIKE
+    # Diebold-Mariano above is NOT valid for a significance claim (Diebold 2015):
+    # the test degenerates under nesting and is biased against the larger model.
+    # The Clark-West (2007) MSPE test corrects the nesting bias and is the basis
+    # for the "spillover is significant" verdict; ``dm_crosshar_vs_loghar`` is
+    # retained only as a descriptive QLIKE effect size.
+    cw_result = clark_west(
+        result.realized,
+        result.forecasts["LogHAR"],    # restricted (nested) forecast
+        result.forecasts["CrossHAR"],  # unrestricted (nesting) forecast
+        horizon=horizon,
+    )
+    crosshar_improves_cw = (
+        isinstance(cw_result.get("p_value"), float)
+        and np.isfinite(cw_result["p_value"])
+        and cw_result["p_value"] < 0.10
+        and cw_result.get("favors_unrestricted", 0.0) == 1.0
+    )
+
     return {
         "target": target,
         "n_obs": int(target_rv.size),
@@ -302,4 +329,6 @@ def spillover_backtest(
         "mcs_included": mcs_included,
         "dm_crosshar_vs_loghar": dm_result,
         "crosshar_beats_loghar": bool(crosshar_beats),
+        "cw_crosshar_vs_loghar": cw_result,
+        "crosshar_improves_cw": bool(crosshar_improves_cw),
     }

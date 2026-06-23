@@ -256,11 +256,16 @@ LightGBM (enr.)& 4.25 & 0 & 4.88 & 0 & 4.75 & 0 \\
 \section{Cross-index spillover}
 Does a target index benefit from its peers? We augment a log-HAR for each target
 with the other seven indices' lagged daily realized variance (CrossHAR) and test
-it against own-information log-HAR. CrossHAR significantly beats log-HAR for all
-eight indices at $h=1$ and $h=5$ (Diebold--Mariano $p<0.01$ in most cells), with
-QLIKE improvements of roughly 2--8\% (largest for \texttt{.FTSE}, $\approx$8\%,
-and \texttt{.STOXX50E}). Volatility spillover across major equity markets is
-both statistically significant and exploitable out of sample.
+it against own-information log-HAR. CrossHAR lowers QLIKE for all eight indices,
+by roughly 2--8\% at $h=1$ (largest for \texttt{.FTSE}, $\approx$8\%, and
+\texttt{.STOXX50E}). Because CrossHAR \emph{nests} log-HAR, the standard
+Diebold--Mariano test is not valid for this comparison (Diebold, 2015); we
+therefore judge significance with the Clark--West (2007) nested-model test on the
+MSE channel. By that test CrossHAR significantly improves on log-HAR for seven of
+the eight indices at $h=1$ (all except \texttt{.SPX}) and four of eight at
+$h=5$. Volatility spillover across major
+equity markets is real and largely exploitable out of sample, strongest at the
+daily horizon.
 
 \section{Economic value}
 Statistical accuracy is translated into money and risk three ways: a
@@ -402,7 +407,10 @@ and VOLARE FX (13: 7 majors, 6 EM/secondary).
 The honest result is \textbf{robust replication with narrow cracks}, not a clean
 discovery. A HAR-family model is in the MCS and single-best in 8/8 equities, 4/4
 and 18--19/22 crypto, both Treasury futures, 37/39 futures cells and 38/39 FX
-cells. The \emph{primary} pre-specified prediction, that rates futures (FV/TY)
+cells. These counts are robust to the MCS confidence level: re-running the
+confirmatory arms at the stricter $\alpha=0.25$ leaves the dominance counts and
+every per-instrument verdict unchanged (37/39 and 38/39 at both levels). The
+\emph{primary} pre-specified prediction, that rates futures (FV/TY)
 would break HAR around the FOMC/auction calendar, was \textbf{falsified}: HAR
 dominates both at every horizon (logged as such in the amendment record). The only
 genuine degrade is gold (GC) at $h=22$, where the MCS collapses to a single EWMA
@@ -410,9 +418,12 @@ genuine degrade is gold (GC) at $h=22$, where the MCS collapses to a single EWMA
 seeds, $B \in \{2\text{k}\dots20\text{k}\}$) but isolated, at a secondary horizon,
 and partly mechanical (the long-horizon estimation-risk immunity of a
 parameter-light smoother), so it does not satisfy the predicted-mechanism clause.
-Equity-tuned refinements do not transfer: HARQ never beats log-HAR outside
-equities (0/22 crypto, 0/13 futures, 0/13 FX) and the LogSHAR semivariance edge
-vanishes in crypto (0/22 at $h=1$) while only partly carrying to FX. The
+Equity-tuned refinements do not transfer to log-HAR: HARQ never beats log-HAR
+outside equities (0/22 crypto, 0/13 futures, 0/13 FX); it does beat plain
+(un-logged) HAR in a minority of cells (2/13 futures and 2/13 FX at $h=1$, 5/22
+crypto), so the quarticity correction carries some value off-equity but the log
+transform already captures it. The LogSHAR semivariance edge vanishes in crypto
+(0/22 at $h=1$) while only partly carrying to FX. The
 confirmatory outcome is therefore mixed/partial, leaning ``replication at scale'',
 a failure mode named in advance, so the contribution is breadth, rigour and
 honest negatives rather than a new model or a headline break.
@@ -491,6 +502,8 @@ the committed code and a fixed seed.
 \bibitem{ps2015} A.~Patton, K.~Sheppard (2015). Good volatility, bad volatility. \emph{Review of Economics and Statistics}.
 \bibitem{bpq2016} T.~Bollerslev, A.~Patton, R.~Quaedvlieg (2016). Exploiting the errors: a simple approach for improved volatility forecasting. \emph{Journal of Econometrics}.
 \bibitem{omi2009} G.~Heber, A.~Lunde, N.~Shephard, K.~Sheppard (2009). Oxford-Man Institute's Realized Library.
+\bibitem{clarkwest2007} T.~Clark, K.~West (2007). Approximately normal tests for equal predictive accuracy in nested models. \emph{Journal of Econometrics}.
+\bibitem{diebold2015} F.~Diebold (2015). Comparing predictive accuracy, twenty years later: a personal perspective on the use and abuse of Diebold--Mariano tests. \emph{Journal of Business \& Economic Statistics}.
 \end{thebibliography}
 
 \end{document}

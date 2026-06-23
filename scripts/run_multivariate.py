@@ -5,8 +5,10 @@ runs :func:`~volbench.multivariate.spillover_backtest` at horizon=1 (and 5),
 prints a summary table, and writes ``results/multivariate.json``.
 
 Headline question: does adding peer indices' lagged daily log-RV improve
-a target index's realized-variance forecast out-of-sample, after honest
-Diebold-Mariano and Model Confidence Set testing?
+a target index's realized-variance forecast out-of-sample? Because CrossHAR
+nests LogHAR, significance is judged by the Clark-West (2007) nested-model test
+(MSE channel); the QLIKE Diebold-Mariano is reported only as a descriptive
+effect size, and the Model Confidence Set is reported alongside.
 
 Usage
 -----
@@ -52,7 +54,7 @@ def run_all() -> dict:
         # Header row.
         header = (
             f"{'Target':<12} {'LogHAR QLIKE':>14} {'CrossHAR QLIKE':>16}"
-            f" {'Improv %':>10} {'DM p-val':>10} {'CrossHAR wins':>14}"
+            f" {'Improv %':>10} {'CW p-val':>10} {'CrossHAR wins':>14}"
         )
         print(header)
         print("-" * 72)
@@ -70,21 +72,23 @@ def run_all() -> dict:
             loghar_q = res["mean_qlike"].get("LogHAR", float("nan"))
             crosshar_q = res["mean_qlike"].get("CrossHAR", float("nan"))
             pct = res["pct_improvement"]
-            dm = res["dm_crosshar_vs_loghar"]
-            pval = dm.get("p_value", float("nan")) if dm else float("nan")
-            beats = res["crosshar_beats_loghar"]
+            # Significance is the Clark-West nested-model test (MSE channel); the
+            # QLIKE DM is invalid here because CrossHAR nests LogHAR (Diebold 2015).
+            cw = res["cw_crosshar_vs_loghar"]
+            cw_p = cw.get("p_value", float("nan")) if cw else float("nan")
+            beats = res["crosshar_improves_cw"]
             if beats:
                 n_wins += 1
 
             print(
                 f"{target:<12} {_fmt(loghar_q):>14} {_fmt(crosshar_q):>16}"
-                f" {_fmt(pct, 2):>10} {_fmt(pval, 4):>10} {'YES' if beats else 'no':>14}"
+                f" {_fmt(pct, 2):>10} {_fmt(cw_p, 4):>10} {'YES' if beats else 'no':>14}"
             )
 
         print("-" * 72)
         print(
-            f"CrossHAR significantly beats LogHAR (QLIKE, DM p<0.10) in"
-            f" {n_wins}/{len(tickers)} indices at h={h}"
+            f"CrossHAR significantly improves on LogHAR (Clark-West nested test,"
+            f" MSE, p<0.10) in {n_wins}/{len(tickers)} indices at h={h}"
         )
 
         summary["by_horizon"][str(h)] = horizon_results
@@ -102,12 +106,13 @@ def main() -> None:
         json.dump(summary, fh, indent=2)
     print(f"\nResults written to {out_path}")
 
-    # Headline finding.
+    # Headline finding (Clark-West nested-model test, the valid significance test).
     h1 = summary["by_horizon"].get("1", [])
-    wins_h1 = sum(1 for r in h1 if r.get("crosshar_beats_loghar"))
+    wins_h1 = sum(1 for r in h1 if r.get("crosshar_improves_cw"))
     print(
-        f"\nHeadline: At h=1, CrossHAR (peers' lagged RV) significantly beats"
-        f" LogHAR (own-index only) for {wins_h1}/{len(h1)} of the 8 indices."
+        f"\nHeadline: At h=1, CrossHAR (peers' lagged RV) significantly improves on"
+        f" LogHAR (own-index only) by the Clark-West nested-model test (MSE) for"
+        f" {wins_h1}/{len(h1)} of the 8 indices."
     )
     if wins_h1 == 0:
         print("  -> Peer spillover adds NO statistically significant predictive value.")

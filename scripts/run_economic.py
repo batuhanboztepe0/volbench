@@ -37,7 +37,11 @@ from volbench.data import load_oxford_rv  # noqa: E402
 from volbench.economic import option_pricing_loss, var_backtest, volatility_targeting  # noqa: E402
 
 HORIZON: int = 1
-MCS_REPS: int = 200
+# run_backtest always computes an MCS, but this script ranks models by mean QLIKE
+# and the economic metrics (Sharpe / VaR coverage / option RMSE) — the MCS object
+# is never read and economic.json stores no MCS, so outputs are independent of this
+# value. Set to the conventional 1000 floor (not 200) for codebase consistency.
+MCS_REPS: int = 1000
 SEED: int = 0
 RESULTS_DIR = ROOT / "results"
 

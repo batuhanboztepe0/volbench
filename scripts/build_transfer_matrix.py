@@ -16,7 +16,8 @@ Sources (committed):
 Outputs (results/ + results/tables/):
   transfer_matrix.json, transfer_matrix_verdict.csv,
   transfer_matrix_mcs_h1.csv, transfer_matrix_mcs_h22.csv,
-  transfer_matrix_refinement.csv, transfer_matrix.md
+  transfer_matrix_refinement.csv, transfer_matrix_alpha_sensitivity.csv,
+  transfer_matrix.md
 """
 from __future__ import annotations
 
@@ -80,6 +81,9 @@ def summarize_instruments(inst: dict, verdict_counts: dict | None = None) -> dic
     cracks = [{"name": k, "verdict": d["verdict"], "best": d["best"]}
               for k, d in sorted(inst.items())
               if d["verdict"] in ("competitive", "degrades")]
+    # alpha = 0.25 sensitivity (only present for confirmatory classes re-run with
+    # the secondary MCS; older JSONs lack verdict_a25 -> has_a25 stays False).
+    has_a25 = any("verdict_a25" in d for d in inst.values())
     return dict(
         n=len(inst),
         mcs=dict(mcs),
@@ -91,8 +95,20 @@ def summarize_instruments(inst: dict, verdict_counts: dict | None = None) -> dic
         cracks=cracks,
         harq_bl=sum(1 for d in inst.values()
                     if d.get("q1_harq_vs_loghar", {}).get("beats_loghar")),
+        # HARQ vs *plain* HAR (distinct hypothesis from HARQ vs LogHAR): does the
+        # quarticity correction beat un-logged HAR off-equity?
+        harq_har=(sum(1 for d in inst.values()
+                      if (d.get("q1_harq_vs_har") or {}).get("beats"))
+                  if any("q1_harq_vs_har" in d for d in inst.values()) else None),
         logshar_bl=sum(1 for d in inst.values()
                        if d.get("q2_logshar_vs_loghar", {}).get("beats_loghar")),
+        dom_a10=sum(1 for d in inst.values() if d.get("verdict") == "dominates"),
+        dom_a25=(sum(1 for d in inst.values() if d.get("verdict_a25") == "dominates")
+                 if has_a25 else None),
+        flips_a25=(sum(1 for d in inst.values()
+                       if "verdict_a25" in d and d["verdict_a25"] != d["verdict"])
+                   if has_a25 else None),
+        has_a25=has_a25,
     )
 
 
@@ -108,7 +124,9 @@ def equities(h):
         verdict_counts={"dominates": hh["n_indices"]},
         cracks=[],
         harq_bl=None,  # equity HARQ needs intraday bars -> simulation track only
+        harq_har=None,
         logshar_bl=harfam["by_horizon"][h]["beats_loghar"].get("LogSHAR"),
+        has_a25=False,
     )
 
 
@@ -124,7 +142,9 @@ def crypto_small(h):
         verdict_counts={"dominates": hh["n_coins"]},
         cracks=[],
         harq_bl=f"{hh.get('harq_beats_har')} (vs HAR)",  # crypto.json benchmarks HARQ vs HAR
+        harq_har=None,  # the 4-coin set already reports HARQ vs HAR in harq_bl
         logshar_bl=None,  # LogSHAR not in the 4-coin headline set
+        has_a25=False,
     )
 
 
@@ -215,10 +235,12 @@ with (TAB / "transfer_matrix_refinement.csv").open("w", newline="") as f:
     w.writerow(["asset_class", "refinement"] + [f"h={h}" for h in HORIZONS])
     for label in matrix:
         recs = matrix[label]["by_horizon"]
-        for ref, key in (("HARQ beats LogHAR", "harq_bl"), ("LogSHAR beats LogHAR", "logshar_bl")):
+        for ref, key in (("HARQ beats LogHAR", "harq_bl"),
+                         ("HARQ beats plain HAR", "harq_har"),
+                         ("LogSHAR beats LogHAR", "logshar_bl")):
             cells = []
             for h in HORIZONS:
-                v = recs[h][key]
+                v = recs[h].get(key)
                 n = recs[h]["n"]
                 if v is None:
                     cells.append("n/a")
@@ -247,18 +269,52 @@ for label in matrix:
     lines.append(f"| {label} | {rec['track']} | {cells[0]} | {cells[1]} | {cells[2]} |")
 
 lines.append("\n## B. Refinement transfer — does the equity-tuned refinement carry over?\n")
-lines.append("Count of instruments where the refinement **DM-beats LogHAR** (α = 0.05), per class.\n")
+lines.append("Count of instruments where the refinement **DM-beats its reference** "
+             "(LogHAR, or plain HAR for the `HARQ vs plain HAR` row) at α = 0.05, per class.\n")
 lines.append("| Asset class | Refinement | h = 1 | h = 5 | h = 22 |")
 lines.append("|---|---|---|---|---|")
 for label in matrix:
     recs = matrix[label]["by_horizon"]
-    for ref, key in (("HARQ vs LogHAR", "harq_bl"), ("LogSHAR vs LogHAR", "logshar_bl")):
+    for ref, key in (("HARQ vs LogHAR", "harq_bl"),
+                     ("HARQ vs plain HAR", "harq_har"),
+                     ("LogSHAR vs LogHAR", "logshar_bl")):
         cells = []
         for h in HORIZONS:
-            v = recs[h][key]
+            v = recs[h].get(key)
             n = recs[h]["n"]
             cells.append("n/a" if v is None else (v if isinstance(v, str) else f"{v}/{n}"))
         lines.append(f"| {label} | {ref} | {cells[0]} | {cells[1]} | {cells[2]} |")
+
+# Table D — MCS confidence-level (alpha) sensitivity for the confirmatory classes
+with (TAB / "transfer_matrix_alpha_sensitivity.csv").open("w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["asset_class"] + [f"dominates_a10->a25_h{h}" for h in HORIZONS])
+    for label in matrix:
+        recs = matrix[label]["by_horizon"]
+        if not any(recs[h].get("has_a25") for h in HORIZONS):
+            continue
+        cells = []
+        for h in HORIZONS:
+            r = recs[h]
+            cells.append(f"{r['dom_a10']}->{r['dom_a25']}/{r['n']}" if r.get("has_a25") else "n/a")
+        w.writerow([label] + cells)
+
+lines.append("\n## D. MCS confidence-level sensitivity (alpha = 0.10 -> 0.25)\n")
+lines.append("Count of instruments where the HAR family **DOMINATES** (in the MCS *and* "
+             "single-best) at the headline alpha = 0.10 vs the stricter alpha = 0.25 "
+             "(a smaller, harder-to-enter set). Confirmatory classes only. A robust "
+             "headline barely moves; a fragile one collapses. Format `a10 -> a25 / n`.\n")
+lines.append("| Asset class | h = 1 | h = 5 | h = 22 |")
+lines.append("|---|---|---|---|")
+for label in matrix:
+    recs = matrix[label]["by_horizon"]
+    if not any(recs[h].get("has_a25") for h in HORIZONS):
+        continue
+    cells = []
+    for h in HORIZONS:
+        r = recs[h]
+        cells.append(f"{r['dom_a10']}&rarr;{r['dom_a25']}/{r['n']}" if r.get("has_a25") else "n/a")
+    lines.append(f"| {label} | {cells[0]} | {cells[1]} | {cells[2]} |")
 
 for h in ("1", "22"):
     lines.append(f"\n## C. Model 90% MCS survival (k / n instruments) — h = {h}\n")

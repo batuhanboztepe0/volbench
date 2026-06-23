@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from volbench.evaluation import diebold_mariano, model_confidence_set
+from volbench.evaluation import clark_west, diebold_mariano, model_confidence_set
 
 
 # ---------------------------------------------------------------------------
@@ -92,6 +92,68 @@ def test_dm_n_matches_input():
     loss = _loss_array(n)
     res = diebold_mariano(loss, loss)
     assert int(res["n"]) == n
+
+
+# ---------------------------------------------------------------------------
+# clark_west (nested-model test)
+# ---------------------------------------------------------------------------
+def _cw_setup(n: int = 400, seed: int = 11) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Realized series with a genuinely-better unrestricted forecast."""
+    rng = np.random.default_rng(seed)
+    y = rng.uniform(1.0, 3.0, n)
+    f_unrestricted = y + rng.normal(0.0, 0.05, n)  # close to truth
+    f_restricted = y + rng.normal(0.0, 0.30, n)    # further from truth
+    return y, f_restricted, f_unrestricted
+
+
+def test_cw_result_keys():
+    y, f_r, f_u = _cw_setup()
+    res = clark_west(y, f_r, f_u)
+    assert set(res.keys()) == {"mean_adj", "cw_stat", "p_value", "favors_unrestricted", "n"}
+
+
+def test_cw_favors_unrestricted_when_larger_model_better():
+    """A genuinely closer unrestricted forecast yields a positive, significant CW."""
+    y, f_r, f_u = _cw_setup()
+    res = clark_west(y, f_r, f_u)
+    assert res["favors_unrestricted"] == pytest.approx(1.0)
+    assert res["cw_stat"] > 0
+    assert res["p_value"] < 0.05
+
+
+def test_cw_one_sided_pvalue_in_unit_interval():
+    y, f_r, f_u = _cw_setup()
+    res = clark_west(y, f_r, f_u)
+    assert 0.0 <= res["p_value"] <= 1.0
+
+
+def test_cw_identical_forecasts_degenerate():
+    """f_r == f_u gives a zero adjusted differential -> nan statistic, no preference."""
+    rng = np.random.default_rng(3)
+    y = rng.uniform(1.0, 3.0, 300)
+    f = y + rng.normal(0.0, 0.1, 300)
+    res = clark_west(y, f, f)
+    assert np.isnan(res["cw_stat"])
+    assert np.isnan(res["p_value"])
+    assert res["favors_unrestricted"] == pytest.approx(0.0)
+
+
+def test_cw_raises_on_length_mismatch():
+    with pytest.raises(ValueError):
+        clark_west(np.ones(100), np.ones(100), np.ones(101))
+
+
+def test_cw_raises_on_too_short():
+    with pytest.raises(ValueError):
+        clark_west(np.ones(5), np.ones(5), np.ones(5))
+
+
+def test_cw_horizon_sets_newey_west_lag():
+    """horizon=h must default the HAC truncation lag to h-1 (matches explicit lag)."""
+    y, f_r, f_u = _cw_setup(n=600, seed=5)
+    res_h5 = clark_west(y, f_r, f_u, horizon=5)
+    res_h5_explicit = clark_west(y, f_r, f_u, horizon=5, lag=4)
+    assert res_h5["cw_stat"] == pytest.approx(res_h5_explicit["cw_stat"], rel=1e-12)
 
 
 # ---------------------------------------------------------------------------

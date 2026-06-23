@@ -39,11 +39,14 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from run_crypto_expanded import (  # noqa: E402  (reuse the MCS/verdict/Q1/Q2 logic)
+    ALPHA_SENS,
     BENCHMARK,
     HORIZONS,
     Q1_MODEL,
     Q2_MODEL,
+    _dm_pair,
     _dm_record,
+    _mcs_at,
     _verdict,
     build_suite,
 )
@@ -110,12 +113,17 @@ def run_all(data: Path, symbols: list[str] | None, mcs_reps: int, seed: int) -> 
             mean_q = res.mean_losses["QLIKE"]
             dm = res.dm_vs_har["QLIKE"]
             v, best = _verdict(mcs_inc, mean_q, dm)
+            mcs_inc_25 = set(_mcs_at(res, ALPHA_SENS, h, mcs_reps, seed))
+            v25, _ = _verdict(mcs_inc_25, mean_q, dm)  # alpha=0.25 sensitivity
             qlike_rows[c] = mean_q
             per_contract[c] = {
                 "subclass": SUBCLASS.get(c), "verdict": v, "best": best,
                 "n_test": int(len(res.origins)), "mcs": sorted(mcs_inc),
                 "q1_harq_vs_loghar": _dm_record(dm, Q1_MODEL),
+                "q1_harq_vs_har": _dm_pair(res, "HARQ", "HAR", h),
                 "q2_logshar_vs_loghar": _dm_record(dm, Q2_MODEL),
+                "mcs_a25": sorted(mcs_inc_25),
+                "verdict_a25": v25,
             }
             print(f"  {c:<5} [{SUBCLASS.get(c):<12}] {v:<12} best={best:<10} "
                   f"n={len(res.origins):>4}")

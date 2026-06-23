@@ -34,7 +34,9 @@
         },
         "cracks": [],
         "harq_bl": null,
-        "logshar_bl": 6
+        "harq_har": null,
+        "logshar_bl": 6,
+        "has_a25": false
       },
       "5": {
         "n": 8,
@@ -68,7 +70,9 @@
         },
         "cracks": [],
         "harq_bl": null,
-        "logshar_bl": 5
+        "harq_har": null,
+        "logshar_bl": 5,
+        "has_a25": false
       },
       "22": {
         "n": 8,
@@ -102,7 +106,9 @@
         },
         "cracks": [],
         "harq_bl": null,
-        "logshar_bl": 5
+        "harq_har": null,
+        "logshar_bl": 5,
+        "has_a25": false
       }
     }
   },
@@ -141,7 +147,9 @@
         },
         "cracks": [],
         "harq_bl": "1 (vs HAR)",
-        "logshar_bl": null
+        "harq_har": null,
+        "logshar_bl": null,
+        "has_a25": false
       },
       "5": {
         "n": 4,
@@ -175,7 +183,9 @@
         },
         "cracks": [],
         "harq_bl": "3 (vs HAR)",
-        "logshar_bl": null
+        "harq_har": null,
+        "logshar_bl": null,
+        "has_a25": false
       },
       "22": {
         "n": 4,
@@ -209,7 +219,9 @@
         },
         "cracks": [],
         "harq_bl": "2 (vs HAR)",
-        "logshar_bl": null
+        "harq_har": null,
+        "logshar_bl": null,
+        "has_a25": false
       }
     }
   },
@@ -279,7 +291,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 0
+        "harq_har": 5,
+        "logshar_bl": 0,
+        "dom_a10": 19,
+        "dom_a25": 19,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 22,
@@ -344,7 +361,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 3
+        "harq_har": 7,
+        "logshar_bl": 3,
+        "dom_a10": 19,
+        "dom_a25": 19,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 22,
@@ -414,7 +436,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 3
+        "harq_har": 6,
+        "logshar_bl": 3,
+        "dom_a10": 18,
+        "dom_a25": 18,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -440,7 +467,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 2
+        "harq_har": 1,
+        "logshar_bl": 2,
+        "dom_a10": 2,
+        "dom_a25": 2,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 2,
@@ -461,7 +493,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 2
+        "harq_har": 1,
+        "logshar_bl": 2,
+        "dom_a10": 2,
+        "dom_a25": 2,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 2,
@@ -486,7 +523,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 1
+        "harq_har": 1,
+        "logshar_bl": 1,
+        "dom_a10": 2,
+        "dom_a25": 2,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -544,7 +586,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 3
+        "harq_har": 1,
+        "logshar_bl": 3,
+        "dom_a10": 7,
+        "dom_a25": 7,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 8,
@@ -587,7 +634,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 2
+        "harq_har": 2,
+        "logshar_bl": 2,
+        "dom_a10": 8,
+        "dom_a25": 8,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 8,
@@ -638,7 +690,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 3
+        "harq_har": 3,
+        "logshar_bl": 3,
+        "dom_a10": 7,
+        "dom_a25": 7,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -664,7 +721,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 2
+        "harq_har": 0,
+        "logshar_bl": 2,
+        "dom_a10": 2,
+        "dom_a25": 2,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 2,
@@ -685,7 +747,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 2
+        "harq_har": 1,
+        "logshar_bl": 2,
+        "dom_a10": 2,
+        "dom_a25": 2,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 2,
@@ -728,7 +795,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 1
+        "harq_har": 0,
+        "logshar_bl": 1,
+        "dom_a10": 2,
+        "dom_a25": 2,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -754,7 +826,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 0
+        "harq_har": 0,
+        "logshar_bl": 0,
+        "dom_a10": 1,
+        "dom_a25": 1,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 1,
@@ -777,7 +854,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 0
+        "harq_har": 0,
+        "logshar_bl": 0,
+        "dom_a10": 1,
+        "dom_a25": 1,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 1,
@@ -818,7 +900,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 1
+        "harq_har": 0,
+        "logshar_bl": 1,
+        "dom_a10": 1,
+        "dom_a25": 1,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -874,7 +961,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 7
+        "harq_har": 2,
+        "logshar_bl": 7,
+        "dom_a10": 12,
+        "dom_a25": 12,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 13,
@@ -914,7 +1006,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 6
+        "harq_har": 4,
+        "logshar_bl": 6,
+        "dom_a10": 13,
+        "dom_a25": 13,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 13,
@@ -965,7 +1062,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 6
+        "harq_har": 4,
+        "logshar_bl": 6,
+        "dom_a10": 12,
+        "dom_a25": 12,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -1007,7 +1109,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 2
+        "harq_har": 2,
+        "logshar_bl": 2,
+        "dom_a10": 6,
+        "dom_a25": 6,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 7,
@@ -1042,7 +1149,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 4
+        "harq_har": 1,
+        "logshar_bl": 4,
+        "dom_a10": 7,
+        "dom_a25": 7,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 7,
@@ -1089,7 +1201,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 3
+        "harq_har": 1,
+        "logshar_bl": 3,
+        "dom_a10": 7,
+        "dom_a25": 7,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -1129,7 +1246,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 2
+        "harq_har": 0,
+        "logshar_bl": 2,
+        "dom_a10": 6,
+        "dom_a25": 6,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 6,
@@ -1168,7 +1290,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 3
+        "harq_har": 2,
+        "logshar_bl": 3,
+        "dom_a10": 6,
+        "dom_a25": 6,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 6,
@@ -1213,7 +1340,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 1
+        "harq_har": 0,
+        "logshar_bl": 1,
+        "dom_a10": 6,
+        "dom_a25": 6,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   },
@@ -1261,7 +1393,12 @@
           }
         ],
         "harq_bl": 0,
-        "logshar_bl": 4
+        "harq_har": 2,
+        "logshar_bl": 4,
+        "dom_a10": 12,
+        "dom_a25": 12,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "5": {
         "n": 13,
@@ -1301,7 +1438,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 7
+        "harq_har": 3,
+        "logshar_bl": 7,
+        "dom_a10": 13,
+        "dom_a25": 13,
+        "flips_a25": 0,
+        "has_a25": true
       },
       "22": {
         "n": 13,
@@ -1345,7 +1487,12 @@
         },
         "cracks": [],
         "harq_bl": 0,
-        "logshar_bl": 4
+        "harq_har": 1,
+        "logshar_bl": 4,
+        "dom_a10": 13,
+        "dom_a25": 13,
+        "flips_a25": 0,
+        "has_a25": true
       }
     }
   }

@@ -23,32 +23,59 @@ Verdict per the pre-registration: **DOMINATES** = HAR family in the MCS and sing
 
 ## B. Refinement transfer — does the equity-tuned refinement carry over?
 
-Count of instruments where the refinement **DM-beats LogHAR** (α = 0.05), per class.
+Count of instruments where the refinement **DM-beats its reference** (LogHAR, or plain HAR for the `HARQ vs plain HAR` row) at α = 0.05, per class.
 
 | Asset class | Refinement | h = 1 | h = 5 | h = 22 |
 |---|---|---|---|---|
 | Equities (8) | HARQ vs LogHAR | n/a | n/a | n/a |
+| Equities (8) | HARQ vs plain HAR | n/a | n/a | n/a |
 | Equities (8) | LogSHAR vs LogHAR | 6/8 | 5/8 | 5/8 |
 | Crypto — 4 coins | HARQ vs LogHAR | 1 (vs HAR) | 3 (vs HAR) | 2 (vs HAR) |
+| Crypto — 4 coins | HARQ vs plain HAR | n/a | n/a | n/a |
 | Crypto — 4 coins | LogSHAR vs LogHAR | n/a | n/a | n/a |
 | Crypto — 22 coins | HARQ vs LogHAR | 0/22 | 0/22 | 0/22 |
+| Crypto — 22 coins | HARQ vs plain HAR | 5/22 | 7/22 | 6/22 |
 | Crypto — 22 coins | LogSHAR vs LogHAR | 0/22 | 3/22 | 3/22 |
 | Futures — rates (FV/TY) | HARQ vs LogHAR | 0/2 | 0/2 | 0/2 |
+| Futures — rates (FV/TY) | HARQ vs plain HAR | 1/2 | 1/2 | 1/2 |
 | Futures — rates (FV/TY) | LogSHAR vs LogHAR | 2/2 | 2/2 | 1/2 |
 | Futures — commodity (8) | HARQ vs LogHAR | 0/8 | 0/8 | 0/8 |
+| Futures — commodity (8) | HARQ vs plain HAR | 1/8 | 2/8 | 3/8 |
 | Futures — commodity (8) | LogSHAR vs LogHAR | 3/8 | 2/8 | 3/8 |
 | Futures — equity-index (ES/NQ) | HARQ vs LogHAR | 0/2 | 0/2 | 0/2 |
+| Futures — equity-index (ES/NQ) | HARQ vs plain HAR | 0/2 | 1/2 | 0/2 |
 | Futures — equity-index (ES/NQ) | LogSHAR vs LogHAR | 2/2 | 2/2 | 1/2 |
 | Futures — fx (EU) | HARQ vs LogHAR | 0/1 | 0/1 | 0/1 |
+| Futures — fx (EU) | HARQ vs plain HAR | 0/1 | 0/1 | 0/1 |
 | Futures — fx (EU) | LogSHAR vs LogHAR | 0/1 | 0/1 | 1/1 |
 | Futures — all (13) | HARQ vs LogHAR | 0/13 | 0/13 | 0/13 |
+| Futures — all (13) | HARQ vs plain HAR | 2/13 | 4/13 | 4/13 |
 | Futures — all (13) | LogSHAR vs LogHAR | 7/13 | 6/13 | 6/13 |
 | FX — major (7) | HARQ vs LogHAR | 0/7 | 0/7 | 0/7 |
+| FX — major (7) | HARQ vs plain HAR | 2/7 | 1/7 | 1/7 |
 | FX — major (7) | LogSHAR vs LogHAR | 2/7 | 4/7 | 3/7 |
 | FX — secondary/EM (6) | HARQ vs LogHAR | 0/6 | 0/6 | 0/6 |
+| FX — secondary/EM (6) | HARQ vs plain HAR | 0/6 | 2/6 | 0/6 |
 | FX — secondary/EM (6) | LogSHAR vs LogHAR | 2/6 | 3/6 | 1/6 |
 | FX — all (13) | HARQ vs LogHAR | 0/13 | 0/13 | 0/13 |
+| FX — all (13) | HARQ vs plain HAR | 2/13 | 3/13 | 1/13 |
 | FX — all (13) | LogSHAR vs LogHAR | 4/13 | 7/13 | 4/13 |
+
+## D. MCS confidence-level sensitivity (alpha = 0.10 -> 0.25)
+
+Count of instruments where the HAR family **DOMINATES** (in the MCS *and* single-best) at the headline alpha = 0.10 vs the stricter alpha = 0.25 (a smaller, harder-to-enter set). Confirmatory classes only. A robust headline barely moves; a fragile one collapses. Format `a10 -> a25 / n`.
+
+| Asset class | h = 1 | h = 5 | h = 22 |
+|---|---|---|---|
+| Crypto — 22 coins | 19&rarr;19/22 | 19&rarr;19/22 | 18&rarr;18/22 |
+| Futures — rates (FV/TY) | 2&rarr;2/2 | 2&rarr;2/2 | 2&rarr;2/2 |
+| Futures — commodity (8) | 7&rarr;7/8 | 8&rarr;8/8 | 7&rarr;7/8 |
+| Futures — equity-index (ES/NQ) | 2&rarr;2/2 | 2&rarr;2/2 | 2&rarr;2/2 |
+| Futures — fx (EU) | 1&rarr;1/1 | 1&rarr;1/1 | 1&rarr;1/1 |
+| Futures — all (13) | 12&rarr;12/13 | 13&rarr;13/13 | 12&rarr;12/13 |
+| FX — major (7) | 6&rarr;6/7 | 7&rarr;7/7 | 7&rarr;7/7 |
+| FX — secondary/EM (6) | 6&rarr;6/6 | 6&rarr;6/6 | 6&rarr;6/6 |
+| FX — all (13) | 12&rarr;12/13 | 13&rarr;13/13 | 13&rarr;13/13 |
 
 ## C. Model 90% MCS survival (k / n instruments) — h = 1
 

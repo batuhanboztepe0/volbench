@@ -57,7 +57,7 @@ from .economic import (
     var_backtest,
     volatility_targeting,
 )
-from .evaluation import MCSResult, diebold_mariano, model_confidence_set
+from .evaluation import MCSResult, clark_west, diebold_mariano, model_confidence_set
 from .losses import (
     LOSS_FUNCTIONS,
     RANKING_LOSSES,
@@ -158,6 +158,7 @@ __all__ = [
     "RANKING_LOSSES",
     # evaluation
     "diebold_mariano",
+    "clark_west",
     "model_confidence_set",
     "MCSResult",
     # backtest

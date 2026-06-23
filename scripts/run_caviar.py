@@ -66,8 +66,11 @@ def run_caviar() -> dict:
         rv = ds.series(tk)
         close = ds.frame(tk)["close_price"].to_numpy(dtype=float)
         # Only LogHAR (+ HAR benchmark) needed: the forecast feeds Realized-CAViaR.
+        # mcs_reps only sizes the (here unused) 2-model MCS bootstrap — we consume
+        # res.forecasts["LogHAR"], not res.mcs — so it does not affect any VaR/DQ
+        # output; set to the conventional 1000 floor for consistency.
         res = run_backtest(rv, horizon=HORIZON, models=[HAR(), LogHAR()],
-                           benchmark="HAR", mcs_reps=200, seed=SEED)
+                           benchmark="HAR", mcs_reps=1000, seed=SEED)
         ret_next, mask = _next_day_returns(close, res.origins)
         fc_loghar = res.forecasts["LogHAR"][mask]  # variance forecast, aligned
 

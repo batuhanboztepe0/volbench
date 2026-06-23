@@ -43,6 +43,7 @@ from volbench.data import (  # noqa: E402
     CRYPTO_DAYS_PER_YEAR,
     load_realized_panel,
 )
+from volbench.evaluation import diebold_mariano, model_confidence_set  # noqa: E402
 from volbench.models import (  # noqa: E402
     EWMA,
     GBRT,
@@ -58,6 +59,7 @@ HORIZONS: tuple[int, ...] = (1, 5, 22)
 BENCHMARK = "LogHAR"   # H1 reference champion; Q1/Q2 DM are vs this
 Q1_MODEL = "HARQ"      # HARQ transfer
 Q2_MODEL = "LogSHAR"   # semivariance-edge sign-flip
+ALPHA_SENS = 0.25      # secondary MCS level for the transfer-matrix alpha-sensitivity
 DEFAULT_DATA = ROOT / "data" / "crypto_expanded_realized.csv"
 RESULTS_DIR = ROOT / "results"
 TABLES_DIR = ROOT / "results" / "tables"
@@ -109,6 +111,42 @@ def _dm_record(dm: dict[str, dict[str, float]], model: str) -> dict | None:
     }
 
 
+def _dm_pair(res, model: str, ref: str, horizon: int) -> dict | None:
+    """Direct Diebold-Mariano between two suite models on QLIKE (e.g. HARQ vs plain HAR).
+
+    The headline benchmark is LogHAR, so ``dm_vs_har`` only holds DM-vs-LogHAR.
+    This compares ``model`` against an arbitrary other suite member ``ref`` so we
+    can report HARQ vs *plain* HAR (not only vs log-HAR) off-equity, per the
+    reviewer note that the two are distinct hypotheses. ``beats`` is True when
+    ``model`` has the lower loss at p < 0.05. Returns None if either is absent.
+    """
+    losses = res.losses["QLIKE"]
+    if model not in losses or ref not in losses:
+        return None
+    d = diebold_mariano(losses[model], losses[ref], horizon=horizon)
+    return {
+        "mean_diff": float(d["mean_diff"]),   # model - ref (negative ⇒ model better)
+        "p_value": float(d["p_value"]),
+        "favored": int(d["favored"]),         # -1 model, +1 ref, 0 tie
+        "beats": bool(np.isfinite(d["p_value"]) and d["p_value"] < 0.05 and d["favored"] < 0),
+    }
+
+
+def _mcs_at(res, alpha: float, horizon: int, reps: int, seed: int) -> list[str]:
+    """Re-run the QLIKE MCS at a different confidence level (alpha sensitivity).
+
+    Mirrors ``run_backtest``'s block-length flooring (``max(10, h + 2)``) and reuses
+    the same reps/seed, so the only difference from the headline 90% MCS is alpha.
+    Used for the transfer-matrix alpha = 0.25 robustness pass.
+    """
+    block = max(10, horizon + 2)
+    return sorted(
+        model_confidence_set(
+            res.losses["QLIKE"], alpha=alpha, block_length=block, reps=reps, seed=seed
+        ).included
+    )
+
+
 def run_all(data: Path, coins: list[str] | None, mcs_reps: int, seed: int) -> dict:
     present = list(pd.read_csv(data, usecols=["symbol"])["symbol"].unique())
     wanted = [c for c in (coins or present) if c in present]
@@ -145,6 +183,8 @@ def run_all(data: Path, coins: list[str] | None, mcs_reps: int, seed: int) -> di
             mean_q = res.mean_losses["QLIKE"]
             dm = res.dm_vs_har["QLIKE"]
             v, best = _verdict(mcs_inc, mean_q, dm)
+            mcs_inc_25 = set(_mcs_at(res, ALPHA_SENS, h, mcs_reps, seed))
+            v25, _ = _verdict(mcs_inc_25, mean_q, dm)  # alpha=0.25 sensitivity
             qlike_rows[c] = mean_q
             per_coin[c] = {
                 "verdict": v,
@@ -154,7 +194,10 @@ def run_all(data: Path, coins: list[str] | None, mcs_reps: int, seed: int) -> di
                 "loghar_in_mcs": BENCHMARK in mcs_inc,
                 "mcs": sorted(mcs_inc),
                 "q1_harq_vs_loghar": _dm_record(dm, Q1_MODEL),
+                "q1_harq_vs_har": _dm_pair(res, "HARQ", "HAR", h),
                 "q2_logshar_vs_loghar": _dm_record(dm, Q2_MODEL),
+                "mcs_a25": sorted(mcs_inc_25),
+                "verdict_a25": v25,
             }
             q2 = per_coin[c]["q2_logshar_vs_loghar"]
             q2sign = ("LogSHAR better" if q2 and q2["mean_diff"] < 0 else "LogHAR better") if q2 else "n/a"

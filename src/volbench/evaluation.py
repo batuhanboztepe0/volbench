@@ -137,6 +137,94 @@ def diebold_mariano(
     }
 
 
+def clark_west(
+    realized: np.ndarray,
+    forecast_restricted: np.ndarray,
+    forecast_unrestricted: np.ndarray,
+    horizon: int = 1,
+    lag: int | None = None,
+) -> dict[str, float]:
+    """Clark-West (2007) test of equal predictive accuracy for *nested* models.
+
+    The standard Diebold-Mariano test is invalid when one model nests the other
+    (e.g. CrossHAR nests LogHAR by setting the peer coefficients to zero): under
+    the null the larger model estimates parameters that are truly zero, which
+    inflates its MSPE, so the loss differential is biased against it and its
+    asymptotic distribution degenerates. Clark & West (2007, *J. Econometrics*
+    138:291-311) correct the squared-error differential by the squared forecast
+    adjustment,
+
+        f_t = (y - f_r)^2 - [(y - f_u)^2 - (f_r - f_u)^2],
+
+    where ``f_r`` is the restricted (nested) forecast and ``f_u`` the
+    unrestricted one. A *positive* mean favours the unrestricted model. The
+    statistic is the mean of ``f_t`` over its Newey-West standard error and is
+    compared to the standard normal **one-sided** (the alternative is that the
+    larger model improves accuracy). This is an MSPE (squared-error) test, so it
+    speaks to the MSE channel, not QLIKE.
+
+    Parameters
+    ----------
+    realized : np.ndarray
+        Realized target series.
+    forecast_restricted, forecast_unrestricted : np.ndarray
+        Forecasts from the nested (small) and nesting (large) models.
+    horizon : int, default 1
+        Forecast horizon; sets the HAC truncation lag to ``h - 1`` by default.
+    lag : int, optional
+        Override for the HAC truncation lag.
+
+    Returns
+    -------
+    dict[str, float]
+        Keys: ``mean_adj`` (mean adjusted differential), ``cw_stat``,
+        ``p_value`` (one-sided, standard normal), ``favors_unrestricted``
+        (1.0 if ``cw_stat > 0`` else 0.0), ``n``.
+
+    Raises
+    ------
+    ValueError
+        If the inputs differ in length or are too short.
+    """
+    y = np.asarray(realized, dtype=float).ravel()
+    f_r = np.asarray(forecast_restricted, dtype=float).ravel()
+    f_u = np.asarray(forecast_unrestricted, dtype=float).ravel()
+    if not (y.shape == f_r.shape == f_u.shape):
+        raise ValueError(
+            f"realized and forecasts must match in length, got "
+            f"{y.shape}, {f_r.shape}, {f_u.shape}"
+        )
+    n = y.size
+    if n < 8:
+        raise ValueError(f"need at least 8 observations for Clark-West, got {n}")
+
+    e_r = y - f_r
+    e_u = y - f_u
+    f_adj = e_r**2 - (e_u**2 - (f_r - f_u) ** 2)
+    mean_adj = float(f_adj.mean())
+    trunc = (horizon - 1) if lag is None else lag
+    trunc = max(0, int(trunc))
+    lrv = _newey_west_lrv(f_adj, trunc)
+    if lrv <= 0:
+        return {
+            "mean_adj": mean_adj,
+            "cw_stat": float("nan"),
+            "p_value": float("nan"),
+            "favors_unrestricted": 0.0,
+            "n": float(n),
+        }
+
+    cw = mean_adj / np.sqrt(lrv / n)
+    p_value = _standard_normal_sf(cw)  # one-sided upper tail
+    return {
+        "mean_adj": mean_adj,
+        "cw_stat": float(cw),
+        "p_value": float(p_value),
+        "favors_unrestricted": 1.0 if cw > 0 else 0.0,
+        "n": float(n),
+    }
+
+
 def _student_t_sf(x: float, df: int) -> float:
     """Upper-tail probability of a Student-t distribution, ``P(T > x)``.
 
@@ -226,6 +314,13 @@ def _reg_incomplete_beta(x: float, a: float, b: float) -> float:
     if x > (a + 1.0) / (a + b + 2.0):
         return 1.0 - _reg_incomplete_beta(1.0 - x, b, a)
     return min(max(result, 0.0), 1.0)
+
+
+def _standard_normal_sf(x: float) -> float:
+    """Upper-tail probability of the standard normal, ``P(Z > x)``."""
+    from math import erfc, sqrt
+
+    return 0.5 * erfc(x / sqrt(2.0))
 
 
 # ---------------------------------------------------------------------------

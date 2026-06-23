@@ -114,6 +114,9 @@ applied to *models*: where a HAR-family model stays in the 90% Model Confidence 
   90% MCS and single-best across equities (8/8), surviving major crypto (4/4), the
   survivorship-corrected 22-coin universe (18–19/22), US Treasury futures (FV/TY),
   37/39 futures cells, and **38/39 FX cells** (7 majors + 6 EM/secondary pairs).
+  These counts are unchanged at the stricter **α = 0.25** MCS (a smaller,
+  harder-to-enter set) with no per-instrument verdict flips, so the dominance is
+  not an artifact of the 90% level (`results/tables/transfer_matrix_alpha_sensitivity.csv`).
 - **The *primary* pre-specified prediction was FALSIFIED.** The headline bet was
   that **rates futures (FV/TY)** would break HAR around the FOMC/auction calendar.
   They did not. HAR dominates both at every horizon. This is logged as a falsified
@@ -124,10 +127,14 @@ applied to *models*: where a HAR-family model stays in the 90% Model Confidence 
   isolated (no metals gradient) and **partly mechanical** (long-horizon
   estimation-risk immunity of a parameter-light smoother), at a *secondary* horizon.
   It does **not** satisfy the hypothesis's predicted-mechanism clause.
-- **Equity-tuned refinements do not transfer.** **HARQ** never DM-beats log-HAR
-  outside equities (0/22 crypto, 0/13 futures, 0/13 FX); **LogSHAR's** downside-
-  semivariance edge vanishes in crypto (0/22 at h = 1) but *partly* carries to FX
-  (4–7/13). Only the *refinements* fail, not log-HAR itself.
+- **Equity-tuned refinements do not transfer to log-HAR.** **HARQ** never DM-beats
+  log-HAR outside equities (0/22 crypto, 0/13 futures, 0/13 FX). It *does* beat
+  *plain* (un-logged) HAR in a minority of cells (≈2/13 futures, 2/13 FX, 5/22
+  crypto at h = 1), so the quarticity correction carries some value off-equity, but
+  the log transform already captures it; against log-HAR the refinement adds
+  nothing. **LogSHAR's** downside-semivariance edge vanishes in crypto (0/22 at
+  h = 1) but *partly* carries to FX (4–7/13). Only the *refinements* fail, not
+  log-HAR itself.
 
 **Honest verdict.** The confirmatory outcome is **mixed/partial, leaning
 "replication at scale"**, a failure mode the protocol named in advance: one
@@ -161,11 +168,14 @@ measures, the benchmark goes past "HAR vs everything":
   log-HAR**. The downside-semivariance leverage effect carries real predictive
   content. `scripts/run_har_family.py`.
 - **Cross-index spillover.** Adding the other seven indices' lagged realized
-  variance to a target index's HAR (`CrossHAR`) **significantly improves the
-  forecast for all 8 indices** at h = 1 and h = 5 (Diebold-Mariano p < 0.01 in
-  most cells; QLIKE improvements of ≈2–8%, largest for .FTSE and .STOXX50E).
-  Volatility spillover is real and exploitable out of sample.
-  `scripts/run_multivariate.py`.
+  variance to a target index's HAR (`CrossHAR`) lowers QLIKE for all 8 indices
+  (≈2–8% at h = 1, largest for .FTSE and .STOXX50E). Because `CrossHAR` *nests*
+  `LogHAR`, the standard Diebold-Mariano test is not valid for this comparison
+  (Diebold 2015), so significance is judged by the **Clark-West (2007)
+  nested-model test** on the MSE channel: `CrossHAR` significantly improves on
+  `LogHAR` for **7 of 8 indices at h = 1** (all but .SPX) and 4 of 8 at h = 5.
+  Volatility spillover is real and largely exploitable out of sample, strongest
+  at the daily horizon. `scripts/run_multivariate.py`.
 - **Rigorous ML (does ML win on richer features?).** LightGBM, XGBoost and an
   MLP, each fit in log-variance space with **leakage-free expanding-window
   hyperparameter tuning**, on a plain HAR feature set and an enriched one

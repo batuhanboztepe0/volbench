@@ -49,17 +49,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.07111105992533934,
+            "mean_diff": 0.07111105992533949,
             "p_value": 0.12531250216061474,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.06579529999517188,
+            "p_value": 0.15479236470486568,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0009439548767409469,
-            "p_value": 0.11492950184035555,
+            "mean_diff": -0.0009439548767409199,
+            "p_value": 0.11492950184038575,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "EURUSD": {
           "subclass": "major",
@@ -70,17 +80,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.42280444487793417,
+            "mean_diff": 0.4228044448779341,
             "p_value": 0.31483860965518073,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.418866894860338,
+            "p_value": 0.3193180326711307,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0005737740143829909,
-            "p_value": 0.026977958835269343,
+            "mean_diff": -0.0005737740143829817,
+            "p_value": 0.02697795883527853,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "GBPUSD": {
           "subclass": "major",
@@ -96,12 +116,22 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 10.336384963310596,
+            "p_value": 0.31736929923684365,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0004983685857147289,
-            "p_value": 0.2425134900105309,
+            "mean_diff": -0.000498368585714853,
+            "p_value": 0.2425134900103857,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "NZDUSD": {
           "subclass": "major",
@@ -112,17 +142,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.039738447441130684,
+            "mean_diff": 0.03973844744113075,
             "p_value": 0.2312566470332308,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.035643922698499655,
+            "p_value": 0.28183855617395015,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0005639167960857373,
+            "mean_diff": -0.000563916796085686,
             "p_value": 0.1732221647738431,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDCAD": {
           "subclass": "major",
@@ -133,17 +173,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.003849824884935409,
-            "p_value": 2.2524029325767092e-05,
+            "mean_diff": 0.0038498248849352925,
+            "p_value": 2.2524029325777585e-05,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.00043451141053344014,
+            "p_value": 0.025780309056085266,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0009709365325335968,
-            "p_value": 0.0011471590828407183,
+            "mean_diff": -0.0009709365325337334,
+            "p_value": 0.0011471590828386084,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDCHF": {
           "subclass": "major",
@@ -162,12 +212,23 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 2.2136433235467554,
+            "p_value": 0.3250418816493411,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0043836932146363045,
+            "mean_diff": -0.004383693214636016,
             "p_value": 0.16689736219829487,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogSHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "USDJPY": {
           "subclass": "major",
@@ -181,17 +242,30 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.02406220276250845,
+            "mean_diff": 0.024062202762508554,
             "p_value": 8.904984849814763e-05,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.012475770212134677,
+            "p_value": 7.40410365497412e-05,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0011398349603418052,
-            "p_value": 0.15104954514653723,
+            "mean_diff": -0.001139834960341954,
+            "p_value": 0.15104954514645252,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDKRW": {
           "subclass": "secondary_em",
@@ -206,17 +280,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.021131902261875096,
-            "p_value": 1.40244055844948e-07,
+            "mean_diff": 0.021131902261875064,
+            "p_value": 1.402440558450405e-07,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.0023301728116426525,
+            "p_value": 0.0788094185659419,
+            "favored": -1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00025582138696182645,
-            "p_value": 0.46302086419998845,
+            "mean_diff": -0.0002558213869619331,
+            "p_value": 0.4630208641998127,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDNOK": {
           "subclass": "secondary_em",
@@ -235,12 +323,23 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.3317404504364513,
+            "p_value": 0.3193911322803973,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0006075141281138256,
-            "p_value": 0.08055710347394823,
+            "mean_diff": -0.0006075141281137872,
+            "p_value": 0.08055710347397227,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDPLN": {
           "subclass": "secondary_em",
@@ -251,17 +350,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.0036633769233556605,
-            "p_value": 2.725823188863759e-06,
+            "mean_diff": 0.0036633769233555408,
+            "p_value": 2.7258231888655763e-06,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.00012317441731450206,
+            "p_value": 0.8535932483022804,
+            "favored": -1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00012998478665681692,
+            "mean_diff": -0.00012998478665685663,
             "p_value": 0.7170158888938133,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDSEK": {
           "subclass": "secondary_em",
@@ -272,17 +381,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.08534899118489879,
+            "mean_diff": 0.08534899118489891,
             "p_value": 0.29740608625061593,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.08341299679703708,
+            "p_value": 0.3080534303144036,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0004965733366905545,
-            "p_value": 0.03008883617710631,
+            "mean_diff": -0.0004965733366904813,
+            "p_value": 0.03008883617711754,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDSGD": {
           "subclass": "secondary_em",
@@ -295,17 +414,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.0017147797187775503,
-            "p_value": 0.1026413040342875,
+            "mean_diff": 0.0017147797187775829,
+            "p_value": 0.10264130403425964,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.0009095864466809386,
+            "p_value": 0.2883147796997375,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0003605876339736183,
+            "mean_diff": 0.0003605876339736718,
             "p_value": 0.46533968853926844,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "ZARUSD": {
           "subclass": "secondary_em",
@@ -322,17 +451,29 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.07237644124301311,
+            "mean_diff": 0.07237644124301318,
             "p_value": 0.15022446007115164,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.069966629046925,
+            "p_value": 0.16344684900489526,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0014684266676617366,
-            "p_value": 0.01542853792929807,
+            "mean_diff": -0.0014684266676617808,
+            "p_value": 0.015428537929295992,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         }
       },
       "by_subclass": {
@@ -365,17 +506,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.02443689032189805,
+            "mean_diff": 0.02443689032189813,
             "p_value": 0.046608663859030924,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.014365372298715921,
+            "p_value": 0.25333553588629343,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.000626342813341473,
-            "p_value": 0.031894849012669445,
+            "mean_diff": -0.0006263428133414075,
+            "p_value": 0.03189484901270043,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "EURUSD": {
           "subclass": "major",
@@ -387,17 +538,28 @@
             "LogHAR-J"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.07161626731613312,
+            "mean_diff": 0.07161626731613314,
             "p_value": 0.2841084437529392,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.06419020718109852,
+            "p_value": 0.33694929563350884,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0002638206303762015,
-            "p_value": 0.10525138909700116,
+            "mean_diff": -0.000263820630376217,
+            "p_value": 0.10525138909694509,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "GBPUSD": {
           "subclass": "major",
@@ -408,17 +570,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.27485026698629966,
+            "mean_diff": 0.2748502669862997,
             "p_value": 0.24439379755999624,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.2579200411683827,
+            "p_value": 0.27414861795472656,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0006355201034138465,
-            "p_value": 0.025013552249970997,
+            "mean_diff": -0.0006355201034137459,
+            "p_value": 0.025013552249981495,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "NZDUSD": {
           "subclass": "major",
@@ -431,17 +603,28 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.017216236716501843,
+            "mean_diff": 0.01721623671650173,
             "p_value": 0.1461705918839017,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.009959477580910201,
+            "p_value": 0.39646353791820355,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0005130643921584347,
-            "p_value": 0.004186884104905965,
+            "mean_diff": -0.0005130643921584444,
+            "p_value": 0.004186884104904804,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDCAD": {
           "subclass": "major",
@@ -454,17 +637,29 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.003994307748728102,
+            "mean_diff": 0.00399430774872804,
             "p_value": 0.001604949718122957,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.0021342064515556744,
+            "p_value": 2.468584789373741e-08,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.000559335892936551,
+            "mean_diff": -0.0005593358929365438,
             "p_value": 0.003038811500912972,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDCHF": {
           "subclass": "major",
@@ -480,17 +675,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.3920180523671176,
+            "mean_diff": 0.392018052367118,
             "p_value": 0.17118452394741868,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.2763864342379039,
+            "p_value": 0.33592927596129807,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0012789402247430743,
-            "p_value": 0.07010896732146418,
+            "mean_diff": -0.0012789402247429652,
+            "p_value": 0.07010896732145613,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDJPY": {
           "subclass": "major",
@@ -504,17 +709,30 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.08946369736300057,
+            "mean_diff": 0.08946369736300058,
             "p_value": 0.13383545086586057,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.04606950699259738,
+            "p_value": 0.4346957747450827,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00029491408096707063,
-            "p_value": 0.2747259916218189,
+            "mean_diff": -0.00029491408096711123,
+            "p_value": 0.27472599162164857,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDKRW": {
           "subclass": "secondary_em",
@@ -529,17 +747,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.02335635698733442,
-            "p_value": 7.21349684021249e-21,
+            "mean_diff": 0.023356356987334275,
+            "p_value": 7.213496840209311e-21,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.004416461239070696,
+            "p_value": 2.289973225783103e-08,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -4.414380524552021e-05,
-            "p_value": 0.8136772077572892,
+            "mean_diff": -4.414380524572771e-05,
+            "p_value": 0.8136772077558939,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDNOK": {
           "subclass": "secondary_em",
@@ -551,17 +783,28 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.08868482277491313,
+            "mean_diff": 0.08868482277491363,
             "p_value": 0.11217825068468612,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.08362761737086412,
+            "p_value": 0.13303028075324952,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0007159686379732852,
-            "p_value": 0.009390900142760126,
+            "mean_diff": -0.0007159686379732201,
+            "p_value": 0.009390900142765876,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDPLN": {
           "subclass": "secondary_em",
@@ -574,17 +817,29 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.004920126945116737,
+            "mean_diff": 0.004920126945116833,
             "p_value": 0.0016620037574310187,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.004077822803961108,
+            "p_value": 0.0011051418064408549,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0003343454438389094,
+            "mean_diff": -0.00033434544383889467,
             "p_value": 0.11596729746106971,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDSEK": {
           "subclass": "secondary_em",
@@ -595,17 +850,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.027542848581179346,
+            "mean_diff": 0.02754284858117936,
             "p_value": 0.24741849886384437,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.02463014570062703,
+            "p_value": 0.2994790346628231,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0002973404570428071,
+            "mean_diff": -0.0002973404570427878,
             "p_value": 0.048286808413593986,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDSGD": {
           "subclass": "secondary_em",
@@ -623,17 +888,27 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.0009188364532338754,
-            "p_value": 0.3696403295440378,
+            "mean_diff": 0.0009188364532339064,
+            "p_value": 0.3696403295439128,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.0006549651598553114,
+            "p_value": 0.16822595705641352,
+            "favored": -1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0004164720368839016,
-            "p_value": 0.06794300754388032,
+            "mean_diff": -0.0004164720368838613,
+            "p_value": 0.06794300754390899,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "ZARUSD": {
           "subclass": "secondary_em",
@@ -646,17 +921,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.05022478622363708,
+            "mean_diff": 0.05022478622364158,
             "p_value": 0.1229366161780514,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.0448516623146074,
+            "p_value": 0.16798220720804558,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0012571124560388513,
-            "p_value": 0.0015312613345628014,
+            "mean_diff": -0.0012571124560387971,
+            "p_value": 0.0015312613345631542,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         }
       },
       "by_subclass": {
@@ -693,17 +978,28 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.019130421030784633,
+            "mean_diff": 0.019130421030784585,
             "p_value": 0.031631773210876374,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.00611425787813523,
+            "p_value": 0.36500665682218025,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00042348056669038006,
-            "p_value": 0.046401067025677124,
+            "mean_diff": -0.00042348056669037193,
+            "p_value": 0.04640106702564177,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "EURUSD": {
           "subclass": "major",
@@ -724,17 +1020,37 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.043567663536719835,
+            "mean_diff": 0.04356766353671985,
             "p_value": 0.26790243282798876,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.03613635249045396,
+            "p_value": 0.34795936060616794,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00026920511333395914,
+            "mean_diff": -0.0002692051133339827,
             "p_value": 0.06565377055261097,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "GBPUSD": {
           "subclass": "major",
@@ -748,17 +1064,29 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.10604343446309596,
+            "mean_diff": 0.10604343446309587,
             "p_value": 0.17416030556305495,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.08857494854644711,
+            "p_value": 0.24930904579948188,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00039345823711366915,
-            "p_value": 0.2870339651643701,
+            "mean_diff": -0.0003934582371137335,
+            "p_value": 0.2870339651642799,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "NZDUSD": {
           "subclass": "major",
@@ -779,17 +1107,27 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.028455706809609276,
+            "mean_diff": 0.028455706809609235,
             "p_value": 0.10186044690519414,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.019660517916392072,
+            "p_value": 0.24317964728220598,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0003248504404842615,
-            "p_value": 0.01951995161356935,
+            "mean_diff": -0.0003248504404842934,
+            "p_value": 0.019519951613559412,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDCAD": {
           "subclass": "major",
@@ -808,17 +1146,29 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.007939834527205416,
+            "mean_diff": 0.007939834527205446,
             "p_value": 0.36022405518689227,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.0007137578689096699,
+            "p_value": 0.010827072849970983,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0004712639779354948,
-            "p_value": 0.045867665319750374,
+            "mean_diff": -0.00047126397793560416,
+            "p_value": 0.0458676653197788,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDCHF": {
           "subclass": "major",
@@ -834,17 +1184,32 @@
             "MA22"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.17162576472700755,
+            "mean_diff": 0.17162576472700738,
             "p_value": 0.040679154129164674,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.08318097624455287,
+            "p_value": 0.37564997724489435,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00011719216974010431,
-            "p_value": 0.6949086950115253,
+            "mean_diff": -0.00011719216973988197,
+            "p_value": 0.6949086950123206,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "ARFIMA",
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogSHAR",
+            "MA22"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDJPY": {
           "subclass": "major",
@@ -866,17 +1231,30 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.056753577538090974,
+            "mean_diff": 0.05675357753809094,
             "p_value": 0.13058928810698045,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.03027646102976006,
+            "p_value": 0.39265887340389205,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00017765419540814587,
-            "p_value": 0.25919845287179266,
+            "mean_diff": -0.00017765419540814444,
+            "p_value": 0.259198452871635,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDKRW": {
           "subclass": "secondary_em",
@@ -891,17 +1269,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.03353150106965921,
+            "mean_diff": 0.03353150106965915,
             "p_value": 0.0009427067853383139,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.005534894615538981,
+            "p_value": 0.5327038360995756,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 6.17149897439626e-05,
-            "p_value": 0.6304262649435194,
+            "mean_diff": 6.171498974402042e-05,
+            "p_value": 0.630426264943208,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDNOK": {
           "subclass": "secondary_em",
@@ -919,17 +1307,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.027013488895706397,
+            "mean_diff": 0.02701348889570649,
             "p_value": 0.26692238266810875,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.021265773219873326,
+            "p_value": 0.3670967208193675,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00037248478970387794,
+            "mean_diff": -0.00037248478970373493,
             "p_value": 0.03671654596494517,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDPLN": {
           "subclass": "secondary_em",
@@ -942,17 +1340,28 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.020144915278102016,
+            "mean_diff": 0.020144915278102037,
             "p_value": 0.14194072024308957,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.0035592989641987306,
+            "p_value": 0.7404922034026358,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00027010725133883495,
-            "p_value": 0.12358953446571552,
+            "mean_diff": -0.0002701072513387773,
+            "p_value": 0.123589534465816,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDSEK": {
           "subclass": "secondary_em",
@@ -973,17 +1382,27 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.02849827229759195,
+            "mean_diff": 0.028498272297591925,
             "p_value": 0.12752270980630676,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.024494029766010214,
+            "p_value": 0.17893936062958793,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0001854954975346256,
-            "p_value": 0.07865538419501363,
+            "mean_diff": -0.00018549549753457196,
+            "p_value": 0.07865538419500301,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "USDSGD": {
           "subclass": "secondary_em",
@@ -1003,17 +1422,36 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.002996304606893419,
+            "mean_diff": 0.002996304606893638,
             "p_value": 0.19652687086071374,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.00032331398422533447,
+            "p_value": 0.7983521836858876,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00010877489188707736,
-            "p_value": 0.12843433535971216,
+            "mean_diff": -0.00010877489188712669,
+            "p_value": 0.12843433535960747,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ZARUSD": {
           "subclass": "secondary_em",
@@ -1034,17 +1472,29 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.038090842831041055,
+            "mean_diff": 0.03809084283104104,
             "p_value": 0.09496316658295345,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.03152909382785129,
+            "p_value": 0.162888906066039,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00038412253860502845,
-            "p_value": 0.06774882145271346,
+            "mean_diff": -0.0003841225386050573,
+            "p_value": 0.06774882145265454,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         }
       },
       "by_subclass": {

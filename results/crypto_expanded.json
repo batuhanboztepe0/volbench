@@ -45,17 +45,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.6903826697704826,
+            "mean_diff": 0.6903826697704833,
             "p_value": 0.23044197203081984,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.6151478649179655,
+            "p_value": 0.28517425228258453,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0008757446128500274,
+            "mean_diff": 0.0008757446128500813,
             "p_value": 0.398157793491006,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "ALGO": {
           "verdict": "dominates",
@@ -73,17 +83,33 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.12961990023904846,
+            "mean_diff": 0.1296199002390483,
             "p_value": 0.08000225714384605,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.03490049081778732,
+            "p_value": 0.6334567640292433,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0012434140213557624,
-            "p_value": 0.4263738556326492,
+            "mean_diff": 0.0012434140213554812,
+            "p_value": 0.4263738556327171,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "GBRT",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ATOM": {
           "verdict": "dominates",
@@ -100,17 +126,28 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.5168407946703969,
+            "mean_diff": 0.5168407946703971,
             "p_value": 0.268345598172827,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.40468244042391843,
+            "p_value": 0.38591067941136314,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00030072219333547297,
+            "mean_diff": 0.00030072219333553726,
             "p_value": 0.7983179378734016,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "AVAX": {
           "verdict": "dominates",
@@ -128,17 +165,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.04206257331635011,
-            "p_value": 0.016597116424738226,
+            "mean_diff": 0.04206257331634983,
+            "p_value": 0.01659711642474033,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.03849457366671072,
+            "p_value": 5.941582294865217e-12,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 5.271168757443404e-05,
+            "mean_diff": 5.271168757404872e-05,
             "p_value": 0.9656436677108944,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BCH": {
           "verdict": "dominates",
@@ -154,17 +205,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 1.4573623896244807,
+            "mean_diff": 1.45736238962448,
             "p_value": 0.3116305409075778,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.3790542577838385,
+            "p_value": 0.33831922884813803,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.003115535231457059,
+            "mean_diff": 0.003115535231457093,
             "p_value": 0.2797988897261261,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BNB": {
           "verdict": "dominates",
@@ -180,17 +245,29 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 1.1530137565863754,
-            "p_value": 9.32509376927323e-14,
+            "mean_diff": 1.153013756586381,
+            "p_value": 9.325093769272236e-14,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.035955643474037,
+            "p_value": 2.1710599998660193e-11,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0012558195932544313,
+            "mean_diff": 0.0012558195932544812,
             "p_value": 0.4028750654991943,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BTC": {
           "verdict": "dominates",
@@ -203,17 +280,28 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.35513662571991095,
-            "p_value": 9.877476191007251e-05,
+            "mean_diff": 0.35513662571991195,
+            "p_value": 9.877476191005974e-05,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.2988016696903483,
+            "p_value": 0.0007528603765790529,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0005876099947177417,
-            "p_value": 0.49956816280293315,
+            "mean_diff": 0.0005876099947176556,
+            "p_value": 0.49956816280302896,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "DOGE": {
           "verdict": "dominates",
@@ -229,17 +317,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 6.054869348880814,
+            "mean_diff": 6.054869348880811,
             "p_value": 0.0076088607536481225,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.0378215201617569,
+            "p_value": 0.825127359499164,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.001939367595351842,
+            "mean_diff": 0.00193936759535152,
             "p_value": 0.5548779205637699,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "DOT": {
           "verdict": "dominates",
@@ -256,17 +358,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.09992110627271521,
-            "p_value": 2.863040987327195e-07,
+            "mean_diff": 0.09992110627271544,
+            "p_value": 2.863040987326978e-07,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.049974987969293574,
+            "p_value": 5.9652870066629326e-36,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.000554024908719252,
+            "mean_diff": 0.000554024908719426,
             "p_value": 0.7628456318269443,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "ETC": {
           "verdict": "dominates",
@@ -290,12 +402,26 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.4175685292442515,
+            "p_value": 0.2621557229923095,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0017899455916775572,
+            "mean_diff": 0.0017899455916775837,
             "p_value": 0.4704586981664213,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ETH": {
           "verdict": "dominates",
@@ -317,12 +443,26 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.1179725184482396,
+            "p_value": 0.33510330613332484,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00023249598348913406,
+            "mean_diff": 0.00023249598348920445,
             "p_value": 0.7636229254182282,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "FIL": {
           "verdict": "dominates",
@@ -339,17 +479,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.012831380879898815,
+            "mean_diff": 0.012831380879899202,
             "p_value": 0.7380563539541726,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.01744270762736767,
+            "p_value": 0.0008042197468312395,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00660158945829744,
+            "mean_diff": 0.0066015894582979115,
             "p_value": 0.15173179563089934,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "FTT": {
           "verdict": "competitive",
@@ -370,12 +524,26 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 73.85216584469373,
+            "p_value": 0.318438115744054,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0016589344842687093,
-            "p_value": 0.20769223780446955,
+            "mean_diff": 0.0016589344842651878,
+            "p_value": 0.2076922378055015,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-J",
+            "LogSHAR",
+            "RW"
+          ],
+          "verdict_a25": "competitive"
         },
         "LINK": {
           "verdict": "dominates",
@@ -392,17 +560,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.011399799153952277,
-            "p_value": 0.1534701465711804,
+            "mean_diff": 0.011399799153952422,
+            "p_value": 0.15347014657116043,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.0502970182257845,
+            "p_value": 2.6947723802866166e-17,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0004966827443405096,
+            "mean_diff": 0.0004966827443403695,
             "p_value": 0.7256954068438808,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "LTC": {
           "verdict": "dominates",
@@ -415,17 +593,28 @@
             "LogHAR-J"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 1.1010298110777474,
+            "mean_diff": 1.1010298110777472,
             "p_value": 0.3045982208750423,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.0305382436981856,
+            "p_value": 0.336588427659793,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.001351702681515129,
+            "mean_diff": 0.0013517026815152954,
             "p_value": 0.5576381815736386,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "dominates"
         },
         "LUNA": {
           "verdict": "competitive",
@@ -451,17 +640,41 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": -0.1934353951223706,
-            "p_value": 0.17671822180358498,
+            "mean_diff": -0.1934353951223708,
+            "p_value": 0.17671822180358598,
             "favored": -1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.03328910669426131,
+            "p_value": 0.25575382773350963,
+            "favored": -1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.03230229358158867,
-            "p_value": 0.09503357588260986,
+            "mean_diff": -0.03230229358158785,
+            "p_value": 0.09503357588261341,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "HistMean",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "RW",
+            "SHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "MATIC": {
           "verdict": "dominates",
@@ -483,12 +696,27 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.9487724111318302,
+            "p_value": 0.3881079817113635,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0034846071837892722,
-            "p_value": 0.20973818180802672,
+            "mean_diff": 0.003484607183789247,
+            "p_value": 0.20973818180805015,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "SOL": {
           "verdict": "dominates",
@@ -504,17 +732,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.0232251096402604,
-            "p_value": 0.0007364366208284689,
+            "mean_diff": 0.023225109640260155,
+            "p_value": 0.0007364366208285699,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.04373530181119901,
+            "p_value": 1.6737715633135054e-07,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0012841167045688634,
-            "p_value": 0.1617569652513834,
+            "mean_diff": 0.0012841167045687042,
+            "p_value": 0.16175696525142857,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "TRX": {
           "verdict": "dominates",
@@ -531,17 +773,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.5254098319517756,
+            "mean_diff": 0.5254098319517755,
             "p_value": 0.15237425544371663,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.23284018478284418,
+            "p_value": 0.5256137923458001,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0015272752396084078,
-            "p_value": 0.337106448560354,
+            "mean_diff": -0.001527275239608541,
+            "p_value": 0.33710644856030025,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "VET": {
           "verdict": "dominates",
@@ -554,17 +810,27 @@
             "LogHAR-J"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.6987647496823414,
+            "mean_diff": 0.6987647496823415,
             "p_value": 0.2559026217753604,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.5544309788883032,
+            "p_value": 0.3672496611399586,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 7.650435490771674e-05,
+            "mean_diff": 7.650435490784844e-05,
             "p_value": 0.9070229955327355,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "XLM": {
           "verdict": "dominates",
@@ -584,12 +850,25 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.7294411844420134,
+            "p_value": 0.32845472042769797,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0001691327335146393,
+            "mean_diff": -0.00016913273351449261,
             "p_value": 0.9098821224323934,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "XRP": {
           "verdict": "competitive",
@@ -610,17 +889,36 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 3.667219306650564,
+            "mean_diff": 3.6672193066505634,
             "p_value": 0.14854180212031654,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 3.6633766372662717,
+            "p_value": 0.1489190462574136,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0041110892017017855,
+            "mean_diff": 0.004111089201701661,
             "p_value": 0.3147904389508127,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "verdict_a25": "competitive"
         }
       },
       "verdict_counts": {
@@ -654,12 +952,22 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.3338397437481165,
+            "p_value": 0.34776772413300894,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0010144326308072498,
-            "p_value": 0.15602338277116456,
+            "mean_diff": -0.0010144326308072855,
+            "p_value": 0.15602338277114358,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "ALGO": {
           "verdict": "dominates",
@@ -675,17 +983,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.09305601352938243,
+            "mean_diff": 0.09305601352938245,
             "p_value": 1.6585603937936487e-05,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 2.8044911334824724e-05,
+            "p_value": 0.9987549051735564,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00011999093325721721,
+            "mean_diff": 0.00011999093325720305,
             "p_value": 0.8380241325308941,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ATOM": {
           "verdict": "dominates",
@@ -700,17 +1022,30 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.43856221605854956,
+            "mean_diff": 0.4385622160585496,
             "p_value": 0.2236073982080513,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.3340798891140531,
+            "p_value": 0.35123912324222395,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00025776156220305566,
+            "mean_diff": -0.0002577615622030386,
             "p_value": 0.5002442052979341,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "AVAX": {
           "verdict": "dominates",
@@ -728,17 +1063,32 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.05758271448416592,
+            "mean_diff": 0.05758271448416583,
             "p_value": 0.0018131339959787348,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.025068964598664326,
+            "p_value": 1.1957335190078539e-17,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0003277274618485642,
+            "mean_diff": 0.0003277274618485778,
             "p_value": 0.6236066686582724,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BCH": {
           "verdict": "dominates",
@@ -763,12 +1113,26 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.6102914203287384,
+            "p_value": 0.33181176855879524,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00019746715607587854,
+            "mean_diff": 0.0001974671560760802,
             "p_value": 0.9048046314635197,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BNB": {
           "verdict": "dominates",
@@ -784,17 +1148,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.08107525847416568,
-            "p_value": 1.0962778310985874e-08,
+            "mean_diff": 0.08107525847416518,
+            "p_value": 1.0962778310983598e-08,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.04829549824552461,
+            "p_value": 2.1245262297334904e-10,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00012137001258716101,
-            "p_value": 0.7770296963528409,
+            "mean_diff": 0.00012137001258700198,
+            "p_value": 0.7770296963531163,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BTC": {
           "verdict": "dominates",
@@ -811,17 +1189,32 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.03368709674499369,
+            "mean_diff": 0.03368709674499384,
             "p_value": 0.12274335079058685,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.027570475574657145,
+            "p_value": 9.36483991497908e-10,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0010293569821493642,
-            "p_value": 0.15387923724510744,
+            "mean_diff": 0.0010293569821495767,
+            "p_value": 0.1538792372450446,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "GBRT",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "DOGE": {
           "verdict": "competitive",
@@ -836,17 +1229,28 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.05162609624353902,
+            "mean_diff": 0.05162609624353894,
             "p_value": 0.22014223531985833,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.9763262612847387,
+            "p_value": 0.2940329019512129,
+            "favored": -1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0008971260551506691,
-            "p_value": 0.6782020882482355,
+            "mean_diff": 0.0008971260551502053,
+            "p_value": 0.6782020882483968,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "LogHAR-J"
+          ],
+          "verdict_a25": "competitive"
         },
         "DOT": {
           "verdict": "dominates",
@@ -858,17 +1262,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.11990389238408854,
+            "mean_diff": 0.11990389238408866,
             "p_value": 6.946437570578396e-10,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.020536684803464007,
+            "p_value": 1.6755762800653437e-30,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0032231827042863747,
-            "p_value": 0.002474419903299756,
+            "mean_diff": -0.0032231827042862975,
+            "p_value": 0.0024744199033003003,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "ETC": {
           "verdict": "dominates",
@@ -890,17 +1304,37 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.6847049495280283,
+            "mean_diff": 0.6847049495280284,
             "p_value": 0.2561097126644837,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.643435406979317,
+            "p_value": 0.28693387791066727,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0016086905638351974,
+            "mean_diff": -0.00160869056383523,
             "p_value": 0.2649879026430131,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ETH": {
           "verdict": "dominates",
@@ -916,17 +1350,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.6648183904177752,
+            "mean_diff": 0.6648183904177755,
             "p_value": 0.28462562020381876,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.5979546689368225,
+            "p_value": 0.33412143207947054,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0010267642655252662,
+            "mean_diff": 0.001026764265525264,
             "p_value": 0.2939072231689991,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "FIL": {
           "verdict": "dominates",
@@ -944,17 +1392,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.031918560439368845,
+            "mean_diff": 0.03191856043936899,
             "p_value": 0.05622926096103166,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.008796015835353851,
+            "p_value": 2.517644576088172e-13,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0005275141981348615,
+            "mean_diff": 0.0005275141981349661,
             "p_value": 0.7425419778020922,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "FTT": {
           "verdict": "competitive",
@@ -980,17 +1442,41 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 32.194079754330055,
+            "mean_diff": 32.19407975433004,
             "p_value": 0.3005401312907269,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 32.380188544326934,
+            "p_value": 0.29809561808732243,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.004771820126125557,
-            "p_value": 0.3411848654159465,
+            "mean_diff": 0.00477182012611659,
+            "p_value": 0.3411848654161894,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "HistMean",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "RW",
+            "SHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "LINK": {
           "verdict": "dominates",
@@ -1005,17 +1491,30 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.04758277362042105,
+            "mean_diff": 0.04758277362042097,
             "p_value": 1.8877331238416502e-06,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.023464428817127493,
+            "p_value": 1.3678925355869193e-18,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0006856056763974337,
+            "mean_diff": -0.0006856056763974433,
             "p_value": 0.5020227400372446,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "LTC": {
           "verdict": "dominates",
@@ -1037,17 +1536,32 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.5665876011960298,
+            "mean_diff": 0.56658760119603,
             "p_value": 0.30373458008903,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.5236381373145336,
+            "p_value": 0.34013253192401294,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0016035998731399935,
+            "mean_diff": 0.0016035998731400596,
             "p_value": 0.5273895123410619,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "LUNA": {
           "verdict": "competitive",
@@ -1073,17 +1587,41 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": -0.8323487106060878,
+            "mean_diff": -0.8323487106060725,
             "p_value": 0.3095611685257309,
             "favored": -1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.08092833943550792,
+            "p_value": 0.32687855981614344,
+            "favored": -1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.16851138471157215,
+            "mean_diff": -0.16851138471153873,
             "p_value": 0.30785955421108535,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "HistMean",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "RW",
+            "SHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "MATIC": {
           "verdict": "dominates",
@@ -1099,17 +1637,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.6195111681679158,
+            "mean_diff": 0.6195111681679157,
             "p_value": 0.21977147040951206,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.43119173212346057,
+            "p_value": 0.3910345901314678,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0007230242933516535,
+            "mean_diff": -0.0007230242933517577,
             "p_value": 0.46070212439221514,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "SOL": {
           "verdict": "dominates",
@@ -1126,17 +1678,32 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.04831970359256857,
+            "mean_diff": 0.048319703592568604,
             "p_value": 0.0009327421571884688,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.02823524569462618,
+            "p_value": 5.241673370776481e-21,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0007901987949271196,
-            "p_value": 0.3219931610484138,
+            "mean_diff": 0.0007901987949272372,
+            "p_value": 0.3219931610483794,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "TRX": {
           "verdict": "dominates",
@@ -1152,17 +1719,29 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.419965912575802,
+            "mean_diff": 0.4199659125758019,
             "p_value": 0.029446204321099227,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.1280173648247986,
+            "p_value": 0.5015633089738343,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0027907867966578126,
+            "mean_diff": -0.0027907867966577102,
             "p_value": 0.01418620687377135,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "VET": {
           "verdict": "dominates",
@@ -1183,12 +1762,22 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.3677368546660629,
+            "p_value": 0.34473980259639425,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0005284230798746407,
-            "p_value": 0.32594414317212694,
+            "mean_diff": -0.0005284230798747254,
+            "p_value": 0.3259441431720761,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "XLM": {
           "verdict": "dominates",
@@ -1200,17 +1789,27 @@
             "LogHAR-CJ"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.48854755964850355,
+            "mean_diff": 0.48854755964850344,
             "p_value": 0.28495051915432035,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.4328535344146974,
+            "p_value": 0.34213236716842466,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0017342194935427294,
-            "p_value": 0.01787483606982446,
+            "mean_diff": -0.0017342194935428476,
+            "p_value": 0.017874836069822823,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "XRP": {
           "verdict": "dominates",
@@ -1237,12 +1836,31 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.9253440955269275,
+            "p_value": 0.20542620797685796,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00038880788440979564,
+            "mean_diff": 0.0003888078844096891,
             "p_value": 0.864802901893323,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "verdict_a25": "dominates"
         }
       },
       "verdict_counts": {
@@ -1270,17 +1888,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.1094337236409636,
+            "mean_diff": 0.10943372364096346,
             "p_value": 0.13541490703722925,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.059316788349354416,
+            "p_value": 0.3964500767106611,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0013088123597364584,
-            "p_value": 0.008453113749182535,
+            "mean_diff": -0.001308812359736582,
+            "p_value": 0.008453113749177598,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "ALGO": {
           "verdict": "dominates",
@@ -1298,17 +1926,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.06716427705119811,
+            "mean_diff": 0.06716427705119826,
             "p_value": 0.0011637657964149702,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.010298691522256641,
+            "p_value": 0.5378400166923587,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0004369404707633105,
-            "p_value": 0.49615365291207814,
+            "mean_diff": -0.0004369404707631537,
+            "p_value": 0.4961536529121625,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ATOM": {
           "verdict": "dominates",
@@ -1330,12 +1972,23 @@
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.04695447891891038,
+            "p_value": 0.44051331590903886,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0010716931992064019,
+            "mean_diff": -0.0010716931992063763,
             "p_value": 0.10878433867767934,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "AVAX": {
           "verdict": "dominates",
@@ -1350,17 +2003,30 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.05042136941688055,
+            "mean_diff": 0.050421369416880545,
             "p_value": 0.021678019775991524,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.015259703484740816,
+            "p_value": 1.306689929953554e-07,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.00030865561618241577,
+            "mean_diff": 0.0003086556161823788,
             "p_value": 0.8086741149623924,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BCH": {
           "verdict": "dominates",
@@ -1384,17 +2050,30 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.17258525676637596,
+            "mean_diff": 0.17258525676637598,
             "p_value": 0.24179257204170002,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.12738291885137493,
+            "p_value": 0.3590980088804301,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00040718693323195555,
+            "mean_diff": -0.0004071869332319046,
             "p_value": 0.7417085452586372,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "LogHAR",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BNB": {
           "verdict": "dominates",
@@ -1411,17 +2090,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.16540308116897356,
-            "p_value": 0.019996603319193746,
+            "mean_diff": 0.165403081168986,
+            "p_value": 0.019996603319201684,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.04108101479272503,
+            "p_value": 0.5317100341687373,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0010324208595358939,
-            "p_value": 0.5271723143510435,
+            "mean_diff": -0.0010324208595357293,
+            "p_value": 0.5271723143512514,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "BTC": {
           "verdict": "dominates",
@@ -1438,17 +2131,32 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.0553061359972769,
-            "p_value": 5.73569072185165e-07,
+            "mean_diff": 0.055306135997276955,
+            "p_value": 5.735690721851078e-07,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.010071595951471576,
+            "p_value": 0.0001941754034808533,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00024671613876864584,
+            "mean_diff": -0.0002467161387686386,
             "p_value": 0.5160756354964529,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "DOGE": {
           "verdict": "competitive",
@@ -1471,17 +2179,35 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 1.548042637108952,
+            "mean_diff": 1.5480426371089526,
             "p_value": 0.28988295594553326,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 1.4397473541268297,
+            "p_value": 0.3211838063088426,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00039294873547511197,
+            "mean_diff": -0.0003929487354748103,
             "p_value": 0.8502409413351799,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "HAR-CJ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "SHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "DOT": {
           "verdict": "dominates",
@@ -1498,17 +2224,32 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.1181171304557905,
+            "mean_diff": 0.1181171304557906,
             "p_value": 5.163044196783062e-05,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.012763408271244813,
+            "p_value": 2.4176595010201295e-11,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.003059490993223271,
+            "mean_diff": -0.003059490993223311,
             "p_value": 0.05877540386596183,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ETC": {
           "verdict": "dominates",
@@ -1524,17 +2265,31 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.1706624863655588,
+            "mean_diff": 0.17066248636555895,
             "p_value": 0.25422193010303984,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.12871750644208363,
+            "p_value": 0.37612145432376975,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0037152126913685603,
+            "mean_diff": -0.0037152126913683886,
             "p_value": 0.1501881522137144,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "ETH": {
           "verdict": "dominates",
@@ -1551,17 +2306,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.201178609981753,
+            "mean_diff": 0.20117860998175305,
             "p_value": 0.1453217031121784,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.12453101143897816,
+            "p_value": 0.35503982122883326,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0015746910507866401,
-            "p_value": 0.12978739787508764,
+            "mean_diff": -0.0015746910507866444,
+            "p_value": 0.1297873978751044,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "FIL": {
           "verdict": "dominates",
@@ -1574,17 +2339,28 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.012754244449712026,
+            "mean_diff": 0.012754244449712043,
             "p_value": 0.0925931234105919,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.0024335485783990637,
+            "p_value": 0.0008853013622592068,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0009772155241044318,
+            "mean_diff": -0.0009772155241043806,
             "p_value": 0.3505858061864253,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "FTT": {
           "verdict": "competitive",
@@ -1610,17 +2386,41 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": -0.4107193995744929,
+            "mean_diff": -0.4107193995744936,
             "p_value": 0.35386438982555923,
             "favored": -1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.014150011670386679,
+            "p_value": 0.4434164603238684,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0027167480381680665,
-            "p_value": 0.32249461142417735,
+            "mean_diff": 0.0027167480381669862,
+            "p_value": 0.32249461142421953,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "HistMean",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "RW",
+            "SHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "LINK": {
           "verdict": "dominates",
@@ -1637,17 +2437,32 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.04952119151366945,
+            "mean_diff": 0.04952119151366948,
             "p_value": 1.5869426314759156e-05,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.010900769772171255,
+            "p_value": 1.7941072906605732e-08,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.001040192700266289,
+            "mean_diff": -0.0010401927002662644,
             "p_value": 0.1606174676469153,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "LTC": {
           "verdict": "dominates",
@@ -1661,17 +2476,29 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.14086832206599206,
+            "mean_diff": 0.1408683220659922,
             "p_value": 0.2301297547402512,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.10004134475160957,
+            "p_value": 0.38126867404446974,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.001908732587601955,
-            "p_value": 0.04820585008799999,
+            "mean_diff": -0.0019087325876017715,
+            "p_value": 0.04820585008802975,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "LUNA": {
           "verdict": "competitive",
@@ -1697,17 +2524,40 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": -0.31080825612407303,
+            "mean_diff": -0.3108082561240675,
             "p_value": 0.43574665486106645,
             "favored": -1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.003586503897111138,
+            "p_value": 0.4317602284850698,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.002790221963546902,
-            "p_value": 0.574681276365396,
+            "mean_diff": -0.0027902219635402782,
+            "p_value": 0.5746812763657179,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "HistMean",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "MA22",
+            "SHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "MATIC": {
           "verdict": "dominates",
@@ -1724,17 +2574,32 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.2705886847124313,
+            "mean_diff": 0.2705886847124314,
             "p_value": 0.030117643625817644,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.08210994593404769,
+            "p_value": 0.4911201703794895,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.001575832856969719,
-            "p_value": 0.2662493572064851,
+            "mean_diff": -0.0015758328569696223,
+            "p_value": 0.2662493572065472,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "EWMA",
+            "GBRT",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "SOL": {
           "verdict": "competitive",
@@ -1752,17 +2617,33 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.023164358412831702,
+            "mean_diff": 0.023164358412831737,
             "p_value": 0.25547590360219274,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": -0.008655703501144725,
+            "p_value": 1.5211825884036488e-06,
+            "favored": -1,
+            "beats": true
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": 0.0003502223726074384,
-            "p_value": 0.16210739075575042,
+            "mean_diff": 0.0003502223726074722,
+            "p_value": 0.16210739075570624,
             "favored": 1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "GBRT",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "competitive"
         },
         "TRX": {
           "verdict": "dominates",
@@ -1780,17 +2661,28 @@
             "MA22"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.2753572751472213,
+            "mean_diff": 0.27535727514722125,
             "p_value": 4.892184133404663e-07,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.011059035922938611,
+            "p_value": 0.7750247165623022,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0016767319518511477,
-            "p_value": 0.030567345354865997,
+            "mean_diff": -0.0016767319518512,
+            "p_value": 0.030567345354858316,
             "favored": -1,
             "beats_loghar": true
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-J",
+            "LogSHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "VET": {
           "verdict": "dominates",
@@ -1807,17 +2699,27 @@
             "LogSHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.16338787036007119,
+            "mean_diff": 0.16338787036007116,
             "p_value": 0.10426722093335117,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.08698415049534512,
+            "p_value": 0.36849983422547694,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.00048166223698521297,
-            "p_value": 0.11074165758104626,
+            "mean_diff": -0.00048166223698507474,
+            "p_value": 0.11074165758115928,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "LogHAR-CJ"
+          ],
+          "verdict_a25": "dominates"
         },
         "XLM": {
           "verdict": "dominates",
@@ -1839,17 +2741,37 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.12335435876624917,
+            "mean_diff": 0.12335435876624933,
             "p_value": 0.26289510750531175,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.09086797917831341,
+            "p_value": 0.3894092938248964,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0011197884796074063,
-            "p_value": 0.24244161281783583,
+            "mean_diff": -0.001119788479607272,
+            "p_value": 0.2424416128178708,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-J",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "verdict_a25": "dominates"
         },
         "XRP": {
           "verdict": "dominates",
@@ -1872,17 +2794,38 @@
             "SHAR"
           ],
           "q1_harq_vs_loghar": {
-            "mean_diff": 0.3133585650780895,
+            "mean_diff": 0.3133585650780893,
             "p_value": 0.17170784750190538,
             "favored": 1,
             "beats_loghar": false
           },
+          "q1_harq_vs_har": {
+            "mean_diff": 0.31685547084374466,
+            "p_value": 0.1712908368480116,
+            "favored": 1,
+            "beats": false
+          },
           "q2_logshar_vs_loghar": {
-            "mean_diff": -0.0015929733377661468,
-            "p_value": 0.2722031159812681,
+            "mean_diff": -0.0015929733377663343,
+            "p_value": 0.2722031159812278,
             "favored": -1,
             "beats_loghar": false
-          }
+          },
+          "mcs_a25": [
+            "AR1Log",
+            "EWMA",
+            "GBRT",
+            "HAR",
+            "HAR-CJ",
+            "HAR-J",
+            "HARQ",
+            "LogHAR",
+            "LogHAR-CJ",
+            "LogHAR-J",
+            "LogSHAR",
+            "SHAR"
+          ],
+          "verdict_a25": "dominates"
         }
       },
       "verdict_counts": {

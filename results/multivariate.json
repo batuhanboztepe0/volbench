@@ -20,12 +20,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.003605861259549192,
-          "dm_stat": -2.947943788928396,
-          "p_value": 0.0032160351466763225,
+          "dm_stat": -2.9472635203629918,
+          "p_value": 0.0032231047465200936,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 4.729695168600469e-10,
+          "cw_stat": 1.0407233131160216,
+          "p_value": 0.14900199005689876,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": false
       },
       {
         "target": ".DJI",
@@ -42,12 +50,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.00936595627418498,
-          "dm_stat": -4.509476056487051,
-          "p_value": 6.670582563573521e-06,
+          "dm_stat": -4.508435448175863,
+          "p_value": 6.703223429541514e-06,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 1.1887220846387259e-09,
+          "cw_stat": 2.1083037212978497,
+          "p_value": 0.01750236313852184,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".FTSE",
@@ -64,12 +80,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.017658252371763047,
-          "dm_stat": -4.787604503996847,
-          "p_value": 1.7441335630696279e-06,
+          "dm_stat": -4.7864997146654185,
+          "p_value": 1.7537065433101006e-06,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 4.170125135631384e-09,
+          "cw_stat": 2.93734019005087,
+          "p_value": 0.0016552037095097776,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".GDAXI",
@@ -86,12 +110,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.004660653896296085,
-          "dm_stat": -3.387249570758904,
-          "p_value": 0.0007122632771682391,
+          "dm_stat": -3.386467927833818,
+          "p_value": 0.0007142899612493976,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 2.738675311616112e-09,
+          "cw_stat": 2.4822182014772505,
+          "p_value": 0.006528364754669498,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".FCHI",
@@ -108,12 +140,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.005035136981250131,
-          "dm_stat": -4.428907099617898,
-          "p_value": 9.704690156715864e-06,
+          "dm_stat": -4.427885083428078,
+          "p_value": 9.750567098699954e-06,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 1.7229517481180908e-09,
+          "cw_stat": 2.210597727854604,
+          "p_value": 0.013531853123512082,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".STOXX50E",
@@ -130,12 +170,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.011387599092746297,
-          "dm_stat": -5.411085910748739,
-          "p_value": 6.602541455777393e-08,
+          "dm_stat": -5.409837246624406,
+          "p_value": 6.648430394198536e-08,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 6.9891201534097055e-09,
+          "cw_stat": 3.5753516174843725,
+          "p_value": 0.00017487875195280116,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".N225",
@@ -152,12 +200,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.009397346736799218,
-          "dm_stat": -4.361753426806614,
-          "p_value": 1.3202324030471266e-05,
+          "dm_stat": -4.360746907022403,
+          "p_value": 1.3262938657063014e-05,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 1.5656685561270699e-09,
+          "cw_stat": 3.0584870020273685,
+          "p_value": 0.0011122886470133397,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".HSI",
@@ -174,12 +230,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.005246687315731994,
-          "dm_stat": -2.9574697146275954,
-          "p_value": 0.003118512042019461,
+          "dm_stat": -2.956787247856162,
+          "p_value": 0.0031254081643092343,
           "favored": -1.0,
           "n": 4333.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 5.295256984386521e-10,
+          "cw_stat": 2.2888818348033206,
+          "p_value": 0.011043109485855556,
+          "favors_unrestricted": 1.0,
+          "n": 4333.0
+        },
+        "crosshar_improves_cw": true
       }
     ],
     "5": [
@@ -198,12 +262,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.004649171160141032,
-          "dm_stat": -2.626166302178155,
-          "p_value": 0.00866567594844851,
+          "dm_stat": -2.6255591662777333,
+          "p_value": 0.008681120765477264,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 2.929899285455282e-10,
+          "cw_stat": 0.6414480277347272,
+          "p_value": 0.260615818723319,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": false
       },
       {
         "target": ".DJI",
@@ -220,12 +292,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.005352693736558952,
-          "dm_stat": -2.153214842642187,
-          "p_value": 0.03135687852901555,
+          "dm_stat": -2.152717047041351,
+          "p_value": 0.03139602907166221,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 5.839055117702843e-10,
+          "cw_stat": 0.9276652315612504,
+          "p_value": 0.17679062450604624,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": false
       },
       {
         "target": ".FTSE",
@@ -243,12 +323,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.006378452359432354,
-          "dm_stat": -1.7409540541914357,
-          "p_value": 0.08176269322005014,
+          "dm_stat": -1.7405515679869608,
+          "p_value": 0.08183328274378622,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 1.805804066554779e-09,
+          "cw_stat": 1.8665431703215913,
+          "p_value": 0.030982705029860183,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".GDAXI",
@@ -265,12 +353,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.002972747718848208,
-          "dm_stat": -1.8010005140032952,
-          "p_value": 0.07177238325601647,
+          "dm_stat": -1.8005841458289638,
+          "p_value": 0.07183804568742957,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 1.1502982396584444e-09,
+          "cw_stat": 1.1752619389021615,
+          "p_value": 0.11994496839066458,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": false
       },
       {
         "target": ".FCHI",
@@ -288,12 +384,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.0020443665967372127,
-          "dm_stat": -1.6724388674472623,
-          "p_value": 0.09451009196019322,
+          "dm_stat": -1.6720522210734798,
+          "p_value": 0.09458630917708133,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 4.130740021916639e-10,
+          "cw_stat": 0.7038963842187648,
+          "p_value": 0.24074865169258988,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": false
       },
       {
         "target": ".STOXX50E",
@@ -310,12 +414,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.0048499815352181855,
-          "dm_stat": -2.291217609541582,
-          "p_value": 0.02199866152531637,
+          "dm_stat": -2.2906879094745007,
+          "p_value": 0.022029329333535234,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 2.3761406784243055e-09,
+          "cw_stat": 2.5099854298952207,
+          "p_value": 0.006036807156106829,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".N225",
@@ -332,12 +444,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.008635762802378035,
-          "dm_stat": -2.998856189329032,
-          "p_value": 0.0027253713776440812,
+          "dm_stat": -2.998162892316108,
+          "p_value": 0.0027315661468780665,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 1.1894674816200814e-09,
+          "cw_stat": 2.2326997282667342,
+          "p_value": 0.012784376198110728,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": true
       },
       {
         "target": ".HSI",
@@ -354,12 +474,20 @@
         ],
         "dm_crosshar_vs_loghar": {
           "mean_diff": -0.005311393155933461,
-          "dm_stat": -2.3816907296808427,
-          "p_value": 0.017276336192156263,
+          "dm_stat": -2.381140113391048,
+          "p_value": 0.017302147710278524,
           "favored": -1.0,
           "n": 4329.0
         },
-        "crosshar_beats_loghar": true
+        "crosshar_beats_loghar": true,
+        "cw_crosshar_vs_loghar": {
+          "mean_adj": 4.4882407869805684e-10,
+          "cw_stat": 1.5998845323086046,
+          "p_value": 0.05481210065541766,
+          "favors_unrestricted": 1.0,
+          "n": 4329.0
+        },
+        "crosshar_improves_cw": true
       }
     ]
   }
