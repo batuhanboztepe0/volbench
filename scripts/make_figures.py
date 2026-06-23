@@ -27,11 +27,18 @@ import sys
 from pathlib import Path
 
 import matplotlib
+import matplotlib.ticker  # noqa: E402
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
+
+matplotlib.rcParams.update({
+    "figure.dpi": 150,
+    "font.size": 10,
+    "axes.titlesize": 11,
+})
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -77,7 +84,7 @@ def figure_signature_plot(days: int = 1500, seed: int = 7) -> None:
     ax.legend(frameon=False)
     ax.grid(alpha=0.3)
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "signature_plot.png", dpi=140)
+    fig.savefig(FIG_DIR / "signature_plot.png", dpi=150)
     plt.close(fig)
     print("  wrote signature_plot.png")
 
@@ -139,7 +146,7 @@ def figure_crypto_signature(days: int = 20) -> None:
     ax.legend(frameon=False)
     ax.grid(alpha=0.3)
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "crypto_signature.png", dpi=140)
+    fig.savefig(FIG_DIR / "crypto_signature.png", dpi=150)
     plt.close(fig)
     print("  wrote crypto_signature.png")
 
@@ -160,7 +167,7 @@ def figure_leaderboard() -> None:
         ax.text(v, i, f" {v:.3f}", va="center", fontsize=9)
     ax.grid(alpha=0.3, axis="x")
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "leaderboard_h1.png", dpi=140)
+    fig.savefig(FIG_DIR / "leaderboard_h1.png", dpi=150)
     plt.close(fig)
     print("  wrote leaderboard_h1.png")
 
@@ -188,7 +195,7 @@ def figure_qlike_by_horizon() -> None:
     ax.grid(alpha=0.3)
     ax.invert_yaxis()
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "qlike_by_horizon.png", dpi=140)
+    fig.savefig(FIG_DIR / "qlike_by_horizon.png", dpi=150)
     plt.close(fig)
     print("  wrote qlike_by_horizon.png")
 
@@ -211,7 +218,7 @@ def figure_spx_realized_vol() -> None:
     ax.set_title(".SPX 5-minute realized volatility (Oxford-Man, 2000–2022)")
     ax.grid(alpha=0.3)
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "spx_realized_vol.png", dpi=140)
+    fig.savefig(FIG_DIR / "spx_realized_vol.png", dpi=150)
     plt.close(fig)
     print("  wrote spx_realized_vol.png")
 
@@ -287,7 +294,7 @@ def figure_transfer_matrix() -> None:
     ax.grid(which="minor", color="white", linewidth=2)
     ax.tick_params(which="minor", length=0)
     ax.set_title(
-        "Q5 cross-asset transfer matrix — where the HAR family stays in the 90% MCS\n"
+        "Q5 cross-asset transfer matrix: where the HAR family stays in the 90% MCS\n"
         "cell = instruments where a HAR model is in-MCS & single-best (QLIKE)",
         fontsize=10,
     )
@@ -299,9 +306,78 @@ def figure_transfer_matrix() -> None:
     ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.07),
               ncol=3, frameon=False, fontsize=8)
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "transfer_matrix.png", dpi=140, bbox_inches="tight")
+    fig.savefig(FIG_DIR / "transfer_matrix.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
     print("  wrote transfer_matrix.png")
+
+
+def figure_var_dq() -> None:
+    """DQ pass count per VaR engine (out of 8 indices) from caviar.json.
+
+    A grouped bar chart: one bar per engine coloured by the number of
+    indices on which the Engle-Manganelli DQ test does not reject at 5%.
+    The dashed line shows the 5% nominal violation rate for reference.
+    Reads results/caviar.json; skips quietly if the file is absent.
+    """
+    path = RESULTS_DIR / "caviar.json"
+    if not path.exists():
+        print("  (skip var_dq: run scripts/run_caviar.py first)")
+        return
+
+    data = json.loads(path.read_text())
+    summary = data.get("summary", {})
+
+    # Extract DQ pass counts and average violation rates per engine.
+    engines = list(summary.keys())
+    dq_pass = [summary[e].get("dq_pass_count", 0) for e in engines]
+    avg_viol = [summary[e].get("avg_violation_rate", float("nan")) * 100 for e in engines]
+    n_indices = summary[engines[0]].get("n_indices", 8) if engines else 8
+
+    # Colour bars by pass count: green for the best, orange for mid, red for zero.
+    best = max(dq_pass) if dq_pass else 0
+    colors = []
+    for v in dq_pass:
+        if v == best and v > 0:
+            colors.append("#1a9850")
+        elif v > 0:
+            colors.append("#fdae61")
+        else:
+            colors.append("#d73027")
+
+    x = np.arange(len(engines))
+    fig, ax1 = plt.subplots(figsize=(9, 4.8))
+
+    bars = ax1.bar(x, dq_pass, color=colors, width=0.5, zorder=3)
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(engines, rotation=20, ha="right")
+    ax1.set_ylabel(f"DQ pass count (out of {int(n_indices)} indices)")
+    ax1.set_ylim(0, n_indices + 0.5)
+    ax1.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax1.grid(axis="y", alpha=0.3, zorder=0)
+
+    # Overlay mean violation rate on a secondary y-axis.
+    ax2 = ax1.twinx()
+    ax2.plot(x, avg_viol, "o--", color="#2c3e50", linewidth=1.2,
+             markersize=5, label="Mean violation rate (%)", zorder=4)
+    ax2.axhline(5.0, color="#555555", linewidth=0.8, linestyle=":",
+                label="Nominal 5%")
+    ax2.set_ylabel("Mean violation rate (%)")
+    ax2.set_ylim(0, max(avg_viol) * 1.4 if any(np.isfinite(avg_viol)) else 15)
+    ax2.legend(loc="upper right", fontsize=8, frameon=False)
+
+    # Label DQ pass counts above each bar.
+    for bar, v in zip(bars, dq_pass):
+        ax1.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
+                 str(v), ha="center", va="bottom", fontsize=9)
+
+    ax1.set_title(
+        "VaR engine comparison: DQ pass count and mean violation rate\n"
+        "(alpha=5%, 8 equity indices; DQ pass = fail-to-reject at 5%)"
+    )
+    fig.tight_layout()
+    fig.savefig(FIG_DIR / "var_dq.png", dpi=150)
+    plt.close(fig)
+    print("  wrote var_dq.png")
 
 
 def main() -> None:
@@ -313,6 +389,7 @@ def main() -> None:
     figure_leaderboard()
     figure_qlike_by_horizon()
     figure_transfer_matrix()
+    figure_var_dq()
     print(f"Figures in {FIG_DIR}")
 
 

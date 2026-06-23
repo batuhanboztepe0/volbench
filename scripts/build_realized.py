@@ -39,9 +39,10 @@ WAYBACK_URLS = [
     ),
 ]
 
-# SHA256 of the ZIP blob — recorded on the first verified download.
-# This is network-dependent and not performed in CI, so it starts as None.
-# Set to the hex digest once you have confirmed a clean download.
+# SHA256 of the ZIP blob.
+# Fill in the hex digest after a first confirmed clean download, then every
+# subsequent run will hard-fail on any corrupt or substituted blob.
+# Until set, the download is logged but not verified.
 EXPECTED_ZIP_SHA256: str | None = None
 
 # SHA256 of the committed data/oxford_realized.csv — verified after build().
@@ -78,9 +79,10 @@ def fetch_raw() -> pd.DataFrame:
         if zip_sha == EXPECTED_ZIP_SHA256:
             print("  ZIP checksum OK")
         else:
-            print(
-                f"  WARNING: checksum mismatch — expected {EXPECTED_ZIP_SHA256}, "
-                f"got {zip_sha}"
+            raise RuntimeError(
+                f"ZIP checksum mismatch: expected {EXPECTED_ZIP_SHA256}, got {zip_sha}. "
+                "The downloaded blob is corrupt or the archive has changed. "
+                "Verify the source and update EXPECTED_ZIP_SHA256 if the file is legitimately new."
             )
 
     print(f"  got {len(blob) / 1e6:.1f} MB; unzipping ...")

@@ -1,6 +1,6 @@
 """Pre-registered cross-asset test on the EXPANDED crypto universe.
 
-Runs the H1 protocol (docs/PREREGISTRATION.md) on the survivorship-corrected
+Runs the pre-registered H1 protocol on the survivorship-corrected
 crypto panel built by ``build_crypto_expanded.py`` (20 live large-caps + the dead
 coins LUNA/FTT). For each coin and horizon h ∈ {1, 5, 22} it scores the full
 pre-registered model set — baselines + the HAR family (incl. LogSHAR) + HARQ —

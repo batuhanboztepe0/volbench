@@ -5,7 +5,7 @@ HAR features. This module makes the "ML vs HAR" question defensible by adding
 LightGBM, XGBoost and a small MLP, each:
 
 * fit in **log-variance** space (positivity, as required for any unbounded
-  additive learner — see ``ROADMAP.md`` invariant 2),
+  additive learner),
 * with hyperparameters chosen **once on the first training window** by a strict
   expanding-window inner CV that only ever sees data available at the origin (no
   leakage — the single most common silent error in ML volatility studies); only

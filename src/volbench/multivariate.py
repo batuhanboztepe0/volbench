@@ -11,8 +11,7 @@ the *future target* so long as the regression target is ``average_future_varianc
 (strictly future). The peer features are NOT future target values, so no leakage.
 
 All models work in log-space and map back with the lognormal correction
-``exp(mu + 0.5 * resid_var)`` to guarantee strictly positive forecasts (ROADMAP.md
-invariant 2).
+``exp(mu + 0.5 * resid_var)`` to guarantee strictly positive forecasts.
 """
 
 from __future__ import annotations

@@ -13,10 +13,9 @@ Units
 The library reports **variances** (decimal returns², daily). They are loaded
 as-is; nothing is squared. :func:`load_oxford_rv` sanity-checks that each
 index's implied annualised volatility ``sqrt(mean(rv5) * 252)`` lands in a
-plausible band, enforcing the unit contract described in ``ROADMAP.md``
-invariant 6 (the original CSV held volatilities and *was* squared; the real
-library is already variance, so the check — not a squaring — is what carries the
-invariant forward).
+plausible band as a units guard (the original CSV held volatilities and *was*
+squared; the real library is already variance, so the check is what carries
+the units contract forward, not a squaring).
 """
 
 from __future__ import annotations
@@ -122,9 +121,9 @@ class AssetClassConfig:
     which measure columns the source must carry, and the default symbol
     universe. Capturing them here lets a new class (FX, commodity/rate futures,
     single equities, a VOLARE export) plug into :func:`load_realized_panel` by
-    declaring a config rather than writing a bespoke loader — while the
+    declaring a config rather than writing a bespoke loader, while the
     realized-measure maths and the downstream no-look-ahead / positivity
-    invariants stay shared and untouched. See ``docs/EXPANSION_PLAN.md`` §5.
+    invariants stay shared and untouched.
 
     Attributes
     ----------
@@ -135,7 +134,7 @@ class AssetClassConfig:
         crypto 365, FX ~252 — document the choice per class).
     ann_vol_band : tuple[float, float]
         ``(min, max)`` plausible annualised volatility; a series whose implied
-        vol falls outside flags a units mistake (ROADMAP invariant 6).
+        vol falls outside flags a units mistake.
     required_columns : tuple[str, ...]
         Measure columns (besides ``date`` / ``symbol``) that must be present.
     default_symbols : tuple[str, ...]

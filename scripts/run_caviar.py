@@ -1,6 +1,6 @@
 """CAViaR VaR evaluation on the eight Oxford-Man equity indices.
 
-Completes the VaR layer (ROADMAP method gap): the variance-based VaR families
+Completes the VaR layer: the variance-based VaR families
 (normal / Student-t / FHS in ``economic.var_backtest``) under-cover and fail the
 Engle-Manganelli Dynamic-Quantile test on real data. CAViaR (Engle-Manganelli
 2004) models the 5% return quantile *directly* by regression-quantile

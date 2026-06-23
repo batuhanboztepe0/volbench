@@ -46,3 +46,18 @@ def test_garch_smoke_finite_positive():
     fc, org = garch_variance_forecast(y, min_train=1000, refit_every=50, o=1)
     assert fc.shape == org.shape
     assert np.all(np.isfinite(fc)) and np.all(fc > 0.0)
+
+
+def test_gjr_garch_no_lookahead():
+    """Corrupting return[c] must leave every GJR-GARCH forecast at origins t < c unchanged."""
+    pytest.importorskip("arch")
+    y = _ret(1300, 3)
+    c = 1150  # interior, above min_train so origins exist on both sides
+    y2 = y.copy()
+    y2[c] *= 50.0
+    fc1, org = garch_variance_forecast(y, min_train=1000, refit_every=50, o=1)
+    fc2, _ = garch_variance_forecast(y2, min_train=1000, refit_every=50, o=1)
+    before = org < c
+    np.testing.assert_allclose(fc1[before], fc2[before], rtol=1e-10, atol=0.0)
+    # The corruption must propagate to later origins (otherwise the test is vacuous).
+    assert not np.allclose(fc1[~before], fc2[~before])

@@ -22,11 +22,10 @@
 We benchmark nine volatility forecasters out of sample on real 5-minute
 realized data for eight international equity indices (Oxford-Man Institute
 Realized Library, 2000--2022), under a strict look-ahead-free expanding-window
-design and proxy-robust loss functions (Patton, 2011). Significance is assessed
-with the Diebold--Mariano test and the Model Confidence Set (Hansen, Lunde and
-Nason, 2011). The central finding is that a \emph{log-space HAR} is in the 90\%
+design and proxy-robust loss functions \cite{patton2011}. Significance is assessed
+with the Diebold--Mariano test \cite{dm1995} and the Model Confidence Set \cite{hln2011}. The central finding is that a \emph{log-space HAR} is in the 90\%
 Model Confidence Set for all eight indices at horizons of 1, 5 and 22 days and
-is the single best model in most index--horizon cells; a gradient-boosted model
+is the single best model in most index-horizon cells; a gradient-boosted model
 is competitive but does not displace it. Within the HAR family, log
 specifications dominate level ones, and a semivariance HAR (LogSHAR) and a
 continuous/jump HAR (LogHAR-CJ) edge plain log-HAR. Adding peer indices' lagged
@@ -46,23 +45,23 @@ Volatility forecasting is usually demonstrated by fitting a model and eyeballing
 the fit. The deployment-relevant question is different: \emph{which} models win
 out of sample, and are the differences statistically meaningful or just noise?
 We answer this with (i) microstructure-grade realized estimators validated on
-simulation, (ii) a direct multi-horizon walk-forward that rules out look-ahead
+simulation \cite{abdl2003,ab1998}, (ii) a direct multi-horizon walk-forward that rules out look-ahead
 bias, (iii) loss functions that rank forecasts consistently despite a noisy
 variance proxy, and (iv) formal model-comparison tests. The benchmark is fully
 reproducible and ships with the data.
 
 \section{Data}
-We use a bundled subset of the Oxford-Man Institute Realized Library: daily
+We use a bundled subset of the Oxford-Man Institute Realized Library \cite{omi2009}: daily
 realized measures for eight indices (\texttt{.SPX}, \texttt{.DJI},
 \texttt{.FTSE}, \texttt{.GDAXI}, \texttt{.FCHI}, \texttt{.STOXX50E},
 \texttt{.N225}, \texttt{.HSI}) from 2000-01-03 to 2022-02-25 (about 5{,}400--5{,}650
 trading days each). The file carries 5-minute realized variance (\texttt{rv5}),
 its subsampled version, bipower variation, median realized variance, the Parzen
-realized kernel, downside realized semivariance, and close prices. All measures
+realized kernel \cite{bnhls2008}, downside realized semivariance \cite{ps2015}, and close prices. All measures
 are \emph{variances} (decimal returns\textsuperscript{2}, daily); the loader
 checks that the implied annualised volatility lands in a plausible band rather
 than re-scaling. The library has no realized-quarticity column and no raw
-intraday returns, so HARQ and the jump test are exercised on simulation only.
+intraday returns, so HARQ \cite{bpq2016} and the jump test \cite{abd2007} are exercised on simulation only.
 
 \section{Methodology}
 \paragraph{Target.} Every model forecasts the same quantity: the average
@@ -77,12 +76,12 @@ fit in log-variance space and mapped back with the lognormal correction
 $\exp(\hat\mu + \tfrac12 \hat\sigma^2)$.
 \paragraph{Robust losses.} We rank only with QLIKE,
 $L = \sigma^2/h - \log(\sigma^2/h) - 1$, and squared error on the variance
-scale; both are consistent under a noisy proxy (Patton, 2011). RMSE on the
+scale; both are consistent under a noisy proxy \cite{patton2011}. RMSE on the
 volatility scale is reported for reference but never used to rank.
 \paragraph{Significance.} Pairwise equality of predictive accuracy is tested
-with Diebold--Mariano using a Newey--West HAC variance and the
-Harvey--Leybourne--Newbold small-sample correction. The Model Confidence Set
-(MCS) uses the range statistic with a moving-block bootstrap (2{,}000
+with the Diebold--Mariano test \cite{dm1995} using a Newey--West HAC variance and the
+Harvey--Leybourne--Newbold small-sample correction \cite{hln1997}. The Model Confidence Set
+(MCS) \cite{hln2011} uses the range statistic with a moving-block bootstrap (2{,}000
 replications); we report the 90\% set.
 
 \section{Estimator validation}
@@ -129,7 +128,7 @@ quadratic variation across sampling intervals.}
 Table~\ref{tab:main} reports out-of-sample QLIKE for the full suite at the
 one-day horizon, averaged over the eight indices, with the average rank, the
 number of indices in the 90\% MCS, and the number where the model significantly
-beats level-HAR. Log-HAR leads at every horizon and is in the MCS for all eight
+beats level-HAR. Log-HAR \cite{corsi2009} leads at every horizon and is in the MCS for all eight
 indices at $h \in \{1,5,22\}$; the gradient-boosted model and the long-memory
 ARFIMA are the closest non-HAR competitors (GBRT runner-up at $h=5$, ARFIMA at
 $h=22$), but neither displaces log-HAR. Figure~\ref{fig:lead} and Figure~\ref{fig:hz} visualise the ranking
@@ -177,9 +176,10 @@ is stable on top at every horizon.}
 \end{figure}
 
 \section{Which HAR variant wins?}
-Using real bipower variation, jump variation and realized semivariances, we
-compare HAR-J, HAR-CJ (continuous/jump split) and SHAR (semivariance HAR),
-each in level and log form, benchmarked against log-HAR (Table~\ref{tab:har}).
+Using real bipower variation \cite{bns2004}, jump variation and realized semivariances, we
+compare HAR-J, HAR-CJ (continuous/jump split) \cite{abd2007} and SHAR (semivariance HAR)
+\cite{ps2015}, each in level and log form, benchmarked against log-HAR \cite{corsi2009}
+(Table~\ref{tab:har}).
 Two robust conclusions emerge: log specifications dominate the corresponding
 level specifications, and the semivariance HAR (LogSHAR) and continuous/jump HAR
 (LogHAR-CJ) edge plain log-HAR. The downside-semivariance ``leverage'' channel
@@ -220,12 +220,12 @@ origin. That removes leakage, the single most common silent error in ML volatili
 studies. We test both a plain HAR feature set and an enriched set that adds the
 continuous/jump decomposition and the realized semivariances.
 
-The conclusions are robust and honest. At the weekly and monthly horizons log-HAR
+The conclusions are robust. At the weekly and monthly horizons log-HAR
 is rank-1 and in the Model Confidence Set for all eight indices, while no ML model
 enters the MCS for any index. At the daily horizon a log-HAR\,+\,LightGBM
 combination edges log-HAR on average but beats it significantly on only one of
 eight indices (Diebold--Mariano, 5\%), so the two are statistically
-indistinguishable. Crucially, enriching the ML feature set with realized measures
+indistinguishable \cite{dm1995}. Crucially, enriching the ML feature set with realized measures
 does \emph{not} help: the plain-to-enriched change is a marginal $+1.9\%$ at
 $h=1$ but $-3.3\%$ and $-6.8\%$ at $h=5$ and $h=22$. The extra features
 \emph{hurt} the learner at longer horizons (overfitting). On \texttt{.SPX} at
@@ -259,8 +259,8 @@ with the other seven indices' lagged daily realized variance (CrossHAR) and test
 it against own-information log-HAR. CrossHAR lowers QLIKE for all eight indices,
 by roughly 2--8\% at $h=1$ (largest for \texttt{.FTSE}, $\approx$8\%, and
 \texttt{.STOXX50E}). Because CrossHAR \emph{nests} log-HAR, the standard
-Diebold--Mariano test is not valid for this comparison (Diebold, 2015); we
-therefore judge significance with the Clark--West (2007) nested-model test on the
+Diebold--Mariano test is not valid for this comparison \cite{diebold2015}; we
+therefore judge significance with the Clark--West \cite{clarkwest2007} nested-model test on the
 MSE channel. By that test CrossHAR significantly improves on log-HAR for seven of
 the eight indices at $h=1$ (all except \texttt{.SPX}) and four of eight at
 $h=5$. Volatility spillover across major
@@ -270,13 +270,12 @@ daily horizon.
 \section{Economic value}
 Statistical accuracy is translated into money and risk three ways: a
 volatility-targeting strategy (scale exposure by $\text{target vol}/\text{forecast vol}$),
-normal-VaR exceedance backtests (Kupiec and Christoffersen), and a
+normal-VaR exceedance backtests \cite{kupiec1995,christoffersen1998}, and a
 Black--Scholes option-pricing loss. The statistically-best model is \emph{not} a
 clean economic winner: log-HAR delivers the most accurate option prices, but a
 simple EWMA edges it on vol-targeted Sharpe, and \emph{all} models under-cover
 5\% VaR (empirical exceedances $\approx$6--13\%) because a Gaussian quantile
-ignores the fat tails of daily index returns. This is the honest caveat that a
-QLIKE leaderboard alone would hide.
+ignores the fat tails of daily index returns. A QLIKE leaderboard alone would hide this.
 
 \section{Regime analysis}
 Because the data is dated, we split 2000--2022 into calm vs turbulent states
@@ -293,7 +292,7 @@ $\approx 12\times$ during the GFC and $\approx 7\times$ during COVID. Getting th
 persistence of variance right matters most exactly when risk is highest.
 
 \section{Track 2: GARCH on returns (kept separate)}
-For reference we run GARCH(1,1), GJR-GARCH, RiskMetrics and a constant-variance
+For reference we run GARCH(1,1) \cite{bollerslev1986}, GJR-GARCH \cite{gjr1993}, RiskMetrics and a constant-variance
 benchmark on real S\&P 500 daily returns, scoring one-step variance forecasts
 against the squared daily return. GJR-GARCH wins (QLIKE 1.72, the sole MCS
 member), ahead of GARCH (1.75), RiskMetrics (1.80) and constant variance (2.36).
@@ -314,7 +313,7 @@ quantile is less extreme than the normal, giving $\approx 9.1\%$ exceedances. A
 filtered-historical-simulation (FHS) quantile, calibrated out-of-sample on a
 leading warm-up block, substantially improves unconditional coverage
 ($\approx 6.5\%$), but none of the three fully passes the Engle--Manganelli
-dynamic-quantile test on real data: the residual mis-specification lies in the
+dynamic-quantile test \cite{engleman2004} on real data: the residual mis-specification lies in the
 conditional dynamics (volatility clustering the point forecast misses), not in the
 tail shape alone. (On i.i.d.\ heavy-tailed simulation, where the conditional mean
 of variance is constant, FHS does recover a $\approx 5\%$ rate.)
@@ -328,7 +327,7 @@ forecast (scaling the short down when the forecast says implied is only fairly
 priced) raises the Sharpe to $1.60$ and cuts maximum drawdown by about
 $65\%$. These Sharpes are gross of transaction costs and computed on overlapping
 $22$-day variance-swap payoffs, so the absolute levels are inflated relative to a
-non-overlapping annualisation; the meaningful results are the \emph{lift} over the
+non-overlapping annualisation \cite{baileylopezdeprado2014}; the meaningful results are the \emph{lift} over the
 naive book and the drawdown reduction, both of which survive realistic
 variance-swap costs. The naive book earns more absolute dollars (the timed book
 deliberately takes less risk), but on a risk-adjusted basis the forecast adds
@@ -340,9 +339,9 @@ volatility near target and reduces maximum drawdown by $20$--$49\%$ (median
 $\approx 34\%$) versus buy-and-hold ($-0.40$ vs $-0.62$ averaged over the eight
 indices, close to halving only on the US indices). It improves
 the Sharpe ratio on the US indices, and a jump/regime de-risking overlay trims
-drawdown further. Honestly, on the cross-section a smoother EWMA forecast can
+drawdown further. On the cross-section a smoother EWMA forecast can
 match log-HAR as the sizing input because it turns over less; vol targeting is a
-risk-management tool, not free return. The honest accounting (costs, turnover,
+risk-management tool, not free return. The full accounting (costs, turnover,
 drawdown, and out-of-sample significance) is the point.
 
 \section{Generality: crypto (Track 3)}
@@ -359,7 +358,7 @@ than simulation.
 The central result generalises: \textbf{log-HAR is rank-1 and in the Model
 Confidence Set for all four coins at every horizon} ($h \in \{1,5,22\}$), with
 the gradient-boosted model again the runner-up and the naive baselines
-dominated. Two honest contrasts with equities emerge. First, \emph{HARQ does not
+dominated. Two contrasts with equities emerge. First, \emph{HARQ does not
 transfer}: now that it can be evaluated on real realized quarticity, it is the
 worst model on crypto (its daily-coefficient correction is destabilised by the
 heavy-tailed crypto quarticity). Second, \emph{cross-coin spillover is weak}:
@@ -369,7 +368,7 @@ equity indices. The structure that wins is the same (log-space HAR), but the
 cross-asset and measurement-error refinements that help (or are neutral) for
 equities do not carry over.
 
-One honest limitation of the crypto panel is \emph{survivorship}: the four coins
+One limitation of the crypto panel is \emph{survivorship}: the four coins
 (BTC, ETH, BNB, SOL) are large assets selected because they are liquid and still
 trading today, so a coin that died (e.g.\ LUNA/Terra) is absent. The result is
 therefore that log-HAR generalises to \emph{surviving major} coins, not a claim
@@ -391,10 +390,9 @@ Figure~\ref{fig:sig}, here on real data.}
 \section{Cross-asset generalisation (pre-specified protocol)}
 The crypto track asks whether the headline survives one new asset class. We then
 ask the sharper, falsifiable question: \emph{where does the HAR family stop
-winning?} We answer it under an internal, pre-specified protocol
-(\texttt{docs/PREREGISTRATION.md}: decision rules fixed in advance as a discipline,
-author-attested and \emph{not} externally registered or timestamped, so the answer
-cannot be reframed after the fact). The pre-specified hypothesis predicts the HAR family
+winning?} We answer it under an internal, pre-specified protocol: decision rules fixed in advance
+as a discipline, author-attested and \emph{not} externally registered or timestamped,
+so the answer cannot be reframed after the fact. The pre-specified hypothesis predicts the HAR family
 \emph{dominates} mature, calendar-synchronised markets and \emph{degrades} under
 reversed leverage, 24/7 calendars, microstructure noise, or event-driven breaks.
 The primary deliverable is the Q5 transfer matrix (Figure~\ref{fig:transfer}): the
@@ -441,8 +439,8 @@ cell is gold at the monthly horizon.}
 \end{figure}
 
 \paragraph{Risk layer: VaR (siloed; an open problem).} A direct-quantile CAViaR
-(Engle--Manganelli) layer, compared on a common window against same-window
-GARCH-family and historical VaR, closes the VaR sub-question honestly
+\cite{engleman2004} layer, compared on a common window against same-window
+GARCH-family \cite{bollerslev1986,gjr1993} and historical VaR, closes the VaR sub-question directly
 (Table~\ref{tab:var}). Normal VaR under-covers the $5\%$ tail ($\approx 9.1\%$
 exceedances) and a Student-$t$ tail does not help; filtered historical simulation
 improves coverage ($\approx 6.5\%$) but still fails the Engle--Manganelli
@@ -494,7 +492,7 @@ the content and any errors. AI assistance covered implementation, refactoring,
 documentation, and analysis support. Every statistical result is reproducible from
 the committed code and a fixed seed.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 \bibitem{patton2011} A.~Patton (2011). Volatility forecast comparison using imperfect volatility proxies. \emph{Journal of Econometrics}.
 \bibitem{corsi2009} F.~Corsi (2009). A simple approximate long-memory model of realized volatility. \emph{Journal of Financial Econometrics}.
 \bibitem{hln2011} P.~Hansen, A.~Lunde, J.~Nason (2011). The Model Confidence Set. \emph{Econometrica}.
@@ -504,6 +502,18 @@ the committed code and a fixed seed.
 \bibitem{omi2009} G.~Heber, A.~Lunde, N.~Shephard, K.~Sheppard (2009). Oxford-Man Institute's Realized Library.
 \bibitem{clarkwest2007} T.~Clark, K.~West (2007). Approximately normal tests for equal predictive accuracy in nested models. \emph{Journal of Econometrics}.
 \bibitem{diebold2015} F.~Diebold (2015). Comparing predictive accuracy, twenty years later: a personal perspective on the use and abuse of Diebold--Mariano tests. \emph{Journal of Business \& Economic Statistics}.
+\bibitem{bnhls2008} O.~Barndorff-Nielsen, P.~Hansen, A.~Lunde, N.~Shephard (2008). Designing realized kernels to measure ex post variation of equity prices in the presence of noise. \emph{Econometrica}, 76(6):1481--1536.
+\bibitem{dm1995} F.~Diebold, R.~Mariano (1995). Comparing predictive accuracy. \emph{Journal of Business \& Economic Statistics}, 13(3):253--263.
+\bibitem{hln1997} A.~Harvey, S.~Leybourne, P.~Newbold (1997). Testing the equality of prediction mean squared errors. \emph{International Journal of Forecasting}, 13(2):281--291.
+\bibitem{kupiec1995} P.~Kupiec (1995). Techniques for verifying the accuracy of risk measurement models. \emph{Journal of Derivatives}, 3(2):73--84.
+\bibitem{christoffersen1998} P.~Christoffersen (1998). Evaluating interval forecasts. \emph{International Economic Review}, 39(4):841--862.
+\bibitem{engleman2004} R.~Engle, S.~Manganelli (2004). CAViaR: conditional autoregressive value at risk by regression quantiles. \emph{Journal of Business \& Economic Statistics}, 22(4):367--381.
+\bibitem{abd2007} T.~Andersen, T.~Bollerslev, F.~Diebold (2007). Roughing it up: Including jump components in the measurement, modelling, and forecasting of return volatility. \emph{Review of Economics and Statistics}, 89(4):701--720.
+\bibitem{abdl2003} T.~Andersen, T.~Bollerslev, F.~Diebold, P.~Labys (2003). Modeling and forecasting realized volatility. \emph{Econometrica}, 71(2):579--625.
+\bibitem{ab1998} T.~Andersen, T.~Bollerslev (1998). Answering the skeptics: yes, standard volatility models do provide accurate forecasts. \emph{International Economic Review}, 39(4):885--905.
+\bibitem{bollerslev1986} T.~Bollerslev (1986). Generalized autoregressive conditional heteroskedasticity. \emph{Journal of Econometrics}, 31(3):307--327.
+\bibitem{gjr1993} L.~Glosten, R.~Jagannathan, D.~Runkle (1993). On the relation between the expected value and the volatility of the nominal excess return on stocks. \emph{Journal of Finance}, 48(5):1779--1801.
+\bibitem{baileylopezdeprado2014} D.~Bailey, M.~Lopez de Prado (2014). The deflated Sharpe ratio: correcting for selection bias, backtest overfitting, and non-normality. \emph{Journal of Portfolio Management}, 40(5):94--107.
 \end{thebibliography}
 
 \end{document}

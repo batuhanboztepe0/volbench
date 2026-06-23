@@ -47,7 +47,24 @@ jobs:
             from volbench.data import load_oxford_rv; from volbench.backtest import run_backtest; \
             rv = load_oxford_rv(tickers=['.SPX']).series('.SPX'); \
             r = run_backtest(rv, horizon=1, min_train=500, mcs_reps=100); \
-            assert 'LogHAR' in r.mean_losses['QLIKE']; print('pipeline OK')"
+            assert 'LogHAR' in r.mean_losses['QLIKE'], 'LogHAR missing from mean_losses'; \
+            assert 'LogHAR' in r.mcs['QLIKE'].included, 'LogHAR not in 90% MCS on SPX h=1'; \
+            print('pipeline OK: LogHAR in mean_losses and MCS')"
+
+      - name: Equity-only benchmark sanity check
+        run: |
+          python -c "
+          import sys; sys.path.insert(0, 'src')
+          from volbench.data import load_oxford_rv
+          from volbench.backtest import run_backtest
+          ds = load_oxford_rv(tickers=['.SPX'])
+          rv = ds.series('.SPX')
+          r = run_backtest(rv, horizon=1, min_train=500, mcs_reps=200)
+          mcs = set(r.mcs['QLIKE'].included)
+          assert 'LogHAR' in r.mean_losses['QLIKE'], 'LogHAR missing from mean_losses'
+          assert 'LogHAR' in mcs, f'LogHAR not in MCS; MCS={sorted(mcs)}'
+          print(f'equity benchmark OK: LogHAR in MCS ({sorted(mcs)})')
+          "
 
   report:
     runs-on: ubuntu-latest

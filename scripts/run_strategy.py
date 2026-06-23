@@ -27,6 +27,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
+matplotlib.rcParams.update({
+    "figure.dpi": 150,
+    "font.size": 10,
+    "axes.titlesize": 11,
+})
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -107,6 +113,7 @@ def run_strategy() -> dict:
 
     per_ticker: dict[str, dict] = {}
     spx_equity: dict[str, np.ndarray] | None = None
+    spx_dates = None
 
     for tk in tickers:
         result = _all_inputs(ds, tk)
@@ -131,6 +138,9 @@ def run_strategy() -> dict:
 
         # Save .SPX equity curves for the figure
         if tk == ".SPX":
+            # Map positional origins to calendar dates for the x-axis.
+            spx_dates = ds.frame(tk).index[origins]
+
             bh_eq = np.cumprod(1.0 + future_returns)
             tdv = 0.10 / np.sqrt(252)
             w_vt = np.clip(tdv / np.sqrt(np.maximum(forecast_var, 1e-300)), 0.0, 3.0)
@@ -195,14 +205,15 @@ def run_strategy() -> dict:
             "vol_target": "Vol-Target",
             "vol_target_plus_overlay": "Vol-Target + Overlay",
         }
+        x_axis = spx_dates if spx_dates is not None else range(len(next(iter(spx_equity.values()))))
         for key, label in labels.items():
-            ax.plot(spx_equity[key], label=label)
-        ax.set_title(".SPX — Cumulative Equity (net of costs)")
-        ax.set_xlabel("Trading days (OOS)")
+            ax.plot(x_axis, spx_equity[key], label=label)
+        ax.set_title(".SPX: Cumulative Equity (net of costs)")
+        ax.set_xlabel("Date")
         ax.set_ylabel("Cumulative return (1 = start)")
         ax.legend()
         fig.tight_layout()
-        fig.savefig(FIGURES_DIR / "strategy.png", dpi=120)
+        fig.savefig(FIGURES_DIR / "strategy.png", dpi=150)
         plt.close(fig)
         print(f"\nSaved figure to {FIGURES_DIR / 'strategy.png'}")
 

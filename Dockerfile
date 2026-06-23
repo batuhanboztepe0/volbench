@@ -14,10 +14,10 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends make build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies first (better layer caching).
-COPY pyproject.toml README.md ./
+# Install pinned dependencies first (better layer caching), matching CI exactly.
+COPY requirements.lock pyproject.toml README.md ./
 COPY src ./src
-RUN pip install --upgrade pip && pip install -e ".[dev]"
+RUN pip install --upgrade pip && pip install -r requirements.lock && pip install -e . --no-deps
 
 # Copy the rest (data, scripts, tests, report).
 COPY . .

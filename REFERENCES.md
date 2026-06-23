@@ -1,7 +1,7 @@
 # volbench: References
 
 *Consolidated citation list for the volbench benchmark and the cross-asset
-break-HAR study. Companion to `PROJECT_OVERVIEW.md`.*
+break-HAR study.*
 
 **Verification key:**
 `✓✓` bibliographic details independently confirmed in the 2026-06-20 literature
@@ -38,9 +38,15 @@ confirm exact volume/pages at typesetting) ·
   Volatility." *Review of Economics and Statistics*, 89(4), 701–720. (continuous/jump, HAR-CJ)
 - `✓` Mincer, J., Zarnowitz, V. (1969). "The Evaluation of Economic Forecasts." In
   *Economic Forecasts and Expectations*, NBER. (Mincer–Zarnowitz regression)
+- `✓` Corsi, F., Reno, R. (2012). "Discrete-time volatility forecasting with
+  persistent leverage effect and the link with continuous-time volatility
+  modeling." *Review of Financial Studies*, 25(5), 1336–1369. (leverage-HAR)
 
 ## 2. Realized estimators
 
+- `✓✓` Andersen, T.G., Bollerslev, T. (1998). "Answering the Skeptics: Yes,
+  Standard Volatility Models Do Provide Accurate Forecasts." *International
+  Economic Review*, 39(4), 885–905.
 - `✓` Barndorff-Nielsen, O.E., Shephard, N. (2004). "Power and Bipower Variation
   with Stochastic Volatility and Jumps." *Journal of Financial Econometrics*, 2(1), 1–37.
 - `✓` Barndorff-Nielsen, O.E., Shephard, N. (2006). "Econometrics of Testing for
@@ -91,12 +97,18 @@ confirm exact volume/pages at typesetting) ·
   mid-cap (XRP/LTC) forecasts but not large-cap (BTC/ETH). Consistent with the weak
   large-cap spillover gain found here, but its method is connectedness, not a DM
   horse-race.)
-- `⚠` Lyócsa, Š., et al. ("crypto positive high-frequency leverage effect").
-  **Year unconfirmed.** The deep-research could not locate a 2024 paper; Lyócsa's
-  crypto-leverage work is 2020/2021/2022. *Supply the exact reference before citing.*
+- `✓✓` Brini, A., Lenz, J. (2024). "A Comparison of Cryptocurrency
+  Volatility-benchmarking New and Mature Asset Classes." arXiv:2404.04962.
+  (positive high-frequency leverage effect in crypto; volatility-benchmarking
+  across asset classes)
 
 ## 6. Economic / risk layer (VaR, Sharpe, ES)
 
+- `✓` Bollerslev, T. (1986). "Generalized autoregressive conditional
+  heteroskedasticity." *Journal of Econometrics*, 31(3), 307–327. (GARCH)
+- `✓` Glosten, L.R., Jagannathan, R., Runkle, D.E. (1993). "On the relation
+  between the expected value and the volatility of the nominal excess return on
+  stocks." *Journal of Finance*, 48(5), 1779–1801. (GJR-GARCH)
 - `✓` Engle, R.F., Manganelli, S. (2004). "CAViaR: Conditional Autoregressive Value
   at Risk by Regression Quantiles." *Journal of Business & Economic Statistics*,
   22(4), 367–381. (CAViaR + DQ test)

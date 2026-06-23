@@ -8,7 +8,7 @@ EWMA or a (GJR-)GARCH(1,1) — fixes that, evaluated out-of-sample on the eight
 indices' daily returns, with a normal and an out-of-sample-calibrated FHS tail.
 
 This is a RISK comparison only (VaR coverage + DQ); it never ranks engines by
-QLIKE against the realized-variance benchmark (ROADMAP invariant 4). Writes
+QLIKE against the realized-variance benchmark. Writes
 ``results/conditional_var.json``.
 """
 

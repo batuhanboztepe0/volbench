@@ -1,7 +1,7 @@
 """Build ``data/crypto_expanded_realized.csv`` from Binance Vision 5-minute klines.
 
 This is the *expanded-universe* crypto builder for the cross-asset study
-(docs/PREREGISTRATION.md §3 amendment). Unlike ``build_crypto.py`` — which uses
+(pre-registered §3 amendment). Unlike ``build_crypto.py``, which uses
 the live REST API and therefore can only see *currently-listed* pairs — this
 script reads the **Binance Vision** public archive (``data.binance.vision``),
 which **retains delisted symbols**. That is what makes the survivorship
@@ -46,7 +46,7 @@ BINANCE_VISION = "https://data.binance.vision/data/spot/monthly/klines"
 DEFAULT_OUT = ROOT / "data" / "crypto_expanded_realized.csv"
 _US_THRESHOLD = 1e15  # open_time above this is microseconds (2025+), else milliseconds
 
-# Pre-registered expanded crypto universe (docs/PREREGISTRATION.md §3 / §9 amendment).
+# Pre-registered expanded crypto universe (§3 / §9 amendment).
 # coin -> (Binance symbol, first month to try, delisting cutoff or None for live).
 # Generous start months are fine: months with no Vision file are skipped (404).
 REGISTRY: dict[str, tuple[str, str, str | None]] = {

@@ -7,8 +7,8 @@ variance point forecast (log-HAR), while accurate on average, is smooth and lags
 during turbulence, so a VaR built on it *under-covers* and its violations cluster.
 
 This is a **risk** tool, not a forecast-accuracy track: never rank these by QLIKE
-against the realized-variance benchmark (``ROADMAP.md`` invariant 4 — Track 2 and
-Track 1 stay siloed). The only quantities compared here are VaR coverage and the
+against the realized-variance benchmark (Track 2 and Track 1 stay siloed). The
+only quantities compared here are VaR coverage and the
 Engle–Manganelli dynamic-quantile test.
 
 All forecasts are look-ahead-free: the variance for day ``t`` uses only returns up

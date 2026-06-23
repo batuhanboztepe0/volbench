@@ -81,6 +81,17 @@ including **realized quarticity** (`rq`), which enables HARQ on real data.
   (downside), `rsv_plus` (upside), `rq` (realized quarticity), `close_price`,
   `open_to_close`, `nobs`.
 
+## `crypto_expanded_realized.csv` (survivorship-corrected crypto universe)
+
+Daily realized measures for a 22-coin crypto universe: 20 coins still live as of the study end date, plus LUNA (Terra collapse, May 2022) and FTT (FTX collapse, November 2022). These two dead coins are what makes the survivorship correction possible.
+
+- **Source:** Binance Vision public archive (`data.binance.vision`), 5-minute klines. The Vision bucket retains delisted symbols, unlike the live Binance REST API used by `build_crypto.py`. Realized measures are computed with the same `volbench.realized` aggregation as `crypto_realized.csv`, so the two panels are directly comparable.
+- **Builder:** `scripts/build_crypto_expanded.py`. Run it once to generate the file; it is not committed (exchange-data redistribution terms are unclear).
+- **Universe (22 coins):** BTC, ETH, BNB, SOL, XRP, ADA, DOGE, AVAX, DOT, TRX, LINK, MATIC, LTC, BCH, ATOM, XLM, ETC, ALGO, VET, FIL (live), plus LUNA and FTT (dead). Coin start dates vary (earliest: 2019-01-01); dead coins end at their respective collapse dates.
+- **Survivorship note:** The 20 live coins were large-cap as of approximately 2022-01-01. Coins that existed but are not on this list are not included, so the live subset is still subject to selection bias. Only the two explicitly dead coins are survivorship-corrected.
+- **Units and columns:** same as `crypto_realized.csv` (daily variances, decimal returns², 365-day annualisation). Columns: `date`, `symbol`, `rv5`, `bv`, `medrv`, `rk_parzen`, `rsv`, `rsv_plus`, `rq`, `close_price`, `open_to_close`, `nobs`.
+- **Timestamp normalisation:** Binance Vision switched `open_time` from milliseconds to microseconds in 2025. The builder normalises both to milliseconds.
+
 ## `volare_futures_realized.csv` and `volare_forex_realized.csv` (cross-asset arms)
 
 Daily realized measures from **VOLARE** (VOLatility Archive for Realized

@@ -148,6 +148,20 @@ def test_alignment_moving_average():
     np.testing.assert_array_equal(origins, expected_origins)
 
 
+def test_moving_average_min_train_less_than_window():
+    """MovingAverage must raise rather than silently wrap to a negative index.
+
+    When window > min_train + 1 the first valid origin does not have enough
+    history to fill the window. A silent negative-index wrap gives wrong
+    (often negative) forecasts; the guard converts that into an explicit error.
+    """
+    rv = _make_rv(200)
+    window = 50
+    min_train = 30  # min_train + 1 = 31 < window = 50 -> should raise
+    with pytest.raises(ValueError, match="window"):
+        MovingAverage(window=window).oos_forecast(rv, horizon=1, min_train=min_train)
+
+
 @pytest.mark.parametrize("model_cls", [HAR, LogHAR, AR1Log])
 def test_alignment_har_models(model_cls):
     rv = _make_rv(N)
@@ -428,6 +442,43 @@ def test_arfima_positivity():
     fc, origins = model.oos_forecast(rv, horizon=1, min_train=120)
     assert fc.size > 0, "No forecasts produced"
     assert np.all(fc > 0.0), f"Non-positive forecast found: min={fc.min()}"
+
+
+def test_arfima_d_none_finite_positive():
+    """ARFIMALog with d=None (estimated each step) produces finite, positive forecasts."""
+    rng = np.random.default_rng(77)
+    rv = np.exp(rng.standard_normal(200) * 0.4 - 9)
+    model = ARFIMALog(p=1, d=None, trunc=50)
+    fc, origins = model.oos_forecast(rv, horizon=1, min_train=100)
+    assert fc.size > 0, "No forecasts produced"
+    assert np.all(np.isfinite(fc)), f"Non-finite forecast: {fc}"
+    assert np.all(fc > 0.0), f"Non-positive forecast: {fc.min()}"
+
+
+def test_arfima_d_none_no_lookahead():
+    """ARFIMALog with d=None must not leak future information at horizons 1 and 5."""
+    rng = np.random.default_rng(88)
+    n = 300
+    rv = np.exp(rng.standard_normal(n) * 0.4 - 9)
+    min_train = 100
+
+    for horizon in [1, 5]:
+        model = ARFIMALog(p=1, d=None, trunc=50)
+        fc_orig, origins = model.oos_forecast(rv, horizon, min_train=min_train)
+
+        # Corrupt every observation after a mid-point origin; forecasts before
+        # that origin must be unchanged.
+        if origins.size < 4:
+            continue
+        k_probe = origins.size // 2
+        t_probe = int(origins[k_probe])
+        rv_corrupt = rv.copy()
+        rv_corrupt[t_probe + horizon:] *= 1e6
+        fc_corrupt, _ = model.oos_forecast(rv_corrupt, horizon, min_train=min_train)
+        np.testing.assert_allclose(
+            fc_orig[:k_probe], fc_corrupt[:k_probe], rtol=1e-10, atol=0.0,
+            err_msg=f"ARFIMA d=None look-ahead at horizon={horizon}",
+        )
 
 
 def test_arfima_recovers_long_memory():

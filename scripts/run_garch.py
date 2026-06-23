@@ -1,7 +1,7 @@
 """Track 2 driver: return-based GARCH baselines on S&P 500 daily returns.
 
 This track is **deliberately kept separate** from the realized-variance
-benchmark (``ROADMAP.md`` invariant 4). It uses daily close-to-close returns
+benchmark. It uses daily close-to-close returns
 (derived from the bundled ``.SPX`` close prices) and scores one-step-ahead
 *conditional-variance* forecasts against the **squared daily return** — a far
 noisier proxy than 5-minute realized variance. Because of that proxy, QLIKE

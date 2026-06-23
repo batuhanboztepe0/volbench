@@ -68,8 +68,8 @@ def average_future_variance(rv: np.ndarray, horizon: int) -> np.ndarray:
     if horizon < 1:
         raise ValueError(f"horizon must be >= 1, got {horizon}")
     csum = np.concatenate([[0.0], np.cumsum(rv)])
-    for t in range(n - horizon):
-        target[t] = (csum[t + 1 + horizon] - csum[t + 1]) / horizon
+    t_arr = np.arange(n - horizon)
+    target[:n - horizon] = (csum[t_arr + 1 + horizon] - csum[t_arr + 1]) / horizon
     return target
 
 
@@ -94,11 +94,10 @@ def har_components(rv: np.ndarray) -> np.ndarray:
     n = rv.size
     feats = np.full((n, 3), np.nan)
     csum = np.concatenate([[0.0], np.cumsum(rv)])
-    for t in range(MAX_LAG - 1, n):
-        rv_d = rv[t]
-        rv_w = (csum[t + 1] - csum[t + 1 - WEEK_LAG]) / WEEK_LAG
-        rv_m = (csum[t + 1] - csum[t + 1 - MONTH_LAG]) / MONTH_LAG
-        feats[t] = (rv_d, rv_w, rv_m)
+    t_arr = np.arange(MAX_LAG - 1, n)
+    feats[t_arr, 0] = rv[t_arr]
+    feats[t_arr, 1] = (csum[t_arr + 1] - csum[t_arr + 1 - WEEK_LAG]) / WEEK_LAG
+    feats[t_arr, 2] = (csum[t_arr + 1] - csum[t_arr + 1 - MONTH_LAG]) / MONTH_LAG
     return feats
 
 
@@ -169,7 +168,9 @@ class RandomWalk(VolForecaster):
 
     name = "RW"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         origins = _test_origins(rv.size, horizon, min_train)
         return rv[origins], origins
@@ -180,7 +181,9 @@ class HistoricalMean(VolForecaster):
 
     name = "HistMean"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         origins = _test_origins(rv.size, horizon, min_train)
         csum = np.cumsum(rv)
@@ -204,11 +207,19 @@ class MovingAverage(VolForecaster):
         self.window = window
         self.name = f"MA{window}"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         origins = _test_origins(rv.size, horizon, min_train)
-        csum = np.concatenate([[0.0], np.cumsum(rv)])
         w = self.window
+        if origins.size > 0 and origins[0] + 1 < w:
+            raise ValueError(
+                f"window={w} exceeds min_train+1={origins[0] + 1}: "
+                "the first origin does not have enough history to fill the window; "
+                "increase min_train or decrease window"
+            )
+        csum = np.concatenate([[0.0], np.cumsum(rv)])
         ma = (csum[origins + 1] - csum[origins + 1 - w]) / w
         return ma, origins
 
@@ -232,7 +243,9 @@ class EWMA(VolForecaster):
         self.lam = lam
         self.name = "EWMA"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         n = rv.size
         level = np.empty(n)
@@ -273,7 +286,9 @@ class _LinearHARBase(VolForecaster):
     average future variance on a constant and the three HAR components. In log
     space it regresses the log target on the logged components and maps the
     forecast back with the lognormal correction ``exp(xb + 0.5 * s2)`` where
-    ``s2`` is the in-sample residual variance.
+    ``s2`` is the in-sample residual variance. The correction assumes
+    homoskedastic log-space residuals; it may introduce a small bias in highly
+    volatile regimes where the residual variance is not constant over time.
     """
 
     log_space: bool = False
@@ -297,7 +312,9 @@ class _LinearHARBase(VolForecaster):
             comp = components
         return np.column_stack([np.ones(comp.shape[0]), comp])
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         n = rv.size
         comps = har_components(rv)
@@ -328,7 +345,7 @@ class _LinearHARBase(VolForecaster):
             else:
                 # Level-space HAR can extrapolate to a non-positive or huge value;
                 # clamp to the training support so a numerical artifact cannot
-                # dominate the QLIKE mean (ROADMAP invariant 2), matching HARQ and
+                # dominate the QLIKE mean, matching HARQ and
                 # the measure-augmented HAR models.
                 lo = max(float(np.min(y_train)) * 0.1, _LOG_FLOOR)
                 hi = float(np.max(y_train)) * 10.0
@@ -361,7 +378,9 @@ class AR1Log(VolForecaster):
 
     name = "AR1Log"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         n = rv.size
         log_rv = np.log(np.maximum(rv, _LOG_FLOOR))
@@ -407,7 +426,9 @@ class HARQ(VolForecaster):
     def __init__(self, rq: np.ndarray) -> None:
         self.rq = np.asarray(rq, dtype=float).ravel()
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         if self.rq.size != rv.size:
             raise ValueError("rq and rv must have the same length")
@@ -435,7 +456,7 @@ class HARQ(VolForecaster):
             # Level-space HARQ can extrapolate to a non-positive or huge value
             # (the RV*sqrt(RQ) interaction is large and noisy, especially on
             # very volatile assets); clamp to the training support so a numerical
-            # artifact cannot dominate the QLIKE mean (ROADMAP invariant 2).
+            # artifact cannot dominate the QLIKE mean.
             lo = max(float(np.min(target[rows])) * 0.1, _LOG_FLOOR)
             hi = float(np.max(target[rows])) * 10.0
             forecasts[k] = min(max(pred, lo), hi)
@@ -499,7 +520,9 @@ class GBRT(VolForecaster):
             lags[j:, j - 1] = rv[:-j]
         return np.column_stack([comps, lags])
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         try:
             from sklearn.ensemble import HistGradientBoostingRegressor
         except ImportError as exc:  # pragma: no cover - environment dependent
@@ -547,15 +570,6 @@ class GBRT(VolForecaster):
 # ---------------------------------------------------------------------------
 # HAR family using real jump / semivariance measures (Tier 1C)
 # ---------------------------------------------------------------------------
-def _measure_components(series: np.ndarray) -> np.ndarray:
-    """Daily/weekly/monthly HAR averages of an arbitrary realized measure.
-
-    Same construction as :func:`har_components` but for any measure series (the
-    continuous part, the jump variation, a semivariance, ...).
-    """
-    return har_components(series)
-
-
 def _walk_forward_har(
     rv: np.ndarray,
     log_feats: list[np.ndarray],
@@ -567,7 +581,7 @@ def _walk_forward_har(
     """Expanding-window OLS walk-forward for a measure-augmented HAR model.
 
     Regressors are split into two groups so that positivity is respected when a
-    component can be zero (jumps, see ``ROADMAP.md`` invariant 2):
+    component can be zero (e.g. jumps on quiet days):
 
     * ``log_feats`` — strictly-positive components entered as ``log(component)``,
     * ``level_feats`` — components kept in levels (jump variation can be exactly
@@ -649,10 +663,12 @@ class HARJ(VolForecaster):
         self.log = log
         self.name = "LogHAR-J" if log else "HAR-J"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         comp = har_components(rv)
-        jd = _measure_components(self.jump)[:, 0]
+        jd = har_components(self.jump)[:, 0]
         if self.log:
             return _walk_forward_har(
                 rv, [comp[:, 0], comp[:, 1], comp[:, 2]], [jd], horizon, min_train, True
@@ -684,10 +700,12 @@ class HARCJ(VolForecaster):
         self.log = log
         self.name = "LogHAR-CJ" if log else "HAR-CJ"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
-        cc = _measure_components(self.cont)
-        jc = _measure_components(self.jump)
+        cc = har_components(self.cont)
+        jc = har_components(self.jump)
         cont_feats = [cc[:, 0], cc[:, 1], cc[:, 2]]
         jump_feats = [jc[:, 0], jc[:, 1], jc[:, 2]]
         if self.log:
@@ -717,11 +735,13 @@ class SHAR(VolForecaster):
         self.log = log
         self.name = "LogSHAR" if log else "SHAR"
 
-    def oos_forecast(self, rv, horizon, min_train=DEFAULT_MIN_TRAIN):
+    def oos_forecast(
+        self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
+    ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         comp = har_components(rv)
-        rsvm_d = _measure_components(self.rsv_minus)[:, 0]
-        rsvp_d = _measure_components(self.rsv_plus)[:, 0]
+        rsvm_d = har_components(self.rsv_minus)[:, 0]
+        rsvp_d = har_components(self.rsv_plus)[:, 0]
         feats = [rsvm_d, rsvp_d, comp[:, 1], comp[:, 2]]  # RSV-_d, RSV+_d, RV_w, RV_m
         if self.log:
             return _walk_forward_har(rv, feats, [], horizon, min_train, True)
@@ -973,14 +993,14 @@ class ARFIMALog(VolForecaster):
         mu = float(np.array([1.0, lr1_t]) @ beta)
         resid = y_rg - x_rg @ beta
         s2 = float(resid @ resid) / max(resid.size - 2, 1)
-        return float(np.exp(mu + 0.5 * s2))  # lognormal back-transform (Invariant 2)
+        return float(np.exp(mu + 0.5 * s2))  # lognormal back-transform
 
     def oos_forecast(
         self, rv: np.ndarray, horizon: int, min_train: int = DEFAULT_MIN_TRAIN
     ) -> tuple[np.ndarray, np.ndarray]:
         rv = np.asarray(rv, dtype=float).ravel()
         n = rv.size
-        log_rv = np.log(np.maximum(rv, _LOG_FLOOR))            # Invariant 2 (log space)
+        log_rv = np.log(np.maximum(rv, _LOG_FLOOR))            # log space: guarantees positivity
         target = average_future_variance(rv, horizon)          # direct-horizon target
         y_all = np.log(np.maximum(target, _LOG_FLOOR))
         origins = _test_origins(n, horizon, min_train)
@@ -994,7 +1014,7 @@ class ARFIMALog(VolForecaster):
             fd_full, cinv_full = self._fd_and_inversion(log_rv, self._fixed_weights)
 
         for k, t in enumerate(origins):
-            last_train = t - horizon                           # Invariant 1: no look-ahead
+            last_train = t - horizon                           # no look-ahead: only rows <= t - horizon
             if fd_full is not None and cinv_full is not None:
                 fd, cinv = fd_full, cinv_full
             else:

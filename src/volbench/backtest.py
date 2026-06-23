@@ -2,7 +2,7 @@
 
 :func:`run_backtest` runs a suite of forecasters over a single realized-variance
 series, scores them on a **common, intersected** set of test origins (so every
-model is judged on identical data — ``ROADMAP.md`` invariant 5), and runs the
+model is judged on identical data), and runs the
 pairwise Diebold-Mariano test and the Model Confidence Set on the proxy-robust
 losses. It is the single entry point the Track-1 scripts call.
 """

@@ -7,7 +7,7 @@ unaffected (in expectation) by the noise in the proxy. The two robust losses
 used here are :func:`qlike` and :func:`mse_variance`. The non-robust
 :func:`mse_volatility` (squared error on the volatility scale) is provided for
 *reference reporting only* and must never drive a ranking or a Model Confidence
-Set (see ``ROADMAP.md`` invariant 3).
+Set (proxy-noise robustness requirement).
 
 Every loss function takes ``(realized, forecast)`` arrays on the **variance**
 scale and returns a *per-observation* loss array, so the output feeds directly
@@ -141,8 +141,15 @@ def mincer_zarnowitz(realized: np.ndarray, forecast: np.ndarray) -> dict[str, fl
     Fits ``realized = alpha + beta * forecast + e`` by OLS. A well-calibrated
     forecast has ``alpha = 0`` and ``beta = 1``. Returns the slope/intercept,
     the regression ``r2``, individual t-test p-values for ``H0: alpha = 0`` and
-    ``H0: beta = 1``, and the joint F-test p-value for ``H0: (alpha, beta) =
+    ``H0: beta = 1``, and the joint Wald test p-value for ``H0: (alpha, beta) =
     (0, 1)`` (the standard calibration test).
+
+    Standard errors and the joint test use HC3 heteroskedasticity-robust
+    covariance (MacKinnon-White 1985). The joint statistic is a robust Wald
+    statistic distributed chi2(2) under the null. This replaces the earlier
+    homoskedastic (sigma^2 * (X'X)^{-1}) version: realized variance residuals
+    are heavily heteroskedastic, so homoskedastic SEs are systematically
+    misleading.
 
     Parameters
     ----------
@@ -155,8 +162,8 @@ def mincer_zarnowitz(realized: np.ndarray, forecast: np.ndarray) -> dict[str, fl
         Keys: ``alpha``, ``beta``, ``r2``, ``p_alpha``, ``p_beta``,
         ``p_joint``, ``n``.
     """
-    from scipy.stats import f as f_dist
-    from scipy.stats import t as t_dist
+    from scipy.stats import chi2 as chi2_dist
+    from scipy.stats import norm as norm_dist
 
     y, x = _validate(realized, forecast)
     n = y.size
@@ -165,28 +172,34 @@ def mincer_zarnowitz(realized: np.ndarray, forecast: np.ndarray) -> dict[str, fl
     xtx_inv = np.linalg.inv(xtx)
     beta_hat = xtx_inv @ (X.T @ y)
     resid = y - X @ beta_hat
-    rss = float(resid @ resid)
-    dof = n - 2
-    sigma2 = rss / dof if dof > 0 else float("nan")
-    cov = sigma2 * xtx_inv
 
+    rss = float(resid @ resid)
     tss = float(((y - y.mean()) ** 2).sum())
     r2 = 1.0 - rss / tss if tss > 0 else float("nan")
 
-    alpha, beta = float(beta_hat[0]), float(beta_hat[1])
-    se_alpha = float(np.sqrt(cov[0, 0]))
-    se_beta = float(np.sqrt(cov[1, 1]))
-    t_alpha = alpha / se_alpha if se_alpha > 0 else float("nan")
-    t_beta = (beta - 1.0) / se_beta if se_beta > 0 else float("nan")
-    p_alpha = float(2.0 * t_dist.sf(abs(t_alpha), df=dof)) if np.isfinite(t_alpha) else float("nan")
-    p_beta = float(2.0 * t_dist.sf(abs(t_beta), df=dof)) if np.isfinite(t_beta) else float("nan")
+    # HC3 sandwich covariance: (X'X)^{-1} * X' diag(e_i^2 / (1-h_i)^2) X * (X'X)^{-1}
+    # h_i = X[i] (X'X)^{-1} X[i]' (leverage values).
+    h = np.einsum("ij,jk,ik->i", X, xtx_inv, X)
+    denom = np.maximum(1.0 - h, 1e-10) ** 2
+    scaled_e2 = (resid ** 2) / denom
+    meat = (X * scaled_e2[:, None]).T @ X
+    hc3_cov = xtx_inv @ meat @ xtx_inv
 
-    # Joint Wald/F test of (alpha, beta) = (0, 1).
+    alpha, beta = float(beta_hat[0]), float(beta_hat[1])
+    se_alpha = float(np.sqrt(max(hc3_cov[0, 0], 0.0)))
+    se_beta = float(np.sqrt(max(hc3_cov[1, 1], 0.0)))
+
+    # Individual z-tests (asymptotically normal with robust SEs).
+    z_alpha = alpha / se_alpha if se_alpha > 0 else float("nan")
+    z_beta = (beta - 1.0) / se_beta if se_beta > 0 else float("nan")
+    p_alpha = float(2.0 * norm_dist.sf(abs(z_alpha))) if np.isfinite(z_alpha) else float("nan")
+    p_beta = float(2.0 * norm_dist.sf(abs(z_beta))) if np.isfinite(z_beta) else float("nan")
+
+    # Joint robust Wald test of (alpha, beta) = (0, 1): chi2(2) under H0.
     diff = beta_hat - np.array([0.0, 1.0])
     try:
-        wald = float(diff @ np.linalg.inv(cov) @ diff)
-        f_stat = wald / 2.0
-        p_joint = float(f_dist.sf(f_stat, 2, dof)) if dof > 0 else float("nan")
+        wald = float(diff @ np.linalg.inv(hc3_cov) @ diff)
+        p_joint = float(chi2_dist.sf(wald, df=2)) if np.isfinite(wald) else float("nan")
     except np.linalg.LinAlgError:
         p_joint = float("nan")
 

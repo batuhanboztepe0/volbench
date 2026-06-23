@@ -1,7 +1,6 @@
 """Pre-registered HAR protocol on VOLARE's 13 FX pairs (confirmatory FX class).
 
-Mirrors ``run_volare_futures.py`` for the FX arm pre-registered in
-``docs/PREREGISTRATION.md`` §9 (2026-06-20). Data fetched by
+Mirrors ``run_volare_futures.py`` for the FX arm (pre-registered §9, 2026-06-20). Data fetched by
 ``build_volare.py --fetch forex`` -> ``data/volare_forex_realized.csv``. Pairs are
 grouped by the H1 clause each probes:
 
@@ -55,7 +54,7 @@ DEFAULT_DATA = ROOT / "data" / "volare_forex_realized.csv"
 RESULTS_DIR = ROOT / "results"
 TABLES_DIR = ROOT / "results" / "tables"
 
-# Sub-class of each VOLARE FX pair = which H1 clause it probes (see prereg §9).
+# Sub-class of each VOLARE FX pair = which H1 clause it probes (pre-registered §9).
 SUBCLASS: dict[str, str] = {
     "EURUSD": "major", "GBPUSD": "major", "USDJPY": "major", "USDCHF": "major",
     "USDCAD": "major", "AUDUSD": "major", "NZDUSD": "major",

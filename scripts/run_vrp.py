@@ -24,6 +24,12 @@ import pandas as pd
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
+matplotlib.rcParams.update({
+    "figure.dpi": 150,
+    "font.size": 10,
+    "axes.titlesize": 11,
+})
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -163,20 +169,26 @@ def run_vrp() -> dict:
 
     cum_always = np.cumsum(raw_payoff)
     cum_timed = np.cumsum(signal * raw_payoff)
-    cum_longshort = np.cumsum(np.clip((iv - fv) / iv_safe, -2.0, 2.0) * raw_payoff)
 
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.plot(dates_k, cum_always, label="always-short", linewidth=1.0)
     ax.plot(dates_k, cum_timed, label="timed (LogHAR)", linewidth=1.0)
-    ax.plot(dates_k, cum_longshort, label="long/short (LogHAR)", linewidth=1.0)
+    # long/short is omitted from the plot: the signal never falls below -1 on
+    # this dataset (VRP positive ~92% of days), so the [-2,2] long/short clip
+    # is inactive and timed == long/short identically.
     ax.axhline(0, color="black", linewidth=0.5, linestyle="--")
-    ax.set_title("Variance Risk Premium strategy — cumulative P&L (horizon=22d)")
+    ax.annotate(
+        "timed = long/short here\n(long bound never active; VRP > 0 on ~92% of days)",
+        xy=(0.02, 0.06), xycoords="axes fraction",
+        fontsize=8, color="#555555",
+    )
+    ax.set_title("Variance Risk Premium strategy: cumulative P&L (horizon=22d)")
     ax.set_xlabel("Date")
     ax.set_ylabel("Cumulative P&L (daily variance units)")
     ax.legend()
     fig.tight_layout()
     fig_path = FIGURES_DIR / "vrp.png"
-    fig.savefig(fig_path, dpi=120)
+    fig.savefig(fig_path, dpi=150)
     plt.close(fig)
     print(f"\n  Saved figure to {fig_path}")
 
