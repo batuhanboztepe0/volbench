@@ -59,7 +59,7 @@ jobs:
           from volbench.backtest import run_backtest
           ds = load_oxford_rv(tickers=['.SPX'])
           rv = ds.series('.SPX')
-          r = run_backtest(rv, horizon=1, min_train=500, mcs_reps=200)
+          r = run_backtest(rv, horizon=1, min_train=500, mcs_reps=500)
           mcs = set(r.mcs['QLIKE'].included)
           assert 'LogHAR' in r.mean_losses['QLIKE'], 'LogHAR missing from mean_losses'
           assert 'LogHAR' in mcs, f'LogHAR not in MCS; MCS={sorted(mcs)}'

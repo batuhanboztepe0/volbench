@@ -3,7 +3,7 @@
 [![CI](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml/badge.svg)](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.9%20%7C%203.11-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-235-brightgreen)
+![Tests](https://img.shields.io/badge/tests-239-brightgreen)
 
 ## What this is
 
@@ -72,16 +72,16 @@ Scripts: `scripts/run_volare_futures.py`, `run_volare_fx.py`, `run_crypto_expand
 
 ### Economic value and the variance risk premium
 
-On the S&P 500, implied vol (VIX) averages 21.5% vs 16.3% realized. The premium is positive 92% of days. A short-variance book earns a per-swap Sharpe of **~0.38** on non-overlapping payoffs, and the advantage is decisive after a **Deflated Sharpe** test (PSR >= 0.9996 across all three book configurations: always-short 0.9999; timed and long-short 0.9996). Timing the short with the log-HAR forecast lifts the overlapping-payoff Sharpe from 1.45 to 1.60 and cuts max drawdown by about 65%. Those overlapping Sharpes are inflated by autocorrelation in 22-day windows; read the lift over the naive book and the drawdown cut, which survive realistic costs. The variance risk premium is real, not a selection artifact. `scripts/run_vrp.py`.
+On the S&P 500, implied vol (VIX) averages 21.5% vs 16.3% realized. The premium is positive 92% of days. A short-variance book earns a per-swap Sharpe of **~0.39** on non-overlapping payoffs, and the advantage is decisive after a **Deflated Sharpe** test (PSR >= 0.9996 across all three book configurations: always-short 0.9999; timed and long-short 0.9996). Timing the short with the log-HAR forecast lifts the overlapping-payoff Sharpe from 1.45 to 1.60 and cuts max drawdown by about 65%. Those overlapping Sharpes are inflated by autocorrelation in 22-day windows; read the lift over the naive book and the drawdown cut, which survive realistic costs. The variance risk premium is real, not a selection artifact. `scripts/run_vrp.py`.
 
-A vol-targeting strategy (scale exposure by target_vol / forecast_vol, net of costs) holds realized vol near target and cuts max drawdown by 20-49% (median about 34%) vs buy-and-hold. It improves Sharpe only on US indices. PSR is credibly > 0 only on SPX/DJI (PSR about 0.96); on FTSE/CAC/STOXX it is indistinguishable from zero (PSR < 0.5). Vol targeting is a risk-control tool, not free alpha. `scripts/run_strategy.py`.
+A vol-targeting strategy (scale exposure by target_vol / forecast_vol, net of costs) holds realized vol near target and cuts max drawdown by 20-49% (median about 34%) vs buy-and-hold. It improves Sharpe mainly on the US indices (and marginally on HSI). PSR is credibly > 0 only on SPX/DJI (PSR about 0.96); on FTSE/CAC/STOXX it is indistinguishable from zero (PSR < 0.5). Vol targeting is a risk-control tool, not free alpha. `scripts/run_strategy.py`.
 
 ---
 
 ## Other tracks
 
 - **HAR family (which variant wins).** Using real bipower variation, jump variation and realized semivariances: log variants dominate level variants, and LogSHAR and LogHAR-CJ edge plain log-HAR. Downside-semivariance carries real predictive content. `scripts/run_har_family.py`.
-- **Cross-index spillover.** Adding the other seven indices' lagged realized variance to a target index's HAR (CrossHAR) lowers QLIKE for all 8 indices (about 2-8% at h = 1). Because CrossHAR nests LogHAR, significance is judged by the **Clark-West (2007) nested-model test**: CrossHAR significantly improves on LogHAR for **7 of 8 indices at h = 1** (all but SPX) and 4 of 8 at h = 5. `scripts/run_multivariate.py`.
+- **Cross-index spillover.** Adding the other seven indices' lagged realized variance to a target index's HAR (CrossHAR) lowers QLIKE for all 8 indices (about 1.7-8% at h = 1). Because CrossHAR nests LogHAR, significance is judged by the **Clark-West (2007) nested-model test**: CrossHAR significantly improves on LogHAR for **7 of 8 indices at h = 1** (all but SPX) and 4 of 8 at h = 5. `scripts/run_multivariate.py`.
 - **ML (does ML win on richer features?).** LightGBM and XGBoost (an MLP was also evaluated but excluded as data-starved on about 5,000 daily observations), each fit in log-variance space with leakage-free expanding-window hyperparameter tuning on a plain HAR feature set and an enriched one. Even with a fair quarterly refit cadence, **no ML model displaces log-HAR**. `scripts/run_ml.py`.
 - **GARCH reference (Track 2).** On real S&P 500 daily returns (2000-2022), scored against squared returns. GJR-GARCH and plain GARCH edge RiskMetrics. This track is not directly comparable to Track 1 (different proxy quality; QLIKE levels are an order of magnitude higher). `scripts/run_garch.py`.
 - **VaR (an open problem).** A direct-quantile CAViaR (Engle-Manganelli) layer with a same-window GARCH/GJR-GARCH/EWMA comparison. Normal VaR under-covers (about 9.1% at nominal 5%); FHS improves coverage (about 6.5%) but fails the dynamic-quantile (DQ) test. On a common window GJR-GARCH is the best VaR engine (DQ pass 3/8). The leverage channel, not the modelling paradigm, is what matters. Full DQ adequacy stays unsolved. `scripts/run_caviar.py`.
@@ -136,7 +136,7 @@ volbench/
 ├── scripts/             # run_{benchmark,garch,har_family,multivariate,ml,economic,
 │   │                    #   vrp,strategy,regime,crypto}, validate_estimators,
 │   │                    #   make_figures, build_{realized,vix,crypto}
-├── tests/               # pytest suite (235 tests)
+├── tests/               # pytest suite (239 tests)
 ├── data/                # VIX (committed) + provenance; RV and crypto CSVs are fetched
 ├── results/             # tables, figures, JSON summaries (the deliverable)
 └── report/              # LaTeX research report
@@ -176,7 +176,7 @@ python scripts/run_regime.py             # results/regime.json
 python scripts/build_crypto.py           # data/crypto_realized.csv (Binance 5-min bars)
 python scripts/run_crypto.py             # results/crypto.json  (Track 3: BTC/ETH/BNB/SOL)
 python scripts/make_figures.py           # results/figures/*.png
-pytest -q                                # 235 tests
+pytest -q                                # 239 tests
 ```
 
 Minimal programmatic use:

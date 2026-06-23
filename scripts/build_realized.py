@@ -116,8 +116,8 @@ def build(tickers: list[str], out: Path, verify: bool = True) -> None:
         if csv_sha == EXPECTED_CSV_SHA256:
             print("  checksum OK")
         else:
-            print(
-                f"  WARNING: checksum mismatch — expected {EXPECTED_CSV_SHA256}, "
+            raise RuntimeError(
+                f"checksum mismatch: expected {EXPECTED_CSV_SHA256}, "
                 f"got {csv_sha}"
             )
 
