@@ -537,3 +537,15 @@ def test_arfima_recovers_long_memory():
         f"ARFIMA did not beat AR1Log on long-memory data: "
         f"QLIKE_ARFIMA={ql_arfima:.6f}, QLIKE_AR1={ql_ar1:.6f}"
     )
+
+
+def test_harq_finite_with_nan_in_rq():
+    """A stray NaN in the realized-quarticity series must not poison the whole HARQ
+    forecast path: the valid mask drops those rows so coefficients stay finite."""
+    rv = _make_rv(N)
+    rng = np.random.default_rng(5)
+    rq = np.abs(rng.standard_normal(N)) * 1e-8 + 1e-8
+    rq[N // 2] = np.nan
+    fc, origins = HARQ(rq).oos_forecast(rv, HORIZON, min_train=MIN_TRAIN)
+    assert origins.size > 0
+    assert np.all(np.isfinite(fc)), "HARQ produced non-finite forecasts despite one NaN in rq"

@@ -552,7 +552,6 @@ def var_backtest(
     # Evaluate only on the held-out window [w:].
     ret_s = ret[w:]
     var_s = var_t[w:]
-    fvar_s = fvar[w:]
     violations = ret_s < -var_s  # boolean array
 
     n = int(ret_s.size)
@@ -571,8 +570,10 @@ def var_backtest(
 
     christoffersen_stat, christoffersen_p = _christoffersen_lr(n00, n01, n10, n11, alpha)
 
-    # Dynamic Quantile test (on the held-out window).
-    dq = engle_manganelli_dq(v, fvar_s, alpha)
+    # Dynamic Quantile test (on the held-out window). Use the VaR level itself as
+    # the DQ regressor so this path matches backtest_var_forecasts (the CAViaR path)
+    # and the two engines are compared on the same specification.
+    dq = engle_manganelli_dq(v, var_s, alpha)
 
     result: dict[str, float] = {
         "violation_rate": float(violation_rate),

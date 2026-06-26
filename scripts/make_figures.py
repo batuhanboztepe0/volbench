@@ -214,7 +214,7 @@ def figure_spx_realized_vol() -> None:
     ]:
         ax.axvspan(pd.Timestamp(lo), pd.Timestamp(hi), color="#e74c3c", alpha=0.18)
         ax.text(pd.Timestamp(lo), ann_vol.max() * 0.92, " " + label, fontsize=9, color="#c0392b")
-    ax.set_ylabel("Annualised realized volatility")
+    ax.set_ylabel("Annualised realized volatility (decimal, 0.20 = 20%)")
     ax.set_title(".SPX 5-minute realized volatility (Oxford-Man, 2000–2022)")
     ax.grid(alpha=0.3)
     fig.tight_layout()

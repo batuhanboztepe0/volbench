@@ -65,11 +65,12 @@ def _max_drawdown(cum_pnl: np.ndarray) -> float:
     Returns
     -------
     float
-        Maximum drawdown (a non-negative number).
+        Maximum drawdown as a non-positive number (peak minus trough, negated),
+        matching the sign convention used in strategy.py and economic.py.
     """
     running_max = np.maximum.accumulate(cum_pnl)
     drawdowns = running_max - cum_pnl
-    return float(drawdowns.max())
+    return float(-drawdowns.max())
 
 
 def _nonoverlapping(pnl: np.ndarray, horizon: int) -> np.ndarray:

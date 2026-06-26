@@ -434,7 +434,11 @@ class HARQ(VolForecaster):
             raise ValueError("rq and rv must have the same length")
         n = rv.size
         comps = har_components(rv)
-        sqrt_rq = np.sqrt(np.maximum(self.rq, 0.0))
+        # NaN-robust: a missing (or negative) quarticity maps to a zero interaction,
+        # degrading that day to plain HAR for both training rows and the forecast
+        # origin, so a stray rq NaN cannot poison the whole forecast path. On the real
+        # data (crypto/VOLARE) rq is fully finite, so this is a no-op there.
+        sqrt_rq = np.nan_to_num(np.sqrt(np.maximum(self.rq, 0.0)), nan=0.0)
         target = average_future_variance(rv, horizon)
         origins = _test_origins(n, horizon, min_train)
         forecasts = np.empty(origins.size)
@@ -557,10 +561,13 @@ class GBRT(VolForecaster):
                 model.fit(feats[rows], log_target[rows])
                 in_sample = model.predict(feats[rows])
                 resid = log_target[rows] - in_sample
-                # n-1 denominator (not n-p): the effective number of parameters of a
-                # gradient-boosted tree ensemble is not its feature count, so an OLS
-                # degrees-of-freedom correction does not apply. The choice shifts all
-                # GBRT forecasts by a common factor of <0.1% and is rank-irrelevant.
+                # In-sample residual variance, applied identically to log-HAR and to
+                # the tree models, so the comparison stays fair. n-1 (not n-p): the
+                # effective parameter count of a boosted-tree ensemble is not its
+                # feature count, so an OLS dof correction does not apply. Both the dof
+                # choice and the in-sample/out-of-sample gap shift forecasts by under a
+                # few percent here, well inside the QLIKE gap to log-HAR and
+                # rank-irrelevant.
                 log_resid_var = float(resid @ resid) / max(resid.size - 1, 1)
             log_pred = float(model.predict(feats[t : t + 1])[0])
             forecasts[k] = float(np.exp(log_pred + 0.5 * log_resid_var))

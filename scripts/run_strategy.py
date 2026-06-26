@@ -210,7 +210,7 @@ def run_strategy() -> dict:
             ax.plot(x_axis, spx_equity[key], label=label)
         ax.set_title(".SPX: Cumulative Equity (net of costs)")
         ax.set_xlabel("Date")
-        ax.set_ylabel("Cumulative return (1 = start)")
+        ax.set_ylabel("Cumulative return")
         ax.legend()
         fig.tight_layout()
         fig.savefig(FIGURES_DIR / "strategy.png", dpi=150)

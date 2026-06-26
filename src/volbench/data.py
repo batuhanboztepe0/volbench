@@ -304,7 +304,10 @@ def load_sp500_returns(
     if sub.empty:
         raise ValueError(f"ticker {ticker!r} not present in {csv}")
     price = sub["close_price"].astype(float)
-    price = price[price > 0]
+    # Mark non-positive prices as NaN rather than dropping the rows, so a bad close
+    # in the middle of the series does not get bridged into a single multi-day
+    # return; the NaN-adjacent returns are dropped below instead.
+    price = price.where(price > 0)
     ret = np.log(price).diff().dropna()
     ret.name = "return"
     if start is not None:

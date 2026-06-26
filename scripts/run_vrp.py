@@ -182,7 +182,10 @@ def run_vrp() -> dict:
         xy=(0.02, 0.06), xycoords="axes fraction",
         fontsize=8, color="#555555",
     )
-    ax.set_title("Variance Risk Premium strategy: cumulative P&L (horizon=22d)")
+    ax.set_title(
+        "Variance Risk Premium strategy: cumulative P&L "
+        "(horizon=22d, overlapping daily payoffs)"
+    )
     ax.set_xlabel("Date")
     ax.set_ylabel("Cumulative P&L (daily variance units)")
     ax.legend()

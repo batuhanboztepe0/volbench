@@ -227,3 +227,11 @@ def test_all_measures_semivariance_sum():
     r = _clean_returns(200)
     m = all_measures(r)
     assert m["rsv_minus"] + m["rsv_plus"] == pytest.approx(m["rv"], rel=1e-10)
+
+
+def test_realized_kernel_nonnegative():
+    """The Parzen realized kernel is floored at zero: a finite-sample estimate can
+    go slightly negative under strong negative autocovariance with a tiny bandwidth,
+    and a variance cannot be negative."""
+    r = np.tile([0.1, -0.1], 25)
+    assert realized_kernel_parzen(r, bandwidth=1) >= 0.0

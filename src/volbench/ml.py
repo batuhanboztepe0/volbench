@@ -237,6 +237,11 @@ class MLForecaster(VolForecaster):
             if factory is None:
                 factory = self._select_config(X_tr, y_tr, configs, horizon)
             model = factory().fit(X_tr, y_tr)
+            # Lognormal back-transform variance from in-sample residuals, applied
+            # identically to log-HAR and to the ML learners so the comparison stays
+            # fair; for the regularised trees the in-sample/out-of-sample gap shifts
+            # forecasts by under a few percent, well inside the QLIKE gap to log-HAR
+            # and rank-irrelevant.
             resid = y_tr - np.asarray(model.predict(X_tr), dtype=float)
             s2 = float(resid @ resid) / max(resid.size - 1, 1)
             lo = max(float(np.min(target[rows])) * 0.1, _LOG_FLOOR)

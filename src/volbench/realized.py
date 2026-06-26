@@ -204,7 +204,10 @@ def realized_kernel_parzen(intraday_returns: np.ndarray, bandwidth: int | None =
         gamma_h = float(np.sum(r[h:] * r[:n - h]))
         weight = float(parzen_kernel((h - 1) / bandwidth))
         rk += 2.0 * weight * gamma_h
-    return rk
+    # Floor at zero: a finite-sample kernel estimate can go slightly negative under
+    # strong negative first-order autocovariance with a tiny bandwidth, and a
+    # variance cannot be negative.
+    return max(rk, 0.0)
 
 
 def subsampled_rv(intraday_returns: np.ndarray, n_grids: int = 5) -> float:
@@ -277,14 +280,15 @@ def all_measures(intraday_returns: np.ndarray) -> dict[str, float]:
     ``rsv_plus``, ``rq``, and ``jump_variation`` in a single dict.
     """
     rsv_minus, rsv_plus = realized_semivariance(intraday_returns)
+    rv = realized_variance(intraday_returns)
+    bv = bipower_variation(intraday_returns)
     return {
-        "rv": realized_variance(intraday_returns),
-        "bv": bipower_variation(intraday_returns),
+        "rv": rv,
+        "bv": bv,
         "medrv": median_rv(intraday_returns),
         "rk": realized_kernel_parzen(intraday_returns),
         "rsv_minus": rsv_minus,
         "rsv_plus": rsv_plus,
         "rq": realized_quarticity(intraday_returns),
-        "jump_variation": float(max(realized_variance(intraday_returns)
-                                    - bipower_variation(intraday_returns), 0.0)),
+        "jump_variation": float(max(rv - bv, 0.0)),
     }

@@ -20,7 +20,7 @@ from .deflated_sharpe import per_period_sharpe, probabilistic_sharpe_ratio
 # ---------------------------------------------------------------------------
 
 def _equity_curve(strategy_returns: np.ndarray) -> np.ndarray:
-    """Compounded equity curve starting at 1.0."""
+    """Compounded equity curve; the first value is ``1 + r[0]``, not exactly 1."""
     return np.cumprod(1.0 + strategy_returns)
 
 
@@ -354,6 +354,8 @@ def compare_books(
         "bh_sharpe": bh_sharpe_val,
         "bh_ann_vol": bh_ann_vol_val,
         "bh_max_drawdown": bh_mdd,
+        "sharpe_pp": per_period_sharpe(ret),
+        "psr": probabilistic_sharpe_ratio(ret),
     }
 
     return {

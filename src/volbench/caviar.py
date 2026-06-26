@@ -99,16 +99,20 @@ def _fit(returns, design, alpha, q0, start, n_starts, rng) -> np.ndarray:
             rng.uniform(0.5, 0.97),
             rng.uniform(-0.5, 0.0, size=k - 2),
         ])
-    best, best_loss = starts[0], np.inf
+    best, best_loss = starts[0], np.inf          # best among converged starts
+    best_any, best_any_loss = starts[0], np.inf  # fallback if none converge
     for x0 in starts:
         res = minimize(
             _tick_loss, x0, args=(returns, design, alpha, q0, start),
             method="Nelder-Mead",
             options={"maxiter": 1500, "xatol": 1e-7, "fatol": 1e-9},
         )
-        if res.fun < best_loss:
+        if res.fun < best_any_loss:
+            best_any_loss, best_any = float(res.fun), res.x
+        if res.success and res.fun < best_loss:
             best_loss, best = float(res.fun), res.x
-    return best
+    # Prefer a converged optimum; fall back to the best objective if none converged.
+    return best if np.isfinite(best_loss) else best_any
 
 
 def caviar_var_forecasts(

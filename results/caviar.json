@@ -65,8 +65,8 @@
         "kupiec_p": 7.807831025907682e-19,
         "christoffersen_stat": 78.61475528986688,
         "christoffersen_p": 8.49225039131665e-18,
-        "dq_stat": 110.01234190021852,
-        "dq_pvalue": 2.026299734953274e-21,
+        "dq_stat": 110.84569752776024,
+        "dq_pvalue": 1.3557481847869405e-21,
         "dq_reject": true
       },
       "t": {
@@ -78,8 +78,8 @@
         "kupiec_p": 1.6044150156908764e-19,
         "christoffersen_stat": 81.74930374066543,
         "christoffersen_p": 1.7715941723193432e-18,
-        "dq_stat": 116.94406404080446,
-        "dq_pvalue": 7.13900159208947e-23,
+        "dq_stat": 117.91073829325308,
+        "dq_pvalue": 4.474612877772556e-23,
         "dq_reject": true
       },
       "fhs": {
@@ -91,8 +91,8 @@
         "kupiec_p": 0.00021314644299670718,
         "christoffersen_stat": 13.7425659268781,
         "christoffersen_p": 0.0010371455908078754,
-        "dq_stat": 30.577862822174378,
-        "dq_pvalue": 3.0513384662323435e-05,
+        "dq_stat": 30.632036428210515,
+        "dq_pvalue": 2.9796448231510672e-05,
         "dq_reject": true
       },
       "GARCH": {
@@ -104,8 +104,8 @@
         "kupiec_p": 0.4782488008897354,
         "christoffersen_stat": 1.0561895390617266,
         "christoffersen_p": 0.5897274667691549,
-        "dq_stat": 27.14009417627187,
-        "dq_pvalue": 0.00013631270574506455,
+        "dq_stat": 27.14037637168614,
+        "dq_pvalue": 0.0001362961010854399,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -117,8 +117,8 @@
         "kupiec_p": 0.1494513458688791,
         "christoffersen_stat": 1.915800706418409,
         "christoffersen_p": 0.383697670380206,
-        "dq_stat": 21.555575876779532,
-        "dq_pvalue": 0.0014570793943113926,
+        "dq_stat": 21.771028635848985,
+        "dq_pvalue": 0.0013321423868428118,
         "dq_reject": true
       },
       "EWMA-RM": {
@@ -130,8 +130,8 @@
         "kupiec_p": 0.007301935545181294,
         "christoffersen_stat": 7.552194601397645,
         "christoffersen_p": 0.022911935560206993,
-        "dq_stat": 32.19805867826468,
-        "dq_pvalue": 1.4951204164470635e-05,
+        "dq_stat": 33.17173578272372,
+        "dq_pvalue": 9.71736997870845e-06,
         "dq_reject": true
       }
     },
@@ -184,8 +184,8 @@
         "kupiec_p": 1.3118327823437462e-07,
         "christoffersen_stat": 30.48601665256507,
         "christoffersen_p": 2.3990847841210865e-07,
-        "dq_stat": 62.86277957850942,
-        "dq_pvalue": 1.1771578199554815e-11,
+        "dq_stat": 63.689373225735075,
+        "dq_pvalue": 7.986030610299222e-12,
         "dq_reject": true
       },
       "t": {
@@ -197,8 +197,8 @@
         "kupiec_p": 3.322188042941631e-08,
         "christoffersen_stat": 32.6524256421163,
         "christoffersen_p": 8.12111875907475e-08,
-        "dq_stat": 67.66855855372472,
-        "dq_pvalue": 1.2282892020970284e-12,
+        "dq_stat": 68.42070544289763,
+        "dq_pvalue": 8.615758284778167e-13,
         "dq_reject": true
       },
       "fhs": {
@@ -210,8 +210,8 @@
         "kupiec_p": 1.2459219659620164e-09,
         "christoffersen_stat": 39.37995662029732,
         "christoffersen_p": 2.810289567019127e-09,
-        "dq_stat": 75.65571135091459,
-        "dq_pvalue": 2.8126507568305254e-14,
+        "dq_stat": 76.38441922141376,
+        "dq_pvalue": 1.9906103760166836e-14,
         "dq_reject": true
       },
       "GARCH": {
@@ -223,8 +223,8 @@
         "kupiec_p": 0.2920473735605893,
         "christoffersen_stat": 3.067024894414736,
         "christoffersen_p": 0.21577643138468638,
-        "dq_stat": 28.70347016283079,
-        "dq_pvalue": 6.922204916660721e-05,
+        "dq_stat": 28.65152571192597,
+        "dq_pvalue": 7.08042844213102e-05,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -236,8 +236,8 @@
         "kupiec_p": 0.9267410001374689,
         "christoffersen_stat": 2.0097980705503007,
         "christoffersen_p": 0.3660815942656206,
-        "dq_stat": 15.653234672642942,
-        "dq_pvalue": 0.015741306614671553,
+        "dq_stat": 15.654380079616887,
+        "dq_pvalue": 0.015734309826396935,
         "dq_reject": true
       },
       "EWMA-RM": {
@@ -249,8 +249,8 @@
         "kupiec_p": 0.014920027675292491,
         "christoffersen_stat": 9.755559894775956,
         "christoffersen_p": 0.007613898533724247,
-        "dq_stat": 45.18109191771013,
-        "dq_pvalue": 4.308005198940444e-08,
+        "dq_stat": 45.490918310152246,
+        "dq_pvalue": 3.738292686354453e-08,
         "dq_reject": true
       }
     },
@@ -303,8 +303,8 @@
         "kupiec_p": 1.3866079693764184e-07,
         "christoffersen_stat": 33.493263527469736,
         "christoffersen_p": 5.333720262812787e-08,
-        "dq_stat": 45.07008629533196,
-        "dq_pvalue": 4.532506918550503e-08,
+        "dq_stat": 44.6639634414853,
+        "dq_pvalue": 5.457752941802878e-08,
         "dq_reject": true
       },
       "t": {
@@ -316,8 +316,8 @@
         "kupiec_p": 1.3866079693764184e-07,
         "christoffersen_stat": 33.493263527469736,
         "christoffersen_p": 5.333720262812787e-08,
-        "dq_stat": 45.07008629533196,
-        "dq_pvalue": 4.532506918550503e-08,
+        "dq_stat": 44.66396344148522,
+        "dq_pvalue": 5.457752941803082e-08,
         "dq_reject": true
       },
       "fhs": {
@@ -329,8 +329,8 @@
         "kupiec_p": 0.05074929687316986,
         "christoffersen_stat": 3.971639337811517,
         "christoffersen_p": 0.1372680536367734,
-        "dq_stat": 11.091742618663194,
-        "dq_pvalue": 0.0855820641914912,
+        "dq_stat": 11.13509305079574,
+        "dq_pvalue": 0.0842898823126695,
         "dq_reject": false
       },
       "GARCH": {
@@ -342,8 +342,8 @@
         "kupiec_p": 0.047683027396132435,
         "christoffersen_stat": 8.59448985219916,
         "christoffersen_p": 0.013605992937939345,
-        "dq_stat": 15.925526624118538,
-        "dq_pvalue": 0.014159327378046623,
+        "dq_stat": 15.825927159001145,
+        "dq_pvalue": 0.01471941716858291,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -355,8 +355,8 @@
         "kupiec_p": 0.014907555478335886,
         "christoffersen_stat": 6.401666492655721,
         "christoffersen_p": 0.040728253168244,
-        "dq_stat": 15.008482997777085,
-        "dq_pvalue": 0.020190838941310307,
+        "dq_stat": 14.740422797169005,
+        "dq_pvalue": 0.022374624150501378,
         "dq_reject": true
       },
       "EWMA-RM": {
@@ -368,8 +368,8 @@
         "kupiec_p": 0.0003356949641787688,
         "christoffersen_stat": 25.4500687486059,
         "christoffersen_p": 2.975690710543879e-06,
-        "dq_stat": 46.947488505149586,
-        "dq_pvalue": 1.916804021855406e-08,
+        "dq_stat": 50.11262691321911,
+        "dq_pvalue": 4.462893019626109e-09,
         "dq_reject": true
       }
     },
@@ -422,8 +422,8 @@
         "kupiec_p": 1.149676202443743e-29,
         "christoffersen_stat": 131.3387691095504,
         "christoffersen_p": 3.0209856190095854e-29,
-        "dq_stat": 177.55786213258907,
-        "dq_pvalue": 1.119883564963192e-35,
+        "dq_stat": 178.12142032763956,
+        "dq_pvalue": 8.501964775094696e-36,
         "dq_reject": true
       },
       "t": {
@@ -435,8 +435,8 @@
         "kupiec_p": 1.149676202443743e-29,
         "christoffersen_stat": 131.3387691095504,
         "christoffersen_p": 3.0209856190095854e-29,
-        "dq_stat": 177.55786213258907,
-        "dq_pvalue": 1.119883564963192e-35,
+        "dq_stat": 178.12142032763987,
+        "dq_pvalue": 8.50196477509335e-36,
         "dq_reject": true
       },
       "fhs": {
@@ -448,8 +448,8 @@
         "kupiec_p": 2.75604811784766e-17,
         "christoffersen_stat": 76.01797669354039,
         "christoffersen_p": 3.1110436047444867e-17,
-        "dq_stat": 110.72578876728592,
-        "dq_pvalue": 1.4364606494154898e-21,
+        "dq_stat": 111.35820496542152,
+        "dq_pvalue": 1.0588248732038459e-21,
         "dq_reject": true
       },
       "GARCH": {
@@ -461,8 +461,8 @@
         "kupiec_p": 0.059660567329934744,
         "christoffersen_stat": 4.421707318040404,
         "christoffersen_p": 0.10960704152729357,
-        "dq_stat": 15.955047931733459,
-        "dq_pvalue": 0.013997287994880224,
+        "dq_stat": 16.005448623534747,
+        "dq_pvalue": 0.013724752648821304,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -474,8 +474,8 @@
         "kupiec_p": 0.02304960975359631,
         "christoffersen_stat": 5.295107921035964,
         "christoffersen_p": 0.07082424024642205,
-        "dq_stat": 10.19980333991472,
-        "dq_pvalue": 0.11648613977818618,
+        "dq_stat": 10.529422960102062,
+        "dq_pvalue": 0.10405529008482227,
         "dq_reject": false
       },
       "EWMA-RM": {
@@ -487,8 +487,8 @@
         "kupiec_p": 2.222305284667394e-05,
         "christoffersen_stat": 22.34325349511718,
         "christoffersen_p": 1.4067734058142985e-05,
-        "dq_stat": 53.76695532602804,
-        "dq_pvalue": 8.220081162262097e-10,
+        "dq_stat": 57.26431050408796,
+        "dq_pvalue": 1.6151162140192224e-10,
         "dq_reject": true
       }
     },
@@ -541,8 +541,8 @@
         "kupiec_p": 2.072841238739142e-28,
         "christoffersen_stat": 125.43862106126704,
         "christoffersen_p": 5.772308419406827e-28,
-        "dq_stat": 178.35141124811148,
-        "dq_pvalue": 7.59776112732944e-36,
+        "dq_stat": 178.47225328919455,
+        "dq_pvalue": 7.161876693241715e-36,
         "dq_reject": true
       },
       "t": {
@@ -554,8 +554,8 @@
         "kupiec_p": 2.072841238739142e-28,
         "christoffersen_stat": 125.43862106126704,
         "christoffersen_p": 5.772308419406827e-28,
-        "dq_stat": 178.35141124811148,
-        "dq_pvalue": 7.59776112732944e-36,
+        "dq_stat": 178.47225328919453,
+        "dq_pvalue": 7.16187669324192e-36,
         "dq_reject": true
       },
       "fhs": {
@@ -567,8 +567,8 @@
         "kupiec_p": 0.2458316396058049,
         "christoffersen_stat": 9.048448074157726,
         "christoffersen_p": 0.010843125035834565,
-        "dq_stat": 17.796405111370426,
-        "dq_pvalue": 0.006761649798701153,
+        "dq_stat": 17.91431324773919,
+        "dq_pvalue": 0.006449936534141608,
         "dq_reject": true
       },
       "GARCH": {
@@ -580,8 +580,8 @@
         "kupiec_p": 0.037839073592409816,
         "christoffersen_stat": 6.766159473968379,
         "christoffersen_p": 0.03394275882971231,
-        "dq_stat": 18.193800187699935,
-        "dq_pvalue": 0.0057656972988081355,
+        "dq_stat": 18.146042795107316,
+        "dq_pvalue": 0.00587740533871856,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -593,8 +593,8 @@
         "kupiec_p": 0.023198933615852697,
         "christoffersen_stat": 5.666312779652259,
         "christoffersen_p": 0.05882687975600056,
-        "dq_stat": 7.707191601612442,
-        "dq_pvalue": 0.2603495664574939,
+        "dq_stat": 7.444968284272574,
+        "dq_pvalue": 0.28164769760063363,
         "dq_reject": false
       },
       "EWMA-RM": {
@@ -606,8 +606,8 @@
         "kupiec_p": 0.0009983652794794753,
         "christoffersen_stat": 17.421771419788627,
         "christoffersen_p": 0.00016478224055896777,
-        "dq_stat": 46.82063168680207,
-        "dq_pvalue": 2.031767688837184e-08,
+        "dq_stat": 48.967414279967215,
+        "dq_pvalue": 7.56875655020583e-09,
         "dq_reject": true
       }
     },
@@ -660,8 +660,8 @@
         "kupiec_p": 4.096135913547226e-14,
         "christoffersen_stat": 59.93809580141655,
         "christoffersen_p": 9.651790104538992e-14,
-        "dq_stat": 89.11974928801189,
-        "dq_pvalue": 4.6156891231059394e-17,
+        "dq_stat": 88.6841899243836,
+        "dq_pvalue": 5.684040996307594e-17,
         "dq_reject": true
       },
       "t": {
@@ -673,8 +673,8 @@
         "kupiec_p": 4.096135913547226e-14,
         "christoffersen_stat": 59.93809580141655,
         "christoffersen_p": 9.651790104538992e-14,
-        "dq_stat": 89.11974928801189,
-        "dq_pvalue": 4.6156891231059394e-17,
+        "dq_stat": 88.68418992438353,
+        "dq_pvalue": 5.684040996307798e-17,
         "dq_reject": true
       },
       "fhs": {
@@ -686,8 +686,8 @@
         "kupiec_p": 3.135173037187184e-05,
         "christoffersen_stat": 20.907296412092393,
         "christoffersen_p": 2.8842856440666235e-05,
-        "dq_stat": 37.960872694151114,
-        "dq_pvalue": 1.1433196685690474e-06,
+        "dq_stat": 37.67626363323467,
+        "dq_pvalue": 1.2995020746301562e-06,
         "dq_reject": true
       },
       "GARCH": {
@@ -699,8 +699,8 @@
         "kupiec_p": 0.10624017540116874,
         "christoffersen_stat": 2.8819896161600838,
         "christoffersen_p": 0.23669217823149488,
-        "dq_stat": 20.904203718465993,
-        "dq_pvalue": 0.001908750234611402,
+        "dq_stat": 20.544596071789847,
+        "dq_pvalue": 0.0022140993149794203,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -712,8 +712,8 @@
         "kupiec_p": 0.08084828081325743,
         "christoffersen_stat": 3.2106946129955602,
         "christoffersen_p": 0.20081979677690334,
-        "dq_stat": 8.592887009276177,
-        "dq_pvalue": 0.19780124684175096,
+        "dq_stat": 8.364800733180564,
+        "dq_pvalue": 0.2125764807902393,
         "dq_reject": false
       },
       "EWMA-RM": {
@@ -725,8 +725,8 @@
         "kupiec_p": 0.0010120383175463079,
         "christoffersen_stat": 16.377452345044432,
         "christoffersen_p": 0.0002777674868356268,
-        "dq_stat": 47.57882811953715,
-        "dq_pvalue": 1.434159408722901e-08,
+        "dq_stat": 49.97698034296902,
+        "dq_pvalue": 4.7512868588897095e-09,
         "dq_reject": true
       }
     },
@@ -779,8 +779,8 @@
         "kupiec_p": 4.106198848983935e-93,
         "christoffersen_stat": 419.22446072659,
         "christoffersen_p": 9.259019820682001e-92,
-        "dq_stat": 632.5933310314134,
-        "dq_pvalue": 2.167748310364878e-133,
+        "dq_stat": 633.0848538310836,
+        "dq_pvalue": 1.6980424106413654e-133,
         "dq_reject": true
       },
       "t": {
@@ -792,8 +792,8 @@
         "kupiec_p": 2.131337478186496e-95,
         "christoffersen_stat": 429.6776506250063,
         "christoffersen_p": 4.973746748054559e-94,
-        "dq_stat": 644.8846662496636,
-        "dq_pvalue": 4.8266062366029095e-136,
+        "dq_stat": 645.182946976481,
+        "dq_pvalue": 4.161706473872565e-136,
         "dq_reject": true
       },
       "fhs": {
@@ -805,8 +805,8 @@
         "kupiec_p": 1.417930688806432e-11,
         "christoffersen_stat": 45.76165658535248,
         "christoffersen_p": 1.1560657401374247e-10,
-        "dq_stat": 80.45166404024879,
-        "dq_pvalue": 2.882089370259507e-15,
+        "dq_stat": 80.75029770159101,
+        "dq_pvalue": 2.5003361950708293e-15,
         "dq_reject": true
       },
       "GARCH": {
@@ -818,8 +818,8 @@
         "kupiec_p": 0.30183102375895804,
         "christoffersen_stat": 1.265595387983062,
         "christoffersen_p": 0.5311038545052995,
-        "dq_stat": 18.90644642864429,
-        "dq_pvalue": 0.004324582740063459,
+        "dq_stat": 19.279890295864945,
+        "dq_pvalue": 0.00371614963141898,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -831,8 +831,8 @@
         "kupiec_p": 0.2711738319309825,
         "christoffersen_stat": 1.231601537561552,
         "christoffersen_p": 0.540208140250237,
-        "dq_stat": 15.492313990201302,
-        "dq_pvalue": 0.016754517186492547,
+        "dq_stat": 15.524031582804989,
+        "dq_pvalue": 0.01654999194314958,
         "dq_reject": true
       },
       "EWMA-RM": {
@@ -844,8 +844,8 @@
         "kupiec_p": 0.0024448149430448467,
         "christoffersen_stat": 10.89142156780548,
         "christoffersen_p": 0.004314772046918757,
-        "dq_stat": 40.602240508503186,
-        "dq_pvalue": 3.467899358017579e-07,
+        "dq_stat": 43.16084589423863,
+        "dq_pvalue": 1.083992999312232e-07,
         "dq_reject": true
       }
     },
@@ -898,8 +898,8 @@
         "kupiec_p": 9.866649253940846e-79,
         "christoffersen_stat": 354.41316198018853,
         "christoffersen_p": 1.0968815185008848e-77,
-        "dq_stat": 517.4643389712303,
-        "dq_pvalue": 1.452360503058317e-108,
+        "dq_stat": 525.388071109759,
+        "dq_pvalue": 2.8484381449707857e-110,
         "dq_reject": true
       },
       "t": {
@@ -911,8 +911,8 @@
         "kupiec_p": 4.5506415859155036e-86,
         "christoffersen_stat": 387.8080216643175,
         "christoffersen_p": 6.145512079989094e-85,
-        "dq_stat": 574.8134968593286,
-        "dq_pvalue": 6.306975692970418e-121,
+        "dq_stat": 582.3575952277317,
+        "dq_pvalue": 1.4891122479551676e-122,
         "dq_reject": true
       },
       "fhs": {
@@ -924,8 +924,8 @@
         "kupiec_p": 3.3857152014619515e-09,
         "christoffersen_stat": 35.04568743075248,
         "christoffersen_p": 2.454288809326833e-08,
-        "dq_stat": 48.40724241836405,
-        "dq_pvalue": 9.796702277961883e-09,
+        "dq_stat": 48.46598901665533,
+        "dq_pvalue": 9.535277982137222e-09,
         "dq_reject": true
       },
       "GARCH": {
@@ -937,8 +937,8 @@
         "kupiec_p": 0.22520100073580232,
         "christoffersen_stat": 1.5789350979741528,
         "christoffersen_p": 0.45408650974815945,
-        "dq_stat": 13.319644183990578,
-        "dq_pvalue": 0.03823164438644077,
+        "dq_stat": 13.393277640867515,
+        "dq_pvalue": 0.03719881091758948,
         "dq_reject": true
       },
       "GJR-GARCH": {
@@ -950,8 +950,8 @@
         "kupiec_p": 0.1385094109907495,
         "christoffersen_stat": 2.2397439421928453,
         "christoffersen_p": 0.32632157054161004,
-        "dq_stat": 15.004072833990447,
-        "dq_pvalue": 0.020225061218496446,
+        "dq_stat": 15.012745960853122,
+        "dq_pvalue": 0.020157811490643385,
         "dq_reject": true
       },
       "EWMA-RM": {
@@ -963,8 +963,8 @@
         "kupiec_p": 0.004118180782142365,
         "christoffersen_stat": 8.293235120271774,
         "christoffersen_p": 0.015817828956920833,
-        "dq_stat": 23.450369483791864,
-        "dq_pvalue": 0.0006588535647043782,
+        "dq_stat": 25.513868163666974,
+        "dq_pvalue": 0.0002741801296452421,
         "dq_reject": true
       }
     }
@@ -997,7 +997,7 @@
     "normal": {
       "avg_violation_rate": 0.09055039027194539,
       "avg_viol_dev": 0.040550390271945395,
-      "avg_dq_pvalue": 5.6671051012329375e-09,
+      "avg_dq_pvalue": 6.823189438185106e-09,
       "dq_reject_frac": 1.0,
       "dq_pass_count": 0,
       "n_indices": 8
@@ -1005,7 +1005,7 @@
     "t": {
       "avg_violation_rate": 0.09136564823169298,
       "avg_viol_dev": 0.041365648231692975,
-      "avg_dq_pvalue": 5.665787190108011e-09,
+      "avg_dq_pvalue": 6.8222988813374694e-09,
       "dq_reject_frac": 1.0,
       "dq_pass_count": 0,
       "n_indices": 8
@@ -1013,7 +1013,7 @@
     "fhs": {
       "avg_violation_rate": 0.06478302069283189,
       "avg_viol_dev": 0.01632336965684497,
-      "avg_dq_pvalue": 0.011546922561407066,
+      "avg_dq_pvalue": 0.011346365541552205,
       "dq_reject_frac": 0.875,
       "dq_pass_count": 1,
       "n_indices": 8
@@ -1021,7 +1021,7 @@
     "GARCH": {
       "avg_violation_rate": 0.05473732212347746,
       "avg_viol_dev": 0.004737322123477461,
-      "avg_dq_pvalue": 0.009824103098470285,
+      "avg_dq_pvalue": 0.009707216925702176,
       "dq_reject_frac": 1.0,
       "dq_pass_count": 0,
       "n_indices": 8
@@ -1029,7 +1029,7 @@
     "GJR-GARCH": {
       "avg_violation_rate": 0.05520185050149641,
       "avg_viol_dev": 0.005276075265076792,
-      "avg_dq_pvalue": 0.08112571955408916,
+      "avg_dq_pvalue": 0.08430354353415367,
       "dq_reject_frac": 0.625,
       "dq_pass_count": 3,
       "n_indices": 8
@@ -1037,7 +1037,7 @@
     "EWMA-RM": {
       "avg_violation_rate": 0.06059831564616652,
       "avg_viol_dev": 0.010598315646166524,
-      "avg_dq_pvalue": 8.428116102199381e-05,
+      "avg_dq_pvalue": 3.550752828734944e-05,
       "dq_reject_frac": 1.0,
       "dq_pass_count": 0,
       "n_indices": 8

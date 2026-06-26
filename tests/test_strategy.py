@@ -180,3 +180,13 @@ def test_compare_books_structure():
         assert not missing, f"{book_name} missing keys: {missing}"
         for k, v in stats.items():
             assert isinstance(v, float), f"{book_name}[{k!r}] is not float: {type(v)}"
+
+
+def test_all_books_have_honest_sharpe_keys():
+    """Every book, including buy_hold, must carry sharpe_pp and psr so code that
+    loops over the books (e.g. a JSON writer) does not KeyError on buy_hold."""
+    returns, fvar, rv, jump = _make_series(n=700, seed=7)
+    result = compare_books(returns, fvar, rv, jump)
+    for book_name, stats in result.items():
+        assert "sharpe_pp" in stats, f"{book_name} missing sharpe_pp"
+        assert "psr" in stats, f"{book_name} missing psr"
