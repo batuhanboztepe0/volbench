@@ -89,52 +89,70 @@ def figure_signature_plot(days: int = 1500, seed: int = 7) -> None:
     print("  wrote signature_plot.png")
 
 
-def figure_crypto_signature(days: int = 20) -> None:
-    """Real-data volatility signature plot from live BTC 1-minute bars.
+def figure_crypto_signature(days: int = 20, end_date: str = "2026-06-23") -> None:
+    """Real-data volatility signature plot from BTC 1-minute bars.
 
     The simulated signature plot shows realized variance exploding at high
     frequency under noise; this is the same effect on *real* data. RV is computed
-    at increasing sampling intervals (averaged over recent days) and compared to a
-    realized kernel. Network-dependent — skips quietly when offline.
+    at increasing sampling intervals (averaged over the ``days`` ending
+    ``end_date``) and compared to a realized kernel.
+
+    The window is anchored to a fixed research date, and the computed series is
+    cached to ``results/crypto_signature.json``, so the figure is reproducible
+    offline and does not drift with a live "last N days" fetch. Delete the cache to
+    re-pull.
     """
     import json
     import urllib.request
+    from datetime import datetime, timezone
 
-    try:
-        url = ("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m"
-               "&limit=1000")
-        # Page back from the latest bars to assemble ~`days` of 1-minute closes.
-        pages, last = [], None
-        for _ in range(max(1, days * 1440 // 1000 + 1)):
-            u = url + (f"&endTime={last}" if last else "")
-            with urllib.request.urlopen(u, timeout=20) as r:  # noqa: S310
-                page = json.load(r)
-            if not page:
-                break
-            pages = page + pages
-            last = page[0][0] - 1
-        closes = np.array([float(row[4]) for row in pages])
-        times = np.array([row[0] for row in pages], dtype="int64")
-    except Exception as exc:  # noqa: BLE001 - figure is a bonus; skip if offline
-        print(f"  (skip crypto signature plot: {exc})")
-        return
-
-    day_idx = times // (1000 * 60 * 60 * 24)
+    cache = FIG_DIR.parent / "crypto_signature.json"
     intervals = [1, 2, 3, 5, 10, 15, 20, 30, 60]
-    mean_rv = []
-    for m in intervals:
-        rvs = []
-        for d in np.unique(day_idx):
-            p = closes[day_idx == d]
-            if p.size < 200:
-                continue
-            r = np.diff(np.log(p))[:: 1]
-            agg = _aggregate_returns(r, m)
-            rvs.append(realized_variance(agg))
-        mean_rv.append(float(np.mean(rvs)) if rvs else np.nan)
-    rk_vals = [realized_kernel_parzen(np.diff(np.log(closes[day_idx == d])))
-               for d in np.unique(day_idx) if (day_idx == d).sum() >= 200]
-    rk = float(np.mean(rk_vals)) if rk_vals else np.nan
+
+    if cache.exists():
+        rec = json.loads(cache.read_text())
+        mean_rv, rk, end_date = rec["mean_rv"], rec["rk"], rec.get("end_date", end_date)
+    else:
+        try:
+            end_ms = int(
+                datetime.strptime(end_date, "%Y-%m-%d")
+                .replace(tzinfo=timezone.utc).timestamp() * 1000
+            )
+            url = ("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m"
+                   "&limit=1000")
+            # Page back from the fixed research date to assemble ~`days` of closes.
+            pages, last = [], end_ms
+            for _ in range(max(1, days * 1440 // 1000 + 1)):
+                u = url + f"&endTime={last}"
+                with urllib.request.urlopen(u, timeout=20) as r:  # noqa: S310
+                    page = json.load(r)
+                if not page:
+                    break
+                pages = page + pages
+                last = page[0][0] - 1
+            closes = np.array([float(row[4]) for row in pages])
+            times = np.array([row[0] for row in pages], dtype="int64")
+        except Exception as exc:  # noqa: BLE001 - figure is a bonus; skip if offline
+            print(f"  (skip crypto signature plot: {exc})")
+            return
+
+        day_idx = times // (1000 * 60 * 60 * 24)
+        mean_rv = []
+        for m in intervals:
+            rvs = []
+            for d in np.unique(day_idx):
+                p = closes[day_idx == d]
+                if p.size < 200:
+                    continue
+                agg = _aggregate_returns(np.diff(np.log(p)), m)
+                rvs.append(realized_variance(agg))
+            mean_rv.append(float(np.mean(rvs)) if rvs else float("nan"))
+        rk_vals = [realized_kernel_parzen(np.diff(np.log(closes[day_idx == d])))
+                   for d in np.unique(day_idx) if (day_idx == d).sum() >= 200]
+        rk = float(np.mean(rk_vals)) if rk_vals else float("nan")
+        cache.write_text(json.dumps(
+            {"end_date": end_date, "days": days, "intervals": intervals,
+             "mean_rv": mean_rv, "rk": rk}, indent=2))
 
     fig, ax = plt.subplots(figsize=(7.5, 4.6))
     ax.plot(intervals, np.array(mean_rv) * 1e4, "o-", color="#8e44ad", label="Realized variance (BTC)")
@@ -142,7 +160,7 @@ def figure_crypto_signature(days: int = 20) -> None:
         ax.axhline(rk * 1e4, ls=":", color="#27ae60", lw=2, label="Realized kernel (1-min)")
     ax.set_xlabel("Sampling interval (minutes)")
     ax.set_ylabel(r"Mean realized variance ($\times 10^{-4}$)")
-    ax.set_title(f"Real-data signature plot: BTC, last {days} days (1-min bars)")
+    ax.set_title(f"Real-data signature plot: BTC, {days} days to {end_date} (1-min bars)")
     ax.legend(frameon=False)
     ax.grid(alpha=0.3)
     fig.tight_layout()

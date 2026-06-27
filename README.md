@@ -9,6 +9,8 @@
 
 This is a reproducible, out-of-sample realized-variance forecasting benchmark. It implements all model-comparison tests (Diebold-Mariano + HLN correction, Model Confidence Set, Clark-West nested-model test) from scratch, matching reference libraries to machine precision. The two hard problems are look-ahead bias at horizons h > 1 (enforced and unit-tested per model) and proxy-robust loss functions (Patton 2011 QLIKE). The headline: **a correctly specified log-HAR is hard to beat**, replicated at scale across 37/39 futures cells and 38/39 FX cells, with a pre-specified cross-asset hypothesis that was mostly falsified.
 
+> **New here? Start with the narrated walkthrough: [`notebooks/volbench.ipynb`](notebooks/volbench.ipynb)** — the whole project as one story, with every figure and a live walk-forward, top to bottom in a few minutes.
+
 ## What I built
 
 I implemented the Model Confidence Set, Diebold-Mariano + HLN, and Clark-West tests from scratch; the look-ahead-free expanding-window backtest harness; all realized estimators (bipower variation, realized kernel, semivariances, quarticity, BNS jump test); and the VaR and VRP layers. I set the research questions, the pre-specified decision rules, and did all result interpretation. Code was written with AI assistance (Claude); every statistical result is reproducible from the committed code and a fixed seed.
@@ -139,6 +141,7 @@ volbench/
 ├── tests/               # pytest suite (239 tests)
 ├── data/                # VIX (committed) + provenance; RV and crypto CSVs are fetched
 ├── results/             # tables, figures, JSON summaries (the deliverable)
+├── notebooks/           # narrated walkthrough notebook (start here)
 └── report/              # LaTeX research report
 ```
 
