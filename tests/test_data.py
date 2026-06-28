@@ -1,4 +1,4 @@
-"""Tests for volbench.data — Oxford-Man RV data loader."""
+"""Tests for volbench.data: Oxford-Man RV data loader."""
 
 from __future__ import annotations
 

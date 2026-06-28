@@ -207,9 +207,9 @@ def spillover_backtest(
     Aligns the target and all peer series to their common date intersection,
     then runs an expanding-window backtest comparing:
 
-    - ``LogHAR``  — own-index information only (the benchmark).
-    - ``CrossHAR`` — own + peers' lagged daily log-RV.
-    - ``RW``       — random-walk sanity floor.
+    - ``LogHAR``: own-index information only (the benchmark).
+    - ``CrossHAR``: own + peers' lagged daily log-RV.
+    - ``RW``: random-walk sanity floor.
 
     Parameters
     ----------

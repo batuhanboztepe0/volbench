@@ -37,7 +37,7 @@ CRYPTO_DAYS_PER_YEAR: int = 365  # crypto trades 24/7/365
 
 # Plausibility band for annualised volatility, used to catch a units mistake
 # (e.g. loading volatility as variance, or a mis-scaled column). Note: this is a
-# coarse guard — it catches order-of-magnitude errors but NOT a 252-vs-365
+# coarse guard; it catches order-of-magnitude errors but NOT a 252-vs-365
 # annualisation swap (~20% off), which stays inside the band; the correct factor
 # is enforced by using TRADING_DAYS / CRYPTO_DAYS_PER_YEAR in the loaders.
 _MIN_ANN_VOL: float = 0.03
@@ -131,7 +131,7 @@ class AssetClassConfig:
         Human-readable class label, used in error messages.
     days_per_year : int
         Annualisation factor for the units sanity check (equities/futures 252,
-        crypto 365, FX ~252 — document the choice per class).
+        crypto 365, FX ~252; document the choice per class).
     ann_vol_band : tuple[float, float]
         ``(min, max)`` plausible annualised volatility; a series whose implied
         vol falls outside flags a units mistake.
@@ -150,7 +150,7 @@ class AssetClassConfig:
 
 # Per-class configs for the two classes that have bundled data. A new class is
 # added by declaring another AssetClassConfig (units / band / columns / universe)
-# and pointing load_realized_panel at its CSV — no new loader code.
+# and pointing load_realized_panel at its CSV; no new loader code.
 EQUITY_INDEX_CONFIG = AssetClassConfig(
     name="equity-index",
     days_per_year=TRADING_DAYS,
@@ -228,7 +228,7 @@ def load_realized_panel(
         if not (lo <= ann_vol <= hi):
             raise ValueError(
                 f"{sym}: implied annualised vol {ann_vol:.3f} outside "
-                f"[{lo}, {hi}] — check data units"
+                f"[{lo}, {hi}]; check data units"
             )
         panel[sym] = _add_derived(sub)
     return RealizedDataset(panel=panel)
@@ -323,8 +323,8 @@ def load_crypto_rv(
 ) -> RealizedDataset:
     """Load the crypto realized-measure panel (Track 3).
 
-    Built by ``scripts/build_crypto.py`` from real Binance 5-minute bars, so —
-    unlike the equity panel — it carries **realized quarticity** (``rq``),
+    Built by ``scripts/build_crypto.py`` from real Binance 5-minute bars, so
+    (unlike the equity panel) it carries **realized quarticity** (``rq``),
     enabling HARQ on real data. Crypto trades 24/7, so the units check annualises
     by 365 and allows a wider volatility band.
 
@@ -359,7 +359,7 @@ def load_vix(
     start: str | None = None,
     end: str | None = None,
 ) -> pd.Series:
-    """Daily CBOE VIX close — implied volatility index, in annualised percent.
+    """Daily CBOE VIX close: implied volatility index, in annualised percent.
 
     Public-domain data (FRED series ``VIXCLS``), bundled in ``data/vix.csv``.
     To compare against a daily realized **variance**, convert with

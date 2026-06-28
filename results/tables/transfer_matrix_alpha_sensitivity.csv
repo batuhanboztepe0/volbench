@@ -1,10 +1,10 @@
 asset_class,dominates_a10->a25_h1,dominates_a10->a25_h5,dominates_a10->a25_h22
-Crypto — 22 coins,19->19/22,19->19/22,18->18/22
-Futures — rates (FV/TY),2->2/2,2->2/2,2->2/2
-Futures — commodity (8),7->7/8,8->8/8,7->7/8
-Futures — equity-index (ES/NQ),2->2/2,2->2/2,2->2/2
-Futures — fx (EU),1->1/1,1->1/1,1->1/1
-Futures — all (13),12->12/13,13->13/13,12->12/13
-FX — major (7),6->6/7,7->7/7,7->7/7
-FX — secondary/EM (6),6->6/6,6->6/6,6->6/6
-FX — all (13),12->12/13,13->13/13,13->13/13
+Crypto: 22 coins,19->19/22,19->19/22,18->18/22
+Futures: rates (FV/TY),2->2/2,2->2/2,2->2/2
+Futures: commodity (8),7->7/8,8->8/8,7->7/8
+Futures: equity-index (ES/NQ),2->2/2,2->2/2,2->2/2
+Futures: fx (EU),1->1/1,1->1/1,1->1/1
+Futures: all (13),12->12/13,13->13/13,12->12/13
+FX: major (7),6->6/7,7->7/7,7->7/7
+FX: secondary/EM (6),6->6/6,6->6/6,6->6/6
+FX: all (13),12->12/13,13->13/13,13->13/13

@@ -4,19 +4,19 @@ Complements the statistical losses in :mod:`volbench.losses` with three
 utility-based criteria that ask whether better forecasts translate into better
 decisions:
 
-1. **Vol-targeting** — a long-only strategy that scales its equity position so
+1. **Vol-targeting**: a long-only strategy that scales its equity position so
    that the forecast daily volatility equals a target, then measures the
    Sharpe ratio, drawdown, and turnover of the resulting return stream.
 
-2. **Option pricing** — prices an ATM European call with each model's forecast
+2. **Option pricing**: prices an ATM European call with each model's forecast
    vol and measures how far those prices deviate from the fair price implied by
    the realized vol.
 
-3. **Value-at-Risk backtesting** — compares the empirical violation rate of a
+3. **Value-at-Risk backtesting**: compares the empirical violation rate of a
    normal VaR against the nominal level via the Kupiec unconditional-coverage
    test and the Christoffersen conditional-coverage test.
 
-4. **Expected Shortfall (ES/CVaR)** — Basel-FRTB risk measure: the conditional
+4. **Expected Shortfall (ES/CVaR)**: Basel-FRTB risk measure: the conditional
    mean return given a VaR breach.  ES forecasts are ranked via the
    Fissler-Ziegel (FZ0) loss and tested with the Acerbi-Székely (2014) Z1/Z2
    statistics.  ES is a *risk-layer* quantity: never compare FZ0 values to
@@ -458,13 +458,13 @@ def var_backtest(
 
     The one-step VaR at level ``alpha`` is computed as:
 
-    * ``"normal"`` — ``VaR_t = norm.ppf(1-alpha) * sqrt(forecast_variance[t])``
-    * ``"t"`` — fit a Student-t to the standardised residuals
+    * ``"normal"``: ``VaR_t = norm.ppf(1-alpha) * sqrt(forecast_variance[t])``
+    * ``"t"``: fit a Student-t to the standardised residuals
       ``z_t = return_t / sqrt(forecast_variance[t])`` to estimate degrees of
       freedom, then ``VaR_t = t.ppf(1-alpha, dof, scale=sqrt((dof-2)/dof)) *
       sqrt(forecast_variance[t])`` (scale adjusted so the t distribution has
       unit variance).
-    * ``"fhs"`` — filtered historical simulation: use the empirical
+    * ``"fhs"``: filtered historical simulation: use the empirical
       ``alpha``-quantile of standardised residuals
       ``z_t = return_t / sqrt(forecast_variance[t])`` and multiply back by
       ``sqrt(forecast_variance[t])``.
@@ -524,8 +524,8 @@ def var_backtest(
 
     # Calibrate any *estimated* tail shape on a leading warm-up block only, then
     # score coverage on the held-out remainder (see the docstring): this removes
-    # the in-sample look-ahead — and, for FHS, the violation-rate == alpha
-    # tautology — that arises from fitting the quantile on the scored residuals.
+    # the in-sample look-ahead (and, for FHS, the violation-rate == alpha
+    # tautology) that arises from fitting the quantile on the scored residuals.
     w = min(int(warmup), ret.size // 3)
     z_train = z[:w]
     if dist in ("t", "fhs") and z_train.size < 30:
@@ -754,7 +754,7 @@ def expected_shortfall_forecast(
     # Calibrate any estimated tail (the t dof, the FHS quantile) on the leading
     # warm-up block only, so that when var_backtest calls this with its own
     # ``warmup`` the ES thresholds coincide with the VaR thresholds it scored
-    # (consistency — WFB-2). ``warmup=0`` defaults to half the window.
+    # (consistency, WFB-2). ``warmup=0`` defaults to half the window.
     w_es = warmup if warmup > 0 else max(1, ret.size // 2)
     z_calib = z[:w_es]
 
@@ -769,7 +769,7 @@ def expected_shortfall_forecast(
 
     elif dist == "t":
         # Fit Student-t to the warm-up standardised residuals (same window as
-        # var_backtest, so the t dof — hence the VaR/ES thresholds — coincide).
+        # var_backtest, so the t dof (hence the VaR/ES thresholds) coincide).
         fit_df, _fit_loc, _fit_scale = t_dist.fit(z_calib, floc=0.0)
         dof = max(float(fit_df), 2.1)  # variance requires dof > 2
 
@@ -847,7 +847,7 @@ def acerbi_szekely_backtest(
 
     Acerbi-Székely's third test (Z3) is intentionally **not** reported: it is
     rank/ESF-based and needs the full one-step predictive CDF, whereas this
-    function — and the DM/MCS pipeline it feeds — carries only the point
+    function (and the DM/MCS pipeline it feeds) carries only the point
     ``(VaR, ES)`` forecasts. Z1 (conditional) and Z2 (unconditional) are the
     tail-severity statistics computable from a ``(VaR, ES)`` pair alone.
 
@@ -872,7 +872,7 @@ def acerbi_szekely_backtest(
     dict[str, float]
         ``Z1`` : test statistic (≈ 0 under H0; < 0 when ES underestimated).
         ``Z2`` : test statistic (≈ 0 under H0; < 0 when ES underestimated).
-        ``p``  : min(p_Z1, p_Z2) — joint p-value proxy (one-sided lower tail).
+        ``p``  : min(p_Z1, p_Z2): joint p-value proxy (one-sided lower tail).
     """
     ret = np.asarray(future_returns, dtype=float).ravel()
     es = np.asarray(es_forecast, dtype=float).ravel()
@@ -917,7 +917,7 @@ def acerbi_szekely_backtest(
     # assumption, the H0 return distribution has
     #   sigma_null_t = |ES_t| * alpha / phi(Phi^{-1}(alpha))
     # so that E[r | r < -VaR_t] = ES_t exactly.  (``var`` here is the VaR threshold,
-    # already a positive return level, not a variance — breach when r < -var.)
+    # already a positive return level, not a variance; breach when r < -var.)
     rng = np.random.default_rng(seed)
     sigma_null = np.abs(es_safe) * alpha / float(norm.pdf(norm.ppf(alpha)))
 
@@ -967,7 +967,7 @@ def fz_loss(
 
     FZ0 is a strictly consistent scoring rule for the joint (VaR, ES) pair
     (Fissler & Ziegel 2016; Taylor 2019).  It enables DM/MCS comparison of
-    tail models — exactly analogous to QLIKE for variance models, but in the
+    tail models, exactly analogous to QLIKE for variance models, but in the
     risk layer.
 
     The formula (Patton, Ziegel & Chen 2019 eq. 2 / Taylor 2019; written for

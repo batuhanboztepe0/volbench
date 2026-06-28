@@ -4,9 +4,9 @@ Mirrors ``run_volare_futures.py`` for the FX arm (pre-registered §9, 2026-06-20
 ``build_volare.py --fetch forex`` -> ``data/volare_forex_realized.csv``. Pairs are
 grouped by the H1 clause each probes:
 
-* **major** — EURUSD, GBPUSD, USDJPY, USDCHF, USDCAD, AUDUSD, NZDUSD → the
+* **major**: EURUSD, GBPUSD, USDJPY, USDCHF, USDCAD, AUDUSD, NZDUSD → the
   dominance prediction (mature, deep, calendar-synchronized FX).
-* **secondary_em** — USDKRW, USDPLN, ZARUSD, USDNOK, USDSEK, USDSGD → a within-class
+* **secondary_em**: USDKRW, USDPLN, ZARUSD, USDNOK, USDSEK, USDSGD → a within-class
   probe of H1 clause (iii) microstructure-noise / thinner liquidity.
 
 For each pair and horizon h∈{1,5,22} it scores the full registered model set

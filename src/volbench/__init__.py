@@ -1,16 +1,16 @@
-"""volbench — a reproducible out-of-sample benchmark for realized-volatility forecasting.
+"""volbench: a reproducible out-of-sample benchmark for realized-volatility forecasting.
 
 Public API is re-exported here for convenience; see the submodules for detail:
 
-- :mod:`volbench.realized`    — non-parametric realized measures
-- :mod:`volbench.simulate`    — intraday simulator with known IV/JV
-- :mod:`volbench.models`      — forecasters with a common walk-forward interface
-- :mod:`volbench.losses`      — proxy-robust losses + calibration
-- :mod:`volbench.evaluation`  — Diebold-Mariano and Model Confidence Set
-- :mod:`volbench.backtest`    — the expanding-window harness
-- :mod:`volbench.data`        — loaders for the bundled realized panel
-- :mod:`volbench.economic`    — economic-value evaluation (vol targeting, VaR, options)
-- :mod:`volbench.multivariate`— cross-index (spillover) HAR
+- :mod:`volbench.realized`    : non-parametric realized measures
+- :mod:`volbench.simulate`    : intraday simulator with known IV/JV
+- :mod:`volbench.models`      : forecasters with a common walk-forward interface
+- :mod:`volbench.losses`      : proxy-robust losses + calibration
+- :mod:`volbench.evaluation`  : Diebold-Mariano and Model Confidence Set
+- :mod:`volbench.backtest`    : the expanding-window harness
+- :mod:`volbench.data`        : loaders for the bundled realized panel
+- :mod:`volbench.economic`    : economic-value evaluation (vol targeting, VaR, options)
+- :mod:`volbench.multivariate`: cross-index (spillover) HAR
 """
 
 from __future__ import annotations

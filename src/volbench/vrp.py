@@ -1,16 +1,16 @@
 """Variance Risk Premium (VRP) analysis and strategy.
 
 The equity variance risk premium is implied variance minus expected (forecast)
-realized variance. It is positive on average — sellers of variance earn it
-roughly 90 % of trading days — meaning the options market consistently
+realized variance. It is positive on average (sellers of variance earn it
+roughly 90 % of trading days), meaning the options market consistently
 over-prices realized variance. A good RV forecaster (log-HAR) allows timing:
 scale up the short-variance position when implied looks rich relative to the
 model forecast, and scale down (or go long) when it looks cheap.
 
 Two public-facing functions are provided:
 
-* :func:`variance_risk_premium` — the ex-ante VRP signal (implied - forecast).
-* :func:`vrp_strategy` — a short-variance timing backtest comparing an
+* :func:`variance_risk_premium`: the ex-ante VRP signal (implied - forecast).
+* :func:`vrp_strategy`: a short-variance timing backtest comparing an
   always-short book, a forecast-timed book, and a long/short book.
 """
 
@@ -119,7 +119,7 @@ def _book_stats(
     # The daily P&L series overlaps over `horizon` days (consecutive payoffs settle
     # over near-identical windows), which both inflates the per-period Sharpe and
     # over-counts the sample. For the deflated metrics we therefore use the
-    # *non-overlapping* h-day payoffs p[::horizon] — a smaller, honest sample whose
+    # *non-overlapping* h-day payoffs p[::horizon], a smaller, honest sample whose
     # Sharpe is not overlap-inflated. (This is why the headline annualised Sharpe
     # above is inflated relative to these probabilities.)
     sub = _nonoverlapping(p, horizon)
@@ -147,10 +147,10 @@ def vrp_strategy(
 
     Evaluates three trading books:
 
-    * **always_short** — unit short-variance position every period.
-    * **timed** — position scaled by the relative richness of implied variance
+    * **always_short**: unit short-variance position every period.
+    * **timed**: position scaled by the relative richness of implied variance
       vs the model forecast: ``clip(scale*(IV-FC)/IV, -1, 2)``.
-    * **longshort** — same timed position but without the ``-1`` floor, capped
+    * **longshort**: same timed position but without the ``-1`` floor, capped
       at ``(-2, 2)`` (allows a more aggressive long when implied looks cheap).
 
     NO look-ahead: positions use only ``implied_var[t]`` and ``forecast_var[t]``
@@ -177,7 +177,7 @@ def vrp_strategy(
     -------
     dict[str, object]
         Keys: ``always_short``, ``timed``, ``longshort`` (each a dict of book
-        statistics — see :func:`_book_stats`), and ``dm_timed_vs_always_short``
+        statistics (see :func:`_book_stats`), and ``dm_timed_vs_always_short``
         (a :func:`~volbench.evaluation.diebold_mariano` result comparing the
         timed book against the always-short book using negative P&L as the
         "loss").

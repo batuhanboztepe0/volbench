@@ -131,7 +131,7 @@ def run_strategy() -> dict:
         for book_name in all_books:
             all_books[book_name].append(books[book_name])
 
-        # Forecaster comparison (net Sharpe per driver model) — same origin set
+        # Forecaster comparison (net Sharpe per driver model), same origin set
         for mname in ["LogHAR", "RW", "EWMA"]:
             vt = vol_target_backtest(future_returns, forecasts[mname])
             model_comp[mname].append(vt["net_sharpe"])

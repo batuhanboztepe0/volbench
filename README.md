@@ -3,21 +3,21 @@
 [![CI](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml/badge.svg)](https://github.com/batuhanboztepe0/volbench/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-239-brightgreen)
+![Tests](https://img.shields.io/badge/tests-245-brightgreen)
 
 ## What this is
 
-This is a reproducible, out-of-sample realized-variance forecasting benchmark. It implements all model-comparison tests (Diebold-Mariano + HLN correction, Model Confidence Set, Clark-West nested-model test) from scratch, matching reference libraries to machine precision. The two hard problems are look-ahead bias at horizons h > 1 (enforced and unit-tested per model) and proxy-robust loss functions (Patton 2011 QLIKE). The headline: **a correctly specified log-HAR is hard to beat**, replicated at scale across 37/39 futures cells and 38/39 FX cells, with a pre-specified cross-asset hypothesis that was mostly falsified.
+This is a reproducible, out-of-sample realized-variance forecasting benchmark. It implements all model-comparison tests (Diebold-Mariano + HLN correction, Model Confidence Set, Clark-West nested-model test) from scratch and cross-checked against statsmodels, scipy and arch in the test suite. The two hard problems are look-ahead bias at horizons h > 1 (enforced and unit-tested per model) and proxy-robust loss functions (Patton 2011 QLIKE). The headline: **a correctly specified log-HAR is hard to beat**, replicated at scale across 37/39 futures cells and 38/39 FX cells, with a pre-specified cross-asset hypothesis that was mostly falsified.
 
-> **New here? Start with the narrated walkthrough: [`notebooks/volbench.ipynb`](notebooks/volbench.ipynb)** — the whole project as one story, with every figure and a live walk-forward, top to bottom in a few minutes.
+> **New here? Start with the narrated walkthrough: [`notebooks/volbench.ipynb`](notebooks/volbench.ipynb)**. The whole project as one story, with every figure and a live walk-forward, top to bottom in a few minutes.
 
 ## What I built
 
-I implemented the Model Confidence Set, Diebold-Mariano + HLN, and Clark-West tests from scratch; the look-ahead-free expanding-window backtest harness; all realized estimators (bipower variation, realized kernel, semivariances, quarticity, BNS jump test); and the VaR and VRP layers. I set the research questions, the pre-specified decision rules, and did all result interpretation. Code was written with AI assistance (Claude); every statistical result is reproducible from the committed code and a fixed seed.
+I implemented the Model Confidence Set, Diebold-Mariano + HLN, and Clark-West tests from scratch; the look-ahead-free expanding-window backtest harness; all realized estimators (bipower variation, realized kernel, semivariances, quarticity, BNS jump test); and the VaR and VRP layers. I set the research questions, the pre-specified decision rules, and did all result interpretation. Every statistical result is reproducible from the committed code and a fixed seed.
 
 ## Core result
 
-DM + HLN, the Model Confidence Set, and Clark-West are built from scratch and match reference libraries to machine precision. The cross-asset study uses a pre-specified, falsifiable hypothesis reported with its largely-negative outcome. Log-HAR stays in the 90% Model Confidence Set across 37/39 futures cells and 38/39 FX cells, and machine learning does not displace it. The headline is a textbook result, replicated rigorously and at breadth. The primary pre-specified prediction (that rates futures would break HAR) was falsified and is logged as such.
+DM + HLN, the Model Confidence Set, and Clark-West are built from scratch and cross-checked against reference libraries (statsmodels, scipy, arch) in the test suite; DM and Clark-West agree to about 1e-10. The cross-asset study uses a pre-specified, falsifiable hypothesis reported with its largely-negative outcome. Log-HAR is the single best model (and in the 90% Model Confidence Set) in 37/39 futures cells and 38/39 FX cells, and machine learning does not displace it. The headline is a textbook result, replicated rigorously and at breadth. The primary pre-specified prediction (that rates futures would break HAR) was falsified and is logged as such.
 
 ![Where the HAR family stays in the 90% Model Confidence Set, by asset class and horizon: green = a HAR-family model dominates; the lone red cell is gold futures at the monthly horizon](results/figures/transfer_matrix.png)
 
@@ -60,13 +60,13 @@ The equity headline is a textbook result. The distinctive question is: **does it
 **What the matrix shows:**
 
 - **Log-HAR is robust at the level.** A HAR-family model is in the 90% MCS and single-best across equities (8/8), surviving major crypto (4/4), the survivorship-corrected 22-coin universe (18-19/22), US Treasury futures (FV/TY), 37/39 futures cells, and **38/39 FX cells** (7 majors + 6 EM/secondary pairs). These counts are unchanged at the stricter **alpha = 0.25** MCS (a smaller, harder-to-enter set) with no per-instrument verdict flips, so the dominance is not an artifact of the 90% level (`results/tables/transfer_matrix_alpha_sensitivity.csv`).
-- **The primary pre-specified prediction was falsified.** The headline bet was that **rates futures (FV/TY)** would break HAR around the FOMC/auction calendar. They did not. HAR dominates both at every horizon. This is logged as a falsified prediction in the internal protocol's amendment log, not reframed.
-- **The only genuine degrade is gold (GC) @ h = 22** (the single red cell above), where the MCS collapses to {EWMA} (EWMA beats the best HAR variant by about 25%). It is adversarially verified as robust (stable across 7 seeds and B in {2k...20k}) but isolated (no metals gradient) and partly mechanical (long-horizon estimation-risk immunity of a parameter-light smoother), at a secondary horizon. It does not satisfy the hypothesis's predicted-mechanism clause.
+- **The primary pre-specified prediction was falsified.** The headline bet was that **rates futures (FV/TY)** would break HAR, the hypothesized driver being FOMC and auction jumps. They did not: HAR dominates both at every horizon. This is logged as a falsified prediction in the internal protocol's amendment log, not reframed.
+- **The only genuine degrade is gold (GC) @ h = 22** (the single red cell above), where the MCS collapses to {EWMA} (EWMA beats the best HAR variant by about 25%). It is adversarially verified as robust (stable across 7 seeds and B in {2k...20k}, `scripts/audit_gc_h22.py`) but isolated (no metals gradient) and partly mechanical (long-horizon estimation-risk immunity of a parameter-light smoother), at a secondary horizon. It does not satisfy the hypothesis's predicted-mechanism clause.
 - **Equity-tuned refinements do not transfer to log-HAR.** HARQ never DM-beats log-HAR outside equities (0/22 crypto, 0/13 futures, 0/13 FX). It does beat plain (un-logged) HAR in a minority of cells (about 2/13 futures, 2/13 FX, 5/22 crypto at h = 1), so the quarticity correction carries some value off-equity, but the log transform already captures it. LogSHAR's downside-semivariance edge vanishes in crypto (0/22 at h = 1) but partly carries to FX (4-7/13). Only the refinements fail, not log-HAR itself.
 
 **Verdict.** The confirmatory outcome is mixed, leaning "replication at scale": one unpredicted, secondary, partly-mechanical degrade plus a falsified primary prediction. The contribution is breadth, rigor, and the negative results, not a new model.
 
-Scripts: `scripts/run_volare_futures.py`, `run_volare_fx.py`, `run_crypto_expanded.py`, `build_transfer_matrix.py`.
+Scripts: `scripts/run_volare_futures.py`, `scripts/run_volare_fx.py`, `scripts/run_crypto_expanded.py`, `scripts/build_transfer_matrix.py`.
 
 ---
 
@@ -76,13 +76,13 @@ Scripts: `scripts/run_volare_futures.py`, `run_volare_fx.py`, `run_crypto_expand
 
 On the S&P 500, implied vol (VIX) averages 21.5% vs 16.3% realized. The premium is positive 92% of days. A short-variance book earns a per-swap Sharpe of **~0.39** on non-overlapping payoffs, and the advantage is decisive after a **Deflated Sharpe** test (PSR >= 0.9996 across all three book configurations: always-short 0.9999; timed and long-short 0.9996). Timing the short with the log-HAR forecast lifts the overlapping-payoff Sharpe from 1.45 to 1.60 and cuts max drawdown by about 65%. Those overlapping Sharpes are inflated by autocorrelation in 22-day windows; read the lift over the naive book and the drawdown cut, which survive realistic costs. The variance risk premium is real, not a selection artifact. `scripts/run_vrp.py`.
 
-A vol-targeting strategy (scale exposure by target_vol / forecast_vol, net of costs) holds realized vol near target and cuts max drawdown by 20-49% (median about 34%) vs buy-and-hold. It improves Sharpe mainly on the US indices (and marginally on HSI). PSR is credibly > 0 only on SPX/DJI (PSR about 0.96); on FTSE/CAC/STOXX it is indistinguishable from zero (PSR < 0.5). Vol targeting is a risk-control tool, not free alpha. `scripts/run_strategy.py`.
+A vol-targeting strategy (scale exposure by target_vol / forecast_vol, net of costs) holds realized vol near target and cuts max drawdown by 20-49% (median about 34%) vs buy-and-hold. It improves Sharpe mainly on the US indices. PSR is highest on SPX/DJI (about 0.96), moderate on DAX, Hang Seng and Nikkei (PSR 0.73-0.83), and indistinguishable from zero on FTSE/CAC/STOXX (PSR < 0.5). Vol targeting is a risk-control tool, not free alpha. `scripts/run_strategy.py`.
 
 ---
 
 ## Other tracks
 
-- **HAR family (which variant wins).** Using real bipower variation, jump variation and realized semivariances: log variants dominate level variants, and LogSHAR and LogHAR-CJ edge plain log-HAR. Downside-semivariance carries real predictive content. `scripts/run_har_family.py`.
+- **HAR family (which variant wins).** Using real bipower variation, jump variation and realized semivariances: log variants dominate level variants. LogHAR-CJ edges plain log-HAR at h = 1 and h = 5 (at h = 22 the two tie on rank and LogHAR-CJ is marginally weaker on QLIKE); LogSHAR ranks ahead of log-HAR and DM-beats it on 6 of 8 indices, though its mean QLIKE is marginally higher (FTSE is an outlier). Downside-semivariance carries real predictive content. `scripts/run_har_family.py`.
 - **Cross-index spillover.** Adding the other seven indices' lagged realized variance to a target index's HAR (CrossHAR) lowers QLIKE for all 8 indices (about 1.7-8% at h = 1). Because CrossHAR nests LogHAR, significance is judged by the **Clark-West (2007) nested-model test**: CrossHAR significantly improves on LogHAR for **7 of 8 indices at h = 1** (all but SPX) and 4 of 8 at h = 5. `scripts/run_multivariate.py`.
 - **ML (does ML win on richer features?).** LightGBM and XGBoost (an MLP was also evaluated but excluded as data-starved on about 5,000 daily observations), each fit in log-variance space with leakage-free expanding-window hyperparameter tuning on a plain HAR feature set and an enriched one. Even with a fair quarterly refit cadence, **no ML model displaces log-HAR**. `scripts/run_ml.py`.
 - **GARCH reference (Track 2).** On real S&P 500 daily returns (2000-2022), scored against squared returns. GJR-GARCH and plain GARCH edge RiskMetrics. This track is not directly comparable to Track 1 (different proxy quality; QLIKE levels are an order of magnitude higher). `scripts/run_garch.py`.
@@ -138,7 +138,7 @@ volbench/
 ├── scripts/             # run_{benchmark,garch,har_family,multivariate,ml,economic,
 │   │                    #   vrp,strategy,regime,crypto}, validate_estimators,
 │   │                    #   make_figures, build_{realized,vix,crypto}
-├── tests/               # pytest suite (239 tests)
+├── tests/               # pytest suite (245 tests)
 ├── data/                # VIX (committed) + provenance; RV and crypto CSVs are fetched
 ├── results/             # tables, figures, JSON summaries (the deliverable)
 ├── notebooks/           # narrated walkthrough notebook (start here)
@@ -178,8 +178,16 @@ python scripts/run_strategy.py           # results/strategy.json  (vol targeting
 python scripts/run_regime.py             # results/regime.json
 python scripts/build_crypto.py           # data/crypto_realized.csv (Binance 5-min bars)
 python scripts/run_crypto.py             # results/crypto.json  (Track 3: BTC/ETH/BNB/SOL)
+python scripts/run_caviar.py             # results/caviar.json  (VaR: CAViaR + GARCH)
+python scripts/run_conditional_var.py    # results/conditional_var.json
+python scripts/build_crypto_expanded.py  # data/crypto_expanded_realized.csv (22 coins)
+python scripts/run_crypto_expanded.py    # results/crypto_expanded.json  (survivorship)
+python scripts/build_volare.py           # fetch VOLARE panels (free account + .env)
+python scripts/run_volare_futures.py     # results/volare_futures.json  (13 futures)
+python scripts/run_volare_fx.py          # results/volare_fx.json        (13 FX pairs)
+python scripts/build_transfer_matrix.py  # results/transfer_matrix.*  (the Q5 deliverable)
 python scripts/make_figures.py           # results/figures/*.png
-pytest -q                                # 239 tests
+pytest -q                                # 245 tests
 ```
 
 Minimal programmatic use:
@@ -202,7 +210,7 @@ Or the CLI: `volbench run --ticker .SPX --horizon 1`.
 - Track 2's GARCH-on-returns is a deliberately separate reference, not a competitor to Track 1's HAR-on-RV.
 - Normal VaR in the economic layer under-covers because daily index returns are fat-tailed; this is reported as a finding, not hidden.
 - The expanding-window harness is batch-oriented. Live use would need incremental RV estimation from a high-frequency feed.
-- Code was written with AI assistance (Claude). The author set the research questions, the methodology, and all pre-specified decision rules, reviewed and verified all code and results, and is responsible for any errors.
+- A thin/illiquid-equity arm (delisted small-caps with noise-robust estimators, to probe a level break under heavy microstructure noise) is left for future work. It needs paid intraday data and is out of scope here.
 
 ## References
 
@@ -220,3 +228,7 @@ Or the CLI: `volbench run --ticker .SPX --horizon 1`.
 ## License
 
 MIT licence. See [LICENSE](LICENSE). The Oxford-Man data is **not** redistributed here (licence unclear). Only VIX (sourced from FRED, public domain) is bundled. See [`data/README.md`](data/README.md) for data provenance and fetch instructions.
+
+## AI usage
+
+This project was built with Claude Code, Anthropic's agentic coding tool. The use covered code implementation and refactoring, figure generation, and drafting. I set the research questions, the methodology, and the pre-specified decision rules. At all stages the outputs were reviewed, checked against the unit tests and the source, and revised by me. The responsibility for the final content, analysis, and conclusions rests entirely with me.

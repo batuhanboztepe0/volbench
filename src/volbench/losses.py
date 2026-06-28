@@ -29,7 +29,7 @@ import numpy as np
 
 # Forecasts and proxies are strictly positive variances; this floor keeps the
 # logarithm finite if a level-space model emits a non-positive forecast (which
-# is then heavily — and correctly — penalised by QLIKE).
+# is then heavily (and correctly) penalised by QLIKE).
 _POS_FLOOR: float = 1e-300
 
 # Ranking is permitted only with these proxy-robust losses (Patton 2011).

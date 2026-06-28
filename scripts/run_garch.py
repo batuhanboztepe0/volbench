@@ -3,7 +3,7 @@
 This track is **deliberately kept separate** from the realized-variance
 benchmark. It uses daily close-to-close returns
 (derived from the bundled ``.SPX`` close prices) and scores one-step-ahead
-*conditional-variance* forecasts against the **squared daily return** — a far
+*conditional-variance* forecasts against the **squared daily return**, a far
 noisier proxy than 5-minute realized variance. Because of that proxy, QLIKE
 levels here are an order of magnitude higher than Track 1's and the two are
 never directly comparable.
@@ -11,7 +11,7 @@ never directly comparable.
 Models: GARCH(1,1), GJR-GARCH(1,1,1), RiskMetrics EWMA (lambda = 0.94), and a
 constant-variance benchmark. Walk-forward with periodic refits; between refits
 parameters are held fixed and the conditional-variance recursion is filtered
-forward (no look-ahead — every forecast uses only past returns and parameters
+forward (no look-ahead; every forecast uses only past returns and parameters
 estimated on data available at the origin).
 
 Writes ``results/garch.json``.
@@ -157,7 +157,7 @@ def run_garch(min_train: int = DEFAULT_MIN_TRAIN, refit_every: int = DEFAULT_REF
     }
 
     ranked = sorted(mean_q, key=mean_q.get)
-    print(f"\nTrack 2 — GARCH on S&P 500 returns ({common.size} origins, proxy = r^2)")
+    print(f"\nTrack 2: GARCH on S&P 500 returns ({common.size} origins, proxy = r^2)")
     print(f"{'model':<14}{'QLIKE':>10}{'MSE-var':>12}{'in MCS':>9}")
     for n in ranked:
         print(f"{n:<14}{mean_q[n]:>10.3f}{mean_m[n]:>12.3f}"

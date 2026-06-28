@@ -3,8 +3,8 @@
 The economic layer's VaR is built on the log-HAR realized-variance forecast, which
 is accurate on average but smooth, so on real returns it under-covers the 5% tail
 and its violations cluster (the Engle-Manganelli dynamic-quantile test rejects).
-This script asks whether a *reactive* conditional-variance engine — RiskMetrics
-EWMA or a (GJR-)GARCH(1,1) — fixes that, evaluated out-of-sample on the eight
+This script asks whether a *reactive* conditional-variance engine (RiskMetrics
+EWMA or a (GJR-)GARCH(1,1)) fixes that, evaluated out-of-sample on the eight
 indices' daily returns, with a normal and an out-of-sample-calibrated FHS tail.
 
 This is a RISK comparison only (VaR coverage + DQ); it never ranks engines by

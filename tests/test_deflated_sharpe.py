@@ -1,4 +1,4 @@
-"""Tests for volbench.deflated_sharpe — probabilistic and deflated Sharpe ratios."""
+"""Tests for volbench.deflated_sharpe: probabilistic and deflated Sharpe ratios."""
 
 from __future__ import annotations
 

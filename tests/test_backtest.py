@@ -1,4 +1,4 @@
-"""Tests for volbench.backtest — end-to-end backtest harness."""
+"""Tests for volbench.backtest: end-to-end backtest harness."""
 
 from __future__ import annotations
 

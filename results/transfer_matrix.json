@@ -27,7 +27,7 @@
           "RW"
         ],
         "harfam_in": 8,
-        "best": "LogHAR (7/8) [MZ-best]",
+        "best": "LogHAR (7/8) [QLIKE-best]",
         "verdict": "dominates",
         "verdict_counts": {
           "dominates": 8
@@ -63,7 +63,7 @@
           "RW"
         ],
         "harfam_in": 8,
-        "best": "LogHAR (8/8) [MZ-best]",
+        "best": "LogHAR (8/8) [QLIKE-best]",
         "verdict": "dominates",
         "verdict_counts": {
           "dominates": 8
@@ -99,7 +99,7 @@
           "RW"
         ],
         "harfam_in": 8,
-        "best": "LogHAR (8/8) [MZ-best]",
+        "best": "LogHAR (8/8) [QLIKE-best]",
         "verdict": "dominates",
         "verdict_counts": {
           "dominates": 8
@@ -112,7 +112,7 @@
       }
     }
   },
-  "Crypto \u2014 4 coins": {
+  "Crypto: 4 coins": {
     "track": "exploratory",
     "by_horizon": {
       "1": {
@@ -146,8 +146,8 @@
           "dominates": 4
         },
         "cracks": [],
-        "harq_bl": "1 (vs HAR)",
-        "harq_har": null,
+        "harq_bl": null,
+        "harq_har": 1,
         "logshar_bl": null,
         "has_a25": false
       },
@@ -182,8 +182,8 @@
           "dominates": 4
         },
         "cracks": [],
-        "harq_bl": "3 (vs HAR)",
-        "harq_har": null,
+        "harq_bl": null,
+        "harq_har": 3,
         "logshar_bl": null,
         "has_a25": false
       },
@@ -218,14 +218,14 @@
           "dominates": 4
         },
         "cracks": [],
-        "harq_bl": "2 (vs HAR)",
-        "harq_har": null,
+        "harq_bl": null,
+        "harq_har": 2,
         "logshar_bl": null,
         "has_a25": false
       }
     }
   },
-  "Crypto \u2014 22 coins": {
+  "Crypto: 22 coins": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -445,7 +445,7 @@
       }
     }
   },
-  "Futures \u2014 rates (FV/TY)": {
+  "Futures: rates (FV/TY)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -532,7 +532,7 @@
       }
     }
   },
-  "Futures \u2014 commodity (8)": {
+  "Futures: commodity (8)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -699,7 +699,7 @@
       }
     }
   },
-  "Futures \u2014 equity-index (ES/NQ)": {
+  "Futures: equity-index (ES/NQ)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -804,7 +804,7 @@
       }
     }
   },
-  "Futures \u2014 fx (EU)": {
+  "Futures: fx (EU)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -909,7 +909,7 @@
       }
     }
   },
-  "Futures \u2014 all (13)": {
+  "Futures: all (13)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -1071,7 +1071,7 @@
       }
     }
   },
-  "FX \u2014 major (7)": {
+  "FX: major (7)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -1210,7 +1210,7 @@
       }
     }
   },
-  "FX \u2014 secondary/EM (6)": {
+  "FX: secondary/EM (6)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {
@@ -1349,7 +1349,7 @@
       }
     }
   },
-  "FX \u2014 all (13)": {
+  "FX: all (13)": {
     "track": "confirmatory",
     "by_horizon": {
       "1": {

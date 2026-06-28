@@ -136,7 +136,7 @@ def run_vrp() -> dict:
         print(f"  {book:<15} {b['ann_sharpe']:>7.3f} {b['sharpe_pp']:>8.3f} {b['hit_rate']:>9.3f} "
               f"{b['max_drawdown']:>10.4e} {b['psr']:>8.4f} {b['dsr']:>8.4f}")
     print("  (AnnSh is gross of costs on overlapping payoffs and inflated; Sh/swap, PSR and DSR "
-          "use the\n   non-overlapping 22-day payoffs and a best-of-3-books selection benchmark — "
+          "use the\n   non-overlapping 22-day payoffs and a best-of-3-books selection benchmark; "
           "the honest figures.)")
 
     # NOTE: on this dataset the "timed" and "longshort" books are identical. The

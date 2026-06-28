@@ -1,4 +1,4 @@
-"""Tests for volbench.simulate — intraday path simulator."""
+"""Tests for volbench.simulate: intraday path simulator."""
 
 from __future__ import annotations
 

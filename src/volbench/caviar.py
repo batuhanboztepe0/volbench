@@ -1,22 +1,22 @@
-"""CAViaR — Conditional Autoregressive Value at Risk by Regression Quantiles.
+"""CAViaR: Conditional Autoregressive Value at Risk by Regression Quantiles.
 
 Engle & Manganelli (2004, JBES). Models the conditional ``alpha``-quantile of
 returns *directly* by minimising the regression-quantile (tick) loss, instead of
-routing through a conditional-variance model and a distributional assumption — the
+routing through a conditional-variance model and a distributional assumption, the
 canonical fix for the Dynamic-Quantile failures of normal/Student-t/FHS VaR.
 
 Specifications (``q_t`` = conditional alpha-quantile, negative for a left tail;
 ``VaR_t = -q_t``):
 
-* ``"SAV"`` — Symmetric Absolute Value::
+* ``"SAV"``: Symmetric Absolute Value::
 
       q_t = b0 + b1 q_{t-1} + b2 |r_{t-1}|
 
-* ``"AS"`` — Asymmetric Slope (leverage)::
+* ``"AS"``: Asymmetric Slope (leverage)::
 
       q_t = b0 + b1 q_{t-1} + b2 max(r_{t-1}, 0) + b3 max(-r_{t-1}, 0)
 
-* ``"REALIZED"`` — Realized-CAViaR: augments the recursion with a realized-volatility
+* ``"REALIZED"``: Realized-CAViaR: augments the recursion with a realized-volatility
   regressor available at ``t`` (here the project's LogHAR variance forecast)::
 
       q_t = b0 + b1 q_{t-1} + b2 sqrt(exog_t)

@@ -8,7 +8,7 @@ LightGBM, XGBoost and a small MLP, each:
   additive learner),
 * with hyperparameters chosen **once on the first training window** by a strict
   expanding-window inner CV that only ever sees data available at the origin (no
-  leakage — the single most common silent error in ML volatility studies); only
+  leakage, the single most common silent error in ML volatility studies); only
   the model is then refit on the growing window,
 * on two feature sets: a **plain** HAR set and an **enriched** set that adds the
   continuous/jump decomposition, the realized semivariances and (optionally)
@@ -256,7 +256,7 @@ class EnsembleForecaster(VolForecaster):
 
     Each member is run, the common origins are intersected, and the member
     forecasts are averaged there. Tests whether combining HAR and ML beats the
-    individual models — a classic and frequently-winning result.
+    individual models, a classic and frequently-winning result.
 
     Parameters
     ----------

@@ -38,7 +38,7 @@ from volbench.economic import option_pricing_loss, var_backtest, volatility_targ
 
 HORIZON: int = 1
 # run_backtest always computes an MCS, but this script ranks models by mean QLIKE
-# and the economic metrics (Sharpe / VaR coverage / option RMSE) — the MCS object
+# and the economic metrics (Sharpe / VaR coverage / option RMSE); the MCS object
 # is never read and economic.json stores no MCS, so outputs are independent of this
 # value. Set to the conventional 1000 floor (not 200) for codebase consistency.
 MCS_REPS: int = 1000
@@ -49,7 +49,7 @@ RESULTS_DIR = ROOT / "results"
 REPORT_MODELS: tuple[str, ...] = ("LogHAR", "HAR", "RW", "EWMA", "GBRT")
 
 # VaR tail-distribution assumptions to backtest on real data (the t/fhs shapes are
-# calibrated out-of-sample on a leading warm-up block — see economic.var_backtest).
+# calibrated out-of-sample on a leading warm-up block, see economic.var_backtest).
 VAR_DISTS: tuple[str, ...] = ("normal", "t", "fhs")
 
 
@@ -211,7 +211,7 @@ def run_economic() -> dict:
     # the headline forecaster. Goes beyond *how often* VaR breaches (coverage,
     # above) to *how bad*: Acerbi-Szekely Z (≈0 well-specified, <0 understated
     # tail) and the FZ0 loss (lower is better; a strictly consistent (VaR,ES)
-    # score — siloed risk layer, never mixed with Track-1 QLIKE).
+    # score: siloed risk layer, never mixed with Track-1 QLIKE).
     es_by_dist: dict[str, dict[str, float]] = {}
     print(f"\n  Expected Shortfall by tail distribution ({HEADLINE_VAR_MODEL}, nominal 5%)")
     print(f"  {'Dist':<8} {'AS_Z1':>9} {'AS_Z2':>9} {'AS_rej_frac':>12} {'FZ_mean':>10}")

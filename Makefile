@@ -1,4 +1,4 @@
-# volbench — one-command reproduction and developer tasks.
+# volbench: one-command reproduction and developer tasks.
 # Scripts run with the package on the path via `python -m`-style PYTHONPATH.
 
 PY := PYTHONPATH=src python3

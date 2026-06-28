@@ -590,8 +590,8 @@ def _walk_forward_har(
     Regressors are split into two groups so that positivity is respected when a
     component can be zero (e.g. jumps on quiet days):
 
-    * ``log_feats`` — strictly-positive components entered as ``log(component)``,
-    * ``level_feats`` — components kept in levels (jump variation can be exactly
+    * ``log_feats``: strictly-positive components entered as ``log(component)``,
+    * ``level_feats``: components kept in levels (jump variation can be exactly
       zero, so it must not be logged).
 
     When ``log_target`` is ``True`` the model regresses ``log(target)`` and maps
@@ -844,7 +844,7 @@ def _apply_fracdiff(log_rv: np.ndarray, w: np.ndarray) -> np.ndarray:
 
 
 class ARFIMALog(VolForecaster):
-    """ARFIMA(p, d, 0) on log realized variance — the classical long-memory baseline.
+    """ARFIMA(p, d, 0) on log realized variance: the classical long-memory baseline.
 
     Models log-RV via fractional differencing followed by an AR(p) regression,
     then maps variance forecasts back with the lognormal correction
@@ -853,13 +853,13 @@ class ARFIMALog(VolForecaster):
     HAR approximates with a multi-scale average and AR(1) cannot reproduce.
 
     A causal one-step ARFIMA log-RV predictor (fracdiff → AR(p) → filter
-    inversion — the inversion is what carries the long memory) is used as the
+    inversion, the inversion is what carries the long memory) is used as the
     single feature in a log-space regression onto the **direct-horizon** target
     ``average_future_variance(rv, horizon)``, exactly the :class:`AR1Log`
     structure.  ARFIMA is therefore scored on the same target as every other
     model at every horizon (apples-to-apples MCS).  At h=1 the target is
     ``rv[t+1]`` and the calibrating regression is ≈ identity, so the forecast
-    reduces to the genuine one-step ARFIMA — the primary, headline horizon;
+    reduces to the genuine one-step ARFIMA, the primary, headline horizon;
     h ∈ {5, 22} are labelled iterated-feature direct-horizon forecasts.
 
     Parameters
@@ -945,7 +945,7 @@ class ARFIMALog(VolForecaster):
         Returns ``(fd, cinv)`` with ``fd[m] = sum_{j>=0} w[j] log_rv[m-j]`` and
         ``cinv[m] = fd[m] - log_rv[m] = sum_{j>=1} w[j] log_rv[m-j]``. Since
         ``w[0] = 1`` the ``log_rv[m]`` term cancels, so ``cinv[m]`` depends only on
-        ``log_rv[:m]`` — i.e. ``cinv[s+1]`` is the look-ahead-safe inversion term
+        ``log_rv[:m]``, i.e. ``cinv[s+1]`` is the look-ahead-safe inversion term
         for a one-step forecast made with information up to ``s`` (even though it is
         computed here from the full series).
         """

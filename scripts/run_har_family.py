@@ -4,7 +4,7 @@ The headline benchmark (``run_benchmark.py``) answers "HAR vs everything else".
 This script answers the within-family question a quant reviewer actually asks:
 given real bipower variation, jump variation and realized semivariances, does
 **HAR-J**, **HAR-CJ** (continuous/jump split) or **SHAR** (semivariance HAR)
-beat plain HAR — and do the log variants beat the level variants? Each model is
+beat plain HAR, and do the log variants beat the level variants? Each model is
 scored with the same walk-forward + DM + MCS machinery, benchmarked against
 log-HAR.
 

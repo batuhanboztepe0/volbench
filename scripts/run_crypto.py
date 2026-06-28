@@ -5,7 +5,7 @@ panel, the crypto measures are computed from real Binance 5-minute bars, so this
 is the first track where:
 
 * the full model suite is scored on a 24/7, very-high-volatility, fat-tailed
-  asset class — does log-HAR still win?;
+  asset class, does log-HAR still win?;
 * **HARQ runs on real realized quarticity** (Bollerslev-Patton-Quaedvlieg) rather
   than on simulation;
 * cross-coin **volatility spillover** is tested with the same DM/MCS machinery.

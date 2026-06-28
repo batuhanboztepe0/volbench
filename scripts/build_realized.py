@@ -45,7 +45,7 @@ WAYBACK_URLS = [
 # Until set, the download is logged but not verified.
 EXPECTED_ZIP_SHA256: str | None = None
 
-# SHA256 of the committed data/oxford_realized.csv — verified after build().
+# SHA256 of the committed data/oxford_realized.csv: verified after build().
 EXPECTED_CSV_SHA256 = "48843c9c2bdd7d37f583f14ef35a9e3642b1bfe9fa2f15612eeac2e0c802e3a7"
 
 KEEP_COLUMNS = [

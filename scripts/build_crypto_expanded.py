@@ -2,7 +2,7 @@
 
 This is the *expanded-universe* crypto builder for the cross-asset study
 (pre-registered §3 amendment). Unlike ``build_crypto.py``, which uses
-the live REST API and therefore can only see *currently-listed* pairs — this
+the live REST API and therefore can only see *currently-listed* pairs; this
 script reads the **Binance Vision** public archive (``data.binance.vision``),
 which **retains delisted symbols**. That is what makes the survivorship
 correction possible: dead coins (LUNA pre-collapse, FTT pre-collapse) are fetched

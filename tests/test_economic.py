@@ -1,4 +1,4 @@
-"""Tests for volbench.economic — economic-value evaluation layer.
+"""Tests for volbench.economic: economic-value evaluation layer.
 
 These tests use only synthetic data generated with a fixed seed so they are
 fast, deterministic, and independent of the bundled Oxford dataset.
@@ -143,7 +143,7 @@ def test_option_pricing_loss_positive_when_different():
 
 
 # ---------------------------------------------------------------------------
-# 4. VaR backtest — well-specified case
+# 4. VaR backtest: well-specified case
 # ---------------------------------------------------------------------------
 
 def test_var_backtest_well_specified_violation_rate():
@@ -205,7 +205,7 @@ def test_var_backtest_zero_violations_no_crash():
 
 
 # ---------------------------------------------------------------------------
-# 5. var_backtest — dq keys present in all modes
+# 5. var_backtest: dq keys present in all modes
 # ---------------------------------------------------------------------------
 
 def test_var_backtest_output_keys_include_dq():
@@ -247,7 +247,7 @@ def test_t_var_closer_to_alpha_than_normal_on_heavy_tails():
     r_normal = var_backtest(returns, fvar, alpha=alpha, dist="normal")
     r_t = var_backtest(returns, fvar, alpha=alpha, dist="t")
 
-    # Normal VaR over-covers (too conservative) on fat tails — fewer violations than alpha.
+    # Normal VaR over-covers (too conservative) on fat tails, fewer violations than alpha.
     assert r_normal["violation_rate"] < alpha - 0.005, (
         f"Expected normal VaR to under-violate on t5 data; "
         f"got {r_normal['violation_rate']:.4f}"
@@ -309,7 +309,7 @@ def test_dq_pvalue_high_for_well_specified():
     rng = np.random.default_rng(21)
     n = 2000
     alpha = 0.05
-    # Generate i.i.d. violations — no clustering, no autocorrelation.
+    # Generate i.i.d. violations, no clustering, no autocorrelation.
     viol = (rng.random(n) < alpha).astype(int)
     fvar = np.full(n, 1e-4)
 
@@ -351,7 +351,7 @@ def test_var_backtest_invalid_dist_raises():
 
 
 # ---------------------------------------------------------------------------
-# 9. Expected Shortfall — normal analytical value
+# 9. Expected Shortfall: normal analytical value
 # ---------------------------------------------------------------------------
 
 def test_es_normal_equals_analytical():
@@ -397,7 +397,7 @@ def test_es_normal_all_distributions_return_negative_es():
 
 
 # ---------------------------------------------------------------------------
-# 10. Acerbi-Székely backtest — calibrated vs mis-specified
+# 10. Acerbi-Székely backtest: calibrated vs mis-specified
 # ---------------------------------------------------------------------------
 
 def test_acerbi_szekely_z1_near_zero_for_calibrated_model():
@@ -432,7 +432,7 @@ def test_acerbi_szekely_rejects_underforecast_es():
     fvar = np.full(n, sigma ** 2)
 
     res = expected_shortfall_forecast(returns, fvar, alpha=alpha, dist="normal")
-    # Halve the ES magnitude (less negative) — ES underestimated.
+    # Halve the ES magnitude (less negative). ES underestimated.
     es_bad = res["es_forecast"] * 0.5
 
     as_res = acerbi_szekely_backtest(
@@ -451,7 +451,7 @@ def test_acerbi_szekely_rejects_underforecast_es():
 
 
 # ---------------------------------------------------------------------------
-# 11. FZ loss — well-specified model strictly lower than mis-specified
+# 11. FZ loss: well-specified model strictly lower than mis-specified
 # ---------------------------------------------------------------------------
 
 def test_fz_loss_well_specified_lower_than_misspecified():

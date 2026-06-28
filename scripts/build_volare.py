@@ -20,7 +20,7 @@ Access is a token-authenticated REST API. Confirmed live from a real account:
 Each record carries: observation_date, symbol, asset_type, open/high/low/close_price,
 volume, trades, and the realized measures rv1/rv5(/_ss), bv1/bv5(/_ss),
 rsp1/rsn1/rsp5/rsn5(/_ss) (rsp=upside, rsn=DOWNSIDE semivariance), medrv*, minrv*,
-rk, rq1/rq5(/_ss), plus pv/gk/rr5 (range-based). Data is JSON — no parquet packages
+rk, rq1/rq5(/_ss), plus pv/gk/rr5 (range-based). Data is JSON; no parquet packages
 (``/files`` and ``/…/pregenerated`` 404 on a base-role account).
 
 Credentials come from the environment (never hard-code / commit them):
@@ -34,7 +34,7 @@ Usage
 
 Pagination is confirmed: the envelope is ``{total, page, limit, has_more}`` and
 ``--fetch`` walks ``page`` until ``has_more`` is false. The 13 futures include two
-US Treasury futures — ``FV`` (5-yr) and ``TY`` (10-yr) — so the bond-futures
+US Treasury futures (``FV`` (5-yr) and ``TY`` (10-yr)), so the bond-futures
 break-HAR test runs on VOLARE alone. The optional ``--start/--end`` date-filter
 param names are still inferred (the full panel paginates without them).
 """
@@ -128,7 +128,7 @@ def fetch_asset(
 ) -> list[dict]:
     """Paginate /financial-data for one asset class and return all records.
 
-    Uses the confirmed envelope: ``{total, page, limit, has_more}`` — follow
+    Uses the confirmed envelope: ``{total, page, limit, has_more}``; follow
     ``page`` until ``has_more`` is false.
     """
     records: list[dict] = []

@@ -1,4 +1,4 @@
-"""Tests for volbench.realized — non-parametric realized measures."""
+"""Tests for volbench.realized: non-parametric realized measures."""
 
 from __future__ import annotations
 

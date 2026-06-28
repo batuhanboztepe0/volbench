@@ -1,4 +1,4 @@
-"""Tests for volbench.evaluation — Diebold-Mariano test and MCS."""
+"""Tests for volbench.evaluation: Diebold-Mariano test and MCS."""
 
 from __future__ import annotations
 
@@ -224,3 +224,92 @@ def test_mcs_included_non_empty():
 def test_mcs_raises_on_single_model():
     with pytest.raises(ValueError):
         model_confidence_set({"only": np.ones(100)}, reps=10)
+
+
+# ---------------------------------------------------------------------------
+# Reference cross-checks: the from-scratch tests must agree with independent
+# implementations in statsmodels / scipy / arch. This is what backs the
+# "matches reference libraries" claim in the README and report.
+# ---------------------------------------------------------------------------
+def _ar1(n: int, rho: float, seed: int) -> np.ndarray:
+    rng = np.random.default_rng(seed)
+    e = rng.standard_normal(n)
+    x = np.empty(n)
+    x[0] = e[0]
+    for t in range(1, n):
+        x[t] = rho * x[t - 1] + e[t]
+    return x
+
+
+def _nw_lrv_reference(series: np.ndarray, trunc: int) -> float:
+    """Newey-West LRV via statsmodels.acovf (biased, demeaned) + Bartlett weights."""
+    from statsmodels.tsa.stattools import acovf
+
+    g = acovf(series, nlag=trunc, adjusted=False, demean=True, fft=False)
+    return float(g[0] + 2.0 * sum((1.0 - k / (trunc + 1.0)) * g[k] for k in range(1, trunc + 1)))
+
+
+def test_dm_matches_statsmodels_scipy_reference():
+    """DM (+HLN) statistic and p-value match statsmodels.acovf + scipy.stats.t."""
+    pytest.importorskip("statsmodels")
+    scipy_stats = pytest.importorskip("scipy.stats")
+    n, horizon = 240, 5
+    loss_a = np.abs(_ar1(n, 0.6, 1)) + 1.00
+    loss_b = np.abs(_ar1(n, 0.6, 2)) + 1.05
+    out = diebold_mariano(loss_a, loss_b, horizon=horizon)
+
+    d = loss_a - loss_b
+    trunc = horizon - 1
+    lrv = _nw_lrv_reference(d, trunc)
+    dm = d.mean() / np.sqrt(lrv / n)
+    hln = np.sqrt((n + 1.0 - 2.0 * horizon + horizon * (horizon - 1.0) / n) / n)
+    dm_corrected = dm * hln
+    p_ref = 2.0 * float(scipy_stats.t.sf(abs(dm_corrected), df=n - 1))
+
+    assert out["dm_stat"] == pytest.approx(dm_corrected, rel=1e-10)
+    assert out["p_value"] == pytest.approx(p_ref, rel=1e-10)
+
+
+def test_clark_west_matches_statsmodels_scipy_reference():
+    """Clark-West statistic and one-sided p-value match statsmodels.acovf + scipy normal."""
+    pytest.importorskip("statsmodels")
+    scipy_stats = pytest.importorskip("scipy.stats")
+    n, horizon = 300, 3
+    y = np.abs(_ar1(n, 0.5, 7)) + 2.0
+    f_r = y + 0.30 * _ar1(n, 0.3, 8)
+    f_u = y + 0.20 * _ar1(n, 0.3, 9)
+    out = clark_west(y, f_r, f_u, horizon=horizon)
+
+    f_adj = (y - f_r) ** 2 - ((y - f_u) ** 2 - (f_r - f_u) ** 2)
+    lrv = _nw_lrv_reference(f_adj, horizon - 1)
+    cw = f_adj.mean() / np.sqrt(lrv / n)
+    p_ref = float(scipy_stats.norm.sf(cw))
+
+    assert out["cw_stat"] == pytest.approx(cw, rel=1e-10)
+    assert out["p_value"] == pytest.approx(p_ref, rel=1e-10)
+
+
+def test_mcs_included_set_matches_arch():
+    """On a clearly separated panel, the MCS included set agrees with arch.bootstrap.MCS."""
+    pd = pytest.importorskip("pandas")
+    arch_bootstrap = pytest.importorskip("arch.bootstrap")
+    rng = np.random.default_rng(3)
+    n = 250
+    common = np.abs(rng.standard_normal(n))  # shared shock keeps differentials clean
+    losses = {
+        "best": common + 0.10 * np.abs(rng.standard_normal(n)),
+        "mid": common + 1.0 + 0.10 * np.abs(rng.standard_normal(n)),
+        "worst": common + 2.0 + 0.10 * np.abs(rng.standard_normal(n)),
+    }
+    ours = model_confidence_set(losses, alpha=0.10, block_length=10, reps=2000, seed=0)
+
+    arch_mcs = arch_bootstrap.MCS(
+        pd.DataFrame(losses), size=0.10, reps=2000, block_size=10, method="R", seed=0
+    )
+    arch_mcs.compute()
+    arch_included = set(arch_mcs.included)
+
+    # Strong separation: both keep only "best".
+    assert set(ours.included) == {"best"}
+    assert arch_included == {"best"}
+    assert set(ours.included) == arch_included

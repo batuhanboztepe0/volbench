@@ -119,7 +119,7 @@ def diebold_mariano(
     dm = mean_d / np.sqrt(lrv / n)
     # Harvey-Leybourne-Newbold (1997) small-sample correction. The factor uses the
     # forecast horizon h (not the HAC truncation lag h-1 stored in `trunc`); using
-    # `trunc` here is anti-conservative — negligible at large n but can flip
+    # `trunc` here is anti-conservative, negligible at large n but can flip
     # inference at small n.
     hln_factor = np.sqrt((n + 1.0 - 2.0 * horizon + horizon * (horizon - 1.0) / n) / n)
     dm_corrected = dm * hln_factor

@@ -2,10 +2,10 @@
 
 Three public functions:
 
-* :func:`vol_target_backtest` — leakage-free vol-targeting with transaction costs.
-* :func:`regime_overlay` — scale weights down in turbulent or jump-heavy regimes
+* :func:`vol_target_backtest`: leakage-free vol-targeting with transaction costs.
+* :func:`regime_overlay`: scale weights down in turbulent or jump-heavy regimes
   using only backward-looking quantiles.
-* :func:`compare_books` — convenience wrapper comparing buy-and-hold, vol-target,
+* :func:`compare_books`: convenience wrapper comparing buy-and-hold, vol-target,
   and vol-target + regime overlay for a single return/forecast series.
 """
 

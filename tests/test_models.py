@@ -1,4 +1,4 @@
-"""Tests for volbench.models — volatility forecasters."""
+"""Tests for volbench.models: volatility forecasters."""
 
 from __future__ import annotations
 
@@ -281,7 +281,7 @@ def _run_no_lookahead(model_1, model_2, rv1, rv2, horizon=5, min_train=120):
     A no-look-ahead forecaster at origin ``t`` uses ``rv`` only up to index ``t``,
     so corrupting ``rv[c]`` must leave every forecast at origins ``t < c``
     unchanged. Any model that peeks ``k >= 1`` steps ahead consumes ``rv[c]`` at
-    origin ``t = c - k < c`` and is therefore caught — including leakage of
+    origin ``t = c - k < c`` and is therefore caught, including leakage of
     ``1..h`` steps *within* the target window, which the old final-observation
     probe missed. ``c`` is inferred from where ``rv1`` and ``rv2`` differ.
     """
@@ -289,10 +289,10 @@ def _run_no_lookahead(model_1, model_2, rv1, rv2, horizon=5, min_train=120):
     fc2, org2 = model_2.oos_forecast(rv2, horizon, min_train=min_train)
     np.testing.assert_array_equal(org1, org2)
     diff = np.flatnonzero(np.asarray(rv1) != np.asarray(rv2))
-    assert diff.size, "rv2 is not corrupted — the probe would be vacuous"
+    assert diff.size, "rv2 is not corrupted; the probe would be vacuous"
     c = int(diff.min())
     before = org1 < c
-    assert np.any(before), "No origins before the corruption index — adjust _LEAK_IDX/min_train"
+    assert np.any(before), "No origins before the corruption index; adjust _LEAK_IDX/min_train"
     np.testing.assert_allclose(
         fc1[before], fc2[before], rtol=1e-10, atol=0.0,
         err_msg="Look-ahead detected: a forecast before the corrupted observation changed",
@@ -301,7 +301,7 @@ def _run_no_lookahead(model_1, model_2, rv1, rv2, horizon=5, min_train=120):
     # otherwise the probe would pass for a model that ignores its inputs entirely.
     after = org1 >= c
     assert np.any(after) and not np.allclose(fc1[after], fc2[after], rtol=1e-10, atol=0.0), (
-        "Corruption did not affect any later forecast — the probe is vacuous"
+        "Corruption did not affect any later forecast. The probe is vacuous."
     )
 
 

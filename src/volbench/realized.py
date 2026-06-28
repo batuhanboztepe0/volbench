@@ -210,12 +210,14 @@ def realized_kernel_parzen(intraday_returns: np.ndarray, bandwidth: int | None =
     return max(rk, 0.0)
 
 
-def subsampled_rv(intraday_returns: np.ndarray, n_grids: int = 5) -> float:
-    """Subsampled realized variance averaged over ``n_grids`` offset grids.
+def block_averaged_rv(intraday_returns: np.ndarray, n_grids: int = 5) -> float:
+    """Block-averaged realized variance over ``n_grids`` offset block-tilings.
 
-    Averaging RV computed on sparse, offset subgrids reduces the variance of the
-    estimator while keeping (most of) the noise-robustness benefit of sparse
-    sampling. Returns the average RV across grids, rescaled to a per-day total.
+    For each offset, consecutive returns are aggregated into blocks of size
+    ``n_grids`` that tile the whole series, and the block RV is averaged over the
+    ``n_grids`` offsets. This lowers estimator variance at a coarser sampling
+    frequency. It is dense consecutive-block aggregation, not sparse skip-K
+    subsampling, so no per-grid rescaling is applied (see the note below).
     """
     r = _as_clean_array(intraday_returns)
     n = r.size
@@ -237,7 +239,7 @@ def subsampled_rv(intraday_returns: np.ndarray, n_grids: int = 5) -> float:
     # whole series, so its sum of coarse squared returns already estimates the full
     # daily QV; the average over offsets is the subsampled estimator. (No n_grids
     # rescaling: that would be correct only for sparse skip-K subsampling, where
-    # each grid spans ~1/n_grids of the observations — not for dense blocking.)
+    # each grid spans ~1/n_grids of the observations; not for dense blocking.)
     return float(np.mean(estimates))
 
 

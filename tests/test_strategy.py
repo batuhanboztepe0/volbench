@@ -1,4 +1,4 @@
-"""Tests for volbench.strategy — vol-targeting and regime overlay.
+"""Tests for volbench.strategy: vol-targeting and regime overlay.
 
 All tests use synthetic data with a fixed seed and run without the Oxford
 dataset so they are fast and deterministic.

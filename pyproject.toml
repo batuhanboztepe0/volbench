@@ -7,13 +7,12 @@ name = "volbench"
 version = "0.1.0"
 description = "A reproducible out-of-sample benchmark for realized-volatility forecasting"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Batuhan Boztepe" }]
 keywords = ["volatility", "realized-variance", "HAR", "forecasting", "econometrics"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
@@ -58,7 +57,7 @@ filterwarnings = [
 
 [tool.ruff]
 line-length = 100
-# Lint for 3.9-compatible idioms (a safe lower bound); runtime support is >=3.10.
+# Lint for 3.9-compatible idioms (a conservative floor); runtime support is >=3.11.
 target-version = "py39"
 
 [tool.ruff.lint]
@@ -70,6 +69,6 @@ ignore = ["E501"]
 "src/volbench/__init__.py" = ["E402"]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 ignore_missing_imports = true
 warn_unused_ignores = false

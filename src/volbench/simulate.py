@@ -3,7 +3,7 @@
 The realized estimators in :mod:`volbench.realized` are validated against ground
 truth produced here. Each simulated day is a continuous Itô semimartingale with
 stochastic volatility, optional finite-activity jumps, and optional additive
-microstructure noise — and we keep the exact integrated variance (``IV``) and
+microstructure noise, and we keep the exact integrated variance (``IV``) and
 jump variation (``JV``) for the path, so an estimator can be compared to what it
 is supposed to recover.
 

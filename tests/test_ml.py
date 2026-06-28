@@ -93,7 +93,7 @@ def test_ml_no_lookahead(kind):
     # (b) Non-vacuity: at least one origin >= c must have a changed forecast.
     after = org >= c
     assert after.sum() > 0 and not np.allclose(fc1[after], fc2[after], rtol=1e-10, atol=0.0), (
-        "Corruption did not affect any later forecast — the probe is vacuous"
+        "Corruption did not affect any later forecast. The probe is vacuous."
     )
 
 

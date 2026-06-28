@@ -1,4 +1,4 @@
-"""Tests for volbench.conditional_var — reactive conditional-variance VaR engines."""
+"""Tests for volbench.conditional_var: reactive conditional-variance VaR engines."""
 
 from __future__ import annotations
 

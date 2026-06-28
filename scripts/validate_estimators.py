@@ -89,7 +89,7 @@ def validate(days: int = 4000, seed: int = 0) -> dict:
 
     # --- Experiment 1b: continuous + jumps. Validates the jump-variation
     #     decomposition (RV-BV)/JV and the jump count, and reports BV/IV *under
-    #     jumps* — which carries a known finite-sample upward bias at M=390 (BV is
+    #     jumps*, which carries a known finite-sample upward bias at M=390 (BV is
     #     jump-robust only as M -> inf), not a 1.00 target. ---------------------
     sim = simulate_many_days(
         days, seed=seed + 5, n_steps=n_steps, ann_vol=0.20, kappa=5.0, vol_of_vol=0.8,
@@ -184,7 +184,7 @@ def _print_table(res: dict) -> None:
     ]
     print(f"{'Check':<26}{'Result':>10}{'Target':>10}")
     for name, val, target in rows:
-        tgt = "—" if target is None else f"{target:.2f}"
+        tgt = "n/a" if target is None else f"{target:.2f}"
         print(f"{name:<26}{val:>10.3f}{tgt:>10}")
 
 

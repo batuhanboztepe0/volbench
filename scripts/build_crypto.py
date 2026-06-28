@@ -2,7 +2,7 @@
 
 Unlike the Oxford-Man equity panel, crypto exchanges expose **free intraday
 bars**, so for the first time we can compute the *full* realized-measure suite
-from real high-frequency data — including realized quarticity, which unlocks
+from real high-frequency data, including realized quarticity, which unlocks
 HARQ on real data, and a real (not simulated) volatility signature plot.
 
 For each coin we page through Binance 5-minute klines, group them by UTC day

@@ -5,7 +5,7 @@ audience cares about most: *does the model ranking survive a crisis?* For each
 index we score the full model suite, map every test origin to its date and its
 volatility state, then re-run the Model Confidence Set within named crisis
 windows (GFC, COVID) and within calm vs turbulent halves of the sample (split by
-the realized-variance level known at the origin — no look-ahead in the regime
+the realized-variance level known at the origin, no look-ahead in the regime
 assignment).
 
 Writes ``results/regime.json``.

@@ -1,4 +1,4 @@
-"""Tests for volbench.vrp — variance risk premium functions."""
+"""Tests for volbench.vrp: variance risk premium functions."""
 
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ def test_vrp_length_mismatch_raises():
 
 
 # ---------------------------------------------------------------------------
-# vrp_strategy — basic structure
+# vrp_strategy: basic structure
 # ---------------------------------------------------------------------------
 def test_vrp_strategy_keys():
     iv, fv, rv = _make_arrays()

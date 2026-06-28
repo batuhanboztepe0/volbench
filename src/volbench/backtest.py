@@ -145,7 +145,7 @@ def run_backtest(
     # Overlapping h-step forecast losses are autocorrelated up to lag h-1, so the
     # moving-block bootstrap needs blocks at least that long to capture the
     # dependence; otherwise the MCS null distribution is too narrow and the test
-    # over-rejects (spurious eliminations) — badly so at h=22 with the default
+    # over-rejects (spurious eliminations), badly so at h=22 with the default
     # block of 10. Floor the block length at horizon+2.
     mcs_block = max(block_length, horizon + 2)
     for loss_name in RANKING_LOSSES:

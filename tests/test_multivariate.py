@@ -1,4 +1,4 @@
-"""Tests for volbench.multivariate — CrossHAR, align_panel, spillover_backtest."""
+"""Tests for volbench.multivariate: CrossHAR, align_panel, spillover_backtest."""
 
 from __future__ import annotations
 
@@ -71,7 +71,7 @@ def test_crosshar_all_finite():
 
 
 # ---------------------------------------------------------------------------
-# 3. No-lookahead test — corrupting future target/peer rows must not affect
+# 3. No-lookahead test, corrupting future target/peer rows must not affect
 #    forecasts at origins t < n - 1 - horizon
 # ---------------------------------------------------------------------------
 def test_crosshar_no_lookahead():
@@ -98,7 +98,7 @@ def test_crosshar_no_lookahead():
     assert np.array_equal(origins_clean, origins_corrupt)
     # All origins except possibly the last one should be identical.
     assert np.allclose(fc_clean[:-1], fc_corrupt[:-1], rtol=1e-10), (
-        "Corrupting the last row changed earlier-origin forecasts — lookahead detected"
+        "Corrupting the last row changed earlier-origin forecasts; lookahead detected"
     )
 
 
@@ -125,7 +125,7 @@ def test_crosshar_no_lookahead_peer_future():
     # Origin t trains on rows up to t - horizon; those rows are < split when t < split.
     safe_mask = origins_clean < split
     assert np.allclose(fc_clean[safe_mask], fc_corrupt[safe_mask], rtol=1e-10), (
-        "Corrupting future peer rows changed past-origin forecasts — lookahead detected"
+        "Corrupting future peer rows changed past-origin forecasts; lookahead detected"
     )
 
 
@@ -232,8 +232,8 @@ def test_crosshar_noise_peers_no_spurious_gain():
     if qlike_lh > 0:
         improvement = (qlike_lh - qlike_ch) / qlike_lh
         assert improvement < 0.30, (
-            f"CrossHAR improved QLIKE by {improvement:.1%} over LogHAR with pure noise peers "
-            f"— likely a lookahead or overfitting bug (qlike_lh={qlike_lh:.6f}, "
+            f"CrossHAR improved QLIKE by {improvement:.1%} over LogHAR with pure noise peers, "
+            f"likely a lookahead or overfitting bug (qlike_lh={qlike_lh:.6f}, "
             f"qlike_ch={qlike_ch:.6f})"
         )
 

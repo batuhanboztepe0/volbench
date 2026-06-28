@@ -4,12 +4,12 @@ Runs the pre-registered HAR protocol on VOLARE's 13 futures (fetched by
 ``build_volare.py --fetch futures`` → ``data/volare_futures_realized.csv``),
 grouped by the sub-class whose H1 clause it probes:
 
-* **rates** — FV (5y) + TY (10y) Treasury futures → H1 clause iv (auction/FOMC
+* **rates**: FV (5y) + TY (10y) Treasury futures → H1 clause iv (auction/FOMC
   *calendar* structure). The single best break-HAR bet.
-* **commodity** — CL/NG (energy), GC/SI/HG (metals), C/S/W (ags) → clause iv
+* **commodity**: CL/NG (energy), GC/SI/HG (metals), C/S/W (ags) → clause iv
   (event-driven persistence; jumps).
-* **equity_index** — ES, NQ → the dominance *control* (HAR should still win).
-* **fx** — EU (Euro) → predicted-dominance class.
+* **equity_index**: ES, NQ → the dominance *control* (HAR should still win).
+* **fx**: EU (Euro) → predicted-dominance class.
 
 For each contract and horizon h∈{1,5,22} it scores the full model set (baselines +
 HAR family incl. LogSHAR + HARQ) with the 90% MCS vs LogHAR and records the §6

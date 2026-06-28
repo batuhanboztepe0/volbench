@@ -1,8 +1,8 @@
 """Run metadata for results reproducibility.
 
-A small helper so every results JSON can record *how* it was produced — the seed,
+A small helper so every results JSON can record *how* it was produced: the seed,
 the bootstrap replication count, the MCS block-length floor rule, the key package
-versions, and the git SHA — making the committed artifacts self-documenting.
+versions, and the git SHA, making the committed artifacts self-documenting.
 """
 
 from __future__ import annotations

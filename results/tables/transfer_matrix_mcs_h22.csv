@@ -1,4 +1,4 @@
-model,Equities (8),Crypto — 4 coins,Crypto — 22 coins,Futures — rates (FV/TY),Futures — commodity (8),Futures — equity-index (ES/NQ),Futures — fx (EU),Futures — all (13),FX — major (7),FX — secondary/EM (6),FX — all (13)
+model,Equities (8),Crypto: 4 coins,Crypto: 22 coins,Futures: rates (FV/TY),Futures: commodity (8),Futures: equity-index (ES/NQ),Futures: fx (EU),Futures: all (13),FX: major (7),FX: secondary/EM (6),FX: all (13)
 RW,0/8,0/4,2/22,–,–,–,–,–,–,–,–
 HistMean,0/8,0/4,2/22,–,–,–,–,–,–,–,–
 MA22,0/8,0/4,5/22,–,2/8,–,–,2/13,1/7,–,1/13

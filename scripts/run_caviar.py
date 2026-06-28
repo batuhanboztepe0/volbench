@@ -12,7 +12,7 @@ pass-rates are all directly comparable.
 Specifications:
   SAV       symmetric absolute value
   AS        asymmetric slope (leverage)
-  REALIZED  CAViaR augmented with the LogHAR variance forecast (sqrt) — ties the
+  REALIZED  CAViaR augmented with the LogHAR variance forecast (sqrt), ties the
             project's realized-volatility benchmark into the VaR layer
 
 Usage:  PYTHONPATH=src python3 scripts/run_caviar.py
@@ -66,8 +66,8 @@ def run_caviar() -> dict:
         rv = ds.series(tk)
         close = ds.frame(tk)["close_price"].to_numpy(dtype=float)
         # Only LogHAR (+ HAR benchmark) needed: the forecast feeds Realized-CAViaR.
-        # mcs_reps only sizes the (here unused) 2-model MCS bootstrap — we consume
-        # res.forecasts["LogHAR"], not res.mcs — so it does not affect any VaR/DQ
+        # mcs_reps only sizes the (here unused) 2-model MCS bootstrap, we consume
+        # res.forecasts["LogHAR"], not res.mcs, so it does not affect any VaR/DQ
         # output; set to the conventional 1000 floor for consistency.
         res = run_backtest(rv, horizon=HORIZON, models=[HAR(), LogHAR()],
                            benchmark="HAR", mcs_reps=1000, seed=SEED)

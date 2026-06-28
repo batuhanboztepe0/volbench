@@ -36,7 +36,7 @@ report/*.fls
 report/*.synctex.gz
 report/*.pdf
 
-# Internal planning / handoff / pre-registration docs — kept LOCAL only, never
+# Internal planning / handoff / pre-registration docs, kept LOCAL only, never
 # pushed (private repo). Purged from history via git-filter-repo. README.md,
 # data/README.md and report/ stay tracked.
 /HANDOFF.md
@@ -49,7 +49,7 @@ report/*.pdf
 # third-party tutorial notebooks (not ours to redistribute)
 /extraipynb/
 
-# Secrets / credentials — NEVER commit (e.g. VOLARE / vendor API tokens)
+# Secrets / credentials: NEVER commit (e.g. VOLARE / vendor API tokens)
 .env
 *.env
 .env.*

@@ -3,15 +3,15 @@
 Runs the pre-registered H1 protocol on the survivorship-corrected
 crypto panel built by ``build_crypto_expanded.py`` (20 live large-caps + the dead
 coins LUNA/FTT). For each coin and horizon h ∈ {1, 5, 22} it scores the full
-pre-registered model set — baselines + the HAR family (incl. LogSHAR) + HARQ —
+pre-registered model set (baselines + the HAR family (incl. LogSHAR) + HARQ)
 with the 90% MCS, benchmarked against **LogHAR** (the reference champion), and
 records:
 
 * the per-coin §6 verdict (HAR family *dominates* / *degrades* / *competitive*);
-* **Q1** — does HARQ beat LogHAR (HARQ transfer)?  DM, favored sign, p;
-* **Q2** — does LogSHAR's semivariance edge survive in crypto? DM vs LogHAR with
+* **Q1**: does HARQ beat LogHAR (HARQ transfer)?  DM, favored sign, p;
+* **Q2**: does LogSHAR's semivariance edge survive in crypto? DM vs LogHAR with
   the **sign** of the loss differential (negative ⇒ LogSHAR still better; positive
-  ⇒ the equity edge has vanished/flipped — the H1 prediction);
+  ⇒ the equity edge has vanished/flipped, the H1 prediction);
 * per-coin ``n_test`` (so the thin dead-coin windows are visible, never hidden).
 
 This is the RV-forecast track only; the VaR/CAViaR layer stays siloed (invariant
@@ -236,7 +236,7 @@ def run_all(data: Path, coins: list[str] | None, mcs_reps: int, seed: int) -> di
         }
         print(f"\n  h={h} class verdict (majority): {class_verdict}  counts={counts}")
         print(f"  Q1 HARQ beats LogHAR: {harq_beats}/{len(scored)}  "
-              f"(H1 predicts ~0 — HARQ does not transfer)")
+              f"(H1 predicts ~0; HARQ does not transfer)")
         print(f"  Q2 LogSHAR beats LogHAR: {logshar_beats}/{len(scored)}; "
               f"LogHAR better than LogSHAR: {logshar_loghar_better}/{len(scored)} "
               f"(H1 predicts the equity LogSHAR edge vanishes/flips)")

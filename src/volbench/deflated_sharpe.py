@@ -2,9 +2,9 @@
 
 A raw annualised Sharpe ignores three things that matter for an honest edge claim:
 
-* **non-normality** — fat tails / negative skew make a given Sharpe less impressive,
-* **sample length** — a high Sharpe over a short sample is weak evidence,
-* **selection** — if the reported strategy was picked as the *best of N* tried, its
+* **non-normality**: fat tails / negative skew make a given Sharpe less impressive,
+* **sample length**: a high Sharpe over a short sample is weak evidence,
+* **selection**: if the reported strategy was picked as the *best of N* tried, its
   Sharpe is inflated by multiple testing.
 
 The Probabilistic Sharpe Ratio (PSR) handles the first two; the Deflated Sharpe

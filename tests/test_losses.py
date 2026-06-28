@@ -1,4 +1,4 @@
-"""Tests for volbench.losses — forecast evaluation loss functions."""
+"""Tests for volbench.losses: forecast evaluation loss functions."""
 
 from __future__ import annotations
 

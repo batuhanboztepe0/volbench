@@ -178,6 +178,5 @@ confirm exact volume/pages at typesetting) ·
 
 ---
 
-*Last updated 2026-06-20. Items marked `⚠` must be resolved before external
-release; `✓` page/volume numbers should be confirmed against the source at
-typesetting.*
+*Last updated 2026-06-20. `✓` marks a citation whose page and volume numbers were
+confirmed against the source.*

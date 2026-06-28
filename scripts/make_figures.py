@@ -2,16 +2,16 @@
 
 Figures
 -------
-1. ``signature_plot.png`` — the volatility signature plot: average realized
+1. ``signature_plot.png``: the volatility signature plot: average realized
    variance against sampling interval under microstructure noise. RV explodes at
    high frequency while the realized kernel and the coarse-sampled RV sit on the
    true quadratic variation. The canonical motivation for noise-robust
    estimators.
-2. ``leaderboard_h1.png`` — average out-of-sample QLIKE by model at h = 1.
-3. ``qlike_by_horizon.png`` — average QLIKE rank by model across horizons.
-4. ``spx_realized_vol.png`` — real .SPX annualised realized volatility with the
+2. ``leaderboard_h1.png``: average out-of-sample QLIKE by model at h = 1.
+3. ``qlike_by_horizon.png``: average QLIKE rank by model across horizons.
+4. ``spx_realized_vol.png``: real .SPX annualised realized volatility with the
    GFC and COVID crisis windows shaded.
-5. ``transfer_matrix.png`` — the Q5 cross-asset transfer matrix: where the HAR
+5. ``transfer_matrix.png``: the Q5 cross-asset transfer matrix: where the HAR
    family stays in / leaves the 90% MCS across asset classes and horizons (the
    project's primary pre-registered deliverable).
 
@@ -245,7 +245,7 @@ def figure_transfer_matrix() -> None:
     """Q5 cross-asset transfer matrix (the primary pre-registered deliverable).
 
     For each asset class and horizon, colour the cell by its *worst* per-instrument
-    state — green if a HAR-family model is in the 90% MCS and single-best for
+    state: green if a HAR-family model is in the 90% MCS and single-best for
     every instrument, amber if some instruments are only competitive, red if at
     least one instrument shows a genuine HAR degradation. The annotation gives the
     dominate fraction (``k/n``) and names the actual crack. Reads the committed
@@ -261,14 +261,14 @@ def figure_transfer_matrix() -> None:
     tm = json.loads(path.read_text())
     rows = [
         ("Equities (8)", "Equities (8)"),
-        ("Crypto — 4 coins", "Crypto (4)"),
-        ("Crypto — 22 coins", "Crypto (22, +dead)"),
-        ("Futures — rates (FV/TY)", "Rate futures (FV/TY)"),
-        ("Futures — commodity (8)", "Commodity futures (8)"),
-        ("Futures — equity-index (ES/NQ)", "Equity-idx futures (ES/NQ)"),
-        ("Futures — fx (EU)", "FX future (EU)"),
-        ("FX — major (7)", "FX major (7)"),
-        ("FX — secondary/EM (6)", "FX secondary/EM (6)"),
+        ("Crypto: 4 coins", "Crypto (4)"),
+        ("Crypto: 22 coins", "Crypto (22, +dead)"),
+        ("Futures: rates (FV/TY)", "Rate futures (FV/TY)"),
+        ("Futures: commodity (8)", "Commodity futures (8)"),
+        ("Futures: equity-index (ES/NQ)", "Equity-idx futures (ES/NQ)"),
+        ("Futures: fx (EU)", "FX future (EU)"),
+        ("FX: major (7)", "FX major (7)"),
+        ("FX: secondary/EM (6)", "FX secondary/EM (6)"),
     ]
     horizons = ["1", "5", "22"]
     state = np.zeros((len(rows), len(horizons)), dtype=int)

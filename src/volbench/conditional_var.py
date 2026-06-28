@@ -1,7 +1,7 @@
 """Return-based conditional-variance engines for Value-at-Risk (risk layer).
 
 These produce *reactive* one-step conditional-variance forecasts from daily
-returns — a RiskMetrics EWMA and a (GJR-)GARCH(1,1) — for use as the variance
+returns (a RiskMetrics EWMA and a (GJR-)GARCH(1,1)) for use as the variance
 input to :func:`volbench.economic.var_backtest`. They exist because the realized-
 variance point forecast (log-HAR), while accurate on average, is smooth and lags
 during turbulence, so a VaR built on it *under-covers* and its violations cluster.
@@ -67,7 +67,7 @@ def garch_variance_forecast(
     """Walk-forward (GJR-)GARCH(1,1) one-step conditional-variance forecasts.
 
     ``o = 0`` gives a symmetric GARCH; ``o = 1`` gives GJR-GARCH (an asymmetry term
-    so a negative return raises tomorrow's variance more than a positive one — the
+    so a negative return raises tomorrow's variance more than a positive one: the
     equity leverage effect). Parameters are re-estimated on the expanding window
     every ``refit_every`` origins and then filtered forward with those fixed
     parameters, which is cheap and look-ahead-free (each forecast uses only returns
